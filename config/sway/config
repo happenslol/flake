@@ -1,0 +1,105 @@
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+bindsym $mod+z exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
+bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
+bindsym $mod+e exec Thunar
+
+for_window [title="^.*"] title_format ""
+
+default_border pixel 3
+default_floating_border pixel 3
+hide_edge_borders none
+
+output eDP-1 scale 1.5
+
+# App shortcuts
+bindsym $mod+q kill
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+Escape exit
+
+floating_modifier $mod normal
+
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Change workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Floating mode
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+client.focused          #546e7a #212121 #FFFFFF #546e7a #546e7a
+client.focused_inactive #212121 #212121 #FFFFFF #212121 #212121
+client.unfocused        #212121 #212121 #888888 #212121 #212121
+client.urgent           #FF5370 #212121 #FFFFFF #FF5370 #ff5370
+client.placeholder      #212121 #212121 #FFFFFF #212121 #212121
+
+client.background       #212121
+
+gaps inner 10
+gaps outer 4
+
+bar {
+  swaybar_command waybar
+}
+
+input type:keyboard {
+  xkb_options compose:ralt
+
+  repeat_delay 170
+  repeat_rate 60
+}
+
+input type:touchpad {
+  tap enabled
+}
