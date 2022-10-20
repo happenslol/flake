@@ -19,7 +19,6 @@ alias lt="exa --tree --icons --group-directories-first "
 alias watch="watch --color "
 
 # Jump directories more quickly
-alias -g ..="cd .."
 alias -g ...="cd ../.."
 alias -g ....="cd ../../.."
 alias -g .....="cd ../../../.."

@@ -8,7 +8,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    tmux yq curl xh neovim
+    tmux yq curl xh neovim fzf
     bat exa ripgrep ncdu zoxide starship
     kitty
     waybar
