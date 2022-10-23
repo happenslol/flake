@@ -21,5 +21,7 @@
       preLVM = true;
     };
   };
+
+  services.fprintd.enable = true;
 }
 
