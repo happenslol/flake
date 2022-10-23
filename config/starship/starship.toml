@@ -20,6 +20,9 @@ min_time = 0
 style = "white dimmed"
 format = '[|](bright-black) [ $duration]($style) '
 
+[battery]
+disabled = true
+
 [directory]
 truncate_to_repo = false
 
@@ -48,6 +51,9 @@ symbol = "[](cyan)"
 format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain )](blue dimmed)'
 
 [terraform]
+disabled = true
+
+[lua]
 disabled = true
 
 [nodejs]

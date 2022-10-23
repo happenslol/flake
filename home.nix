@@ -8,8 +8,9 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    tmux yq curl xh neovim fzf
+    tmux yq curl xh neovim fzf gcc
     bat exa ripgrep ncdu zoxide starship
+    wl-clipboard
     kitty
     waybar
     bitwarden
@@ -42,5 +43,9 @@
     ".config/kitty".source = ./config/kitty;
     ".config/tmux".source = ./config/tmux;
     ".config/starship.toml".source = ./config/starship/starship.toml;
+    ".config/nvim" = {
+      recursive = true;
+      source = ./config/nvim;
+    };
   };
 }
