@@ -8,13 +8,9 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    tmux yq curl xh neovim fzf gcc unzip
+    tmux yq curl xh neovim fzf gcc unzip file
     bat exa ripgrep ncdu zoxide starship
-    wl-clipboard
-    kitty
-    waybar
-    bitwarden
-    rustup
+    kitty bitwarden rustup
     google-chrome firefox
     tdesktop discord signal-desktop
   ];

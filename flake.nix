@@ -31,9 +31,10 @@
           # TODO: Marked as broken currently
           nixos-hardware.nixosModules.framework-12th-gen-intel
 
-	  ./common.nix
+          ./common.nix
+          ./lib/sway.nix
           ./lib/greetd.nix
-	  ./lib/zfs.nix
+          ./lib/zfs.nix
           ./mira/configuration.nix
 
           home-manager.nixosModules.home-manager {

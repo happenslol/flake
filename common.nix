@@ -41,7 +41,6 @@
   services.openssh.enable = true;
   networking.firewall.enable = false;
 
-  programs.sway.enable = true;
   programs.ssh.startAgent = true;
   virtualisation.docker.enable = true;
 
