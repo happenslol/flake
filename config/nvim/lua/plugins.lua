@@ -29,12 +29,6 @@ require "packer".startup({function()
     end,
   }
 
-  -- Util
-  use { "s1n7ax/nvim-window-picker",
-    tag = "v1.*",
-    config = function() require "plugins.window-picker" end,
-  }
-
   -- Status bar
   use { "feline-nvim/feline.nvim",
     config = function() require "plugins.feline" end,
@@ -48,7 +42,11 @@ require "packer".startup({function()
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
-      { "MunifTanjim/nui.nvim", module = "nui" },
+      "MunifTanjim/nui.nvim",
+      { "s1n7ax/nvim-window-picker",
+        tag = "v1.*",
+        config = function() require "plugins.window-picker" end,
+      }
     },
   }
 
@@ -56,7 +54,7 @@ require "packer".startup({function()
   use { "nvim-telescope/telescope.nvim",
     requires = {
       "nvim-telescope/telescope-fzy-native.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function() require "plugins.telescope" end,
   }
@@ -90,15 +88,15 @@ require "packer".startup({function()
   }
 
   -- Indent style detection
-	use { "Darazaki/indent-o-matic",
-		config = function()
-			require "indent-o-matic".setup {
-				max_lines = 2048,
-				standard_widths = { 2, 4 },
-				skip_multiline = false,
-			}
-		end,
-	}
+  use { "Darazaki/indent-o-matic",
+    config = function()
+      require "indent-o-matic".setup {
+        max_lines = 2048,
+        standard_widths = { 2, 4 },
+        skip_multiline = false,
+      }
+    end,
+  }
 
   -- Code commenting
   use { "numToStr/Comment.nvim",
@@ -114,6 +112,45 @@ require "packer".startup({function()
   }
 
   -- Extra json schemas
-  use { "b0o/SchemaStore.nvim", module = "schemastore" }
+  use "b0o/SchemaStore.nvim"
+
+  -- Extra text objects
+  use "wellle/targets.vim"
+
+  -- Improve quickfix window
+  use { "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    config = function()
+      require "bqf".setup { func_map = require "keymaps".bqf_keymap }
+    end,
+  }
+
+  -- Snippet source
+  use { "rafamadriz/friendly-snippets", opt = true }
+
+  -- Snippet engine
+  use { "L3MON4D3/LuaSnip", wants = "friendly-snippets" }
+
+  use { "hrsh7th/nvim-cmp" }
+
+  -- Buffer completion source
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "saadparwaiz1/cmp_luasnip"
+
+  -- LSP installer
+  use "williamboman/mason.nvim"
+
+  -- LSP configuration
+  use "neovim/nvim-lspconfig"
+  use "williamboman/mason-lspconfig.nvim"
+  use "jayp0521/mason-null-ls.nvim"
+
+  -- Formatting and linting
+  use "jose-elias-alvarez/null-ls.nvim"
+
+  -- LSP icons
+  use "onsails/lspkind.nvim"
 
 end, config = packer_config})

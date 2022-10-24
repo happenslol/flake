@@ -3,7 +3,9 @@ util.bootstrap_packer()
 
 require "plugins"
 require "theme"
-require "keymap"
+require "lsp"
+
+util.apply_keymap(require "keymaps".global_keymap)
 
 vim.cmd [[filetype plugin indent on]]
 vim.cmd [[syntax on]]

@@ -2,13 +2,13 @@ local telescope = require "telescope"
 local telescope_actions = require "telescope.actions"
 
 local lsp_goto_config = {
-	layout_strategy = "horizontal",
-	sorting_strategy = "ascending",
-	layout_config = {
-		prompt_position = "top",
-		width = 0.7,
-		height = 0.6,
-	},
+  layout_strategy = "horizontal",
+  sorting_strategy = "ascending",
+  layout_config = {
+    prompt_position = "top",
+    width = 0.7,
+    height = 0.6,
+  },
 }
 
 telescope.setup {
@@ -24,22 +24,22 @@ telescope.setup {
 
   pickers = {
     find_files = {
-	    previewer = false,
-			sorting_strategy = "ascending",
-	    layout_config = {
-		    prompt_position = "top",
-		    width = 0.4,
-		    height = 0.6,
-	    },
+      previewer = false,
+      sorting_strategy = "ascending",
+      layout_config = {
+        prompt_position = "top",
+        width = 0.4,
+        height = 0.6,
+      },
     },
     live_grep = {
-	    layout_strategy = "horizontal",
-	    sorting_strategy = "ascending",
-	    layout_config = {
-		    prompt_position = "top",
-		    width = 0.9,
-		    height = 0.8,
-	    },
+      layout_strategy = "horizontal",
+      sorting_strategy = "ascending",
+      layout_config = {
+        prompt_position = "top",
+        width = 0.9,
+        height = 0.8,
+      },
     },
 
     lsp_definitions = lsp_goto_config,

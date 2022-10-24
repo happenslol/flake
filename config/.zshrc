@@ -7,6 +7,7 @@ source ~/.config/zsh/shortcuts.zsh
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
+eval "$(qwer hook zsh)"
 
 if [ -n "${commands[fzf-share]}" ]; then
   source "$(fzf-share)/key-bindings.zsh"

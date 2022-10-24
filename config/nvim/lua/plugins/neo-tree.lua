@@ -2,10 +2,10 @@ require "neo-tree".setup {
   close_if_last_window = false,
   window = {
     width = 30,
-	  mappings = {
-		  ["<cr>"] = "open_with_window_picker",
-		  ["o"] = "open_with_window_picker",
-	  },
+    mappings = {
+      ["<cr>"] = "open_with_window_picker",
+      ["o"] = "open_with_window_picker",
+    },
   },
   filesystem = {
     follow_current_file = true,
