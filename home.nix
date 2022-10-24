@@ -43,9 +43,7 @@
     ".config/kitty".source = ./config/kitty;
     ".config/tmux".source = ./config/tmux;
     ".config/starship.toml".source = ./config/starship/starship.toml;
-    ".config/nvim" = {
-      recursive = true;
-      source = ./config/nvim;
-    };
+    ".config/nvim/init.lua".source = ./config/nvim/init.lua;
+    ".config/nvim/lua".source = ./config/nvim/lua;
   };
 }
