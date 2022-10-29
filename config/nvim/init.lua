@@ -5,6 +5,7 @@ require "plugins"
 require "theme"
 require "lsp"
 
+util.set_global { mapleader = "," }
 util.apply_keymap(require "keymaps".global_keymap)
 
 vim.cmd [[filetype plugin indent on]]

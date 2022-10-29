@@ -1,14 +1,12 @@
 local util = require "util"
 local cmp = require "cmp"
-local mason = require "mason"
-local mason_lspconfig = require "mason-lspconfig"
 local lspkind = require "lspkind"
 local lspconfig = require "lspconfig"
 local lspconfig_defaults = lspconfig.util.default_config
 
 -- Avoid showing message extra message when using completion
 vim.opt.shortmess:append "c"
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Add cmp capabilities to default options
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
@@ -29,30 +27,30 @@ cmp.setup {
     expand = function(args) luasnip.lsp_expand(args.body) end,
   },
   sources = {
-    { name = 'path' },
-    { name = 'nvim_lsp', keyword_length = 3 },
-    { name = 'buffer', keyword_length = 3 },
-    { name = 'luasnip', keyword_length = 2 },
+    { name = "path" },
+    { name = "nvim_lsp", keyword_length = 1 },
+    { name = "buffer", keyword_length = 3 },
+    { name = "luasnip", keyword_length = 2 },
   },
   window = { documentation = cmp.config.window.bordered() },
   mapping = require "keymaps".cmp_keymap,
   formatting = {
     format = lspkind.cmp_format {
-      mode = 'symbol',
+      mode = "text_symbol",
       maxwidth = 50,
-      ellipsis_char = '...',
+      ellipsis_char = "...",
     },
   },
 }
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover,
-  {border = 'rounded'}
+  { border = "rounded" }
 )
 
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
-  {border = 'rounded'}
+  { border = "rounded" }
 )
 
 vim.diagnostic.config {
@@ -66,10 +64,24 @@ vim.diagnostic.config {
   },
 }
 
-mason.setup {
-  ui = { border = "rounded" },
+local lsp_configs = {
+  ["sumneko_lua"] = {
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT" },
+        diagnostics = { globals = { "vim" } },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+        telemetry = { enable = false },
+      },
+    },
+  },
+  ["rust_analyzer"] = {},
+  ["graphql"] = {},
+  ["html"] = {},
+  ["jsonls"] = {},
+  ["tsserver"] = {},
 }
 
-mason_lspconfig.setup {
-  ensure_installed = {},
-}
+for lsp, config in pairs(lsp_configs) do
+  lspconfig[lsp].setup(config)
+end

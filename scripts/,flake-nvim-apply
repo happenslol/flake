@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [[ ! -f "$HOME/.config/.flake-nvim-lock" ]]; then
+  echo -e "\e[1;41;30m err \e[0m Not currently editing neovim config"
+  exit 1
+fi
+
+rm -r ~/.flake/config/nvim
+cp -rf ~/.config/nvim ~/.flake/config
+rm ~/.config/.flake-nvim-lock

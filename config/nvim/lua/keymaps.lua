@@ -1,8 +1,6 @@
 local util = require "util"
 local cmp = require "cmp"
 
-util.set_global { mapleader = "," }
-
 local map = util.create_keymap()
 
 -- Shortcuts for native vim commands
@@ -57,8 +55,22 @@ lsp_map.n["<leader>f"] = vim.lsp.buf.format
 -- Configure cmp mappings
 local cmp_map = {}
 
-cmp_map["<tab>"] = function() end
-cmp_map["<s-tab>"] = function() end
+cmp_map["<tab>"] = function(fallback)
+  if cmp.visible() then
+    cmp.select_next_item()
+  else
+    fallback()
+  end
+end
+
+cmp_map["<s-tab>"] = function(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item()
+  else
+    fallback()
+  end
+end
+
 cmp_map["<c-space>"] = cmp.mapping.complete()
 cmp_map["<c-e>"] = cmp.mapping.close()
 cmp_map["<cr>"] = cmp.mapping.confirm {

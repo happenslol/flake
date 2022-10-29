@@ -139,13 +139,9 @@ require "packer".startup({function()
   use "hrsh7th/cmp-path"
   use "saadparwaiz1/cmp_luasnip"
 
-  -- LSP installer
-  use "williamboman/mason.nvim"
 
   -- LSP configuration
   use "neovim/nvim-lspconfig"
-  use "williamboman/mason-lspconfig.nvim"
-  use "jayp0521/mason-null-ls.nvim"
 
   -- Formatting and linting
   use "jose-elias-alvarez/null-ls.nvim"

@@ -20,14 +20,13 @@ function M.cmd(cmds)
   for _, c in pairs(cmds) do vim.cmd(c) end
 end
 
-function M.extract_colors(material_colorscheme_map)
-  local result = {}
+function M.keys(tbl)
+  local tbl_keys = {}
+  for key, _ in pairs(tbl) do
+    table.insert(tbl_keys, key)
+  end
 
-  -- for color, values in pairs(material_colorscheme_map) do
-  --   result[color] = values.gui
-  -- end
-
-  return result
+  return tbl_keys
 end
 
 function M.hi(symbol, fg, bg, style)

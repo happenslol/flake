@@ -13,6 +13,16 @@
     kitty bitwarden rustup
     google-chrome firefox
     tdesktop discord signal-desktop
+
+    # Node and tooling
+    nodejs yarn
+
+    # LSP servers for Neovim
+    nodePackages_latest.prettier_d_slim
+    nodePackages_latest.eslint_d
+    nodePackages_latest.typescript-language-server
+    sumneko-lua-language-server
+    rust-analyzer
   ];
 
   gtk = {
