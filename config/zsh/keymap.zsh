@@ -17,6 +17,8 @@ bindkey -M emacs '^[[1;5D' backward-word
 bindkey -M viins '^[[1;5D' backward-word
 bindkey -M vicmd '^[[1;5D' backward-word
 
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
 

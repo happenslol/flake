@@ -5,6 +5,7 @@ local map = util.create_keymap()
 
 -- Shortcuts for native vim commands
 map.n[";"] = { ":", silent = false }
+map.v[";"] = { ":", silent = false }
 map.n["<leader>h"] = ":nohlsearch<cr>"
 
 -- neo-tree
@@ -42,15 +43,18 @@ map.n["<leader>w"] = ":ArgWrap<cr>"
 local lsp_map = util.create_keymap()
 
 lsp_map.n["K"] = vim.lsp.buf.hover
-lsp_map.n["<ctrl>k"] = vim.lsp.buf.signature_help
+lsp_map.i["<ctrl>k"] = vim.lsp.buf.signature_help
 lsp_map.n["gd"] = vim.lsp.buf.definition
 lsp_map.n["gD"] = vim.lsp.buf.declaration
-lsp_map.n["i"] = vim.lsp.buf.implementation
-lsp_map.n["r"] = vim.lsp.buf.references
+lsp_map.n["<space>i"] = vim.lsp.buf.implementation
+lsp_map.n["<space>r"] = vim.lsp.buf.references
 
 lsp_map.n["<space>a"] = vim.lsp.buf.code_action
 lsp_map.n["<space>r"] = vim.lsp.buf.rename
 lsp_map.n["<leader>f"] = vim.lsp.buf.format
+
+lsp_map.n["<space>c"] = vim.diagnostic.goto_next
+lsp_map.n["<space>v"] = vim.diagnostic.goto_prev
 
 -- Configure cmp mappings
 local cmp_map = {}

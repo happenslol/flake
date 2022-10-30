@@ -1,6 +1,7 @@
 local util = require "util"
 local cmp = require "cmp"
 local lspkind = require "lspkind"
+local luasnip = require "luasnip"
 local lspconfig = require "lspconfig"
 local lspconfig_defaults = lspconfig.util.default_config
 
@@ -62,6 +63,13 @@ vim.diagnostic.config {
     header = "",
     prefix = "",
   },
+}
+
+util.sign_define {
+  { "DiagnosticSignError", "" },
+  { "DiagnosticSignWarn", "" },
+  { "DiagnosticSignInfo", "" },
+  { "DiagnosticSignHint", "" },
 }
 
 local lsp_configs = {

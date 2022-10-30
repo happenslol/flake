@@ -2,7 +2,7 @@
 set -eo pipefail
 
 if [[ -f "$HOME/.config/.flake-nvim-lock" ]]; then
-  echo -e "\e[1;41;30m err \e[0m Already editing nvim config"
+  echo -e "\e[1;31merror:\e[0m already editing neovim config"
   exit 1
 fi
 

@@ -21,6 +21,7 @@
     nodePackages_latest.prettier_d_slim
     nodePackages_latest.eslint_d
     nodePackages_latest.typescript-language-server
+    nodePackages_latest.vscode-json-languageserver-bin
     sumneko-lua-language-server
     rust-analyzer
   ];

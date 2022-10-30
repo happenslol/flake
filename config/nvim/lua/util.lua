@@ -29,33 +29,14 @@ function M.keys(tbl)
   return tbl_keys
 end
 
-function M.hi(symbol, fg, bg, style)
-  if type(symbol) == "string" then
-    local values = {}
-
-    if fg then values[#values + 1] = "guifg=" .. fg end
-    if bg then values[#values + 1] = "guibg=" .. bg end
-    if style then values[#values + 1] = "gui=" .. style end
-
-    local color_str = table.concat(values, " ")
-    vim.cmd("highlight " .. symbol .. " " .. color_str)
-
-    return
-  end
-
-  for _, arg in pairs(symbol) do
-    M.hi(arg[1], arg[2], arg[3], arg[4])
-  end
-end
-
-function M.hi_define(hl, text)
+function M.sign_define(hl, text)
   if type(hl) == "string" then
     vim.fn.sign_define(hl, { text = text, texthl = hl })
     return
   end
 
   for _, arg in pairs(hl) do
-    M.hi_define(arg[1], arg[2])
+    M.sign_define(arg[1], arg[2])
   end
 end
 
