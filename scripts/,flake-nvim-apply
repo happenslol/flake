@@ -8,4 +8,5 @@ fi
 
 rm -r ~/.flake/config/nvim
 cp -rf ~/.config/nvim ~/.flake/config
+rm -rf ~/.config/nvim
 rm ~/.config/.flake-nvim-lock
