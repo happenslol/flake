@@ -12,7 +12,7 @@
     device = "nodev";
     efiSupport = true;
     enableCryptodisk = true;
-    gfxmodeEfi = "2256x1504,auto";
+    gfxmodeEfi = pkgs.lib.mkForce "2256x1504,auto";
   };
 
   boot.loader.grub2-theme = {
@@ -20,6 +20,7 @@
     theme = "stylish";
     splashImage = null;
     footer = false;
+    screen = "2k";
   };
 
   boot.initrd.luks.devices = {

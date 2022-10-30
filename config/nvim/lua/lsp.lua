@@ -85,7 +85,7 @@ local lsp_configs = {
   },
   ["rust_analyzer"] = {},
   ["html"] = {},
-  ["jsonls"] = {},
+  ["jsonls"] = { cmd = { "json-languageserver", "--stdio" } },
   ["tsserver"] = {},
 }
 

@@ -24,7 +24,7 @@ in
     kitty bitwarden rustup
     google-chrome firefox
     tdesktop discord signal-desktop
-    wofi mako
+    wofi mako notify-desktop
 
     # Node and tooling
     nodejs yarn
