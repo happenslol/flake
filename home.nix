@@ -13,6 +13,7 @@
     kitty bitwarden rustup
     google-chrome firefox
     tdesktop discord signal-desktop
+    wofi
 
     # Node and tooling
     nodejs yarn
@@ -51,6 +52,7 @@
     ".config/tmux".source = ./config/tmux;
     ".config/starship.toml".source = ./config/starship/starship.toml;
     ".config/nvim/init.lua".source = ./config/nvim/init.lua;
+    ".config/nvim/.luarc.json".source = ./config/nvim/.luarc.json;
     ".config/nvim/lua".source = ./config/nvim/lua;
   };
 }

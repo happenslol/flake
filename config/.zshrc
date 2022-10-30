@@ -1,8 +1,8 @@
 [ -z "$ZPROF" ] || zmodload zsh/zprof
 
+source ~/.config/zsh/config.zsh
 source ~/.config/zsh/keymap.zsh
 source ~/.config/zsh/env.zsh
-source ~/.config/zsh/config.zsh
 source ~/.config/zsh/shortcuts.zsh
 
 eval "$(starship init zsh)"

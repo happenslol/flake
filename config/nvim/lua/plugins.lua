@@ -13,8 +13,12 @@ require "packer".startup({function()
   use "lewis6991/impatient.nvim"
 
   -- Theme
-  use "kaicataldo/material.vim"
   use "kyazdani42/nvim-web-devicons"
+
+  use { "catppuccin/nvim",
+    as = "catppuccin",
+    config = function() require "plugins.catppuccin" end,
+  }
 
   -- UI Improvements
   use { "stevearc/dressing.nvim",
@@ -30,10 +34,6 @@ require "packer".startup({function()
   }
 
   -- Status bar
-  use { "feline-nvim/feline.nvim",
-    config = function() require "plugins.feline" end,
-    after = "material.vim",
-  }
 
   -- File tree
   use { "nvim-neo-tree/neo-tree.nvim",
@@ -109,6 +109,11 @@ require "packer".startup({function()
   -- Modify surrounds
   use { "kylechui/nvim-surround",
     config = function() require("nvim-surround").setup() end,
+  }
+
+  -- Colorizer
+  use { "NvChad/nvim-colorizer.lua",
+    config = function() require "colorizer".setup {} end,
   }
 
   -- Extra json schemas

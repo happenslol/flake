@@ -2,14 +2,15 @@ local util = require "util"
 util.bootstrap_packer()
 
 require "plugins"
-require "theme"
 require "lsp"
 
 util.set_global { mapleader = "," }
 util.apply_keymap(require "keymaps".global_keymap)
 
-vim.cmd [[filetype plugin indent on]]
-vim.cmd [[syntax on]]
+util.cmd {
+  "filetype plugin indent on",
+  "syntax on",
+}
 
 util.set_opt {
   modeline = true,
