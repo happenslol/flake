@@ -10,8 +10,7 @@ let
         --add-flags --tsserver-path=${pkgs.nodePackages_latest.typescript}/lib/node_modules/typescript/lib/
     '';
   };
-in
-{
+in {
   home.username = "happens";
   home.homeDirectory = "/home/happens";
   home.stateVersion = "22.05";

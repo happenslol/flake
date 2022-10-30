@@ -5,10 +5,6 @@ set $down j
 set $up k
 set $right l
 
-bindsym $mod+z exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
-bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
-bindsym $mod+Space exec wofi -S drun
-bindsym $mod+e exec Thunar
 
 for_window [title="^.*"] title_format ""
 
@@ -16,12 +12,27 @@ default_border pixel 3
 default_floating_border pixel 3
 hide_edge_borders none
 
-# Start notification daemon
+exec dbus-sway-environment
+exec configure-gtk
 exec mako
 
 output eDP-1 scale 1.5
 
 # App shortcuts
+bindsym $mod+z exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
+bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
+bindsym $mod+Space exec wofi -S drun
+bindsym $mod+e exec Thunar
+
+# Brightness
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10
+
+# Volume
+bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
+bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'
+bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+
 bindsym $mod+q kill
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+Escape exit
