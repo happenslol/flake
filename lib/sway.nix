@@ -33,8 +33,11 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    sway dbus-sway-environment wayland
+    configure-gtk
+    dbus-sway-environment
+    sway wayland
     glib swaylock swayidle wl-clipboard waybar
+    slurp grim
   ];
 
   services.pipewire = {

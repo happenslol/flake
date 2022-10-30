@@ -40,6 +40,7 @@
 
   services.openssh.enable = true;
   networking.firewall.enable = false;
+  security.rtkit.enable = true;
 
   programs.ssh.startAgent = true;
   virtualisation.docker.enable = true;
