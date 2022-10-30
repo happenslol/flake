@@ -37,7 +37,7 @@ cmp.setup {
   mapping = require "keymaps".cmp_keymap,
   formatting = {
     format = lspkind.cmp_format {
-      mode = "text_symbol",
+      mode = "symbol_text",
       maxwidth = 50,
       ellipsis_char = "...",
     },

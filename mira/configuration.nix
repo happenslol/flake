@@ -12,7 +12,14 @@
     device = "nodev";
     efiSupport = true;
     enableCryptodisk = true;
-    theme = pkgs.nixos-grub2-theme;
+    gfxmodeEfi = "2256x1504,auto";
+  };
+
+  boot.loader.grub2-theme = {
+    enable = true;
+    theme = "stylish";
+    splashImage = null;
+    footer = false;
   };
 
   boot.initrd.luks.devices = {

@@ -9,9 +9,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, nixos-hardware, ... }:
+  outputs = { nixpkgs, home-manager, nixos-hardware, grub2-themes, ... }:
   let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
@@ -30,6 +35,8 @@
         modules = [
           # TODO: Marked as broken currently
           nixos-hardware.nixosModules.framework-12th-gen-intel
+
+          grub2-themes.nixosModule
 
           ./common.nix
           ./lib/sway.nix
