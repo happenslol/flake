@@ -5,13 +5,13 @@ set $down j
 set $up k
 set $right l
 
-
 for_window [title="^.*"] title_format ""
 
 default_border pixel 3
 default_floating_border pixel 3
 hide_edge_borders none
 
+exec systemctl --user import-environment
 exec dbus-sway-environment
 exec configure-gtk
 exec mako

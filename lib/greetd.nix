@@ -1,15 +1,16 @@
 { config, lib, pkgs, ... }:
 let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
+    exec "${pkgs.greetd.wlgreet}/bin/wlgreet --command sway; swaymsg exit"
     bindsym Mod4+shift+e exec swaynag \
       -t warning \
       -m 'What do you want to do?' \
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
   '';
-in
-{
+in {
+  programs.sway.enable = true;
+
   services.greetd = {
     enable = true;
     settings = {
