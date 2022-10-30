@@ -14,7 +14,6 @@ require "packer".startup({function()
 
   -- Theme
   use "kyazdani42/nvim-web-devicons"
-
   use { "catppuccin/nvim",
     as = "catppuccin",
     config = function() require "plugins.catppuccin" end,

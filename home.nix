@@ -1,5 +1,16 @@
 { config, pkgs, ... }:
 
+let
+  typescript-language-server-fixed = pkgs.symlinkJoin {
+    name = "typescript-language-server";
+    paths = [ pkgs.nodePackages_latest.typescript-language-server ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/typescript-language-server \
+        --add-flags --tsserver-path=${pkgs.nodePackages_latest.typescript}/lib/node_modules/typescript/lib/
+    '';
+  };
+in
 {
   home.username = "happens";
   home.homeDirectory = "/home/happens";
@@ -21,7 +32,7 @@
     # LSP servers for Neovim
     nodePackages_latest.prettier_d_slim
     nodePackages_latest.eslint_d
-    nodePackages_latest.typescript-language-server
+    typescript-language-server-fixed
     nodePackages_latest.vscode-json-languageserver-bin
     sumneko-lua-language-server
     rust-analyzer

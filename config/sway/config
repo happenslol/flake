@@ -7,6 +7,7 @@ set $right l
 
 bindsym $mod+z exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
+bindsym $mod+Space exec wofi -S drun
 bindsym $mod+e exec Thunar
 
 for_window [title="^.*"] title_format ""
@@ -65,7 +66,6 @@ bindsym $mod+f fullscreen
 
 # Floating mode
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
 
 bindsym $mod+r mode "resize"
 mode "resize" {

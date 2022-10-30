@@ -84,7 +84,6 @@ local lsp_configs = {
     },
   },
   ["rust_analyzer"] = {},
-  ["graphql"] = {},
   ["html"] = {},
   ["jsonls"] = {},
   ["tsserver"] = {},
