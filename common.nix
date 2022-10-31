@@ -32,7 +32,7 @@
 
   users.users.happens = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
     shell = pkgs.zsh;
   };
 

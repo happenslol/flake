@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
+    exec systemctl --user import-environment
+    exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
     exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
     bindsym Mod4+shift+e exec swaynag \
       -t warning \
