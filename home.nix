@@ -20,13 +20,18 @@ in {
   home.packages = with pkgs; [
     tmux yq curl xh neovim fzf gcc unzip file
     bat exa ripgrep ncdu zoxide starship bottom
-    kitty bitwarden rustup
+    kitty bitwarden
     google-chrome firefox
     tdesktop discord signal-desktop
     wofi mako notify-desktop
+    direnv
+    obsidian
 
     # Node and tooling
     nodejs yarn
+
+    # Rust
+    rustup
 
     # LSP servers for Neovim
     nodePackages_latest.prettier_d_slim
