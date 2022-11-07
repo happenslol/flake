@@ -16,10 +16,11 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, grub2-themes, ... }:
+  outputs = inputs @ { nixpkgs, home-manager, ... }:
   let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
+    stateVersion = "22.05";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -27,30 +28,30 @@
       config.allowBroken = true;
     };
 
-  in {
-    nixosConfigurations = {
-      mira = lib.nixosSystem {
+    mkHost = hostname:
+      lib.nixosSystem {
         inherit system pkgs;
+        specialArgs = { inherit inputs stateVersion; };
 
         modules = [
-          # TODO: Marked as broken currently
-          nixos-hardware.nixosModules.framework-12th-gen-intel
-
-          grub2-themes.nixosModule
-
-          ./common.nix
-          ./lib/sway.nix
-          ./lib/greetd.nix
-          ./lib/zfs.nix
-          ./mira/configuration.nix
+          (./. + "/hosts/${hostname}/hardware-configuration.nix")
+          (./. + "/hosts/${hostname}/configuration.nix")
+          ./common
 
           home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.happens = import ./home.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs stateVersion; };
+              users.happens.imports = [ ./home.nix ];
+            };
           }
         ];
       };
+
+  in {
+    nixosConfigurations = {
+      mira = mkHost "mira";
     };
   };
 }

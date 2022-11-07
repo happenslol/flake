@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, stateVersion, ... }:
 
 {
+  imports = [
+    ./grub.nix
+    ./greetd.nix
+    ./sway.nix
+    ./zfs.nix
+  ];
+
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
@@ -27,16 +34,22 @@
 
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ];
+  environment.shells = [ pkgs.zsh ];
   environment.binsh = "${pkgs.dash}/bin/dash";
 
   users.users.happens = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+      "audio"
+      "video"
+    ];
     shell = pkgs.zsh;
   };
 
-  environment.systemPackages = with pkgs; [ vim wget git ];
+  environment.systemPackages = with pkgs; [ vim wget curl ];
 
   services.openssh.enable = true;
   networking.firewall.enable = false;
@@ -52,5 +65,5 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  system.stateVersion = "22.05";
+  system = { inherit stateVersion; };
 }
