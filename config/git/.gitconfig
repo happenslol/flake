@@ -1,0 +1,14 @@
+[init]
+  defaultBranch = main
+
+[user]
+  name = Hilmar Wiegand
+  email = me@hwgnd.de
+
+[core]
+  sshCommand = "/usr/bin/ssh -i ~/.ssh/mira.personal.id_ed25519"
+
+[includeIf "gitdir:~/opencreek/"]
+  path = ~/.gitconfig-opencreek
+[includeIf "gitdir:~/garage/"]
+  path = ~/.gitconfig-garage
