@@ -1,4 +1,4 @@
-{ config, pkgs, stateVersion, ... }:
+{ config, pkgs, stateVersion, hostname, ... }:
 
 let
   fixed-typescript-language-server =
@@ -39,9 +39,6 @@ in {
     file = {
       ".zshrc".source = ./config/.zshrc;
       ".config/zsh".source = ./config/zsh;
-      ".gitconfig".source = ./config/git/.gitconfig;
-      ".gitconfig-garage".source = ./config/git/.gitconfig-garage;
-      ".gitconfig-opencreek".source = ./config/git/.gitconfig-opencreek;
       ".config/sway".source = ./config/sway;
       ".config/waybar".source = ./config/waybar;
       ".config/kitty".source = ./config/kitty;
@@ -50,6 +47,35 @@ in {
       ".config/nvim/init.lua".source = ./config/nvim/init.lua;
       ".config/nvim/.luarc.json".source = ./config/nvim/.luarc.json;
       ".config/nvim/lua".source = ./config/nvim/lua;
+
+      ".gitconfig".text = ''
+        [init]
+          defaultBranch = main
+
+        [user]
+          name = Hilmar Wiegand
+          email = me@hwgnd.de
+
+        [core]
+          sshCommand = "ssh -i ~/.ssh/${hostname}.personal.id_ed25519"
+
+        [includeIf "gitdir:~/opencreek/"]
+          path = ~/.gitconfig-opencreek
+        [includeIf "gitdir:~/garage/"]
+          path = ~/.gitconfig-garage
+      '';
+      ".gitconfig-garage".text = ''
+        [user]
+          email = hilmar@garage51.de
+        [core]
+          sshCommand = "ssh -i ~/.ssh/${hostname}.garage51.id_ed25519"
+      '';
+      ".gitconfig-opencreek".text = ''
+        [user]
+          email = hilmar@opencreek.tech
+        [core]
+          sshCommand = "ssh -i ~/.ssh/${hostname}.opencreek.id_ed25519"
+      '';
     };
   };
 

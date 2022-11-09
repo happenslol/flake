@@ -31,7 +31,7 @@
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = { inherit inputs stateVersion; };
+        specialArgs = { inherit inputs stateVersion hostname; };
 
         modules = [
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
@@ -42,7 +42,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs stateVersion; };
+              extraSpecialArgs = { inherit inputs stateVersion hostname; };
               users.happens.imports = [ ./home.nix ];
             };
           }

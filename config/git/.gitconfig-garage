@@ -1,6 +1,0 @@
-[user]
-  name = Hilmar Wiegand
-  email = hilmar@garage51.de
-
-[core]
-  sshCommand = "ssh -i ~/.ssh/mira.garage51.id_ed25519"

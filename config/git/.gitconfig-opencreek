@@ -1,6 +1,0 @@
-[user]
-  name = Hilmar Wiegand
-  email = hilmar@opencreek.tech
-
-[core]
-  sshCommand = "ssh -i ~/.ssh/mira.opencreek.id_ed25519"
