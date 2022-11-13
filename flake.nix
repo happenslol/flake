@@ -52,6 +52,7 @@
   in {
     nixosConfigurations = {
       mira = mkHost "mira";
+      roe2 = mkHost "roe2";
     };
   };
 }
