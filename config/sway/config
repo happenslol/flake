@@ -19,7 +19,7 @@ exec mako
 output eDP-1 scale 1.5
 
 # App shortcuts
-bindsym $mod+z exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer
+bindsym $mod+z exec firefox
 bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
 bindsym $mod+Space exec wofi -S drun
 bindsym $mod+e exec Thunar
@@ -108,6 +108,7 @@ bar {
 }
 
 input type:keyboard {
+  xkb_numlock enabled
   xkb_options compose:ralt
 
   repeat_delay 170

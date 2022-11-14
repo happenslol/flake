@@ -17,6 +17,7 @@ in {
       kitty tmux zoxide starship direnv
       google-chrome firefox bitwarden
       tdesktop discord signal-desktop
+      easyeffects
       flameshot
       xfce.thunar
       obsidian

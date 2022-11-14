@@ -9,6 +9,8 @@ let
       -m 'What do you want to do?' \
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
+
+    input type:keyboard xkb_numlock enabled
   '';
 in {
   programs.sway.enable = true;
