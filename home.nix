@@ -22,6 +22,7 @@ in {
       xfce.thunar
       obsidian
 
+      docker-compose
       gcc
       rustup
       nodejs yarn
