@@ -23,6 +23,7 @@ in {
       flameshot
       xfce.thunar
       obsidian
+      gimp
 
       docker-compose
       gcc
