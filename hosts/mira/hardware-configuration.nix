@@ -5,15 +5,6 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.kernelParams = [
-    "quiet" "i915.force_probe=46a6"
-
-    # Enable deep sleep
-    "mem_sleep_default=deep"
-
-    # https://community.frame.work/t/linux-battery-life-tuning/6665/156
-    "nvme.noacpi=1"
-  ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];

@@ -6,6 +6,8 @@
 
   boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
 
+  boot.kernelParams = [ "quiet" ];
+
   boot.initrd.luks.devices = {
     root = {
       device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";

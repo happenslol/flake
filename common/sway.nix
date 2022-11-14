@@ -37,7 +37,7 @@ in {
     dbus-sway-environment
     sway wayland
     glib swaylock swayidle wl-clipboard waybar
-    slurp grim
+    slurp grim wdisplays pulseaudio
   ];
 
   services.pipewire = {
