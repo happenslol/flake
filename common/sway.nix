@@ -37,7 +37,7 @@ in {
     dbus-sway-environment
     sway wayland
     glib swaylock swayidle wl-clipboard waybar
-    slurp grim wdisplays pulseaudio
+    slurp grim wdisplays pulseaudio kanshi
   ];
 
   services.pipewire = {

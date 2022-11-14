@@ -43,7 +43,6 @@ in {
     file = {
       ".zshrc".source = ./config/zshrc;
       ".config/zsh".source = ./config/zsh;
-      ".config/sway".source = ./config/sway;
       ".config/waybar".source = ./config/waybar;
       ".config/kitty".source = ./config/kitty;
       ".config/tmux".source = ./config/tmux;
@@ -55,6 +54,9 @@ in {
       ".gitconfig".source = ./config/git/gitconfig;
       ".gitconfig-garage".source = ./config/git/gitconfig-garage;
       ".gitconfig-opencreek".source = ./config/git/gitconfig-opencreek;
+
+      ".config/sway/config".source = ./config/sway/config;
+      ".config/sway/${hostname}.config".source = (./. + "/hosts/${hostname}/config/sway/config");
     };
   };
 

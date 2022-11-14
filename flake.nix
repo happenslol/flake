@@ -43,7 +43,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs stateVersion hostname; };
-              users.happens.imports = [ ./home.nix ];
+              users.happens.imports = [ ./home.nix (./. + "/hosts/${hostname}/home.nix") ];
             };
           }
         ];

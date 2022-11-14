@@ -16,17 +16,11 @@ exec dbus-sway-environment
 exec configure-gtk
 exec mako
 
-output eDP-1 scale 1.5
-
 # App shortcuts
 bindsym $mod+z exec firefox
 bindsym $mod+x exec kitty zsh -c "tmux new -As scratch"
 bindsym $mod+Space exec wofi -S drun
 bindsym $mod+e exec Thunar
-
-# Brightness
-bindsym XF86MonBrightnessDown exec light -U 10
-bindsym XF86MonBrightnessUp exec light -A 10
 
 # Volume
 bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
@@ -115,6 +109,4 @@ input type:keyboard {
   repeat_rate 60
 }
 
-input type:touchpad {
-  tap enabled
-}
+include $(hostname).config
