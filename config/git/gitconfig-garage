@@ -1,0 +1,4 @@
+[user]
+  email = hilmar@garage51.de
+[core]
+  sshCommand = "ssh -i ~/.ssh/$(hostname).garage51.id_ed25519"

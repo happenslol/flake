@@ -1,0 +1,4 @@
+[user]
+  email = hilmar@opencreek.tech
+[core]
+  sshCommand = "ssh -i ~/.ssh/$(hostname).opencreek.id_ed25519"
