@@ -6,6 +6,8 @@ let
 in {
   programs.home-manager.enable = true;
 
+  services.kanshi.enable = true;
+
   home = {
     inherit stateVersion;
     username = "happens";
@@ -39,7 +41,7 @@ in {
     ];
 
     file = {
-      ".zshrc".source = ./config/.zshrc;
+      ".zshrc".source = ./config/zshrc;
       ".config/zsh".source = ./config/zsh;
       ".config/sway".source = ./config/sway;
       ".config/waybar".source = ./config/waybar;
