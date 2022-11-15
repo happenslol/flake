@@ -1,6 +1,9 @@
 [init]
   defaultBranch = main
 
+[push]
+  autoSetupRemote = true
+
 [user]
   name = Hilmar Wiegand
   email = me@hwgnd.de
