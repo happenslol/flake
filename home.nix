@@ -4,9 +4,15 @@ let
   fixed-typescript-language-server =
     import ./fixes/typescript-language-server.nix pkgs;
 in {
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+    dconf.enable = true;
+  };
 
-  services.kanshi.enable = true;
+  services = {
+    kanshi.enable = true;
+    easyeffects.enable = true;
+  };
 
   home = {
     inherit stateVersion;
