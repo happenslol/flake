@@ -6,6 +6,7 @@
     ./greetd.nix
     ./sway.nix
     ./zfs.nix
+    ./thunar.nix
   ];
 
   nix.package = pkgs.nixFlakes;
@@ -62,7 +63,7 @@
     noto-fonts noto-fonts-emoji
     noto-fonts-cjk-sans
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; })
   ];
 
   system = { inherit stateVersion; };

@@ -21,7 +21,6 @@ in {
       tdesktop discord signal-desktop
       easyeffects
       flameshot
-      xfce.thunar
       obsidian
       gimp vimiv-qt
 
