@@ -35,7 +35,9 @@ in {
       wofi mako notify-desktop
 
       # LSP servers for Neovim
+      nodePackages_latest.prettier
       nodePackages_latest.prettier_d_slim
+      nodePackages_latest.eslint
       nodePackages_latest.eslint_d
       fixed-typescript-language-server
       nodePackages_latest.vscode-json-languageserver-bin

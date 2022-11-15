@@ -86,7 +86,12 @@ local lsp_configs = {
   ["rust_analyzer"] = {},
   ["html"] = {},
   ["jsonls"] = { cmd = { "json-languageserver", "--stdio" } },
-  ["tsserver"] = {},
+  ["tsserver"] = {
+    on_attach = function(client, _)
+      client.server_capabilities["documentFormattingProvider"] = false
+      client.server_capabilities["documentRangeFormattingProvider"] = false
+    end,
+  },
 }
 
 for lsp, config in pairs(lsp_configs) do
