@@ -4,10 +4,7 @@ let
   fixed-typescript-language-server =
     import ./fixes/typescript-language-server.nix pkgs;
 in {
-  programs = {
-    home-manager.enable = true;
-    dconf.enable = true;
-  };
+  programs.home-manager.enable = true;
 
   services = {
     kanshi.enable = true;

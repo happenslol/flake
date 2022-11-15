@@ -148,7 +148,9 @@ require "packer".startup({function()
   use "neovim/nvim-lspconfig"
 
   -- Formatting and linting
-  use "jose-elias-alvarez/null-ls.nvim"
+  use { "jose-elias-alvarez/null-ls.nvim",
+    config = function() require "plugins.null-ls" end,
+  }
 
   -- LSP icons
   use "onsails/lspkind.nvim"
