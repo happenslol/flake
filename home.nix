@@ -1,4 +1,4 @@
-{ config, pkgs, stateVersion, hostname, ... }:
+{ config, pkgs, stateVersion, hostname, customNodePackages, ... }:
 
 let
   fixed-typescript-language-server =
@@ -34,10 +34,8 @@ in {
 
       wofi mako notify-desktop
 
-      # LSP servers for Neovim
-      nodePackages_latest.prettier
-      nodePackages_latest.prettier_d_slim
-      nodePackages_latest.eslint
+      customNodePackages."@fsouza/prettierd"
+
       nodePackages_latest.eslint_d
       fixed-typescript-language-server
       nodePackages_latest.vscode-json-languageserver-bin

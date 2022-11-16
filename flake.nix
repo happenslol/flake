@@ -28,6 +28,11 @@
       config.allowBroken = true;
     };
 
+    customNodePackages = pkgs.callPackage ./node-packages {
+      inherit system pkgs;
+      nodejs = pkgs."nodejs-14_x";
+    };
+
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
@@ -42,7 +47,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs stateVersion hostname; };
+              extraSpecialArgs = { inherit inputs stateVersion hostname customNodePackages; };
               users.happens.imports = [ ./home.nix (./. + "/hosts/${hostname}/home.nix") ];
             };
           }
