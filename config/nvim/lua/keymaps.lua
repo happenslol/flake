@@ -59,7 +59,7 @@ lsp_map.n["<space>v"] = vim.diagnostic.goto_prev
 -- Configure cmp mappings
 local cmp_map = {}
 
-cmp_map["<tab>"] = function(fallback)
+local cmp_select_next = function(fallback)
   if cmp.visible() then
     cmp.select_next_item()
   else
@@ -67,13 +67,18 @@ cmp_map["<tab>"] = function(fallback)
   end
 end
 
-cmp_map["<s-tab>"] = function(fallback)
+local cmp_select_prev = function(fallback)
   if cmp.visible() then
     cmp.select_prev_item()
   else
     fallback()
   end
 end
+
+cmp_map["<tab>"] = cmp_select_next
+cmp_map["<down>"] = cmp_select_next
+cmp_map["<s-tab>"] = cmp_select_prev
+cmp_map["<up>"] = cmp_select_prev
 
 cmp_map["<c-space>"] = cmp.mapping.complete()
 cmp_map["<c-e>"] = cmp.mapping.close()

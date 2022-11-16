@@ -24,6 +24,16 @@ require "packer".startup({function()
     config = function() require "plugins.dressing" end,
   }
 
+  -- Scrollbar
+  use { "petertriho/nvim-scrollbar",
+    config = function()
+      require "scrollbar".setup {
+        excluded_filetypes = { "TelescopePrompt", "prompt", "neo-tree" },
+        marks = { Cursor = { text = "" } },
+      }
+    end,
+  }
+
   -- Notifications
   use { "rcarriga/nvim-notify",
     event = "UIEnter",
@@ -33,6 +43,9 @@ require "packer".startup({function()
   }
 
   -- Status bar
+  use { "nvim-lualine/lualine.nvim",
+    config = function() require "plugins.lualine" end,
+  }
 
   -- File tree
   use { "nvim-neo-tree/neo-tree.nvim",

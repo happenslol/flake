@@ -31,6 +31,15 @@ require "catppuccin".setup {
       crust = "#404040",
     },
   },
+
+  integrations = {
+    cmp = true,
+    treesitter = true,
+    telescope = true,
+    gitsigns = true,
+    notify = true,
+    lsp_trouble = true,
+  },
 }
 
 vim.api.nvim_command "colorscheme catppuccin"
