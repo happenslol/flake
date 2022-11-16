@@ -10,6 +10,7 @@
 
   boot.kernelParams = [
     "quiet" "i915.force_probe=46a6"
+    "splash" "loglevel=3"
 
     # Enable deep sleep
     "mem_sleep_default=deep"
