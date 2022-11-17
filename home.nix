@@ -22,11 +22,10 @@ in {
       kitty tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
       tdesktop discord signal-desktop
-      easyeffects
-      flameshot
-      obsidian
-      gimp vimiv-qt
+      easyeffects flameshot
+      obsidian gimp vimiv-qt
 
+      steam-run
       docker-compose
       gcc
       rustup
@@ -45,6 +44,7 @@ in {
 
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = 1;
+      MOZ_USE_XINPUT2 = 1;
       SDL_VIDEODRIVER = "wayland";
     };
 
@@ -73,6 +73,10 @@ in {
     theme = {
       package = pkgs.vimix-gtk-themes;
       name = "vimix-dark-doder";
+    };
+    cursorTheme = {
+      package = pkgs.phinger-cursors;
+      name = "phinger-cursors";
     };
     iconTheme = {
       package = pkgs.vimix-icon-theme;
