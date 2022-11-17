@@ -20,7 +20,7 @@ in {
       neovim wget git unzip file
       bat exa ripgrep ncdu bottom curl xh yq fzf
       kitty tmux zoxide starship direnv
-      google-chrome firefox bitwarden
+      google-chrome firefox-wayland bitwarden
       tdesktop discord signal-desktop
       easyeffects
       flameshot
@@ -44,8 +44,7 @@ in {
     ];
 
     sessionVariables = {
-      MOZ_ENABLE_WAYLAND = "1";
-      MOZ_USE_XINPUT2 = "1";
+      MOZ_ENABLE_WAYLAND = 1;
       SDL_VIDEODRIVER = "wayland";
     };
 

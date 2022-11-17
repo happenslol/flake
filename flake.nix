@@ -4,11 +4,13 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    home-manager.url = "github:nix-community/home-manager";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
 
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
@@ -39,6 +41,7 @@
         specialArgs = { inherit inputs stateVersion hostname; };
 
         modules = [
+          ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
           ./common
