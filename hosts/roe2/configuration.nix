@@ -13,7 +13,12 @@
 
   boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
 
-  boot.kernelParams = [ "quiet" "splash" "loglevel=3" ];
+  boot.kernelParams = [
+    "quiet" "splash" "loglevel=2" "nowatchdog"
+
+    # Only show plymouth on primary monitor
+    "video=card0-DP-2:d" "video=card0-DP-2:d"
+  ];
 
   boot.initrd.luks.devices = {
     root = {

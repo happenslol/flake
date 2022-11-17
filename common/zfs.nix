@@ -7,15 +7,17 @@
     trim.enable = true;
   };
 
-  services.sanoid = {
-    enable = true;
-    datasets."rpool/user" = {
-      recursive = true;
-      monthly = 1;
-      daily = 10;
-      autosnap = true;
-      autoprune = true;
-      processChildrenOnly = true;
-    };
-  };
+  # TODO: Is this causing system freezes?
+  # services.sanoid = {
+  #   enable = true;
+  #   datasets."rpool/user" = {
+  #     recursive = true;
+  #     monthly = 1;
+  #     daily = 10;
+  #     hourly = 0;
+  #     autosnap = true;
+  #     autoprune = true;
+  #     processChildrenOnly = true;
+  #   };
+  # };
 }

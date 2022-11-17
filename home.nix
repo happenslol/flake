@@ -43,6 +43,12 @@ in {
       rust-analyzer
     ];
 
+    sessionVariables = {
+      MOZ_ENABLE_WAYLAND = "1";
+      MOZ_USE_XINPUT2 = "1";
+      SDL_VIDEODRIVER = "wayland";
+    };
+
     file = {
       ".zshrc".source = ./config/zshrc;
       ".config/zsh".source = ./config/zsh;
@@ -68,10 +74,6 @@ in {
     theme = {
       package = pkgs.vimix-gtk-themes;
       name = "vimix-dark-doder";
-    };
-    cursorTheme = {
-      package = pkgs.quintom-cursor-theme;
-      name = "Quintom_Ink";
     };
     iconTheme = {
       package = pkgs.vimix-icon-theme;
