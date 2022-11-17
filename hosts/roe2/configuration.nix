@@ -14,10 +14,12 @@
   boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
 
   boot.kernelParams = [
-    "quiet" "splash" "loglevel=2" "nowatchdog"
+    # Quiet boot (See https://wiki.archlinux.org/title/silent_boot)
+    "quiet" "splash" "loglevel=3" "nowatchdog"
+    "systemd.show_status=auto" "rd.udev.log_level=3"
 
     # Only show plymouth on primary monitor
-    "video=card0-DP-2:d" "video=card0-DP-2:d"
+    "video=DP-2:d" "video=DP-3:d"
   ];
 
   boot.initrd.luks.devices = {
@@ -27,4 +29,3 @@
     };
   };
 }
-
