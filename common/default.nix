@@ -37,7 +37,7 @@
 
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
-  environment.shells = [ pkgs.zsh ];
+  environment.shells = [ pkgs.zsh pkgs.bash ];
   environment.binsh = "${pkgs.dash}/bin/dash";
 
   users.users.happens = {
