@@ -24,6 +24,10 @@
   boot.plymouth.enable = true;
   boot.initrd.systemd.enable = true;
 
+  # Increase max vm map count for nodejs workers
+  # running out of heap memory
+  boot.kernel.sysctl = { "vm.max_map_count" = 262144; };
+
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
