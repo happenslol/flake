@@ -6,7 +6,7 @@ local packer_config = {
   },
 }
 
-require "packer".startup({function()
+require "packer".startup({ function()
   use "wbthomason/packer.nvim"
 
   -- Performance
@@ -38,7 +38,7 @@ require "packer".startup({function()
   use { "rcarriga/nvim-notify",
     event = "UIEnter",
     config = function()
-      require "notify".setup { stages = { "fade" }}
+      require "notify".setup { stages = { "fade" } }
     end,
   }
 
@@ -69,6 +69,14 @@ require "packer".startup({function()
       "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function() require "plugins.telescope" end,
+  }
+
+  -- LSP Diagnostic viewer
+  use { "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require "trouble".setup { use_diagnostic_signs = true }
+    end
   }
 
   -- Treesitter
@@ -138,7 +146,7 @@ require "packer".startup({function()
   use { "kevinhwang91/nvim-bqf",
     ft = "qf",
     config = function()
-      require "bqf".setup { func_map = require "keymaps".bqf_keymap }
+      require "bqf".setup { func_map = require "keymaps".bqf }
     end,
   }
 
@@ -168,4 +176,4 @@ require "packer".startup({function()
   -- LSP icons
   use "onsails/lspkind.nvim"
 
-end, config = packer_config})
+end, config = packer_config })

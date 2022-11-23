@@ -19,7 +19,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP commands",
   callback = function()
-    util.apply_keymap(require "keymaps".lsp_keymap, { buffer = true })
+    util.apply_keymap(require "keymaps".lsp, { buffer = true })
   end,
 })
 
@@ -34,7 +34,7 @@ cmp.setup {
     { name = "luasnip", keyword_length = 2 },
   },
   window = { documentation = cmp.config.window.bordered() },
-  mapping = require "keymaps".cmp_keymap,
+  mapping = require "keymaps".cmp,
   formatting = {
     format = lspkind.cmp_format {
       mode = "symbol_text",

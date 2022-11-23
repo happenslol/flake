@@ -1,5 +1,6 @@
 local util = require "util"
 local cmp = require "cmp"
+local telescope = require "telescope.builtin"
 
 local map = util.create_keymap()
 
@@ -33,8 +34,8 @@ map.n["<c-d>l"] = ":lnext<cr>"
 map.n["<c-d>h"] = ":lprev<cr>"
 
 -- telescope
-map.n["<c-p>"] = ":Telescope find_files<cr>"
-map.n["<leader>q"] = ":Telescope live_grep<cr>"
+map.n["<c-p>"] = telescope.find_files
+map.n["<leader>q"] = telescope.live_grep
 
 -- ArgWrap
 map.n["<leader>w"] = ":ArgWrap<cr>"
@@ -43,7 +44,7 @@ map.n["<leader>w"] = ":ArgWrap<cr>"
 local lsp_map = util.create_keymap()
 
 lsp_map.n["K"] = vim.lsp.buf.hover
-lsp_map.i["<ctrl>k"] = vim.lsp.buf.signature_help
+lsp_map.i["<c-k>"] = vim.lsp.buf.signature_help
 lsp_map.n["gd"] = vim.lsp.buf.definition
 lsp_map.n["gD"] = vim.lsp.buf.declaration
 lsp_map.n["<space>i"] = vim.lsp.buf.implementation
@@ -56,23 +57,31 @@ lsp_map.n["<leader>f"] = vim.lsp.buf.format
 lsp_map.n["<space>c"] = vim.diagnostic.goto_next
 lsp_map.n["<space>v"] = vim.diagnostic.goto_prev
 
+-- telescope
+lsp_map.n["<space>sr"] = telescope.lsp_references
+lsp_map.n["<space>sc"] = telescope.lsp_incoming_calls
+lsp_map.n["<space>sC"] = telescope.lsp_outgoing_calls
+lsp_map.n["<space>si"] = telescope.lsp_implementations
+lsp_map.n["<space>sd"] = telescope.lsp_document_symbols
+lsp_map.n["<space>sD"] = telescope.lsp_workspace_symbols
+
+-- lsp control
+lsp_map.n["<space>lr"] = ":LspRestart<cr>"
+
+-- trouble
+lsp_map.n["<space>w"] = ":TroubleToggle <cr>"
+
 -- Configure cmp mappings
 local cmp_map = {}
 
 local cmp_select_next = function(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  else
-    fallback()
-  end
+  if cmp.visible() then cmp.select_next_item()
+  else fallback() end
 end
 
 local cmp_select_prev = function(fallback)
-  if cmp.visible() then
-    cmp.select_prev_item()
-  else
-    fallback()
-  end
+  if cmp.visible() then cmp.select_prev_item()
+  else fallback() end
 end
 
 cmp_map["<tab>"] = cmp_select_next
@@ -94,8 +103,8 @@ local bqf_map = {
 }
 
 return {
-  global_keymap = map,
-  bqf_keymap = bqf_map,
-  lsp_keymap = lsp_map,
-  cmp_keymap = cmp_map,
+  global = map,
+  bqf = bqf_map,
+  lsp = lsp_map,
+  cmp = cmp_map,
 }
