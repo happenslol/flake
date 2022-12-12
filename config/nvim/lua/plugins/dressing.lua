@@ -1,8 +1,8 @@
 require "dressing".setup {
-  input = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+  input = { win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" } },
   select = {
     backend = { "nui", "builtin", "telescope" },
-    builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+    builtin = { win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" } },
     nui = {
       position = {
         row = 2,
