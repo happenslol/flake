@@ -24,6 +24,7 @@ in {
       tdesktop discord signal-desktop
       easyeffects flameshot
       obsidian gimp vimiv-qt
+      nvd
 
       steam-run
       docker-compose
