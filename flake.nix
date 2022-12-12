@@ -22,7 +22,7 @@
   let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
-    stateVersion = "22.05";
+    stateVersion = "22.11";
 
     pkgs = import nixpkgs {
       inherit system;
