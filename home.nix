@@ -41,6 +41,7 @@ in {
       nodePackages_latest.vscode-json-languageserver-bin
       sumneko-lua-language-server
       rust-analyzer
+      awscli2
     ];
 
     sessionVariables = {
