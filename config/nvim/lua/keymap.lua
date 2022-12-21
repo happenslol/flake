@@ -9,8 +9,8 @@ map.n[";"] = { ":", silent = false }
 map.v[";"] = { ":", silent = false }
 map.n["<leader>h"] = ":nohlsearch<cr>"
 
--- neo-tree
-map.n["<c-n>"] = ":Neotree focus toggle<cr>"
+-- nvim-tree
+map.n["<c-n>"] = ":NvimTreeToggle<cr>"
 
 -- packer
 map.n["<leader>pc"] = ":PackerCompile<cr>"

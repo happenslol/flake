@@ -5,7 +5,7 @@ require "plugins"
 require "lsp"
 
 util.set_global { mapleader = "," }
-util.apply_keymap(require "keymaps".global)
+util.apply_keymap(require "keymap".global)
 
 util.cmd {
   "filetype plugin indent on",

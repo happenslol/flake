@@ -151,7 +151,7 @@ require "packer".startup({ function()
   use { "kevinhwang91/nvim-bqf",
     ft = "qf",
     config = function()
-      require "bqf".setup { func_map = require "keymaps".bqf }
+      require "bqf".setup { func_map = require "keymap".bqf }
     end,
   }
 
