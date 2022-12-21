@@ -1,3 +1,6 @@
+-- TODO: Find a solution for libuv segfaults
+-- and add this back
+
 require "neo-tree".setup {
   close_if_last_window = false,
   window = {
