@@ -47,6 +47,9 @@ require "packer".startup({ function()
     config = function() require "plugins.lualine" end,
   }
 
+  use "nvim-lua/plenary.nvim"
+  use "MunifTanjim/nui.nvim"
+
   -- File tree
   -- TODO: See neo-tree.lua
   -- use { "nvim-neo-tree/neo-tree.nvim",
