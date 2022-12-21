@@ -18,7 +18,7 @@ in {
 
     packages = with pkgs; [
       neovim wget git unzip file
-      bat exa ripgrep ncdu bottom curl xh yq fzf
+      bat exa ripgrep ncdu bottom curl xh yq fzf tokei
       kitty tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
       tdesktop discord signal-desktop
