@@ -7,6 +7,5 @@ null.setup {
     null.builtins.code_actions.eslint_d,
 
     null.builtins.formatting.goimports,
-    null.builtins.diagnostics.revive,
   }
 }
