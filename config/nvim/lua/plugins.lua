@@ -6,6 +6,10 @@ local packer_config = {
   },
 }
 
+-- Treesitter is installed through NixOS, so
+-- we can require the config directly
+require "plugins.treesitter"
+
 require "packer".startup({ function()
   use "wbthomason/packer.nvim"
 
@@ -87,25 +91,8 @@ require "packer".startup({ function()
     end
   }
 
-  -- Treesitter
-  use { "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    event = "BufEnter",
-    cmd = {
-      "TSInstall", "TSInstallInfo", "TSInstallSync",
-      "TSUninstall", "TSUpdate", "TSUpdateSync",
-      "TSDisableAll", "TSEnableAll",
-    },
-    config = function() require "plugins.treesitter" end,
-  }
-
-  use { "windwp/nvim-ts-autotag",
-    after = "nvim-treesitter",
-  }
-
-  use { "JoosepAlviste/nvim-ts-context-commentstring",
-    after = "nvim-treesitter",
-  }
+	use "windwp/nvim-ts-autotag"
+	use "JoosepAlviste/nvim-ts-context-commentstring"
 
   -- Automatic closing parens and tags
   use { "windwp/nvim-autopairs",
