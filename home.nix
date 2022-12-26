@@ -37,7 +37,7 @@ in {
       gcc
       rustup
       nodejs yarn
-      go gopls gotools
+      go gopls gotools revive
 
       wofi mako notify-desktop
 
