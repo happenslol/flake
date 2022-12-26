@@ -11,6 +11,12 @@ in {
     easyeffects.enable = true;
   };
 
+  programs.neovim = {
+    enable = true; 
+    plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
+    extraConfig = ''lua require "config"'';
+  };
+
   home = {
     inherit stateVersion;
     username = "happens";
@@ -42,14 +48,6 @@ in {
       sumneko-lua-language-server
       rust-analyzer
       awscli2
-
-			(pkgs.neovim.override {
-				configure = {
-					packages.myPlugins = with pkgs.vimPlugins; {
-						start = [nvim-treesitter.withAllGrammars];
-					};
-				};
-			})
     ];
 
     sessionVariables = {
@@ -61,13 +59,11 @@ in {
     file = {
       ".zshrc".source = ./config/zshrc;
       ".config/zsh".source = ./config/zsh;
+      ".config/nvim/lua".source = ./config/nvim;
       ".config/waybar".source = ./config/waybar;
       ".config/kitty".source = ./config/kitty;
       ".config/tmux".source = ./config/tmux;
       ".config/starship.toml".source = ./config/starship/starship.toml;
-      ".config/nvim/init.lua".source = ./config/nvim/init.lua;
-      ".config/nvim/.luarc.json".source = ./config/nvim/.luarc.json;
-      ".config/nvim/lua".source = ./config/nvim/lua;
 
       ".gitconfig".source = ./config/git/gitconfig;
       ".gitconfig-garage".source = ./config/git/gitconfig-garage;
