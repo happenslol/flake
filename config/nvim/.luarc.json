@@ -1,5 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.diagnostics.globals": [
+        "vim",
+        "use"
+    ],
     "Lua.workspace.library": [
         "/nix/store/s8najf1l0lrirynibrg4010q47md6gcz-vim-pack-dir",
         "/home/happens/.config/nvim",

@@ -85,6 +85,7 @@ local lsp_configs = {
   },
   ["rust_analyzer"] = {},
   ["html"] = {},
+  ["gopls"] = {},
   ["jsonls"] = { cmd = { "json-languageserver", "--stdio" } },
   ["tsserver"] = {
     on_attach = function(client, _)

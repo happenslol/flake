@@ -5,5 +5,8 @@ null.setup {
     null.builtins.formatting.prettierd,
     null.builtins.diagnostics.eslint_d,
     null.builtins.code_actions.eslint_d,
+
+    null.builtins.formatting.goimports,
+    null.builtins.diagnostics.revive,
   }
 }
