@@ -43,6 +43,7 @@ in {
 
       customNodePackages."@fsouza/prettierd"
 
+      pkgs.turbo
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
       fixed-typescript-language-server
