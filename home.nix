@@ -43,6 +43,7 @@ in {
 
       customNodePackages."@fsouza/prettierd"
 
+      nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
       fixed-typescript-language-server
       nodePackages_latest.vscode-json-languageserver-bin
