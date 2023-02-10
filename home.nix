@@ -50,7 +50,7 @@ in {
       sumneko-lua-language-server
       rust-analyzer
       awscli2
-      terraform kubectl helm
+      terraform kubectl kubernetes-helm
     ];
 
     sessionVariables = {
