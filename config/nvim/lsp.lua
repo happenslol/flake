@@ -73,7 +73,7 @@ util.sign_define {
 }
 
 local lsp_configs = {
-  ["sumneko_lua"] = {
+  ["lua_ls"] = {
     settings = {
       Lua = {
         runtime = { version = "LuaJIT" },
