@@ -36,7 +36,7 @@ in {
       docker-compose
       gcc
       rustup
-      nodejs yarn turbo
+      nodejs yarn
       go gopls gotools revive
 
       wofi mako notify-desktop
