@@ -2,6 +2,7 @@
 alias k="kubectl "
 alias n="nvim "
 alias sr="steam-run "
+alias tf="terraform "
 
 alias reload="source ~/.zshrc"
 alias svim="sudo -E nvim"
