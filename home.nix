@@ -24,7 +24,7 @@ in {
 
     packages = with pkgs; [
       wget git unzip file
-      bat exa ripgrep ncdu bottom curl xh yq fzf tokei
+      bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
       kitty tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
       tdesktop discord signal-desktop
