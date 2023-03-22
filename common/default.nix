@@ -64,7 +64,6 @@
 
   environment.systemPackages = with pkgs; [ vim wget curl ];
 
-  services.openssh.enable = true;
   networking.firewall.enable = false;
   security.rtkit.enable = true;
 
@@ -77,6 +76,11 @@
 
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; })
   ];
+
+  services = {
+    upower.enable = true;
+    openssh.enable = true;
+  };
 
   system = { inherit stateVersion; };
 }

@@ -54,22 +54,6 @@ require "packer".startup({ function()
   use "nvim-lua/plenary.nvim"
   use "MunifTanjim/nui.nvim"
 
-  -- File tree
-  -- TODO: See neo-tree.lua
-  -- use { "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v2.x",
-  --   config = function() require "plugins.neo-tree" end,
-  --   requires = {
-  --     "nvim-lua/plenary.nvim",
-  --     "kyazdani42/nvim-web-devicons",
-  --     "MunifTanjim/nui.nvim",
-  --     { "s1n7ax/nvim-window-picker",
-  --       tag = "v1.*",
-  --       config = function() require "plugins.window-picker" end,
-  --     }
-  --   },
-  -- }
-
   use { "kyazdani42/nvim-tree.lua",
     config = function() require "plugins.nvim-tree" end,
   }

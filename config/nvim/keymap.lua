@@ -11,15 +11,11 @@ map.n["<leader>h"] = ":nohlsearch<cr>"
 
 -- nvim-tree
 map.n["<c-n>"] = ":NvimTreeToggle<cr>"
+map.n["<c-m>"] = ":NvimTreeFindFile<cr>"
 
 -- packer
 map.n["<leader>pc"] = ":PackerCompile<cr>"
 map.n["<leader>ps"] = ":PackerSync<cr>"
-
--- wildfire
-map.n["<backspace>"] = "<plug>(wildfire-fuel)"
-map.v["<backspace>"] = "<plug>(wildfire-fuel)"
-map.n["<c-backspace>"] = "<plug>(wildfire-water)"
 
 -- Location list
 map.n["<c-f>k"] = ":copen<cr>"

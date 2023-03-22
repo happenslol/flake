@@ -39,7 +39,7 @@ in {
       nodejs yarn
       go gopls gotools revive
 
-      wofi mako notify-desktop
+      wofi mako notify-desktop eww-wayland
 
       customNodePackages."@fsouza/prettierd"
 
