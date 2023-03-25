@@ -32,6 +32,8 @@ in {
       obsidian gimp vimiv-qt
       nvd
 
+      neovim-nightly
+
       steam-run
       docker-compose
       gcc

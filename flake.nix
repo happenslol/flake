@@ -11,6 +11,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +42,10 @@
         specialArgs = { inherit inputs stateVersion hostname; };
 
         modules = [
-          ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
+          ({ ... }: { nixpkgs.overlays = [
+            inputs.nixpkgs-wayland.overlay
+            inputs.neovim-nightly-overlay.overlay
+          ]; })
 
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
