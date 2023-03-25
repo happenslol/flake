@@ -29,7 +29,7 @@
   boot.kernel.sysctl = { "vm.max_map_count" = 262144; };
 
   # Use latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   # Enable ntfs3g
   boot.supportedFilesystems = [ "ntfs" ];

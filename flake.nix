@@ -27,10 +27,9 @@
 
     pkgs = import nixpkgs {
       inherit system;
+      overlays = overlays;
       config.allowUnfree = true;
       config.allowBroken = true;
-
-      nixpkgs.overlays = overlays;
     };
 
     customNodePackages = pkgs.callPackage ./node-packages {

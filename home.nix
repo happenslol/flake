@@ -14,7 +14,7 @@ in {
   programs.neovim = {
     enable = true; 
     plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
-    extraConfig = ''lua require "config"'';
+    extraConfig = ''lua require "custom"'';
   };
 
   home = {
