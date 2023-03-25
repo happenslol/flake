@@ -11,8 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,10 +23,14 @@
     system = "x86_64-linux";
     stateVersion = "22.11";
 
+    overlays = [ inputs.nixpkgs-wayland.overlay ];
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
       config.allowBroken = true;
+
+      nixpkgs.overlays = overlays;
     };
 
     customNodePackages = pkgs.callPackage ./node-packages {
@@ -42,11 +44,6 @@
         specialArgs = { inherit inputs stateVersion hostname; };
 
         modules = [
-          ({ ... }: { nixpkgs.overlays = [
-            inputs.nixpkgs-wayland.overlay
-            inputs.neovim-nightly-overlay.overlay
-          ]; })
-
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
           ./common

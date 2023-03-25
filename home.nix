@@ -14,7 +14,7 @@ in {
   programs.neovim = {
     enable = true; 
     plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
-    # extraConfig = ''lua require "config"'';
+    extraConfig = ''lua require "config"'';
   };
 
   home = {
@@ -31,8 +31,6 @@ in {
       easyeffects flameshot
       obsidian gimp vimiv-qt
       nvd
-
-      neovim-nightly
 
       steam-run
       docker-compose
