@@ -28,11 +28,7 @@
 
   hardware.bluetooth = {
     enable = true;
-    settings = {
-      General = {
-        Experimental = "true";
-      };
-    };
+    settings.General.experimental = true;
   };
 
   services.blueman.enable = true;

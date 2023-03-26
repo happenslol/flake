@@ -28,5 +28,12 @@
 
   services.fprintd.enable = true;
   programs.light.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    settings.General.experimental = true;
+  };
+
+  services.blueman.enable = true;
 }
 
