@@ -13,8 +13,7 @@ in {
 
   programs.neovim = {
     enable = true; 
-    plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
-    extraConfig = ''lua require "custom"'';
+    # extraConfig = ''lua require "custom"'';
   };
 
   home = {
@@ -23,6 +22,7 @@ in {
     homeDirectory = "/home/happens";
 
     packages = with pkgs; [
+      cachix
       wget git unzip file
       bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
       kitty tmux zoxide starship direnv
@@ -31,6 +31,9 @@ in {
       easyeffects flameshot
       obsidian gimp vimiv-qt
       nvd
+
+      neovim-nightly
+      vimPlugins.nvim-treesitter.withAllGrammars
 
       steam-run
       docker-compose
