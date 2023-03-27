@@ -13,7 +13,8 @@ in {
 
   programs.neovim = {
     enable = true; 
-    # extraConfig = ''lua require "custom"'';
+    plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
+    extraConfig = ''lua require "config"'';
   };
 
   home = {
@@ -33,7 +34,6 @@ in {
       nvd
 
       neovim-nightly
-      vimPlugins.nvim-treesitter.withAllGrammars
 
       steam-run
       docker-compose
@@ -65,7 +65,7 @@ in {
     file = {
       ".zshrc".source = ./config/zshrc;
       ".config/zsh".source = ./config/zsh;
-      # ".config/nvim/lua".source = ./config/nvim;
+      ".config/nvim/lua".source = ./config/nvim;
       ".config/waybar".source = ./config/waybar;
       ".config/kitty".source = ./config/kitty;
       ".config/tmux".source = ./config/tmux;
