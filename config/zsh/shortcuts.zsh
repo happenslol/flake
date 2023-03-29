@@ -1,6 +1,9 @@
 # Frequently used
+alias nv="nvim "
+alias nvn="nvim-nightly "
+alias nvdev="NVIM_APPNAME=nvdev nvim-nightly "
+
 alias k="kubectl "
-alias n="nvim "
 alias sr="steam-run "
 alias tf="terraform "
 
