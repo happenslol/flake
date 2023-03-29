@@ -8,13 +8,17 @@ local packer_config = {
 
 -- Treesitter is installed through NixOS, so
 -- we can require the config directly
-require "plugins.treesitter"
+-- require "plugins.treesitter"
 
 require "packer".startup({ function()
   use "wbthomason/packer.nvim"
 
   -- Performance
   use "lewis6991/impatient.nvim"
+
+  use { "nvim-treesitter/nvim-treesitter",
+    config = function() require "plugins.treesitter" end,
+  }
 
   -- Theme
   use "kyazdani42/nvim-web-devicons"
@@ -75,8 +79,8 @@ require "packer".startup({ function()
     end
   }
 
-	use "windwp/nvim-ts-autotag"
-	use "JoosepAlviste/nvim-ts-context-commentstring"
+	-- use "windwp/nvim-ts-autotag"
+	-- use "JoosepAlviste/nvim-ts-context-commentstring"
 
   -- Automatic closing parens and tags
   use { "windwp/nvim-autopairs",

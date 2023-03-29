@@ -77,7 +77,8 @@ in {
 
   xdg.configFile = {
     "zsh".source = "${dotfiles}/zsh";
-    "nvim/lua".source = "${dotfiles}/nvim-old";
+    "nvim/init.lua".source = "${dotfiles}/nvim-old/init.lua";
+    "nvim/lua".source = "${dotfiles}/nvim-old/lua";
     "waybar".source = "${dotfiles}/waybar";
     "kitty".source = "${dotfiles}/kitty";
     "tmux".source = "${dotfiles}/tmux";
