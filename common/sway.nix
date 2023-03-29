@@ -32,6 +32,10 @@ in {
     wrapperFeatures.gtk = true;
   };
 
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
   environment.systemPackages = with pkgs; [
     configure-gtk
     dbus-sway-environment
