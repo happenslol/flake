@@ -1,4 +1,16 @@
 require "nvim-treesitter.configs".setup {
+  ensure_installed = {
+    "bash", "c", "cpp", "css", "cue", "dockerfile",
+    "dot", "elixir", "git_rebase", "gitcommit",
+    "gitignore", "gitattributes", "go", "gomod", "gosum",
+    "gowork", "graphql", "hcl", "heex", "help", "http",
+    "ini", "java", "javascript", "jq", "jsdoc", "json",
+    "json5", "kotlin", "lua", "luadoc", "make", "nix",
+    "rasi", "regex", "rust", "sql", "svelte", "terraform",
+    "toml", "tsx", "typescript", "vim", "vue", "yaml",
+    "yuck", "zig"
+  },
+
   indent = { enable = true },
   highlight = {
     enable = true,
