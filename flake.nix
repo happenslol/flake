@@ -4,7 +4,11 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -27,11 +31,9 @@
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
     stateVersion = "22.11";
+    username = "happens";
 
-    overlays = [
-      inputs.nixpkgs-wayland.overlay
-      inputs.neovim-nightly-overlay.overlay
-    ];
+    overlays = [ inputs.nixpkgs-wayland.overlay ];
 
     pkgs = import nixpkgs {
       inherit system;
@@ -59,8 +61,15 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs stateVersion hostname customNodePackages; };
-              users.happens.imports = [ ./home.nix (./. + "/hosts/${hostname}/home.nix") ];
+              extraSpecialArgs = {
+                inherit inputs stateVersion hostname
+                  customNodePackages system username;
+              };
+
+              users.${username}.imports = [
+                ./home.nix
+                (./. + "/hosts/${hostname}/home.nix")
+              ];
             };
           }
         ];

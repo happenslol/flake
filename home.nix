@@ -1,8 +1,17 @@
-{ config, pkgs, stateVersion, hostname, customNodePackages, ... }:
+{
+  config, pkgs, stateVersion, hostname, customNodePackages,
+  inputs, system, username, ...
+}:
 
 let
   fixed-typescript-language-server =
     import ./fixes/typescript-language-server.nix pkgs;
+  neovim-nightly =
+    inputs.neovim-nightly-overlay.packages.${system}.neovim;
+  dotfiles =
+    config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/config";
+  hostDotfiles =
+    config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/hosts/${hostname}/config";
 in {
   programs.home-manager.enable = true;
 
@@ -11,16 +20,9 @@ in {
     easyeffects.enable = true;
   };
 
-  programs.neovim = {
-    enable = true; 
-    plugins = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars];
-    extraConfig = ''lua require "config"'';
-  };
-
   home = {
-    inherit stateVersion;
-    username = "happens";
-    homeDirectory = "/home/happens";
+    inherit stateVersion username;
+    homeDirectory = "/home/${username}";
 
     packages = with pkgs; [
       cachix
@@ -32,8 +34,6 @@ in {
       easyeffects flameshot
       obsidian gimp vimiv-qt
       nvd
-
-      neovim-nightly
 
       steam-run
       docker-compose
@@ -54,6 +54,9 @@ in {
       rust-analyzer
       awscli2
       terraform kubectl kubernetes-helm packer
+
+      neovim
+      (writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@")
     ];
 
     sessionVariables = {
@@ -63,21 +66,25 @@ in {
     };
 
     file = {
-      ".zshrc".source = ./config/zshrc;
-      ".config/zsh".source = ./config/zsh;
-      ".config/nvim/lua".source = ./config/nvim;
-      ".config/waybar".source = ./config/waybar;
-      ".config/kitty".source = ./config/kitty;
-      ".config/tmux".source = ./config/tmux;
-      ".config/starship.toml".source = ./config/starship/starship.toml;
+      ".zshrc".source = "${dotfiles}/zshrc";
 
-      ".gitconfig".source = ./config/git/gitconfig;
-      ".gitconfig-garage".source = ./config/git/gitconfig-garage;
-      ".gitconfig-opencreek".source = ./config/git/gitconfig-opencreek;
+      ".gitconfig".source = "${dotfiles}/git/gitconfig";
+      ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
+      ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
 
-      ".config/sway/config".source = ./config/sway/config;
-      ".config/sway/${hostname}.config".source = (./. + "/hosts/${hostname}/config/sway/config");
     };
+  };
+
+  xdg.configFile = {
+    "zsh".source = "${dotfiles}/zsh";
+    "nvim/lua".source = "${dotfiles}/nvim-old";
+    "waybar".source = "${dotfiles}/waybar";
+    "kitty".source = "${dotfiles}/kitty";
+    "tmux".source = "${dotfiles}/tmux";
+    "starship.toml".source = "${dotfiles}/starship/starship.toml";
+
+    "sway/config".source = "${dotfiles}/sway/config";
+    "sway/${hostname}.config".source = "/${hostDotfiles}/sway/config";
   };
 
   gtk = {
