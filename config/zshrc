@@ -19,10 +19,10 @@ for _ in ~/.zcompdump(N.mh+24); do compinit; done
 compinit -C
 
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
-  eval `ssh-agent -s`
+  eval "$(ssh-agent -s)" &> /dev/null
 
   PERSONAL_KEY="~/.ssh/$(hostname).personal.id_ed25519"
-  [[ -f "$PERSONAL_KEY" ]] && ssh-add "$PERSONAL_KEY"
+  [[ -f "$PERSONAL_KEY" ]] && ssh-add "$PERSONAL_KEY" &> /dev/null
 fi
 
 [[ -z "$ZPROF" ]] || zprof
