@@ -3,7 +3,7 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
+    version = false,
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -29,11 +29,11 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<S-CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -42,13 +42,13 @@ return {
           { name = "path" },
         }),
         formatting = {
-          format = function(_, item)
-            local icons = require("lazyvim.config").icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
+          -- format = function(_, item)
+          --   local icons = require("lazyvim.config").icons.kinds
+          --   if icons[item.kind] then
+          --     item.kind = icons[item.kind] .. item.kind
+          --   end
+          --   return item
+          -- end,
         },
         experimental = {
           ghost_text = {
@@ -84,7 +84,9 @@ return {
         timeout_ms = nil,
       },
       servers = {
-        jsonls = {},
+        jsonls = {
+          cmd = { "json-languageserver", "--stdio" }
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -104,10 +106,10 @@ return {
       -- end)
 
       -- diagnostics
-      for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
-        name = "DiagnosticSign" .. name
-        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-      end
+      -- for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
+      --   name = "DiagnosticSign" .. name
+      --   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      -- end
       vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
@@ -140,7 +142,6 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
     opts = function()
       local null = require("null-ls")
       return {

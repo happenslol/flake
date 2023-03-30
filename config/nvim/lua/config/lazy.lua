@@ -14,7 +14,7 @@ require "lazy".setup {
   spec = "plugins",
   install = {
     missing = true,
-    colorscheme = { "slate" },
+    colorscheme = { "tokyonight", "slate" },
   },
   checker = { notify = false },
   change_detection = { notify = false },

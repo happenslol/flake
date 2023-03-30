@@ -1,6 +1,4 @@
-local g, opt, cmd = vim.g, vim.opt, vim.cmd
-
-cmd.colorscheme "slate"
+local g, opt = vim.g, vim.opt
 
 g.mapleader = " "
 g.maplocalleader = " "
