@@ -38,7 +38,7 @@ opt.writebackup = false                     -- Disable making a backup before ov
 opt.swapfile = false                        -- Disable swapfiles
 opt.startofline = false                     -- Don't move the cursor when moving a line
 opt.title = true                            -- Set the title for tmux pane titles
-opt.shortmess = "aoctI"                     -- Show no startup message
+opt.shortmess = "aoctIF"                    -- Show no startup message
 
 opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
 

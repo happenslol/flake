@@ -1,4 +1,8 @@
 return {
+  -- TODO
+  -- Split up this file
+  -- Add https://github.com/kevinhwang91/nvim-ufo
+
   {
     "happenslol/materialnight.nvim",
     lazy = true,
@@ -8,7 +12,15 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = {
+      {
+        "s1n7ax/nvim-window-picker",
+        opts = { use_winbar = "smart" },
+        lazy = true,
+      },
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+    },
     cmd = "Neotree",
     init = function() vim.g.neo_tree_remove_legacy_commands = true end,
     opts = {},
@@ -24,7 +36,7 @@ return {
     cmd = "Telescope",
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-      { "<C-_>", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { "<C-_>", "<cmd>Telescope live_grep<cr>",  desc = "Live grep" },
     }
   },
 
@@ -90,8 +102,8 @@ return {
   {
     "ggandor/leap.nvim",
     keys = {
-      { "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
-      { "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
+      { "s",  mode = { "n", "x", "o" }, desc = "Leap forward to" },
+      { "S",  mode = { "n", "x", "o" }, desc = "Leap backward to" },
       { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
     },
     config = function(_, opts)
@@ -106,4 +118,11 @@ return {
   },
 
   { "tpope/vim-repeat", event = "VeryLazy" },
+
+  {
+    "Wansmer/treesj",
+    keys = { "<leader>m", "<leader>j", "<leader>s" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = true,
+  }
 }

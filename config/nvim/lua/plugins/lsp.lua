@@ -1,6 +1,9 @@
 return {
   "b0o/SchemaStore.nvim",
 
+  -- TODO
+  -- snippets
+
   {
     "hrsh7th/nvim-cmp",
     version = false,
@@ -10,6 +13,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
+      "onsails/lspkind.nvim",
     },
     opts = function()
       local cmp = require("cmp")
@@ -83,6 +87,9 @@ return {
         formatting_options = nil,
         timeout_ms = nil,
       },
+      -- TODO
+      -- Setup json lazy schema store
+      -- Setup typescript using typescript.nvim
       servers = {
         jsonls = {
           cmd = { "json-languageserver", "--stdio" }
@@ -156,4 +163,6 @@ return {
       }
     end,
   },
+
+  { "onsails/lspkind.nvim" }
 }
