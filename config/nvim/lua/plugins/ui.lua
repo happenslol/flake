@@ -2,6 +2,10 @@ return {
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "MunifTanjim/nui.nvim", lazy = true },
 
+  -- TODO: noice command line completions
+  --       should appear above the command line
+  -- TODO: mini should have a max amount of messages
+  -- TODO: Filter out many duplicate messages?
   {
     "folke/noice.nvim",
     event = "VeryLazy",

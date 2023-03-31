@@ -44,21 +44,18 @@ in {
 
       wofi mako notify-desktop eww-wayland
 
-      customNodePackages."@fsouza/prettierd"
-
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
-
+      customNodePackages."@fsouza/prettierd"
       nodePackages_latest.vscode-langservers-extracted
       nodePackages_latest.bash-language-server
       nodePackages_latest.yaml-language-server
       nodePackages_latest.graphql-language-service-cli
       fixed-typescript-language-server
-      sumneko-lua-language-server
-      stylua
+      sumneko-lua-language-server stylua selene
       rust-analyzer
-      shellcheck
-      nil
+      shellcheck shfmt
+      nil alejandra
 
       awscli2
       terraform kubectl kubernetes-helm packer

@@ -1,8 +1,29 @@
 return {
-  "b0o/SchemaStore.nvim",
-
-  -- TODO
-  -- snippets
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    -- stylua: ignore
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true, silent = true, mode = "i",
+      },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+  },
 
   {
     "hrsh7th/nvim-cmp",
@@ -69,7 +90,8 @@ return {
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
-      "hrsh7th/cmp-nvim-lsp",
+      { "b0o/SchemaStore.nvim", version = false },
+      "jose-elias-alvarez/typescript.nvim",
       {
         "tamago324/nlsp-settings.nvim",
         opts = {
@@ -82,11 +104,10 @@ return {
       },
     },
     opts = {
-      -- options for vim.diagnostic.config()
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = { spacing = 4, prefix = "●" },
+        virtual_text = false,
         severity_sort = true,
       },
       -- options for vim.lsp.buf.format
@@ -97,12 +118,35 @@ return {
         formatting_options = nil,
         timeout_ms = nil,
       },
-      -- TODO
-      -- Setup json lazy schema store
-      -- Setup typescript using typescript.nvim
       servers = {
+        -- TODO: Set up snippet capabilities for html, json and css lsps
+        bashls = {},
+        jsonls = {
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(
+              new_config.settings.json.schemas,
+              require("schemastore").json.schemas()
+            )
+          end,
+          settings = {
+            json = {
+              format = { enable = true },
+              validate = { enable = true },
+            },
+          },
+        },
+        yamlls = {
+          on_new_config = function(new_config)
+            new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+            vim.list_extend(
+              new_config.settings.yaml.schemas,
+              require("schemastore").yaml.schemas()
+            )
+          end,
+        },
         rust_analyzer = {},
-        jsonls = {},
+        tsserver = { settings = { completions = { completeFunctionCalls = true } } },
         lua_ls = {
           settings = {
             Lua = {
@@ -111,8 +155,31 @@ return {
             },
           },
         },
+        nil_ls = {},
+        graphql = {},
+
+        html = {},
+        cssls = {},
       },
-      setup = {},
+      setup = {
+        tsserver = function(_, opts)
+          require("util").on_attach(function(client, buffer)
+            if client.name == "tsserver" then
+              -- stylua: ignore
+              vim.keymap.set("n", "<leader>co",
+                "<cmd>TypescriptOrganizeImports<CR>",
+                { buffer = buffer, desc = "Organize Imports" })
+              -- stylua: ignore
+              vim.keymap.set("n", "<leader>cR",
+                "<cmd>TypescriptRenameFile<CR>",
+                { buffer = buffer, desc = "Rename File" })
+            end
+          end)
+
+          require("typescript").setup({ server = opts })
+          return true
+        end,
+      },
     },
     config = function(_, opts)
       -- setup formatting and keymaps
@@ -157,6 +224,35 @@ return {
   },
 
   {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = function()
+      local null = require("null-ls")
+      return {
+        root_dir = require("null-ls.utils").root_pattern(
+          ".null-ls-root", ".neoconf.json", "Makefile", ".git"
+        ),
+        sources = {
+          null.builtins.formatting.prettierd,
+          null.builtins.diagnostics.eslint_d,
+          null.builtins.code_actions.eslint_d,
+
+          null.builtins.formatting.shfmt,
+          null.builtins.diagnostics.shellcheck,
+          null.builtins.code_actions.shellcheck,
+
+          null.builtins.diagnostics.selene,
+          null.builtins.formatting.stylua,
+
+          null.builtins.formatting.alejandra,
+
+          null.builtins.formatting.goimports,
+        },
+      }
+    end,
+  },
+
+  {
     "Saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     opts = {
@@ -176,24 +272,4 @@ return {
       })
     end,
   },
-
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      local null = require("null-ls")
-      return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        sources = {
-          null.builtins.formatting.prettierd,
-          null.builtins.diagnostics.eslint_d,
-          null.builtins.code_actions.eslint_d,
-
-          null.builtins.formatting.goimports,
-        },
-      }
-    end,
-  },
-
-  { "onsails/lspkind.nvim" }
 }

@@ -14,7 +14,7 @@ return {
         "dot", "elixir", "git_rebase", "gitcommit",
         "gitignore", "gitattributes", "go", "gomod", "gosum",
         "gowork", "graphql", "hcl", "heex", "help", "http",
-        "ini", "java", "javascript", "jq", "jsdoc", "json",
+        "ini", "java", "javascript", "jq", "jsdoc", "json", "jsonc",
         "json5", "kotlin", "lua", "luadoc", "make", "markdown",
         "markdown_inline", "nix", "rasi", "regex", "rust", "sql",
         "svelte", "terraform", "toml", "tsx", "typescript",
