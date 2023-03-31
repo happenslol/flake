@@ -33,12 +33,14 @@ opt.termguicolors = true                    -- Enable 24-bit RGB color in the TU
 opt.undofile = true                         -- Enable persistent undo
 opt.updatetime = 300                        -- Length of time to wait before triggering the plugin
 opt.virtualedit = "block"                   -- Allow going past end of line in visual block mode
-opt.wrap = false                            -- Disable wrapping of lines longer than the width of window
+opt.wrap = true                             -- Disable wrapping of lines longer than the width of window
 opt.writebackup = false                     -- Disable making a backup before overwriting a file
 opt.swapfile = false                        -- Disable swapfiles
 opt.startofline = false                     -- Don't move the cursor when moving a line
 opt.title = true                            -- Set the title for tmux pane titles
 opt.shortmess = "aoctIF"                    -- Show no startup message
+opt.breakindent = true                      -- Wrap indent to match line start
+opt.linebreak = true                        -- Wrap lines at 'breakat'
 
 opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
 
@@ -53,8 +55,6 @@ opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
 
 -- TODO: Do these deal with the same thing? Might take a bit
 -- to get used to, but could be nice
--- opt.breakindent = true                      -- Wrap indent to match line start
--- opt.linebreak = true                        -- Wrap lines at 'breakat'
 
 -- TODO: Do we want to keep these?
 -- lazyredraw = true

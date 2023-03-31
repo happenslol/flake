@@ -25,8 +25,12 @@ return {
       views = {
         cmdline_popup = {
           position = {
-            row = "95%",
-            col = "3%",
+            row = -3,
+            col = 4,
+          },
+          size = {
+            width = 60,
+            height = "auto",
           },
         },
       },
@@ -56,6 +60,22 @@ return {
         return vim.ui.input(...)
       end
     end,
+    opts = {
+      input = {
+        default_prompt = "➤ ",
+        win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+      },
+      select = {
+        backend = { "nui" },
+        nui = {
+          position = { row = 2, col = 0 },
+          relative = "cursor",
+          max_width = 80,
+          min_height = 1,
+          max_height = 10,
+        }
+      },
+    },
   },
 
   {

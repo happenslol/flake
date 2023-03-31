@@ -38,9 +38,28 @@ return {
     },
     opts = function()
       local cmp = require("cmp")
+      local cmp_select_next = function(fallback)
+        if cmp.visible() then cmp.select_next_item()
+        else fallback() end
+      end
+
+      local cmp_select_prev = function(fallback)
+        if cmp.visible() then cmp.select_prev_item()
+        else fallback() end
+      end
+
+      local border_opts = {
+        border = "rounded",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+      }
+
       return {
         completion = {
           completeopt = "menu,menuone,noinsert",
+        },
+        window = {
+          completion = cmp.config.window.bordered(border_opts),
+          documentation = cmp.config.window.bordered(border_opts),
         },
         snippet = {
           expand = function(args)
@@ -48,18 +67,25 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<S-CR>"] = cmp.mapping.confirm({
+          ["<tab>"] = cmp_select_next,
+          ["<down>"] = cmp_select_next,
+          ["<s-tab>"] = cmp_select_prev,
+          ["<up>"] = cmp_select_prev,
+          ["<c-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<c-f>"] = cmp.mapping.scroll_docs(4),
+          ["<c-space>"] = cmp.mapping.complete(),
+          ["<c-e>"] = cmp.mapping.abort(),
+          ["<cr>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
           }),
         }),
+        duplicates = {
+          nvim_lsp = 1,
+          luasnip = 1,
+          buffer = 1,
+          path = 1,
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -67,13 +93,12 @@ return {
           { name = "path" },
         }),
         formatting = {
-          -- format = function(_, item)
-          --   local icons = require("lazyvim.config").icons.kinds
-          --   if icons[item.kind] then
-          --     item.kind = icons[item.kind] .. item.kind
-          --   end
-          --   return item
-          -- end,
+          format = require("lspkind").cmp_format({
+            mode = "symbol",
+            maxwidth = 50,
+            ellipsis_char = "...",
+            menu = {},
+          }),
         },
         experimental = {
           ghost_text = {
@@ -109,18 +134,17 @@ return {
         update_in_insert = false,
         virtual_text = false,
         severity_sort = true,
-      },
-      -- options for vim.lsp.buf.format
-      -- `bufnr` and `filter` is handled by the LazyVim formatter,
-      -- but can be also overridden when specified
-      -- TODO
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
+        float = {
+          focused = false,
+          style = "minimal",
+          border = "rounded",
+          source = "always",
+          header = "",
+          prefix = "",
+        },
       },
       servers = {
         -- TODO: Set up snippet capabilities for html, json and css lsps
-        bashls = {},
         jsonls = {
           on_new_config = function(new_config)
             new_config.settings.json.schemas = new_config.settings.json.schemas or {}
@@ -144,6 +168,7 @@ return {
               require("schemastore").yaml.schemas()
             )
           end,
+          settings = { yaml = { keyOrdering = false } },
         },
         rust_analyzer = {},
         tsserver = { settings = { completions = { completeFunctionCalls = true } } },
@@ -157,9 +182,9 @@ return {
         },
         nil_ls = {},
         graphql = {},
-
         html = {},
         cssls = {},
+        gopls = {},
       },
       setup = {
         tsserver = function(_, opts)
@@ -182,17 +207,54 @@ return {
       },
     },
     config = function(_, opts)
-      -- setup formatting and keymaps
-      -- require("lazyvim.util").on_attach(function(client, buffer)
-      --   require("lazyvim.plugins.lsp.format").on_attach(client, buffer)
-      --   require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
-      -- end)
+      local icons = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+      for name, icon in pairs(icons) do
+        name = "DiagnosticSign" .. name
+        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      end
 
-      -- diagnostics
-      -- for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
-      --   name = "DiagnosticSign" .. name
-      --   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-      -- end
+      require("util").on_attach(function(client, buffer)
+        local function map(mode, lhs, rhs, map_opts)
+          map_opts = map_opts or {}
+          map_opts.buffer = buffer
+          map_opts.silent = map_opts.silent ~= false
+          vim.keymap.set(mode, lhs, rhs, map_opts)
+        end
+
+        map("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
+        map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Show LSP Info" })
+
+        map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+        map("n", "<leader>c", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+        map("n", "<leader>v", vim.diagnostic.goto_next, { desc = "Previous Diagnostic" })
+        map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+        map("n", "gI", "<cmd>Telescope lsp_implementations", { desc = "Goto Implementation" })
+        map("n", "gt", "<cmd>Telescope lsp_type_definitions", { desc = "Goto Type" })
+        map("n", "gr", "<cmd>Telescope lsp_references", { desc = "Show References" })
+
+        if client.server_capabilities["signatureHelpProvider"] then
+          map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+          map("i", "<c-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+        end
+
+        if client.server_capabilities["codeActionProvider"] then
+          map({"n", "v"}, "<leader>a", vim.lsp.buf.code_action, { desc = "Code Actions" })
+        end
+
+        if client.server_capabilities["documentFormattingProvider"] then
+          -- TODO: Prefer null-ls
+          map("n", "<leader>f", vim.lsp.buf.format, { desc = "Format Document" })
+        end
+
+        if client.server_capabilities["definitionProvider"] then
+          map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
+        end
+
+        if client.server_capabilities["renameProvider"] then
+          map("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename" })
+        end
+      end)
+
       vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
