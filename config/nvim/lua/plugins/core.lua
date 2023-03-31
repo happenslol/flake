@@ -1,6 +1,4 @@
 return {
-  -- TODO
-  -- Split up this file
   -- Add https://github.com/kevinhwang91/nvim-ufo
 
   {
@@ -15,18 +13,30 @@ return {
     dependencies = {
       {
         "s1n7ax/nvim-window-picker",
-        opts = { use_winbar = "smart" },
         lazy = true,
+        opts = {
+          include_current = false,
+          autoselect_one = true,
+          filter_rules = {
+            bo = {
+              filetype = { "neo-tree", "neo-tree-popup", "notify" },
+              buftype = { "terminal", "quickfix" },
+            },
+          },
+        },
       },
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
     },
     cmd = "Neotree",
     init = function() vim.g.neo_tree_remove_legacy_commands = true end,
-    opts = {},
-    keys = {
-      { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Neotree" },
-    }
+    opts = {
+      window = {
+        width = 30,
+        mappings = { ["<cr>"] = "open_with_window_picker" },
+      },
+    },
+    keys = {{ "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Neotree" }}
   },
 
   {
@@ -40,53 +50,6 @@ return {
     }
   },
 
-  { "kylechui/nvim-surround", config = true, event = "VeryLazy" },
-
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-      ts_config = { java = false },
-      -- TODO: Test this
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-        offset = 0,
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "PmenuSel",
-        highlight_grey = "LineNr",
-      },
-    },
-    config = function(_, opts)
-      local npairs = require "nvim-autopairs"
-      npairs.setup(opts)
-
-      local cmp_status_ok, cmp = pcall(require, "cmp")
-      if cmp_status_ok then
-        cmp.event:on(
-          "confirm_done",
-          require("nvim-autopairs.completion.cmp").on_confirm_done { tex = false }
-        )
-      end
-    end,
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-    keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
-    opts = function()
-      local commentstring = require "ts_context_commentstring.integrations.comment_nvim"
-      return { pre_hook = commentstring.create_pre_hook() }
-    end,
-  },
-
-  { "nmac427/guess-indent.nvim", config = true },
-
   {
     "ggandor/flit.nvim",
     dependencies = { "ggandor/leap.nvim" },
@@ -99,6 +62,7 @@ return {
     end,
     opts = { labeled_modes = "nx" },
   },
+
   {
     "ggandor/leap.nvim",
     keys = {
@@ -118,11 +82,4 @@ return {
   },
 
   { "tpope/vim-repeat", event = "VeryLazy" },
-
-  {
-    "Wansmer/treesj",
-    keys = { "<leader>m", "<leader>j", "<leader>s" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = true,
-  }
 }

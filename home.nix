@@ -48,10 +48,18 @@ in {
 
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
+
+      nodePackages_latest.vscode-langservers-extracted
+      nodePackages_latest.bash-language-server
+      nodePackages_latest.yaml-language-server
+      nodePackages_latest.graphql-language-service-cli
       fixed-typescript-language-server
-      nodePackages_latest.vscode-json-languageserver-bin
       sumneko-lua-language-server
+      stylua
       rust-analyzer
+      shellcheck
+      nil
+
       awscli2
       terraform kubectl kubernetes-helm packer
 
@@ -60,6 +68,7 @@ in {
     ];
 
     sessionVariables = {
+      NIXOS_OZONE_WL = 1;
       MOZ_ENABLE_WAYLAND = 1;
       MOZ_USE_XINPUT2 = 1;
       SDL_VIDEODRIVER = "wayland";

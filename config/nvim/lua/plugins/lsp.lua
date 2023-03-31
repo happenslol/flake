@@ -70,6 +70,16 @@ return {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       "hrsh7th/cmp-nvim-lsp",
+      {
+        "tamago324/nlsp-settings.nvim",
+        opts = {
+          config_home = vim.fn.stdpath "config" .. "/nlsp-settings",
+          local_settings_dir = ".nlsp-settings",
+          local_settings_root_markers_fallback = { ".git" },
+          append_default_schemas = true,
+          loader = "json",
+        },
+      },
     },
     opts = {
       -- options for vim.diagnostic.config()
@@ -91,9 +101,8 @@ return {
       -- Setup json lazy schema store
       -- Setup typescript using typescript.nvim
       servers = {
-        jsonls = {
-          cmd = { "json-languageserver", "--stdio" }
-        },
+        rust_analyzer = {},
+        jsonls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -120,7 +129,8 @@ return {
       vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = require("cmp_nvim_lsp")
+        .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       local function setup(server)
         local server_opts = vim.tbl_deep_extend("force", {
@@ -143,6 +153,27 @@ return {
       for server in pairs(servers) do
         setup(server)
       end
+    end,
+  },
+
+  {
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      null_ls = {
+        enabled = true,
+        name = "crates.nvim",
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("BufRead", {
+        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+        pattern = "Cargo.toml",
+        callback = function()
+          require("cmp").setup.buffer { sources = { { name = "crates" } } }
+          require "crates"
+        end,
+      })
     end,
   },
 
