@@ -3,7 +3,7 @@ require "nvim-treesitter.configs".setup {
     "bash", "c", "cpp", "css", "cue", "dockerfile",
     "dot", "elixir", "git_rebase", "gitcommit",
     "gitignore", "gitattributes", "go", "gomod", "gosum",
-    "gowork", "graphql", "hcl", "heex", "help", "http",
+    "gowork", "graphql", "hcl", "heex", "http",
     "ini", "java", "javascript", "jq", "jsdoc", "json",
     "json5", "kotlin", "lua", "luadoc", "make", "nix",
     "rasi", "regex", "rust", "sql", "svelte", "terraform",
