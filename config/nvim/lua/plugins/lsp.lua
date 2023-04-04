@@ -295,7 +295,6 @@ return {
           null.builtins.diagnostics.shellcheck,
           null.builtins.code_actions.shellcheck,
 
-          null.builtins.diagnostics.selene,
           null.builtins.formatting.stylua,
 
           null.builtins.formatting.alejandra,

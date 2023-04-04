@@ -3,9 +3,8 @@ return {
 
   {
     "happenslol/materialnight.nvim",
-    lazy = true,
-    config = function() require "tokyonight".setup { style = "night" } end,
-    init = function() vim.cmd.colorscheme "tokyonight" end,
+    config = true,
+    init = function() vim.cmd.colorscheme "materialnight" end,
   },
 
   {
@@ -47,7 +46,23 @@ return {
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<C-_>", "<cmd>Telescope live_grep<cr>",  desc = "Live grep" },
-    }
+
+    },
+    opts = function()
+      local telescope_actions = require("telescope.actions")
+
+      return {
+        defaults = {
+          mappings = {
+            i = {
+              ["<esc>"] = telescope_actions.close,
+              ["<c-j>"] = telescope_actions.move_selection_next,
+              ["<c-k>"] = telescope_actions.move_selection_previous,
+            }
+          },
+        }
+      }
+    end
   },
 
   {

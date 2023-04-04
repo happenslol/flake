@@ -7,7 +7,7 @@ opt.clipboard = "unnamedplus"               -- Connection to the system clipboar
 opt.cmdheight = 0                           -- Hide command line unless needed
 opt.completeopt = { "menuone", "noselect" } -- Options for insert mode completion
 opt.copyindent = true                       -- Copy the previous indentation on autoindenting
-opt.cursorline = true                       -- Highlight the text line of the cursor
+opt.cursorline = false                      -- Don't highlight the text line of the cursor
 opt.expandtab = true                        -- Enable the use of space in tab
 opt.fileencoding = "utf-8"                  -- File content encoding for the buffer
 opt.fillchars = { eob = " " }               -- Disable `~` on nonexistent lines

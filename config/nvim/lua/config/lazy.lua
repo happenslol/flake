@@ -14,16 +14,21 @@ require "lazy".setup {
   spec = "plugins",
   install = {
     missing = true,
-    colorscheme = { "tokyonight", "slate" },
+    colorscheme = { "materialnight", "slate" },
   },
   checker = { notify = false },
   change_detection = { notify = false },
+  dev = {
+    path = "~/code/nvim",
+    patterns = {"happenslol"},
+    fallback = false,
+  },
   performance = {
     cache = { enabled = true },
     rtp = {
       reset = true,
       disabled_plugins = {
-        "gzip", "matchit", "matchparen", "netrwPlugin",
+        "gzip", "matchit", "netrwPlugin",
         "tarPlugin", "tohtml", "tutor", "zipPlugin",
       },
     },

@@ -20,6 +20,8 @@ require "packer".startup({ function()
     config = function() require "plugins.treesitter" end,
   }
 
+  use "nvim-treesitter/playground"
+
   -- Theme
   use "kyazdani42/nvim-web-devicons"
   use { "catppuccin/nvim",

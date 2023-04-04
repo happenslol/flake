@@ -80,7 +80,7 @@ return {
 
   {
     "NvChad/nvim-colorizer.lua",
-    cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerDetachFromBuffer", "ColorizerReloadAllBuffers" },
+    event = "VeryLazy",
     opts = { user_default_options = { names = false } },
   },
 

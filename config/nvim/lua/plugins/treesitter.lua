@@ -28,4 +28,9 @@ return {
   },
 
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+
+  {
+    "nvim-treesitter/playground",
+    event = "VeryLazy",
+  },
 }
