@@ -5,6 +5,8 @@ function start_agent {
   chmod 600 "${SSH_ENV}"
   . "${SSH_ENV}" > /dev/null
   ssh-add "$HOME/.ssh/$(hostname).personal.id_ed25519" &> /dev/null
+  ssh-add "$HOME/.ssh/$(hostname).opencreek.id_ed25519" &> /dev/null
+  ssh-add "$HOME/.ssh/$(hostname).garage51.id_ed25519" &> /dev/null
 }
 
 if [[ -f "${SSH_ENV}" ]]; then

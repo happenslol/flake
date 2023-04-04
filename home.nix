@@ -28,7 +28,7 @@ in {
       cachix
       wget git unzip file
       bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
-      kitty tmux zoxide starship direnv
+      kitty wezterm tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
       tdesktop discord signal-desktop
       easyeffects flameshot
