@@ -2,8 +2,6 @@ return {
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "MunifTanjim/nui.nvim", lazy = true },
 
-	-- TODO: noice command line completions
-	--       should appear above the command line
 	-- TODO: mini should have a max amount of messages
 	-- TODO: Filter out many duplicate messages?
 	{
@@ -23,16 +21,17 @@ return {
 				lsp_doc_border = true,
 			},
 			views = {
-				cmdline_popup = {
-					position = {
-						row = -3,
-						col = 4,
-					},
-					size = {
-						width = 60,
-						height = "auto",
-					},
-				},
+				-- TODO: show completions above the command line
+				-- cmdline_popup = {
+				-- 	position = {
+				-- 		row = -3,
+				-- 		col = 4,
+				-- 	},
+				-- 	size = {
+				-- 		width = 60,
+				-- 		height = "auto",
+				-- 	},
+				-- },
 			},
 		},
 		keys = {

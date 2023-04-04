@@ -51,7 +51,18 @@ return {
 				},
 			},
 		},
-		keys = { { "<c-n>", "<cmd>Neotree toggle<cr>", desc = "Neotree" } },
+		keys = {
+			{
+				"<c-n>",
+				"<cmd>Neotree toggle<cr>",
+				desc = "Neotree",
+			},
+			{
+				"<leader>n",
+				"<cmd>Neotree focus reveal<cr>",
+				desc = "View Current File in Neotree",
+			},
+		},
 	},
 
 	{
