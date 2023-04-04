@@ -96,16 +96,11 @@ return {
 				-- TODO: show source
 				formatting = {
 					format = require("lspkind").cmp_format({
-						mode = "symbol",
+						mode = "symbol_text",
 						maxwidth = 50,
 						ellipsis_char = "...",
 						menu = {},
 					}),
-				},
-				experimental = {
-					ghost_text = {
-						hl_group = "LspCodeLens",
-					},
 				},
 			}
 		end,
@@ -169,6 +164,7 @@ return {
 				rust_analyzer = {},
 				tsserver = { settings = { completions = { completeFunctionCalls = true } } },
 				lua_ls = {
+					flags = { debounce_text_changes = 200 },
 					settings = {
 						Lua = {
 							workspace = { checkThirdParty = false },
@@ -186,14 +182,14 @@ return {
 				tsserver = function(_, opts)
 					require("util").on_attach(function(client, buffer)
 						if client.name == "tsserver" then
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>co",
-                "<cmd>TypescriptOrganizeImports<cr>",
-                { buffer = buffer, desc = "Organize Imports" })
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>cR",
-                "<cmd>TypescriptRenameFile<cr>",
-                { buffer = buffer, desc = "Rename File" })
+							-- stylua: ignore
+							vim.keymap.set("n", "<leader>co",
+								"<cmd>TypescriptOrganizeImports<cr>",
+								{ buffer = buffer, desc = "Organize Imports" })
+							-- stylua: ignore
+							vim.keymap.set("n", "<leader>cR",
+								"<cmd>TypescriptRenameFile<cr>",
+								{ buffer = buffer, desc = "Rename File" })
 						end
 					end)
 
@@ -305,6 +301,23 @@ return {
 				},
 			}
 		end,
+	},
+
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "VeryLazy",
+		opts = {
+			suggestion = {
+				auto_trigger = true,
+				keymap = {
+					accept = "<c-j>",
+					next = "<c-l>",
+					prev = "<c-h>",
+					dismiss = "<c-u>"
+				},
+			},
+		},
 	},
 
 	{

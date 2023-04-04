@@ -4,6 +4,7 @@ return {
 	{
 		"happenslol/materialnight.nvim",
 		config = true,
+		-- TODO: Todo highlighting
 		init = function()
 			vim.cmd.colorscheme("materialnight")
 		end,
@@ -41,6 +42,7 @@ return {
 				mappings = {
 					["<cr>"] = "open_with_window_picker",
 					["o"] = "open_with_window_picker",
+					["l"] = false,
 				},
 			},
 			filesystem = {
