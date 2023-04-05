@@ -115,16 +115,6 @@ return {
 			{ "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
 			{ "b0o/SchemaStore.nvim", version = false },
 			"jose-elias-alvarez/typescript.nvim",
-			{
-				"tamago324/nlsp-settings.nvim",
-				opts = {
-					config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
-					local_settings_dir = ".nlsp-settings",
-					local_settings_root_markers_fallback = { ".git" },
-					append_default_schemas = true,
-					loader = "json",
-				},
-			},
 		},
 		opts = {
 			diagnostics = {

@@ -86,6 +86,7 @@ in {
 
     "zsh".source = "${dotfiles}/zsh";
     "waybar".source = "${dotfiles}/waybar";
+    "wezterm".source = "${dotfiles}/wezterm";
     "kitty".source = "${dotfiles}/kitty";
     "tmux".source = "${dotfiles}/tmux";
     "starship.toml".source = "${dotfiles}/starship/starship.toml";

@@ -27,17 +27,6 @@ require("lazy").setup({
 	-- },
 	performance = {
 		cache = { enabled = true },
-		rtp = {
-			reset = true,
-			disabled_plugins = {
-				"gzip",
-				"matchit",
-				"netrwPlugin",
-				"tarPlugin",
-				"tohtml",
-				"tutor",
-				"zipPlugin",
-			},
-		},
+		rtp = { reset = true, disabled_plugins = { "gzip", "matchit", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" } },
 	},
 })

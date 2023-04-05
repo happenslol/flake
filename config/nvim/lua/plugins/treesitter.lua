@@ -4,7 +4,6 @@ return {
 		version = false,
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
-		---@type TSConfig
 		opts = {
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -61,7 +60,6 @@ return {
 				"zig",
 			},
 		},
-		---@param opts TSConfig
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
 		end,
