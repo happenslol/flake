@@ -7,6 +7,7 @@ return {
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
 		},
+		lazy = true,
 		opts = {
 			history = true,
 			delete_check_events = "TextChanged",
@@ -306,7 +307,7 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		opts = {
 			suggestion = {
 				auto_trigger = true,

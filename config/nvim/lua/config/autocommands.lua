@@ -1,5 +1,5 @@
 local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
 -- Check if we need to reload the file when it changed
@@ -17,5 +17,26 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     if mark[1] > 0 and mark[1] <= lcount then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = augroup("help"),
+  pattern = "*.txt",
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype ~= "help" then
+      return
+    end
+
+    vim.cmd.wincmd("L")
+    vim.api.nvim_win_set_width(0, 90)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("quit"),
+  pattern = "help,lspinfo,qf,startuptime",
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { noremap = true, silent = true })
   end,
 })

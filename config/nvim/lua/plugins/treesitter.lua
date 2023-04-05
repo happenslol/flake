@@ -29,7 +29,6 @@ return {
 				"graphql",
 				"hcl",
 				"heex",
-				"help",
 				"http",
 				"ini",
 				"java",
