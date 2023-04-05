@@ -56,6 +56,7 @@ in {
       rust-analyzer
       shellcheck shfmt
       nil alejandra
+      xdg-utils
 
       awscli2
       terraform kubectl kubernetes-helm packer
