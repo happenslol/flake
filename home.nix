@@ -82,8 +82,7 @@ in {
   };
 
   xdg.configFile = {
-    "nvim".source = "${dotfiles}/nvim-old";
-    "nvdev".source = "${dotfiles}/nvim";
+    "nvim".source = "${dotfiles}/nvim";
 
     "zsh".source = "${dotfiles}/zsh";
     "waybar".source = "${dotfiles}/waybar";

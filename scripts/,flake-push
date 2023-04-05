@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+MSG="${1:-Update flake}"
+
+git -C $HOME/.flake add .
+git -C $HOME/.flake commit -m "Update flake"

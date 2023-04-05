@@ -183,11 +183,11 @@ return {
 					require("util").on_attach(function(client, buffer)
 						if client.name == "tsserver" then
 							-- stylua: ignore
-							vim.keymap.set("n", "<leader>co",
+							vim.keymap.set("n", "<leader>ro",
 								"<cmd>TypescriptOrganizeImports<cr>",
 								{ buffer = buffer, desc = "Organize Imports" })
 							-- stylua: ignore
-							vim.keymap.set("n", "<leader>cR",
+							vim.keymap.set("n", "<leader>rR",
 								"<cmd>TypescriptRenameFile<cr>",
 								{ buffer = buffer, desc = "Rename File" })
 						end
@@ -243,7 +243,7 @@ return {
 				end
 
 				if client.server_capabilities["renameProvider"] then
-					map("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename" })
+					map("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename" })
 				end
 			end)
 
