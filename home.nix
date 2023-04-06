@@ -26,7 +26,7 @@ in {
 
     packages = with pkgs; [
       cachix
-      wget git unzip file
+      wget git difftastic unzip file
       bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
       kitty wezterm tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
@@ -35,6 +35,7 @@ in {
       obsidian gimp vimiv-qt
       nvd
 
+      just
       steam-run
       docker-compose
       gcc
@@ -56,7 +57,7 @@ in {
       rust-analyzer
       shellcheck shfmt
       nil alejandra
-      xdg-utils
+      xdg-utils handlr
 
       awscli2
       terraform kubectl kubernetes-helm packer
