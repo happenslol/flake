@@ -11,10 +11,10 @@ config.window_decorations = "NONE"
 
 config.bold_brightens_ansi_colors = false
 config.font = w.font_with_fallback({
-  { family = "IosevkaTerm Nerd Font Mono Medium", weight = "Regular" },
-  { family = "IosevkaTerm Nerd Font Mono Medium Italic", weight = "Regular", style = "Italic" },
-  { family = "IosevkaTerm Nerd Font Mono Extrabold", weight = "Bold" },
-  { family = "IosevkaTerm Nerd Font Mono Extrabold Italic", weight = "Bold", style = "Italic" },
+  { family = "Iosevka Nerd Font Mono Medium", weight = "Regular" },
+  { family = "Iosevka Nerd Font Mono Medium Italic", weight = "Regular", style = "Italic" },
+  { family = "Iosevka Nerd Font Mono Extrabold", weight = "Bold" },
+  { family = "Iosevka Nerd Font Mono Extrabold Italic", weight = "Bold", style = "Italic" },
 })
 
 -- config.enable_kitty_keyboard = true

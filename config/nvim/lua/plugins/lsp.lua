@@ -155,6 +155,8 @@ return {
         rust_analyzer = {},
         tsserver = {
           settings = { completions = { completeFunctionCalls = true } },
+          -- Speed up tsserver by requiring the root directory to be a git repo
+          root_dir = require("lspconfig.util").root_pattern(".git"),
           handlers = {
             ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
               result.diagnostics = vim.tbl_filter(function(d)
@@ -164,7 +166,6 @@ return {
                 }, d.code)
               end, result.diagnostics)
 
-              print("diagnostics: ", vim.inspect(result.diagnostics))
               return vim.lsp.handlers["textDocument/publishDiagnostics"](nil, result, ctx, config)
             end,
           },
@@ -179,7 +180,9 @@ return {
           },
         },
         nil_ls = {},
-        graphql = {},
+        graphql = {
+          root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
+        },
         html = {},
         cssls = {},
         gopls = {},
@@ -309,8 +312,7 @@ return {
           null.builtins.formatting.prettierd,
           null.builtins.code_actions.eslint_d,
           null.builtins.diagnostics.eslint_d.with({
-            filter = function(d, test)
-              print(vim.inspect(test))
+            filter = function(d)
               return not vim.tbl_contains({
                 "@typescript-eslint/no-unused-vars",
               }, d.code)

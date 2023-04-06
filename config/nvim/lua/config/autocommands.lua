@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("quit"),
-  pattern = "help,lspinfo,qf,startuptime",
+  pattern = "help,lspinfo,qf,startuptime,fugitive",
   callback = function()
     vim.keymap.set("n", "q", "<cmd>close<cr>", { noremap = true, silent = true })
   end,
