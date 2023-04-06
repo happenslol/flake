@@ -36,6 +36,8 @@ M.keys = {
   { key = "R", mods = "CTRL|SHIFT", action = act.ReloadConfiguration },
   { key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("PrimarySelection") },
   { key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("PrimarySelection") },
+
+  { key = "Escape", action = act.Multiple({ act.ClearSelection, act.SendKey({ key = "Escape" }) }) },
 }
 
 for i = 1, 9 do
