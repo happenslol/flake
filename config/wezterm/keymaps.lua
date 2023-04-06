@@ -55,7 +55,7 @@ M.key_tables.copy_mode = {
   { key = "Escape", action = close_copy_mode },
   { key = "q", action = close_copy_mode },
   { key = "c", mods = "CTRL", action = close_copy_mode },
-  { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent"), },
+  { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent") },
   { key = "0", action = act.CopyMode("MoveToStartOfLine") },
   { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
 
