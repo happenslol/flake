@@ -6,6 +6,8 @@ alias k="kubectl "
 alias sr="steam-run "
 alias tf="terraform "
 
+alias ,flake="just -f ~/.flake/justfile "
+
 alias turbo="sr pnpm turbo "
 
 alias reload="source ~/.zshrc"

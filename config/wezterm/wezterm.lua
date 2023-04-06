@@ -33,7 +33,7 @@ config.window_padding = {
   left = 0,
 }
 
-config.tab_max_width = 25
+config.tab_max_width = 40
 
 local function append(t, v)
   t[#t + 1] = v
@@ -47,8 +47,8 @@ local function tab_title(tab)
     title = tab.active_pane.title
   end
 
-  if #title > config.tab_max_width - 5 then
-    title = title:sub(1, config.tab_max_width - 6) .. "…"
+  if #title > config.tab_max_width - 6 then
+    title = title:sub(1, config.tab_max_width - 7) .. "…"
   end
 
   return title
@@ -56,8 +56,8 @@ end
 
 w.on("format-tab-title", function(tab)
   local result = {}
-  if tab.tab_index ~= 0 then
-    append(result, { Background = { AnsiColor = "Black" } })
+  if tab.tab_index > 0 then
+    append(result, { Background = { Color = "#212121" } })
     append(result, { Text = " " })
   end
 

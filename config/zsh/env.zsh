@@ -7,9 +7,6 @@ export EDITOR="nvim"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Scripts
-export PATH="$PATH:$HOME/.flake/scripts"
-
 # Go
 export GOPRIVATE=*.g51.dev,g51.dev
 export GOPATH="/home/happens/go"

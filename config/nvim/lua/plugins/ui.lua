@@ -2,8 +2,6 @@ return {
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "MunifTanjim/nui.nvim", lazy = true },
 
-  -- TODO: mini should have a max amount of messages
-  -- TODO: Filter out many duplicate messages?
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -19,19 +17,6 @@ return {
         command_palette = true,
         long_message_to_split = false,
         lsp_doc_border = true,
-      },
-      views = {
-        -- TODO: show completions above the command line
-        -- cmdline_popup = {
-        -- 	position = {
-        -- 		row = -3,
-        -- 		col = 4,
-        -- 	},
-        -- 	size = {
-        -- 		width = 60,
-        -- 		height = "auto",
-        -- 	},
-        -- },
       },
     },
     keys = {
@@ -97,6 +82,13 @@ return {
         },
       },
     },
+  },
+
+  {
+    "utilyre/sentiment.nvim",
+    version = "*",
+    config = true,
+    event = "VeryLazy",
   },
 
   {

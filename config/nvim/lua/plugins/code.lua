@@ -9,18 +9,6 @@ return {
     opts = {
       check_ts = true,
       ts_config = { java = false },
-      -- TODO: Test this
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-        offset = 0,
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "PmenuSel",
-        highlight_grey = "LineNr",
-      },
     },
     config = function(_, opts)
       local npairs = require("nvim-autopairs")

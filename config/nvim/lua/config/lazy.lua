@@ -29,7 +29,7 @@ require("lazy").setup({
     cache = { enabled = true },
     rtp = {
       reset = true,
-      disabled_plugins = { "gzip", "matchit", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+      disabled_plugins = { "gzip", "matchparen", "matchit", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
     },
   },
 })

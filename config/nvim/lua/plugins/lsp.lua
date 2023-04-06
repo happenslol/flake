@@ -257,7 +257,6 @@ return {
         end
 
         if client.server_capabilities["documentFormattingProvider"] then
-          -- TODO: Prefer null-ls
           map("n", "<leader>f", function()
             format(buffer)
           end, { desc = "Format Document" })

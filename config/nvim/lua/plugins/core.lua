@@ -4,7 +4,6 @@ return {
   {
     "happenslol/materialnight.nvim",
     config = true,
-    -- TODO: Todo highlighting
     init = function()
       vim.cmd.colorscheme("materialnight")
     end,
