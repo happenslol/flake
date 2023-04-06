@@ -19,7 +19,7 @@ return {
     "#82aaff", -- Navy
     "#c792ea", -- Purple
     "#89ddff", -- Teal
-    "#ddeeee", -- Silver
+    "#eeffff", -- Silver
   },
 
   brights = {
