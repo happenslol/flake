@@ -34,8 +34,8 @@ M.keys = {
   { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
   { key = "=", mods = "CTRL", action = act.ResetFontSize },
   { key = "R", mods = "CTRL|SHIFT", action = act.ReloadConfiguration },
-  { key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
-  { key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("ClipboardAndPrimarySelection") },
+  { key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("PrimarySelection") },
+  { key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("PrimarySelection") },
 
   { key = "Escape", action = act.Multiple({ act.ClearSelection, act.SendKey({ key = "Escape" }) }) },
 }
@@ -88,7 +88,7 @@ M.key_tables.copy_mode = {
     key = "y",
     mods = "NONE",
     action = act.Multiple({
-      act.CopyTo("ClipboardAndPrimarySelection"),
+      act.CopyTo("PrimarySelection"),
       act.ClearSelection,
       act.CopyMode("ClearSelectionMode"),
     }),
@@ -97,7 +97,7 @@ M.key_tables.copy_mode = {
     key = "Enter",
     mods = "NONE",
     action = act.Multiple({
-      act.CopyTo("ClipboardAndPrimarySelection"),
+      act.CopyTo("PrimarySelection"),
       act.ClearSelection,
       act.CopyMode("Close"),
     }),
