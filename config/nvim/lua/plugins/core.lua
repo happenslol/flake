@@ -72,7 +72,7 @@ return {
 		cmd = "Telescope",
 		keys = {
 			{ "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-			{ "<C-_>", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+			{ "<C-;>", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
 		},
 		opts = function()
 			local telescope_actions = require("telescope.actions")

@@ -17,7 +17,7 @@ config.font = w.font_with_fallback({
   { family = "IosevkaTerm Nerd Font Mono Extrabold Italic", weight = "Bold", style = "Italic" },
 })
 
-config.enable_kitty_keyboard = true
+-- config.enable_kitty_keyboard = true
 config.disable_default_key_bindings = true
 
 config.leader = keymaps.leader

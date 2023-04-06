@@ -14,14 +14,6 @@ local function leader(key, action, mods)
 end
 
 M.keys = {
-  { key = "Escape", action = act.ClearSelection },
-  { key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
-  { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
-  { key = "=", mods = "CTRL", action = act.ResetFontSize },
-  { key = "R", mods = "CTRL|SHIFT", action = act.ReloadConfiguration },
-  { key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("PrimarySelection") },
-  { key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("PrimarySelection") },
-
   leader("c", act.SpawnTab("CurrentPaneDomain")),
   leader("x", act.CloseCurrentPane({ confirm = false })),
   leader("o", act.SplitVertical({ domain = "CurrentPaneDomain" })),
@@ -37,6 +29,13 @@ M.keys = {
 
   leader("v", act.ActivateCopyMode),
   leader("v", act.QuickSelect, "CTRL"),
+
+  { key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
+  { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
+  { key = "=", mods = "CTRL", action = act.ResetFontSize },
+  { key = "R", mods = "CTRL|SHIFT", action = act.ReloadConfiguration },
+  { key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("PrimarySelection") },
+  { key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("PrimarySelection") },
 }
 
 for i = 1, 9 do
@@ -56,15 +55,13 @@ M.key_tables.copy_mode = {
   { key = "Escape", action = close_copy_mode },
   { key = "q", action = close_copy_mode },
   { key = "c", mods = "CTRL", action = close_copy_mode },
-
-  { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent") },
+  { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent"), },
   { key = "0", action = act.CopyMode("MoveToStartOfLine") },
   { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
 
   { key = "G", action = act.CopyMode("MoveToScrollbackBottom") },
   { key = "G", mods = "SHIFT", action = act.CopyMode("MoveToScrollbackBottom") },
   { key = "g", action = act.CopyMode("MoveToViewportTop") },
-
   { key = "f", mods = "SHIFT", action = act.CopyMode({ JumpForward = { prev_char = false } }) },
   { key = "F", mods = "SHIFT", action = act.CopyMode({ JumpBackward = { prev_char = false } }) },
   { key = "t", mods = "SHIFT", action = act.CopyMode({ JumpForward = { prev_char = true } }) },
@@ -106,10 +103,8 @@ M.key_tables.copy_mode = {
 
   { key = "PageUp", action = act.CopyMode("PageUp") },
   { key = "PageDown", action = act.CopyMode("PageDown") },
-
   { key = "End", action = act.CopyMode("MoveToEndOfLineContent") },
   { key = "Home", action = act.CopyMode("MoveToStartOfLine") },
-
   { key = "/", action = act.Multiple({ act.CopyMode("ClearSelectionMode"), act.CopyMode("EditPattern") }) },
   { key = "n", action = act.CopyMode("NextMatch") },
   { key = "N", action = act.CopyMode("PriorMatch") },
