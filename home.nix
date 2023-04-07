@@ -30,7 +30,7 @@ in {
       bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
       kitty wezterm tmux zoxide starship direnv
       google-chrome firefox-wayland bitwarden
-      tdesktop discord signal-desktop
+      tdesktop discord signal-desktop element-desktop-wayland
       easyeffects flameshot
       obsidian gimp vimiv-qt
       nvd
