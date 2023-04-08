@@ -1,9 +1,14 @@
 {
-  config, pkgs, stateVersion, hostname, customNodePackages,
-  inputs, system, username, ...
-}:
-
-let
+  config,
+  pkgs,
+  stateVersion,
+  hostname,
+  customNodePackages,
+  inputs,
+  system,
+  username,
+  ...
+}: let
   fixed-typescript-language-server =
     import ./fixes/typescript-language-server.nix pkgs;
   neovim-nightly =
@@ -12,6 +17,11 @@ let
     config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/config";
   hostDotfiles =
     config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/hosts/${hostname}/config";
+
+  cursorTheme = {
+    package = pkgs.yaru-theme;
+    name = "Yaru";
+  };
 in {
   programs.home-manager.enable = true;
 
@@ -26,13 +36,40 @@ in {
 
     packages = with pkgs; [
       cachix
-      wget git difftastic unzip file
-      bat exa ripgrep ncdu bottom curl xh yq jq fzf tokei
-      kitty wezterm tmux zoxide starship direnv
-      google-chrome firefox-wayland bitwarden
-      tdesktop discord signal-desktop element-desktop-wayland
-      easyeffects flameshot
-      obsidian gimp vimiv-qt
+      wget
+      git
+      difftastic
+      unzip
+      file
+      bat
+      exa
+      ripgrep
+      ncdu
+      bottom
+      curl
+      xh
+      yq
+      jq
+      fzf
+      tokei
+      kitty
+      wezterm
+      tmux
+      zoxide
+      starship
+      direnv
+      google-chrome
+      firefox-wayland
+      bitwarden
+      tdesktop
+      discord
+      signal-desktop
+      element-desktop-wayland
+      easyeffects
+      flameshot
+      obsidian
+      gimp
+      vimiv-qt
       nvd
 
       just
@@ -40,10 +77,17 @@ in {
       docker-compose
       gcc
       rustup
-      nodejs yarn
-      go gopls gotools revive
+      nodejs
+      yarn
+      go
+      gopls
+      gotools
+      revive
 
-      wofi mako notify-desktop eww-wayland
+      wofi
+      mako
+      notify-desktop
+      eww-wayland
 
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
@@ -53,14 +97,22 @@ in {
       nodePackages_latest.yaml-language-server
       nodePackages_latest.graphql-language-service-cli
       fixed-typescript-language-server
-      sumneko-lua-language-server stylua selene
+      sumneko-lua-language-server
+      stylua
+      selene
       rust-analyzer
-      shellcheck shfmt
-      nil alejandra
-      xdg-utils handlr
+      shellcheck
+      shfmt
+      nil
+      alejandra
+      xdg-utils
+      handlr
 
       awscli2
-      terraform kubectl kubernetes-helm packer
+      terraform
+      kubectl
+      kubernetes-helm
+      packer
 
       neovim
       (writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@")
@@ -71,6 +123,8 @@ in {
       MOZ_ENABLE_WAYLAND = 1;
       MOZ_USE_XINPUT2 = 1;
       SDL_VIDEODRIVER = "wayland";
+      XCURSOR_THEME = cursorTheme.name;
+      XCURSOR_SIZE = "36";
     };
 
     file = {
@@ -79,6 +133,12 @@ in {
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
+    };
+
+    pointerCursor = {
+      inherit (cursorTheme) package name;
+      gtk.enable = true;
+      size = 36;
     };
   };
 
@@ -97,14 +157,12 @@ in {
   };
 
   gtk = {
+    inherit cursorTheme;
+
     enable = true;
     theme = {
       package = pkgs.vimix-gtk-themes;
       name = "vimix-dark-doder";
-    };
-    cursorTheme = {
-      package = pkgs.phinger-cursors;
-      name = "phinger-cursors";
     };
     iconTheme = {
       package = pkgs.vimix-icon-theme;
