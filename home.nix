@@ -144,7 +144,7 @@ in {
 
   xdg.configFile = {
     "nvim".source = "${dotfiles}/nvim";
-
+    "nix".source = "${dotfiles}/nix";
     "zsh".source = "${dotfiles}/zsh";
     "waybar".source = "${dotfiles}/waybar";
     "wezterm".source = "${dotfiles}/wezterm";

@@ -24,6 +24,8 @@
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = inputs @ { nixpkgs, home-manager, ... }:

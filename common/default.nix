@@ -9,6 +9,8 @@
     ./thunar.nix
   ];
 
+  nix.settings.trusted-users = ["root" "happens"];
+
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
