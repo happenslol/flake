@@ -124,7 +124,7 @@ in {
       MOZ_USE_XINPUT2 = 1;
       SDL_VIDEODRIVER = "wayland";
       XCURSOR_THEME = cursorTheme.name;
-      XCURSOR_SIZE = "36";
+      XCURSOR_SIZE = "24";
     };
 
     file = {
@@ -138,11 +138,13 @@ in {
     pointerCursor = {
       inherit (cursorTheme) package name;
       gtk.enable = true;
-      size = 36;
+      size = 24;
     };
   };
 
   xdg.configFile = {
+    "host".source = hostDotfiles;
+
     "nvim".source = "${dotfiles}/nvim";
     "nix".source = "${dotfiles}/nix";
     "zsh".source = "${dotfiles}/zsh";
@@ -151,9 +153,8 @@ in {
     "kitty".source = "${dotfiles}/kitty";
     "tmux".source = "${dotfiles}/tmux";
     "starship.toml".source = "${dotfiles}/starship/starship.toml";
-
-    "sway/config".source = "${dotfiles}/sway/config";
-    "sway/${hostname}.config".source = "/${hostDotfiles}/sway/config";
+    "sway".source = "${dotfiles}/sway";
+    "hypr".source = "${dotfiles}/hypr";
   };
 
   gtk = {

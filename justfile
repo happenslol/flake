@@ -5,11 +5,12 @@ default:
 
 # Apply the current flake configuration
 @apply:
+  git add .
   sudo nixos-rebuild switch --flake ~/.flake#
 
 # Build the current flake configuration
 @build:
-  sudo nixos-rebuild build --flake ~/.flake#
+  nixos-rebuild build --flake ~/.flake#
 
 @push message="Update flake":
   git add .

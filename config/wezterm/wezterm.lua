@@ -10,14 +10,45 @@ config.tab_bar_at_bottom = true
 config.window_decorations = "NONE"
 
 config.bold_brightens_ansi_colors = false
-config.font = w.font_with_fallback({
-  { family = "IosevkaTerm Nerd Font Medium", weight = "Regular" },
-  { family = "IosevkaTerm Nerd Font Medium Italic", weight = "Regular", style = "Italic" },
-  { family = "IosevkaTerm Nerd Font Extrabold", weight = "Bold" },
-  { family = "IosevkaTerm Nerd Font Extrabold Italic", weight = "Bold", style = "Italic" },
-})
+config.font = w.font("IosevkaTerm Nerd Font")
 
--- config.enable_kitty_keyboard = true
+local function iosevka(weight, style)
+  return w.font("IosevkaTerm Nerd Font", { weight = weight, style = style })
+end
+
+config.font_rules = {
+  {
+    intensity = "Normal",
+    italic = false,
+    font = iosevka("Medium", "Normal"),
+  },
+  {
+    intensity = "Normal",
+    italic = true,
+    font = iosevka("Medium", "Italic"),
+  },
+  {
+    intensity = "Bold",
+    italic = false,
+    font = iosevka("ExtraBold", "Normal"),
+  },
+  {
+    intensity = "Bold",
+    italic = true,
+    font = iosevka("ExtraBold", "Italic"),
+  },
+  {
+    intensity = "Half",
+    italic = false,
+    font = iosevka("Regular", "Normal"),
+  },
+  {
+    intensity = "Half",
+    italic = true,
+    font = iosevka("Regular", "Italic"),
+  },
+}
+
 config.disable_default_key_bindings = true
 
 config.leader = keymaps.leader
