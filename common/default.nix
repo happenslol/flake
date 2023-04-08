@@ -7,6 +7,7 @@
     ./sway.nix
     ./zfs.nix
     ./thunar.nix
+    ./hyprland.nix
   ];
 
   nix.settings.trusted-users = ["root" "happens"];
