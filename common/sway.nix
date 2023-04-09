@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   dbus-sway-environment = pkgs.writeTextFile {
     name = "dbus-sway-environment";
     destination = "/bin/dbus-sway-environment";
@@ -25,7 +28,6 @@ let
       gnome_schema=org.gnome.desktop.interface
     '';
   };
-
 in {
   programs.sway = {
     enable = true;
@@ -35,9 +37,18 @@ in {
   environment.systemPackages = with pkgs; [
     configure-gtk
     dbus-sway-environment
-    sway wayland
-    glib swaylock swayidle wl-clipboard waybar
-    slurp grim wdisplays pulseaudio kanshi
+    sway
+    wayland
+    glib
+    swaylock
+    swayidle
+    wl-clipboard
+    waybar
+    slurp
+    grim
+    wdisplays
+    pulseaudio
+    kanshi
   ];
 
   services.pipewire = {
@@ -50,7 +61,7 @@ in {
     enable = true;
     wlr.enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services.dbus.enable = true;

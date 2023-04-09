@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -15,14 +18,18 @@
 
   boot.kernelParams = [
     # Quiet boot (See https://wiki.archlinux.org/title/silent_boot)
-    "quiet" "splash" "loglevel=3" "nowatchdog"
-    "systemd.show_status=auto" "rd.udev.log_level=3"
+    "quiet"
+    "splash"
+    "loglevel=3"
+    "nowatchdog"
+    "systemd.show_status=auto"
+    "rd.udev.log_level=3"
   ];
 
   boot.initrd.luks.devices = {
     root = {
       device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";
-      preLVM = true; 
+      preLVM = true;
     };
   };
 

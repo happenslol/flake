@@ -28,14 +28,17 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, ... }:
-  let
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
     stateVersion = "22.11";
     username = "happens";
 
-    overlays = [ inputs.nixpkgs-wayland.overlay ];
+    overlays = [inputs.nixpkgs-wayland.overlay];
 
     pkgs = import nixpkgs {
       inherit system;
@@ -52,20 +55,27 @@
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = { inherit inputs stateVersion hostname; };
+        specialArgs = {inherit inputs stateVersion hostname;};
 
         modules = [
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
           ./common
 
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = {
-                inherit inputs stateVersion hostname
-                  customNodePackages system username;
+                inherit
+                  inputs
+                  stateVersion
+                  hostname
+                  customNodePackages
+                  system
+                  username
+                  ;
               };
 
               users.${username}.imports = [
@@ -76,7 +86,6 @@
           }
         ];
       };
-
   in {
     nixosConfigurations = {
       mira = mkHost "mira";

@@ -1,7 +1,10 @@
-{ config, pkgs, inputs, ... }:
-
 {
-  imports = [ inputs.nixos-hardware.nixosModules.framework-12th-gen-intel ];
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [inputs.nixos-hardware.nixosModules.framework-12th-gen-intel];
 
   networking.hostId = "3ef514cd";
   networking.hostName = "mira";
@@ -9,8 +12,10 @@
   boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2256x1504,auto";
 
   boot.kernelParams = [
-    "quiet" "i915.force_probe=46a6"
-    "splash" "loglevel=3"
+    "quiet"
+    "i915.force_probe=46a6"
+    "splash"
+    "loglevel=3"
 
     # Enable deep sleep
     "mem_sleep_default=deep"
@@ -36,4 +41,3 @@
 
   services.blueman.enable = true;
 }
-

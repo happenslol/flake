@@ -1,7 +1,5 @@
-{ inputs, ... }:
-
-{
-  imports = [ inputs.grub2-themes.nixosModules.default ];
+{inputs, ...}: {
+  imports = [inputs.grub2-themes.nixosModules.default];
 
   boot.loader.grub = {
     enable = true;

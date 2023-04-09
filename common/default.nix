@@ -1,6 +1,9 @@
-{ config, pkgs, stateVersion, ... }:
-
 {
+  config,
+  pkgs,
+  stateVersion,
+  ...
+}: {
   imports = [
     ./grub.nix
     ./greetd.nix
@@ -29,13 +32,13 @@
 
   # Increase max vm map count for nodejs workers
   # running out of heap memory
-  boot.kernel.sysctl = { "vm.max_map_count" = 262144; };
+  boot.kernel.sysctl = {"vm.max_map_count" = 262144;};
 
   # Use latest kernel
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   # Enable ntfs3g
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
@@ -50,7 +53,7 @@
 
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
-  environment.shells = [ pkgs.zsh pkgs.bash ];
+  environment.shells = [pkgs.zsh pkgs.bash];
   environment.binsh = "${pkgs.dash}/bin/dash";
 
   users.users.happens = {
@@ -65,7 +68,7 @@
     shell = pkgs.zsh;
   };
 
-  environment.systemPackages = with pkgs; [ vim wget curl ];
+  environment.systemPackages = with pkgs; [vim wget curl];
 
   networking.firewall.enable = false;
   security.rtkit.enable = true;
@@ -74,10 +77,11 @@
   virtualisation.docker.enable = true;
 
   fonts.fonts = with pkgs; [
-    noto-fonts noto-fonts-emoji
+    noto-fonts
+    noto-fonts-emoji
     noto-fonts-cjk-sans
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono" "Iosevka"];})
   ];
 
   services = {
@@ -85,5 +89,5 @@
     openssh.enable = true;
   };
 
-  system = { inherit stateVersion; };
+  system = {inherit stateVersion;};
 }
