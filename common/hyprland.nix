@@ -7,5 +7,5 @@
 
   programs.hyprland.enable = true;
 
-  environment.systemPackages = with pkgs; [swaybg];
+  environment.systemPackages = with pkgs; [swww];
 }
