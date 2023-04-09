@@ -107,6 +107,7 @@ in {
       alejandra
       xdg-utils
       handlr
+      swww
 
       awscli2
       terraform
