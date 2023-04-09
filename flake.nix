@@ -78,10 +78,7 @@
                   ;
               };
 
-              users.${username}.imports = [
-                ./home.nix
-                (./. + "/hosts/${hostname}/home.nix")
-              ];
+              users.${username}.imports = [./home.nix];
             };
           }
         ];
