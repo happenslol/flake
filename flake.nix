@@ -58,9 +58,9 @@
         specialArgs = {inherit inputs stateVersion hostname;};
 
         modules = [
+          ./system.nix
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
-          ./common
 
           home-manager.nixosModules.home-manager
           {
