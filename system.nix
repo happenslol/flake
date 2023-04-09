@@ -37,6 +37,12 @@
       gnome_schema=org.gnome.desktop.interface
     '';
   };
+
+  wayland-session = pkgs.writeShellScriptBin "wayland-session" ''
+    /run/current-system/systemd/bin/systemctl --user start graphical-session.target
+    "$@"
+    /run/current-system/systemd/bin/systemctl --user stop graphical-session.target
+  '';
 in {
   system = {inherit stateVersion;};
   imports = [
@@ -131,8 +137,6 @@ in {
       wget
       curl
       swww
-      configure-gtk
-      dbus-sway-environment
       sway
       wayland
       glib
@@ -146,11 +150,14 @@ in {
       pulseaudio
       kanshi
       xarchiver
+      configure-gtk
+      dbus-sway-environment
+      wayland-session
     ];
 
     etc."greetd/environments".text = ''
-      sway
-      Hyprland
+      wayland-session sway
+      wayland-session Hyprland
     '';
   };
 

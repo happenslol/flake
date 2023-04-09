@@ -20,7 +20,6 @@ alias mosh="ssh "
 
 # Remap ls commands and shortcuts to exa
 alias l="exa -la --git --icons --group-directories-first "
-alias ls="exa --icons --group-directories-first "
 alias lt="exa --tree --icons --group-directories-first "
 
 # Force color in watch commands

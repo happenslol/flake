@@ -129,7 +129,6 @@ in {
 
     file = {
       ".zshrc".source = "${dotfiles}/zshrc";
-
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
@@ -139,6 +138,17 @@ in {
       inherit (cursorTheme) package name;
       gtk.enable = true;
       size = 24;
+    };
+  };
+
+  systemd.user.services.polkit-agent = {
+    Unit.Description = "Polkit Agent";
+    Install.WantedBy = [ "graphical-session.target" ];
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "always";
     };
   };
 
