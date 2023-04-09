@@ -40,7 +40,7 @@
 in {
   system = {inherit stateVersion;};
   imports = [
-    inputs.grub2-themes.nixosModules.default
+    inputs.grub2-theme.nixosModules.default
     inputs.hyprland.nixosModules.default
   ];
 
@@ -85,10 +85,7 @@ in {
 
       grub2-theme = {
         enable = true;
-        theme = "stylish";
-        splashImage = null;
-        footer = false;
-        screen = "2k";
+        resolution = "2560x1440";
       };
     };
   };

@@ -84,23 +84,23 @@
         "type": "github"
       }
     },
-    "grub2-themes": {
+    "grub2-theme": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1674015718,
-        "narHash": "sha256-cBgjWD/mR1tiPyVky9Bl5kUrDX6RnARJ+0cEJ4VhbRg=",
-        "owner": "vinceliuice",
-        "repo": "grub2-themes",
-        "rev": "7c0d8eb7849cd5a4cf6a26c8750dcf71c26f2b0f",
+        "lastModified": 1681051741,
+        "narHash": "sha256-7yCXgidqZyX/7On2yMlxqABJkBW2FPzRxuIVmAr82Pk=",
+        "owner": "happenslol",
+        "repo": "grub2-theme",
+        "rev": "4d2ce482b73686901637412aa5bc4aa45c99c0a6",
         "type": "github"
       },
       "original": {
-        "owner": "vinceliuice",
-        "repo": "grub2-themes",
+        "owner": "happenslol",
+        "repo": "grub2-theme",
         "type": "github"
       }
     },
@@ -354,7 +354,7 @@
     },
     "root": {
       "inputs": {
-        "grub2-themes": "grub2-themes",
+        "grub2-theme": "grub2-theme",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "neovim-nightly-overlay": "neovim-nightly-overlay",

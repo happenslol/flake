@@ -20,8 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
+    grub2-theme = {
+      url = "github:happenslol/grub2-theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

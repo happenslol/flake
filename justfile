@@ -18,7 +18,10 @@ default:
   git push
 
 # Format all files
-format: format-nvim format-wezterm
+format: format-nix format-nvim format-wezterm
+
+@format-nix:
+  alejandra ./**/*.nix
 
 # Format nvim configuration
 @format-nvim:
