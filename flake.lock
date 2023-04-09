@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1681051741,
-        "narHash": "sha256-7yCXgidqZyX/7On2yMlxqABJkBW2FPzRxuIVmAr82Pk=",
+        "lastModified": 1681053603,
+        "narHash": "sha256-oDdlqcEXw9XcINcQr6otwozBaDsvbfZvVKDgY9lc0dY=",
         "owner": "happenslol",
         "repo": "grub2-theme",
-        "rev": "4d2ce482b73686901637412aa5bc4aa45c99c0a6",
+        "rev": "9423a4db1e7ea40bf8ff98943b1a489105cdf2ad",
         "type": "github"
       },
       "original": {
