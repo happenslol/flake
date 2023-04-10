@@ -132,6 +132,7 @@ in {
       nodePackages_latest.yaml-language-server
       nodePackages_latest.graphql-language-service-cli
       customPackages.fixed-typescript-language-server
+      customPackages.prettierd
       sumneko-lua-language-server
       stylua
       selene
@@ -140,6 +141,7 @@ in {
       shfmt
       nil
       alejandra
+      llvmPackages_latest.libclang
 
       awscli2
       terraform
@@ -152,8 +154,6 @@ in {
 
       handlr
       (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
-
-      customPackages.prettierd
     ];
 
     sessionVariables = {

@@ -328,15 +328,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1680976434,
-        "narHash": "sha256-sI9grpCpS1ni2ZvbYTG259hzwPXDSNQio+ol4CJKKRc=",
-        "owner": "hyprwm",
+        "lastModified": 1681087365,
+        "narHash": "sha256-U4Wfmk2zxXg5CCLUXFd5n/7EW3zIdbH8cy+6aEQR0K4=",
+        "owner": "happenslol",
         "repo": "Hyprland",
-        "rev": "b32af6ebfb5ea3ffc16cbf07a6cdbaa6c486ba58",
+        "rev": "54fb2c67d04980419b9ca47580f7f1a34505d2bd",
         "type": "github"
       },
       "original": {
-        "owner": "hyprwm",
+        "owner": "happenslol",
+        "ref": "allow-focus-move-for-empty-workspaces",
         "repo": "Hyprland",
         "type": "github"
       }
