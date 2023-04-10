@@ -3,16 +3,11 @@
   pkgs,
   stateVersion,
   hostname,
-  customNodePackages,
   inputs,
   system,
   username,
   ...
 }: let
-  fixed-typescript-language-server =
-    import ./fixes/typescript-language-server.nix pkgs;
-  neovim-nightly =
-    inputs.neovim-nightly-overlay.packages.${system}.neovim;
   dotfiles =
     config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/config";
   hostDotfiles =
@@ -21,6 +16,46 @@
   cursorTheme = {
     package = pkgs.yaru-theme;
     name = "Yaru";
+  };
+
+  makeNodePackage = {
+    input,
+    binary,
+    translator,
+  }: let
+    npmPackageOutputs = inputs.dream2nix.lib.makeFlakeOutputs {
+      systems = [system];
+      config.projectRoot = ./.;
+      source = inputs.prettierd;
+      projects = {
+        prettier = {
+          name = "prettierd";
+          subsystem = "nodejs";
+          translator =
+            if translator != null
+            then translator
+            else "package-lock";
+        };
+      };
+    };
+
+    npmPackages = npmPackageOutputs.packages.${system};
+  in
+    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages.prettierd}/bin/${binary} $@";
+
+  customPackages = {
+    fixed-typescript-language-server =
+      import ./fixes/typescript-language-server.nix pkgs;
+
+    neovim-nightly = let
+      neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
+    in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
+
+    prettierd = makeNodePackage {
+      input = inputs.prettierd;
+      binary = "prettierd";
+      translator = "yarn-lock";
+    };
   };
 in {
   programs.home-manager.enable = true;
@@ -91,12 +126,11 @@ in {
 
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
-      customNodePackages."@fsouza/prettierd"
       nodePackages_latest.vscode-langservers-extracted
       nodePackages_latest.bash-language-server
       nodePackages_latest.yaml-language-server
       nodePackages_latest.graphql-language-service-cli
-      fixed-typescript-language-server
+      customPackages.fixed-typescript-language-server
       sumneko-lua-language-server
       stylua
       selene
@@ -113,13 +147,12 @@ in {
       packer
 
       neovim
-      (writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@")
+      customPackages.neovim-nightly
 
       handlr
-      (writeShellScriptBin "xdg-open" ''
-        #!/bin/sh
-        ${handlr}/bin/handlr open "$@"
-      '')
+      (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
+
+      customPackages.prettierd
     ];
 
     sessionVariables = {
@@ -147,7 +180,7 @@ in {
 
   systemd.user.services.polkit-agent = {
     Unit.Description = "Polkit Agent";
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = ["graphical-session.target"];
 
     Service = {
       Type = "simple";

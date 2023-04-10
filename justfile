@@ -21,11 +21,11 @@ default:
 format: format-nix format-nvim format-wezterm
 
 @format-nix:
-  alejandra ./**/*.nix
+  alejandra -q ./**/*.nix
 
 # Format nvim configuration
 @format-nvim:
-  stylua -v -f config/nvim/stylua.toml ./config/nvim/**/*.lua
+  stylua -f config/nvim/stylua.toml ./config/nvim/**/*.lua
 
 # Format wezterm configuration
 @format-wezterm:

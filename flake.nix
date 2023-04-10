@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    hyprland.url = "github:hyprwm/Hyprland";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -25,7 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    dream2nix.url = "github:nix-community/dream2nix";
+    prettierd = {
+      url = "github:fsouza/prettierd/main";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
@@ -45,11 +50,6 @@
       overlays = overlays;
       config.allowUnfree = true;
       config.allowBroken = true;
-    };
-
-    customNodePackages = pkgs.callPackage ./node-packages {
-      inherit system pkgs;
-      nodejs = pkgs."nodejs-14_x";
     };
 
     mkHost = hostname:
@@ -72,7 +72,6 @@
                   inputs
                   stateVersion
                   hostname
-                  customNodePackages
                   system
                   username
                   ;
