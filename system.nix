@@ -227,7 +227,12 @@ in {
     firewall.enable = false;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+
+    pam.services.gtklock = {};
+    pam.services.swaylock = {};
+  };
 
   virtualisation.docker.enable = true;
 
