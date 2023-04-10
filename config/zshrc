@@ -4,7 +4,7 @@ source ~/.config/zsh/ssh.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/keymap.zsh
 source ~/.config/zsh/env.zsh
-source ~/.config/zsh/shortcuts.zsh
+source ~/.config/zsh/alias.zsh
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"

@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    hyprland.url = "github:happenslol/Hyprland/allow-focus-move-for-empty-workspaces";
+    hyprland.url = "github:happenslol/Hyprland/implement-window-move";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";

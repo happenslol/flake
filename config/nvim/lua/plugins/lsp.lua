@@ -328,7 +328,7 @@ return {
 
           null.builtins.formatting.goimports,
 
-          null.builtins.clang_format,
+          null.builtins.formatting.clang_format,
 
           require("typescript.extensions.null-ls.code-actions"),
         },

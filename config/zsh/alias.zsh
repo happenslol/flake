@@ -6,8 +6,6 @@ alias k="kubectl "
 alias sr="steam-run "
 alias tf="terraform "
 
-alias ,flake="just -f ~/.flake/justfile "
-
 alias turbo="sr pnpm turbo "
 
 alias reload="source ~/.zshrc"
@@ -52,3 +50,8 @@ alias gscm="git cm "
 alias gsh="git show "
 alias gd="git diff "
 alias gm="git merge "
+
+# Custom commands
+alias ,flake="just -f ~/.flake/justfile "
+alias ,nixdev="nix develop --command zsh "
+alias ,nixsh="nix-shell --command zsh "

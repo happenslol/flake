@@ -2,6 +2,8 @@
 
 add_newline = true
 format = """
+ \
+$nix_shell\
 $directory\
 $git_branch\
 $git_commit\
@@ -25,6 +27,10 @@ disabled = true
 
 [directory]
 truncate_to_repo = false
+
+[nix_shell]
+format = "$symbol "
+symbol = "[ ](cyan) [$name](cyan italic) [|](bright-black)"
 
 [git_branch]
 style = "yellow"
