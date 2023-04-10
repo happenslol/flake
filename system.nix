@@ -7,7 +7,7 @@
 }: let
   greetd-sway-config = pkgs.writeText "greetd-sway-config" ''
     exec systemctl --user import-environment
-    exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+    exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
     exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
 
     input type:keyboard xkb_numlock enabled
@@ -20,8 +20,19 @@
 
     text = ''
       dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
+    '';
+  };
+
+  dbus-hyprland-environment = pkgs.writeTextFile {
+    name = "dbus-hyprland-environment";
+    destination = "/bin/dbus-hyprland-environment";
+    executable = true;
+
+    text = ''
+      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
+      systemctl --user start pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
     '';
   };
 
@@ -152,6 +163,7 @@ in {
       xarchiver
       configure-gtk
       dbus-sway-environment
+      dbus-hyprland-environment
       wayland-session
     ];
 

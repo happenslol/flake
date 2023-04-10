@@ -328,11 +328,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1681141233,
-        "narHash": "sha256-LOpMH4xgIUHqfEyAeEk5PSFwryz99A779LmI2TYORGc=",
+        "lastModified": 1681149315,
+        "narHash": "sha256-A3Ob9jTXNV2d1/xuFFT6Vw9JlmdtSzZXpLeva/5PSiw=",
         "owner": "happenslol",
         "repo": "Hyprland",
-        "rev": "235c44f7e8816c25c3c5d25db7e138fd55136a44",
+        "rev": "92efb55de27e370254af03cc754c034ce5e2c7e9",
         "type": "github"
       },
       "original": {

@@ -1,4 +1,4 @@
-"$schema" = 'https://starship.rs/config-schema.json'
+"$schema" = "https://starship.rs/config-schema.json"
 
 add_newline = true
 format = """
@@ -20,7 +20,7 @@ error_symbol = "[](bold red)"
 [cmd_duration]
 min_time = 0
 style = "white dimmed"
-format = '[|](bright-black) [ $duration]($style) '
+format = "[|](bright-black) [ $duration]($style) "
 
 [battery]
 disabled = true
@@ -35,10 +35,10 @@ symbol = "[ ](cyan) [$name](cyan italic) [|](bright-black)"
 [git_branch]
 style = "yellow"
 symbol = "[ ](#f54c27)"
-format = '[|](bright-black) [$symbol$branch(:$remote_branch)]($style)'
+format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
-format = '$all_status$ahead_behind '
+format = "$all_status$ahead_behind "
 
 conflicted = " [](bold red)"
 ahead = " [](green)"
@@ -54,7 +54,7 @@ deleted = " [](red dimmed)"
 
 [gcloud]
 symbol = "[](cyan)"
-format = '[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain )](blue dimmed)'
+format = "[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain )](blue dimmed)"
 
 [terraform]
 disabled = true
@@ -65,30 +65,30 @@ disabled = true
 [nodejs]
 symbol = " "
 style = "yellow"
-format = '[|](bright-black) [$symbol($version )]($style)'
+format = "[|](bright-black) [$symbol($version )]($style)"
 
 [golang]
 symbol = "[ﳑ](#79d4fd) "
 style = "cyan dimmed"
-format = '[|](bright-black) [$symbol($version )]($style)'
+format = "[|](bright-black) [$symbol($version )]($style)"
 
 [rust]
 style = "red"
-format = '[|](bright-black) [$symbol($version )]($style)'
+format = "[|](bright-black) [$symbol($version )]($style)"
 
 [buf]
 style = "blue"
-format = '[|](bright-black) [$symbol ($version )]($style)'
+format = "[|](bright-black) [$symbol ($version )]($style)"
 
 [package]
 style = "208"
 symbol = " "
-format = '[|](bright-black) [$symbol($version) ]($style)'
+format = "[|](bright-black) [$symbol($version) ]($style)"
 
 [kubernetes]
 disabled = false
 style = "cyan"
-format = '[|](bright-black) [$symbol$context ]($style)'
+format = "[|](bright-black) [$symbol$context ]($style)"
 
 [kubernetes.context_aliases]
 "gke_.*_(?P<var_cluster>[\\w-]+)" = "gke-$var_cluster"
@@ -97,6 +97,13 @@ format = '[|](bright-black) [$symbol$context ]($style)'
 format = "[|](bright-black) [$symbol($version(-$name) )]($style)"
 style = "149"
 
+[cmake]
+format = "[|](bright-black) [$symbol($version )]($style)"
+
 [aws]
 symbol = " "
-format = '[|](bright-black) [$symbol](yellow)[($profile )($region )(\[$duration\] )]($style)'
+format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration\\] )]($style)"
+
+[python]
+format = "[|](bright-black) [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
+symbol = " "

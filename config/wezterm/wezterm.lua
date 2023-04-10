@@ -49,6 +49,11 @@ config.font_rules = {
   },
 }
 
+config.inactive_pane_hsb = {
+  saturation = 0.7,
+  brightness = 0.7,
+}
+
 config.disable_default_key_bindings = true
 
 config.leader = keymaps.leader
