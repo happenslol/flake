@@ -203,6 +203,8 @@ in {
     "starship.toml".source = "${dotfiles}/starship/starship.toml";
     "sway".source = "${dotfiles}/sway";
     "hypr".source = "${dotfiles}/hypr";
+    "tealdeer".source = "${dotfiles}/tealdeer";
+    "mako".source = "${dotfiles}/mako";
   };
 
   gtk = {
