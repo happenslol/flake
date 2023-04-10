@@ -105,8 +105,6 @@ in {
       shfmt
       nil
       alejandra
-      xdg-utils
-      handlr
 
       awscli2
       terraform
@@ -116,6 +114,12 @@ in {
 
       neovim
       (writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@")
+
+      handlr
+      (writeShellScriptBin "xdg-open" ''
+        #!/bin/sh
+        ${handlr}/bin/handlr open "$@"
+      '')
     ];
 
     sessionVariables = {
