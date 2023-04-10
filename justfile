@@ -1,5 +1,9 @@
 set shell := ["zsh", "-c"]
 
+alias p := push
+alias f := format
+alias a := apply
+
 default:
   just --list
 
