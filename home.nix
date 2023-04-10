@@ -106,6 +106,7 @@ in {
       gimp
       vimiv-qt
       nvd
+      tealdeer
 
       just
       steam-run
