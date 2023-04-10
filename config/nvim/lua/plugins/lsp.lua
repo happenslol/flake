@@ -241,7 +241,7 @@ return {
 
         map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
         map("n", "<leader>c", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-        map("n", "<leader>v", vim.diagnostic.goto_next, { desc = "Previous Diagnostic" })
+        map("n", "<leader>v", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
         map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
@@ -321,13 +321,9 @@ return {
           null.builtins.formatting.shfmt,
           null.builtins.diagnostics.shellcheck,
           null.builtins.code_actions.shellcheck,
-
           null.builtins.formatting.stylua,
-
           null.builtins.formatting.alejandra,
-
           null.builtins.formatting.goimports,
-
           null.builtins.formatting.clang_format,
 
           require("typescript.extensions.null-ls.code-actions"),

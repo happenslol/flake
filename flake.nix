@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    hyprland.url = "github:happenslol/Hyprland/implement-window-move";
+    hyprland.url = "github:happenslol/Hyprland/main";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
