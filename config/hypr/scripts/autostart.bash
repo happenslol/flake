@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
+setup-hyprland-environment &
 systemctl --user import-environment
-dbus-hyprland-environment &
-configure-gtk &
 
 # Set wallpaper
 if ! swww query; then swww init; fi

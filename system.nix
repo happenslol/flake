@@ -25,27 +25,16 @@
     '';
   };
 
-  dbus-hyprland-environment = pkgs.writeTextFile {
-    name = "dbus-hyprland-environment";
-    destination = "/bin/dbus-hyprland-environment";
+  setup-hyprland-environment = pkgs.writeTextFile {
+    name = "setup-hyprland-environment";
+    destination = "/bin/setup-hyprland-environment";
     executable = true;
 
     text = ''
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
-      systemctl --user start pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
-    '';
-  };
-
-  configure-gtk = pkgs.writeTextFile {
-    name = "configure-gtk";
-    destination = "/bin/configure-gtk";
-    executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-      gnome_schema=org.gnome.desktop.interface
+      systemctl --user start pipewire wireplumber xdg-desktop-portal-hyprland
+      sleep 2
+      systemctl --user start xdg-desktop-portal 
     '';
   };
 
@@ -161,9 +150,8 @@ in {
       pulseaudio
       kanshi
       xarchiver
-      configure-gtk
       dbus-sway-environment
-      dbus-hyprland-environment
+      setup-hyprland-environment
       wayland-session
     ];
 

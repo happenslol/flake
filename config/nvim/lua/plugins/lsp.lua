@@ -180,9 +180,11 @@ return {
           },
         },
         nil_ls = {},
-        graphql = {
-          root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
-        },
+        -- Disable if relay config is found, see
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443
+        -- graphql = {
+        --   root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
+        -- },
         html = {},
         cssls = {},
         gopls = {},
