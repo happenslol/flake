@@ -2,7 +2,7 @@
 
 source ~/.config/zsh/ssh.zsh
 source ~/.config/zsh/config.zsh
-source ~/.config/zsh/keymap.zsh
+source ~/.config/zsh/keymaps.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/alias.zsh
 

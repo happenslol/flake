@@ -97,7 +97,7 @@ in {
       firefox-wayland
       bitwarden
       tdesktop
-      discord
+      webcord
       signal-desktop
       element-desktop-wayland
       easyeffects
