@@ -51,7 +51,6 @@
       binary = "prettierd";
       translator = "yarn-lock";
     };
-
   };
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
@@ -164,7 +163,6 @@ in {
       MOZ_USE_XINPUT2 = "1";
       SDL_VIDEODRIVER = "wayland";
       XCURSOR_SIZE = "24";
-      GTK_THEME = "Orchis-Dark";
     };
 
     file = {
@@ -205,7 +203,6 @@ in {
       "kitty".source = "${dotfiles}/kitty";
       "tmux".source = "${dotfiles}/tmux";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
-      "sway".source = "${dotfiles}/sway";
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
@@ -214,10 +211,24 @@ in {
     systemDirs.data = [gsettingsDatadir];
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:none";
+    };
+  };
+
   gtk = {
     enable = true;
     theme.name = "Orchis-Dark";
     cursorTheme.name = "Bibata-Modern-Classic";
     iconTheme.name = "Qogir-dark";
+
+    gtk3.extraConfig = {
+      gtk-decoration-layout = ":menu";
+    };
+
+    gtk4.extraConfig = {
+      gtk-decoration-layout = ":menu";
+    };
   };
 }

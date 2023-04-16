@@ -141,13 +141,12 @@ in {
       wayland
       glib
       wl-clipboard
-      waybar
       slurp
       grim
       wdisplays
       pulseaudio
       kanshi
-      xarchiver
+      gnome.file-roller
 
       (orchis-theme.override {border-radius = 4;})
       qogir-icon-theme
