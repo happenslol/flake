@@ -13,11 +13,6 @@
   hostDotfiles =
     config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/hosts/${hostname}/config";
 
-  cursorTheme = {
-    package = pkgs.yaru-theme;
-    name = "Yaru";
-  };
-
   makeNodePackage = {
     input,
     binary,
@@ -56,7 +51,11 @@
       binary = "prettierd";
       translator = "yarn-lock";
     };
+
   };
+
+  gsettingsSchemas = pkgs.gsettings-desktop-schemas;
+  gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 in {
   programs.home-manager.enable = true;
 
@@ -154,15 +153,18 @@ in {
 
       handlr
       (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
+
+      # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
+      (writeShellScriptBin "gnome-terminal" "shift; ${wezterm}/bin/wezterm -e \"$@\"")
     ];
 
     sessionVariables = {
-      NIXOS_OZONE_WL = 1;
-      MOZ_ENABLE_WAYLAND = 1;
-      MOZ_USE_XINPUT2 = 1;
+      NIXOS_OZONE_WL = "1";
+      MOZ_ENABLE_WAYLAND = "1";
+      MOZ_USE_XINPUT2 = "1";
       SDL_VIDEODRIVER = "wayland";
-      XCURSOR_THEME = cursorTheme.name;
       XCURSOR_SIZE = "24";
+      GTK_THEME = "Orchis-Dark";
     };
 
     file = {
@@ -173,8 +175,9 @@ in {
     };
 
     pointerCursor = {
-      inherit (cursorTheme) package name;
       gtk.enable = true;
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
       size = 24;
     };
   };
@@ -190,34 +193,31 @@ in {
     };
   };
 
-  xdg.configFile = {
-    "host".source = hostDotfiles;
+  xdg = {
+    configFile = {
+      "host".source = hostDotfiles;
 
-    "nvim".source = "${dotfiles}/nvim";
-    "nix".source = "${dotfiles}/nix";
-    "zsh".source = "${dotfiles}/zsh";
-    "waybar".source = "${dotfiles}/waybar";
-    "wezterm".source = "${dotfiles}/wezterm";
-    "kitty".source = "${dotfiles}/kitty";
-    "tmux".source = "${dotfiles}/tmux";
-    "starship.toml".source = "${dotfiles}/starship/starship.toml";
-    "sway".source = "${dotfiles}/sway";
-    "hypr".source = "${dotfiles}/hypr";
-    "tealdeer".source = "${dotfiles}/tealdeer";
-    "mako".source = "${dotfiles}/mako";
+      "nvim".source = "${dotfiles}/nvim";
+      "nix".source = "${dotfiles}/nix";
+      "zsh".source = "${dotfiles}/zsh";
+      "waybar".source = "${dotfiles}/waybar";
+      "wezterm".source = "${dotfiles}/wezterm";
+      "kitty".source = "${dotfiles}/kitty";
+      "tmux".source = "${dotfiles}/tmux";
+      "starship.toml".source = "${dotfiles}/starship/starship.toml";
+      "sway".source = "${dotfiles}/sway";
+      "hypr".source = "${dotfiles}/hypr";
+      "tealdeer".source = "${dotfiles}/tealdeer";
+      "mako".source = "${dotfiles}/mako";
+    };
+
+    systemDirs.data = [gsettingsDatadir];
   };
 
   gtk = {
-    inherit cursorTheme;
-
     enable = true;
-    theme = {
-      package = pkgs.vimix-gtk-themes;
-      name = "vimix-dark-doder";
-    };
-    iconTheme = {
-      package = pkgs.vimix-icon-theme;
-      name = "Vimix Doder dark";
-    };
+    theme.name = "Orchis-Dark";
+    cursorTheme.name = "Bibata-Modern-Classic";
+    iconTheme.name = "Qogir-dark";
   };
 }

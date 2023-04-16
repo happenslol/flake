@@ -5,44 +5,42 @@
   inputs,
   ...
 }: let
-  greetd-sway-config = pkgs.writeText "greetd-sway-config" ''
-    exec systemctl --user import-environment
-    exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-    exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
+  customPackages = {
+    setup-hyprland-environment = pkgs.writeTextFile {
+      name = "setup-hyprland-environment";
+      destination = "/bin/setup-hyprland-environment";
+      executable = true;
 
-    input type:keyboard xkb_numlock enabled
-  '';
+      text = ''
+        systemctl --user import-environment
+        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
+          DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
+          HYPRLAND_INSTANCE_SIGNATURE
 
-  dbus-sway-environment = pkgs.writeTextFile {
-    name = "dbus-sway-environment";
-    destination = "/bin/dbus-sway-environment";
-    executable = true;
-
-    text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-      systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
-      systemctl --user start pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
-    '';
+        systemctl --user start graphical-session.target
+      '';
+    };
   };
 
-  setup-hyprland-environment = pkgs.writeTextFile {
-    name = "setup-hyprland-environment";
-    destination = "/bin/setup-hyprland-environment";
-    executable = true;
+  greetd = {
+    gtkConfig = ''
+      [Settings]
+      gtk-application-prefer-dark-theme = true
+      gtk-theme-name = Orchis-Dark
+      gtk-cursor-theme-name = Bibata-Modern-Classic
+      gtk-cursor-theme-size = 24
+    '';
 
-    text = ''
-      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
-      systemctl --user start pipewire wireplumber xdg-desktop-portal-hyprland
-      sleep 2
-      systemctl --user start xdg-desktop-portal
+    swayConfig = pkgs.writeText "greetd-sway-config" ''
+      input type:keyboard xkb_numlock enabled
+
+      exec {
+        systemctl --user import-environment
+        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+        "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
+      }
     '';
   };
-
-  wayland-session = pkgs.writeShellScriptBin "wayland-session" ''
-    /run/current-system/systemd/bin/systemctl --user start graphical-session.target
-    "$@"
-    /run/current-system/systemd/bin/systemctl --user stop graphical-session.target
-  '';
 in {
   system = {inherit stateVersion;};
   imports = [
@@ -103,14 +101,6 @@ in {
     ssh.startAgent = true;
     dconf.enable = true;
 
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
-
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -118,7 +108,18 @@ in {
 
     hyprland = {
       enable = true;
-      xwayland.hidpi = true;
+      xwayland = {
+        enable = true;
+        hidpi = true;
+      };
+    };
+
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
     };
 
     zsh = {
@@ -137,11 +138,8 @@ in {
       wget
       curl
       swww
-      sway
       wayland
       glib
-      swaylock
-      swayidle
       wl-clipboard
       waybar
       slurp
@@ -150,15 +148,15 @@ in {
       pulseaudio
       kanshi
       xarchiver
-      dbus-sway-environment
-      setup-hyprland-environment
-      wayland-session
+
+      (orchis-theme.override {border-radius = 4;})
+      qogir-icon-theme
+      bibata-cursors
+      customPackages.setup-hyprland-environment
     ];
 
-    etc."greetd/environments".text = ''
-      wayland-session sway
-      wayland-session Hyprland
-    '';
+    etc."greetd/environments".text = "Hyprland";
+    etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetd.gtkConfig;
   };
 
   services = {
@@ -198,16 +196,20 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.sway}/bin/sway --config ${greetd-sway-config}";
+          command = "${pkgs.sway}/bin/sway --config ${greetd.swayConfig}";
         };
       };
     };
   };
 
-  users.users.happens = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
-    shell = pkgs.zsh;
+  users.users = {
+    greeter.home = "/etc/greetd/greeter_home";
+
+    happens = {
+      isNormalUser = true;
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
+      shell = pkgs.zsh;
+    };
   };
 
   networking = {
@@ -217,9 +219,7 @@ in {
 
   security = {
     rtkit.enable = true;
-
     pam.services.gtklock = {};
-    pam.services.swaylock = {};
   };
 
   virtualisation.docker.enable = true;
@@ -229,12 +229,11 @@ in {
     noto-fonts-emoji
     noto-fonts-cjk-sans
 
-    (nerdfonts.override {fonts = ["JetBrainsMono" "Iosevka"];})
+    (nerdfonts.override {fonts = ["Iosevka"];})
   ];
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
