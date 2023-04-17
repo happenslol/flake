@@ -46,22 +46,13 @@ local function get_code_action_priority(title)
 end
 
 function M.filter_code_actions(results)
-  -- We get a list of results from each lsp here,
-  -- so we need to flatten them into one list before sorting
-  local all_results = {}
-  for _, result in ipairs(results) do
-    if result.result then
-      for _, r in ipairs(result.result) do
-        table.insert(all_results, r)
-      end
-    end
+  for _, entry in ipairs(results) do
+    table.sort(entry.result, function(a, b)
+      return get_code_action_priority(a.title) > get_code_action_priority(b.title)
+    end)
   end
 
-  table.sort(all_results, function(a, b)
-    return get_code_action_priority(a.title) > get_code_action_priority(b.title)
-  end)
-
-  return { { result = all_results } }
+  return results
 end
 
 return M
