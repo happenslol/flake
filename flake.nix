@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +60,7 @@
     overlays = [
       inputs.nixpkgs-wayland.overlay
       inputs.hyprpicker.overlays.default
+      inputs.hyprland-contrib.overlays.default
     ];
 
     pkgs = import nixpkgs {

@@ -134,6 +134,7 @@ in {
       notify-desktop
       eww-wayland
       hyprpicker
+      grimblast
 
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
