@@ -66,8 +66,14 @@
     pkgs = import nixpkgs {
       inherit system;
       overlays = overlays;
-      config.allowUnfree = true;
-      config.allowBroken = true;
+      config = {
+        allowUnfree = true;
+        allowBroken = true;
+
+        permittedInsecurePackages = [
+          "electron-21.4.0"
+        ];
+      };
     };
 
     mkHost = hostname:

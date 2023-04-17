@@ -16,6 +16,12 @@ local function iosevka(weight, style)
   return w.font("IosevkaTerm Nerd Font", { weight = weight, style = style })
 end
 
+config.unix_domains = {
+  { name = "default" },
+}
+
+config.default_gui_startup_args = { "connect", "default" }
+
 config.font_rules = {
   {
     intensity = "Normal",
