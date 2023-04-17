@@ -56,7 +56,18 @@
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 in {
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+
+    zsh = {
+      enable = true;
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      enableVteIntegration = true;
+
+      initExtra = ''source $HOME/.config/zsh/init.zsh'';
+    };
+  };
 
   services = {
     kanshi.enable = true;
@@ -166,7 +177,6 @@ in {
     };
 
     file = {
-      ".zshrc".source = "${dotfiles}/zshrc";
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";

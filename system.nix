@@ -100,6 +100,7 @@ in {
   programs = {
     ssh.startAgent = true;
     dconf.enable = true;
+    zsh.enable = true;
 
     sway = {
       enable = true;
@@ -120,11 +121,6 @@ in {
         thunar-archive-plugin
         thunar-volman
       ];
-    };
-
-    zsh = {
-      enable = true;
-      autosuggestions.enable = true;
     };
   };
 
@@ -153,6 +149,8 @@ in {
       bibata-cursors
       customPackages.setup-hyprland-environment
     ];
+
+    pathsToLink = ["/share/zsh"];
 
     etc."greetd/environments".text = "Hyprland";
     etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetd.gtkConfig;
