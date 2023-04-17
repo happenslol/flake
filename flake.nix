@@ -4,7 +4,16 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    hyprland.url = "github:happenslol/Hyprland/main";
+
+    hyprland = {
+      url = "github:happenslol/Hyprland/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -43,7 +52,10 @@
     stateVersion = "22.11";
     username = "happens";
 
-    overlays = [inputs.nixpkgs-wayland.overlay];
+    overlays = [
+      inputs.nixpkgs-wayland.overlay
+      inputs.hyprpicker.overlays.default
+    ];
 
     pkgs = import nixpkgs {
       inherit system;

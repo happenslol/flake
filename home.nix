@@ -133,6 +133,7 @@ in {
       mako
       notify-desktop
       eww-wayland
+      hyprpicker
 
       nodePackages_latest.pnpm
       nodePackages_latest.eslint_d
