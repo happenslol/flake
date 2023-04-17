@@ -44,6 +44,10 @@ opt.linebreak = true -- Wrap lines at 'breakat'
 
 opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
 
+-- Remove help entry from mouse menu
+vim.cmd.aunmenu("PopUp.How-to\\ disable\\ mouse")
+vim.cmd.aunmenu("PopUp.-1-")
+
 -- TODO: Check if nvim 0.9 options are cool
 -- opt.splitkeep = vim.fn.has "nvim-0.9" == 1 and "screen" or nil   -- Maintain code view when splitting
 -- opt.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil       -- Show foldcolumn in nvim 0.9

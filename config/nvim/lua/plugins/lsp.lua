@@ -31,7 +31,7 @@ return {
         local luasnip = require("luasnip")
         if cmp.visible() then
           cmp.select_next_item()
-        elseif require("luasnip").expand_or_jumpable() then
+        elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         else
           fallback()
@@ -75,7 +75,7 @@ return {
           ["<c-b>"] = cmp.mapping.scroll_docs(-4),
           ["<c-f>"] = cmp.mapping.scroll_docs(4),
           ["<c-space>"] = cmp.mapping.complete(),
-          ["<c-e>"] = cmp.mapping.abort(),
+          ["<c-d>"] = cmp.mapping.abort(),
           ["<cr>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,

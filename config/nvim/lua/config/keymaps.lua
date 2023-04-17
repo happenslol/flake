@@ -20,10 +20,10 @@ map("v", "<c-k>", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true })
 
 -- Better quickfix bindings
-map("n", "<c-f>k", ":copen<cr>")
-map("n", "<c-f>j", ":cclose<cr>")
-map("n", "<c-f>l", ":cnext<cr>")
-map("n", "<c-f>h", ":cprev<cr>")
+map("n", "<c-d>k", ":copen<cr>")
+map("n", "<c-d>j", ":cclose<cr>")
+map("n", "<c-d>l", ":cnext<cr>")
+map("n", "<c-d>h", ":cprev<cr>")
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")

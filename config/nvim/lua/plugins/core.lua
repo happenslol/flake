@@ -94,6 +94,8 @@ return {
               ["<esc>"] = telescope_actions.close,
               ["<c-j>"] = telescope_actions.move_selection_next,
               ["<c-k>"] = telescope_actions.move_selection_previous,
+              ["<c-f>"] = telescope_actions.preview_scrolling_down,
+              ["<c-b>"] = telescope_actions.preview_scrolling_up,
             },
           },
         },
