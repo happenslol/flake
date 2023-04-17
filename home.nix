@@ -216,6 +216,8 @@ in {
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
+
+      "gtk-3.0/bookmarks".source = "${dotfiles}/gtk3/bookmarks";
     };
 
     systemDirs.data = [gsettingsDatadir];
