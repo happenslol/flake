@@ -129,6 +129,8 @@ return {
           source = "always",
           header = "",
           prefix = "",
+          max_width = 120,
+          max_height = 100,
         },
       },
       servers = {
@@ -182,14 +184,18 @@ return {
         tsserver = function(_, opts)
           require("util").on_attach(function(client, buffer)
             if client.name == "tsserver" then
-							-- stylua: ignore
-							vim.keymap.set("n", "<leader>ro",
-								"<cmd>TypescriptOrganizeImports<cr>",
-								{ buffer = buffer, desc = "Organize Imports" })
-							-- stylua: ignore
-							vim.keymap.set("n", "<leader>rR",
-								"<cmd>TypescriptRenameFile<cr>",
-								{ buffer = buffer, desc = "Rename File" })
+              vim.keymap.set(
+                "n",
+                "<leader>ro",
+                "<cmd>TypescriptOrganizeImports<cr>",
+                { buffer = buffer, desc = "Organize Imports" }
+              )
+              vim.keymap.set(
+                "n",
+                "<leader>rR",
+                "<cmd>TypescriptRenameFile<cr>",
+                { buffer = buffer, desc = "Rename File" }
+              )
             end
           end)
 

@@ -1,5 +1,7 @@
 [[ -z "$ZPROF" ]] || zmodload zsh/zprof
 
+export TERM=wezterm
+
 source ~/.config/zsh/ssh.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/keymaps.zsh

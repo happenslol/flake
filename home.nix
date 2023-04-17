@@ -181,6 +181,8 @@ in {
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
+      ".terminfo".source = "${dotfiles}/terminfo";
+      ".ssh/config".source = "${dotfiles}/ssh/config";
     };
 
     pointerCursor = {

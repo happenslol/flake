@@ -16,11 +16,9 @@ local function iosevka(weight, style)
   return w.font("IosevkaTerm Nerd Font", { weight = weight, style = style })
 end
 
-config.unix_domains = {
-  { name = "default" },
-}
-
-config.default_gui_startup_args = { "connect", "default" }
+-- This feels sluggish, maybe revisit at some point
+-- config.unix_domains = { { name = "default" } }
+-- config.default_gui_startup_args = { "connect", "default" }
 
 config.font_rules = {
   {
@@ -69,10 +67,10 @@ config.key_tables = keymaps.key_tables
 config.window_close_confirmation = "NeverPrompt"
 
 config.window_padding = {
-  top = 0,
-  right = 0,
-  bottom = 0,
-  left = 0,
+  top = 8,
+  right = 8,
+  bottom = 4,
+  left = 8,
 }
 
 config.tab_max_width = 40
