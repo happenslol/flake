@@ -154,21 +154,10 @@ return {
         },
         rust_analyzer = {},
         tsserver = {
+          flags = { debounce_text_changes = 500, allow_incremental_sync = true },
           settings = { completions = { completeFunctionCalls = true } },
           -- Speed up tsserver by requiring the root directory to be a git repo
           root_dir = require("lspconfig.util").root_pattern(".git"),
-          handlers = {
-            ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
-              result.diagnostics = vim.tbl_filter(function(d)
-                -- Disable lints already covered by eslint
-                return not vim.tbl_contains({
-                  6133, -- declared but never read
-                }, d.code)
-              end, result.diagnostics)
-
-              return vim.lsp.handlers["textDocument/publishDiagnostics"](nil, result, ctx, config)
-            end,
-          },
         },
         lua_ls = {
           flags = { debounce_text_changes = 500 },
@@ -210,6 +199,25 @@ return {
       },
     },
     config = function(_, opts)
+      local on_publish = vim.lsp.handlers["textDocument/publishDiagnostics"]
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+        result.diagnostics = require("util").filter_diagnostics(result.diagnostics)
+        return on_publish(nil, result, ctx, config)
+      end
+
+      local buf_request_all = vim.lsp.buf_request_all
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.lsp.buf_request_all = function(bufnr, method, params, callback)
+        return buf_request_all(bufnr, method, params, function(lsp_results)
+          if method == "textDocument/codeAction" then
+            return callback(require("util").filter_code_actions(lsp_results))
+          end
+
+          return callback(lsp_results)
+        end)
+      end
+
       local icons = { Error = " ", Warn = " ", Hint = " ", Info = " " }
       for name, icon in pairs(icons) do
         name = "DiagnosticSign" .. name
@@ -313,11 +321,7 @@ return {
           null.builtins.formatting.prettierd,
           null.builtins.code_actions.eslint_d,
           null.builtins.diagnostics.eslint_d.with({
-            filter = function(d)
-              return not vim.tbl_contains({
-                "@typescript-eslint/no-unused-vars",
-              }, d.code)
-            end,
+            filter = require("util").filter_eslintd_diagnostics,
           }),
 
           null.builtins.formatting.shfmt,
