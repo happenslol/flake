@@ -13,10 +13,10 @@
   hostDotfiles =
     config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/hosts/${hostname}/config";
 
-  makeNodePackage = {
+  makeNodePackage = args @ {
     input,
     binary,
-    translator,
+    ...
   }: let
     npmPackageOutputs = inputs.dream2nix.lib.makeFlakeOutputs {
       systems = [system];
@@ -26,10 +26,7 @@
         prettier = {
           name = "prettierd";
           subsystem = "nodejs";
-          translator =
-            if translator != null
-            then translator
-            else "package-lock";
+          translator = args.translator or "";
         };
       };
     };
@@ -52,6 +49,8 @@
       translator = "yarn-lock";
     };
   };
+
+  wezterm-main = inputs.wezterm.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
@@ -97,8 +96,8 @@ in {
       fzf
       tokei
       kitty
-      wezterm
       tmux
+      wezterm-main
       zoxide
       starship
       direnv
@@ -167,7 +166,7 @@ in {
       (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
-      (writeShellScriptBin "gnome-terminal" "shift; ${wezterm}/bin/wezterm -e \"$@\"")
+      (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-main}/bin/wezterm -e \"$@\"")
     ];
 
     sessionVariables = {

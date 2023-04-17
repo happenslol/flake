@@ -9,7 +9,7 @@ return {
           disabled_filetypes = { "neo-tree", "qf" },
           component_separators = { left = "", right = "" },
           section_separators = { left = " ", right = " " },
-          refresh = { statusline = 500 },
+          refresh = { statusline = 1000 },
         },
         sections = {
           lualine_a = { "mode" },

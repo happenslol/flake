@@ -61,9 +61,8 @@ M.key_tables.copy_mode = {
   { key = "0", action = act.CopyMode("MoveToStartOfLine") },
   { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
 
-  { key = "G", action = act.CopyMode("MoveToScrollbackBottom") },
   { key = "G", mods = "SHIFT", action = act.CopyMode("MoveToScrollbackBottom") },
-  { key = "g", action = act.CopyMode("MoveToViewportTop") },
+  { key = "g", action = act.CopyMode("MoveToScrollbackTop") },
   { key = "f", mods = "SHIFT", action = act.CopyMode({ JumpForward = { prev_char = false } }) },
   { key = "F", mods = "SHIFT", action = act.CopyMode({ JumpBackward = { prev_char = false } }) },
   { key = "t", mods = "SHIFT", action = act.CopyMode({ JumpForward = { prev_char = true } }) },
@@ -74,38 +73,24 @@ M.key_tables.copy_mode = {
   { key = "v", mods = "CTRL", action = act.CopyMode({ SetSelectionMode = "Block" }) },
 
   { key = "w", action = act.CopyMode("MoveForwardWord") },
+  { key = "W", mods = "SHIFT", action = act.CopyMode("MoveForwardWord") },
   { key = "b", action = act.CopyMode("MoveBackwardWord") },
-
-  {
-    key = "e",
-    mods = "NONE",
-    -- TODO: Available in 20230320-124340-559cb7b0
-    -- action = act.CopyMode("MoveForwardWordEnd"),
-    action = act.CopyMode("MoveForwardWord"),
-  },
-
-  {
-    key = "Y",
-    mods = "SHIFT",
-    action = act.CopyTo("Clipboard"),
-  },
+  { key = "b", mods = "SHIFT", action = act.CopyMode("MoveBackwardWord") },
+  { key = "e", action = act.CopyMode("MoveForwardWordEnd") },
+  { key = "e", mods = "SHIFT", action = act.CopyMode("MoveForwardWordEnd") },
 
   {
     key = "y",
-    mods = "NONE",
     action = act.Multiple({
       act.CopyTo("Clipboard"),
-      act.CopyTo("PrimarySelection"),
       act.ClearSelection,
       act.CopyMode("ClearSelectionMode"),
     }),
   },
   {
     key = "Enter",
-    mods = "NONE",
     action = act.Multiple({
       act.CopyTo("Clipboard"),
-      act.CopyTo("PrimarySelection"),
       act.ClearSelection,
       act.CopyMode("Close"),
     }),

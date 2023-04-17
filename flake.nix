@@ -6,7 +6,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     hyprland = {
-      url = "github:happenslol/Hyprland/main";
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -37,6 +37,11 @@
 
     grub2-theme = {
       url = "github:happenslol/grub2-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wezterm = {
+      url = "github:happenslol/wezterm/add-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

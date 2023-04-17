@@ -13,8 +13,8 @@ map("n", "<c-left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window wi
 map("n", "<c-right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
-map("v", "<c-j>", ":m '>+1<cr>gv=gv", { desc = "Move down", silent = true })
-map("v", "<c-k>", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
+map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down", silent = true })
+map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
 -- Clear search
 map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true })
