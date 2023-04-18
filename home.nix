@@ -115,6 +115,7 @@ in {
       vimiv-qt
       nvd
       tealdeer
+      gammastep
 
       just
       steam-run

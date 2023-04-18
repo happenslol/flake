@@ -8,3 +8,6 @@ swww clear 2d2e2f
 
 # Clear primary selection
 wl-paste -p --watch wl-copy -pc &
+
+# Start gammastep
+gammastep -l 50.105492:8.7592655 -t 5400K:3800K
