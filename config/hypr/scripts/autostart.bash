@@ -10,4 +10,4 @@ swww clear 2d2e2f
 wl-paste -p --watch wl-copy -pc &
 
 # Start gammastep
-gammastep -l 50.105492:8.7592655 -t 5400K:3800K
+gammastep -l 50.105492:8.7592655 -t 6500K:4200K &

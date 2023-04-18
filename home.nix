@@ -94,6 +94,7 @@ in {
       yq
       jq
       fzf
+      killall
       tokei
       kitty
       tmux
