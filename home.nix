@@ -152,6 +152,7 @@ in {
       nil
       alejandra
       llvmPackages_latest.libclang
+      taplo
 
       awscli2
       terraform

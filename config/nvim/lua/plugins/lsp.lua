@@ -179,6 +179,7 @@ return {
         html = {},
         cssls = {},
         gopls = {},
+        taplo = {},
       },
       setup = {
         tsserver = function(_, opts)
@@ -337,6 +338,7 @@ return {
           null.builtins.formatting.alejandra,
           null.builtins.formatting.goimports,
           null.builtins.formatting.clang_format,
+          null.builtins.formatting.taplo,
 
           require("typescript.extensions.null-ls.code-actions"),
         },

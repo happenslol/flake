@@ -32,3 +32,7 @@ zle -N down-line-or-beginning-search
 bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
 bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
 bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+
+function zle-nvim() { nvim-nightly }
+zle -N zle-nvim
+bindkey "^N" zle-nvim
