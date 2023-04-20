@@ -36,3 +36,9 @@ bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
 function zle-nvim() { nvim-nightly }
 zle -N zle-nvim
 bindkey "^N" zle-nvim
+
+function zle-lazygit() { lazygit }
+zle -N zle-lazygit
+bindkey "^G" zle-lazygit
+
+bindkey -s "^K" "l^M"

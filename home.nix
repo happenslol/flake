@@ -91,6 +91,7 @@ in {
       bottom
       curl
       xh
+      lazygit
       yq
       jq
       fzf
