@@ -41,4 +41,11 @@ function zle-lazygit() { lazygit }
 zle -N zle-lazygit
 bindkey "^G" zle-lazygit
 
-bindkey -s "^K" "l^M"
+function zle-ls() {
+  echo
+  exa -la --git --icons --group-directories-first
+  zle redisplay
+}
+
+zle -N zle-ls
+bindkey "^K" zle-ls

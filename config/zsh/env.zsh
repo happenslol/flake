@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
+export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden"

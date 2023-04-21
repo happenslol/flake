@@ -93,7 +93,6 @@ return {
           { name = "buffer" },
           { name = "path" },
         }),
-        -- TODO: min width
         -- TODO: show source
         formatting = {
           format = require("lspkind").cmp_format({
@@ -170,7 +169,10 @@ return {
             },
           },
         },
-        nil_ls = {},
+
+        -- nil_ls = {},
+        rnix = {},
+
         -- Disable if relay config is found, see
         -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443
         -- graphql = {
