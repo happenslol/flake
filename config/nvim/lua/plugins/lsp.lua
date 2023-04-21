@@ -171,7 +171,6 @@ return {
         },
 
         nil_ls = {},
-        -- rnix = {},
 
         -- Disable if relay config is found, see
         -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443

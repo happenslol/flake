@@ -156,7 +156,6 @@ in {
       rust-analyzer
       shellcheck
       shfmt
-      rnix-lsp
       nil
       alejandra
       llvmPackages_latest.libclang
