@@ -19,3 +19,6 @@ export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+# direnv config
+export DIRENV_LOG_FORMAT=""
