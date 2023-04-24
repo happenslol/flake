@@ -93,6 +93,7 @@ in {
       ripgrep
       ncdu
       bottom
+      btop
       curl
       xh
       lazygit
