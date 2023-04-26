@@ -86,6 +86,7 @@ in {
       wget
       git
       difftastic
+      delta
       unzip
       file
       bat

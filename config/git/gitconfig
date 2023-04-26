@@ -10,7 +10,7 @@
 
 [core]
   sshCommand = "ssh -i ~/.ssh/$(hostname).personal.id_ed25519"
-	pager = less -x2
+  pager = delta
 
 [includeIf "gitdir:~/opencreek/"]
   path = ~/.gitconfig-opencreek
@@ -25,5 +25,16 @@
 [alias]
 lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 cleanr = !"git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do git branch -D $branch; done"
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  light = false
+
+[merge]
+  conflictstyle = diff3
+
 [diff]
-	external = difft --tab-width 2
+  colorMoved = default
