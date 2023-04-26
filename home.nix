@@ -109,12 +109,12 @@ in {
       starship
       direnv
       google-chrome
-      firefox-wayland
+      firefox-bin
       bitwarden
       tdesktop
       webcord
       signal-desktop
-      element-desktop-wayland
+      element-desktop
       easyeffects
       flameshot
       obsidian

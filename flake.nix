@@ -66,6 +66,7 @@
       inputs.nixpkgs-wayland.overlay
       inputs.hyprpicker.overlays.default
       inputs.hyprland-contrib.overlays.default
+      (final: prev: { nodejs = prev.nodejs_19; })
     ];
 
     pkgs = import nixpkgs {
