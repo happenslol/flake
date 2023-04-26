@@ -143,12 +143,12 @@ in {
       hyprpicker
       grimblast
 
-      node_19.pkgs.pnpm
-      node_19.pkgs.eslint_d
-      node_19.pkgs.vscode-langservers-extracted
-      node_19.pkgs.bash-language-server
-      node_19.pkgs.yaml-language-server
-      node_19.pkgs.graphql-language-service-cli
+      nodejs_19.pkgs.pnpm
+      nodejs_19.pkgs.eslint_d
+      nodejs_19.pkgs.vscode-langservers-extracted
+      nodejs_19.pkgs.bash-language-server
+      nodejs_19.pkgs.yaml-language-server
+      nodejs_19.pkgs.graphql-language-service-cli
 
       customPackages.fixed-typescript-language-server
       customPackages.prettierd
