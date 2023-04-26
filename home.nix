@@ -129,7 +129,7 @@ in {
       docker-compose
       gcc
       rustup
-      nodejs
+      nodejs_19
       yarn
       go
       gopls
