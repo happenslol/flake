@@ -50,8 +50,6 @@
     };
   };
 
-  node19Packages = pkgs.nodejs_19.pkgs;
-
   wezterm-main = inputs.wezterm.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
@@ -145,12 +143,13 @@ in {
       hyprpicker
       grimblast
 
-      node19Packages.pnpm
-      node19Packages.eslint_d
-      node19Packages.vscode-langservers-extracted
-      node19Packages.bash-language-server
-      node19Packages.yaml-language-server
-      node19Packages.graphql-language-service-cli
+      node_19.pkgs.pnpm
+      node_19.pkgs.eslint_d
+      node_19.pkgs.vscode-langservers-extracted
+      node_19.pkgs.bash-language-server
+      node_19.pkgs.yaml-language-server
+      node_19.pkgs.graphql-language-service-cli
+
       customPackages.fixed-typescript-language-server
       customPackages.prettierd
       sumneko-lua-language-server
