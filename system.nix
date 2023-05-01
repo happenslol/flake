@@ -127,8 +127,10 @@ in {
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
   environment = {
+    enableAllTerminfo = true;
     shells = [pkgs.zsh pkgs.bash];
     binsh = "${pkgs.dash}/bin/dash";
+
     systemPackages = with pkgs; [
       vim
       wget
