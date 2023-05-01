@@ -6,7 +6,7 @@ text-color=#eeffff
 width=360
 height=150
 border-size=1
-border-color=#414141ee
+border-color=#5c5c5cee
 border-radius=8
 icons=1
 max-icon-size=24
@@ -14,15 +14,15 @@ padding=14,18
 
 output=DP-1
 
-default-timeout=5000
+default-timeout=10000
 ignore-timeout=1
 
 [urgency=low]
-border-color=#414141ee
+border-color=#5c5c5cee
 
 [urgency=normal]
-border-color=#414141ee
+border-color=#5c5c5cee
 
 [urgency=high]
-border-color=#414141ee
+border-color=#5c5c5cee
 default-timeout=0
