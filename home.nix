@@ -117,7 +117,6 @@ in {
       signal-desktop
       element-desktop
       easyeffects
-      flameshot
       obsidian
       gimp
       vimiv-qt
@@ -230,6 +229,7 @@ in {
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
+      "wofi".source = "${dotfiles}/wofi";
 
       "gtk-3.0/bookmarks".source = "${dotfiles}/gtk3/bookmarks";
     };
