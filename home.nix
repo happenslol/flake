@@ -218,6 +218,7 @@ in {
     configFile = {
       "host".source = hostDotfiles;
 
+      "bat".source = "${dotfiles}/bat";
       "nvim".source = "${dotfiles}/nvim";
       "nix".source = "${dotfiles}/nix";
       "zsh".source = "${dotfiles}/zsh";

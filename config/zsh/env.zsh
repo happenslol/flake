@@ -22,3 +22,7 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden"
 
 # direnv config
 export DIRENV_LOG_FORMAT=""
+
+# pager config
+export BAT_PAGER="less -+X"
+export DELTA_PAGER="less -+X"
