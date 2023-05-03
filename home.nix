@@ -23,8 +23,8 @@
       config.projectRoot = ./.;
       source = inputs.prettierd;
       projects = {
-        prettier = {
-          name = "prettierd";
+        "${binary}" = {
+          name = binary;
           subsystem = "nodejs";
           translator = args.translator or "";
         };
@@ -33,7 +33,7 @@
 
     npmPackages = npmPackageOutputs.packages.${system};
   in
-    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages.prettierd}/bin/${binary} $@";
+    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages."${binary}"}/bin/${binary} $@";
 
   customPackages = {
     fixed-typescript-language-server =

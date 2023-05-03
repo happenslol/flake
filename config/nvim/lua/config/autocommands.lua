@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd("FileType", {
   group = augroup("neo-tree"),
   pattern = "neo-tree",
   callback = function(event)
-    vim.keymap.set("n", "<c-l>", "<cmd>vertical resize +2<cr>", { buffer = event.buf, silent = true })
-    vim.keymap.set("n", "<c-h>", "<cmd>vertical resize -2<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "<c-l>", "<cmd>vertical resize +15<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "<c-h>", "<cmd>vertical resize -15<cr>", { buffer = event.buf, silent = true })
   end,
 })
