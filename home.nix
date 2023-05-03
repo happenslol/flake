@@ -101,6 +101,7 @@ in {
       yq
       jq
       fzf
+      fd
       killall
       tokei
       kitty
@@ -169,6 +170,7 @@ in {
       kubernetes-helm
       packer
 
+      tree-sitter
       neovim
       customPackages.neovim-nightly
 

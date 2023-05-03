@@ -33,7 +33,7 @@ return {
 
   {
     "Wansmer/treesj",
-    keys = { { "<leader>w", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Line" } },
+    keys = { { "<leader>s", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Line" } },
     opts = { use_default_keymaps = false },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,

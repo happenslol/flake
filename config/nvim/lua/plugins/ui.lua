@@ -9,40 +9,43 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
         },
       },
       presets = {
         bottom_search = false,
         command_palette = true,
-        long_message_to_split = false,
+        long_message_to_split = true,
         lsp_doc_border = true,
       },
     },
     keys = {
       {
-        "<S-Enter>",
+        "<s-enter>",
         function()
           require("noice").redirect(vim.fn.getcmdline())
+          local keys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+          vim.api.nvim_feedkeys(keys, "n", false)
         end,
         mode = "c",
         desc = "Redirect Cmdline",
       },
       {
-        "<leader>snl",
+        "<leader>ml",
         function()
           require("noice").cmd("last")
         end,
         desc = "Noice Last Message",
       },
       {
-        "<leader>snh",
+        "<leader>mh",
         function()
           require("noice").cmd("history")
         end,
         desc = "Noice History",
       },
       {
-        "<leader>sna",
+        "<leader>ma",
         function()
           require("noice").cmd("all")
         end,
@@ -58,11 +61,7 @@ return {
         silent = true,
         expr = true,
         desc = "Scroll forward",
-        mode = {
-          "i",
-          "n",
-          "s",
-        },
+        mode = { "i", "n", "s" },
       },
       {
         "<c-b>",
@@ -74,11 +73,7 @@ return {
         silent = true,
         expr = true,
         desc = "Scroll backward",
-        mode = {
-          "i",
-          "n",
-          "s",
-        },
+        mode = { "i", "n", "s" },
       },
     },
   },
@@ -128,7 +123,4 @@ return {
     event = "VeryLazy",
     opts = { user_default_options = { names = false } },
   },
-
-  -- TODO
-  -- nvim-bqf
 }

@@ -45,7 +45,7 @@ local function get_code_action_priority(title)
   return 0
 end
 
-function M.filter_code_actions(results)
+function M.sort_code_actions(results)
   for _, entry in ipairs(results) do
     table.sort(entry.result, function(a, b)
       return get_code_action_priority(a.title) > get_code_action_priority(b.title)
@@ -53,6 +53,14 @@ function M.filter_code_actions(results)
   end
 
   return results
+end
+
+function M.hook(tbl, key, fn)
+  local prev = tbl[key]
+
+  tbl[key] = function(...)
+    fn(prev, ...)
+  end
 end
 
 return M

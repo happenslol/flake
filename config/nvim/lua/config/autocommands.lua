@@ -24,12 +24,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = "*",
   callback = function()
+    loaded, luasnip = pcall(require, "luasnip")
+    if not loaded then return end
+
     if
       ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
-      and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-      and not require("luasnip").session.jump_active
+      and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+      and not luasnip.session.jump_active
     then
-      require("luasnip").unlink_current()
+      luasnip.unlink_current()
     end
   end,
 })

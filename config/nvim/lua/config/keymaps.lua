@@ -19,11 +19,17 @@ map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 -- Clear search
 map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true })
 
--- Better quickfix bindings
-map("n", "<c-d>k", ":copen<cr>")
-map("n", "<c-d>j", ":cclose<cr>")
-map("n", "<c-d>l", ":cnext<cr>")
-map("n", "<c-d>h", ":cprev<cr>")
+-- quickfix bindings
+map("n", "<leader>qk", ":copen<cr>", { silent = true })
+map("n", "<leader>qj", ":cclose<cr>", { silent = true })
+map("n", "<leader>ql", ":cnext<cr>", { silent = true })
+map("n", "<leader>qh", ":cprev<cr>", { silent = true })
+
+-- loclist bindings
+map("n", "<leader>wk", ":lopen<cr>", { silent = true })
+map("n", "<leader>wj", ":lclose<cr>", { silent = true })
+map("n", "<leader>wl", ":lnext<cr>", { silent = true })
+map("n", "<leader>wh", ":lprev<cr>", { silent = true })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")

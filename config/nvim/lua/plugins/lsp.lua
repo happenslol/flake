@@ -115,116 +115,116 @@ return {
       { "b0o/SchemaStore.nvim", version = false },
       "jose-elias-alvarez/typescript.nvim",
     },
-    opts = {
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = false,
-        severity_sort = true,
-        float = {
-          focused = false,
-          style = "minimal",
-          border = "rounded",
-          source = "always",
-          header = "",
-          prefix = "",
-          max_width = 120,
-          max_height = 100,
-        },
-      },
-      servers = {
-        -- TODO: Set up snippet capabilities for html, json and css lsps
-        jsonls = {
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-          end,
-          settings = {
-            json = {
-              format = { enable = true },
-              validate = { enable = true },
-            },
+    opts = function()
+      return {
+        diagnostics = {
+          underline = true,
+          update_in_insert = false,
+          virtual_text = false,
+          severity_sort = true,
+          float = {
+            focused = false,
+            style = "minimal",
+            border = "rounded",
+            source = "always",
+            header = "",
+            prefix = "",
+            max_width = 120,
+            max_height = 100,
           },
         },
-        yamlls = {
-          on_new_config = function(new_config)
-            new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
-            vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
-          end,
-          settings = { yaml = { keyOrdering = false } },
-        },
-        rust_analyzer = {},
-        tsserver = {
-          flags = { debounce_text_changes = 500, allow_incremental_sync = true },
-          settings = { completions = { completeFunctionCalls = true } },
-          -- Speed up tsserver by requiring the root directory to be a git repo
-          root_dir = require("lspconfig.util").root_pattern(".git"),
-        },
-        lua_ls = {
-          flags = { debounce_text_changes = 500 },
-          settings = {
-            Lua = {
-              workspace = { checkThirdParty = false },
-              completion = { callSnippet = "Replace" },
+        servers = {
+          -- TODO: Set up snippet capabilities for html, json and css lsps
+          jsonls = {
+            on_new_config = function(new_config)
+              new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+              vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+            end,
+            settings = {
+              json = {
+                format = { enable = true },
+                validate = { enable = true },
+              },
             },
           },
+          yamlls = {
+            on_new_config = function(new_config)
+              new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+              vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+            end,
+            settings = { yaml = { keyOrdering = false } },
+          },
+          rust_analyzer = {},
+          tsserver = {
+            flags = { debounce_text_changes = 500, allow_incremental_sync = true },
+            settings = { completions = { completeFunctionCalls = true } },
+            -- Speed up tsserver by requiring the root directory to be a git repo
+            root_dir = require("lspconfig.util").root_pattern(".git"),
+          },
+          lua_ls = {
+            flags = { debounce_text_changes = 500 },
+            settings = {
+              Lua = {
+                workspace = { checkThirdParty = false },
+                completion = { callSnippet = "Replace" },
+              },
+            },
+          },
+
+          nil_ls = {},
+
+          -- Disable if relay config is found, see
+          -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443
+          -- graphql = {
+          --   root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
+          -- },
+          html = {},
+          cssls = {},
+          gopls = {},
+          taplo = {},
         },
+        setup = {
+          tsserver = function(_, opts)
+            require("util").on_attach(function(client, buffer)
+              if client.name == "tsserver" then
+                vim.keymap.set(
+                  "n",
+                  "<leader>ro",
+                  "<cmd>TypescriptOrganizeImports<cr>",
+                  { buffer = buffer, desc = "Organize Imports" }
+                )
+                vim.keymap.set(
+                  "n",
+                  "<leader>rR",
+                  "<cmd>TypescriptRenameFile<cr>",
+                  { buffer = buffer, desc = "Rename File" }
+                )
+              end
+            end)
 
-        nil_ls = {},
-
-        -- Disable if relay config is found, see
-        -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443
-        -- graphql = {
-        --   root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
-        -- },
-        html = {},
-        cssls = {},
-        gopls = {},
-        taplo = {},
-      },
-      setup = {
-        tsserver = function(_, opts)
-          require("util").on_attach(function(client, buffer)
-            if client.name == "tsserver" then
-              vim.keymap.set(
-                "n",
-                "<leader>ro",
-                "<cmd>TypescriptOrganizeImports<cr>",
-                { buffer = buffer, desc = "Organize Imports" }
-              )
-              vim.keymap.set(
-                "n",
-                "<leader>rR",
-                "<cmd>TypescriptRenameFile<cr>",
-                { buffer = buffer, desc = "Rename File" }
-              )
-            end
-          end)
-
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
-    },
+            require("typescript").setup({ server = opts })
+            return true
+          end,
+        },
+      }
+    end,
     config = function(_, opts)
-      local on_publish = vim.lsp.handlers["textDocument/publishDiagnostics"]
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+      local util = require("util")
+
+      util.hook(vim.lsp.handlers, "textDocument/publishDiagnostics", function(prev, _, result, ctx, config)
         result.diagnostics = require("util").filter_diagnostics(result.diagnostics)
-        return on_publish(nil, result, ctx, config)
-      end
+        return prev(nil, result, ctx, config)
+      end)
 
-      local buf_request_all = vim.lsp.buf_request_all
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.buf_request_all = function(bufnr, method, params, callback)
-        return buf_request_all(bufnr, method, params, function(lsp_results)
-          if method == "textDocument/codeAction" then
-            return callback(require("util").filter_code_actions(lsp_results))
-          end
-
-          return callback(lsp_results)
-        end)
-      end
+      -- util.hook(vim.lsp, "buf_request_all", function(prev, bufnr, method, params, callback)
+      --   return prev(bufnr, method, params, function(lsp_results)
+      --     if method == "textDocument/codeAction" then
+      --       return callback(require("util").sort_code_actions(lsp_results))
+      --     end
+      --
+      --     return callback(lsp_results)
+      --   end)
+      -- end)
 
       local icons = { Error = " ", Warn = " ", Hint = " ", Info = " " }
       for name, icon in pairs(icons) do
@@ -246,7 +246,7 @@ return {
         })
       end
 
-      require("util").on_attach(function(client, buffer)
+      util.on_attach(function(client, buffer)
         local function map(mode, lhs, rhs, map_opts)
           map_opts = map_opts or {}
           map_opts.buffer = buffer
