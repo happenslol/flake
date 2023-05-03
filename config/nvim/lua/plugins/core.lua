@@ -89,6 +89,21 @@ return {
 
       return {
         defaults = {
+          vimgrep_arguments = {
+            "rg",
+            "-L",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+          },
+
+          prompt_prefix = "   ",
+          selection_caret = "  ",
+          entry_prefix = "  ",
+
           mappings = {
             i = {
               ["<esc>"] = telescope_actions.close,

@@ -4,14 +4,19 @@ return {
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+    },
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
+      autotag = { enable = true },
       context_commentstring = { enable = true, enable_autocmd = false },
       ensure_installed = {
         "bash",
         "c",
         "cpp",
+        "comment",
         "css",
         "cue",
         "dockerfile",
@@ -65,5 +70,6 @@ return {
     end,
   },
 
+  { "NoahTheDuke/vim-just", ft = "just" },
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
 }
