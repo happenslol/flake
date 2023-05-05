@@ -33,11 +33,11 @@ bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
 bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
 bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
 
-function zle-nvim() { nvim-nightly }
+function zle-nvim() { nvim-nightly; zle redisplay }
 zle -N zle-nvim
 bindkey "^N" zle-nvim
 
-function zle-lazygit() { lazygit }
+function zle-lazygit() { lazygit; zle redisplay }
 zle -N zle-lazygit
 bindkey "^G" zle-lazygit
 
@@ -46,6 +46,5 @@ function zle-ls() {
   exa -la --git --icons --group-directories-first
   zle redisplay
 }
-
 zle -N zle-ls
 bindkey "^K" zle-ls
