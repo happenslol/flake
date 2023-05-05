@@ -7,14 +7,14 @@ gui:
   mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
   theme:
     activeBorderColor:
-      - green
+      - "#becccc"
       - bold
     inactiveBorderColor:
-      - white
+      - "#424242"
     optionsTextColor:
       - blue
     selectedLineBgColor:
-      - blue # set to `default` to have no background colour
+      - blue
     selectedRangeBgColor:
       - blue
     cherryPickedCommitBgColor:
