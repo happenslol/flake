@@ -93,8 +93,8 @@ in {
       exa
       ripgrep
       ncdu
-      bottom
       btop
+      atuin
       curl
       xh
       lazygit
@@ -232,6 +232,7 @@ in {
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
       "wofi".source = "${dotfiles}/wofi";
+      "atuin".source = "${dotfiles}/atuin";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
 
       "gtk-3.0/bookmarks".source = "${dotfiles}/gtk3/bookmarks";

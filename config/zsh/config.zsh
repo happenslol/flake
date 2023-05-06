@@ -1,15 +1,3 @@
-# Configure history
-export HISTFILE=~/.zsh_history
-export HISTSIZE=50000
-export SAVEHIST=10000
-
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt hist_verify
-setopt share_history
-
 unsetopt flowcontrol
 unsetopt menu_complete
 setopt auto_menu
@@ -37,3 +25,19 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 
 # Load required modules
 zmodload zsh/complist
+
+# Configure autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=('atuin')
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='20'
+ZSH_AUTOSUGGEST_USE_ASYNC='true'
+ZSH_AUTOSUGGEST_MANUAL_REBIND='true'
+
+# Clear autosuggestions when using atuin
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('_atuin_search')
+
+# Use atuin history for autosuggestions
+function _zsh_autosuggest_strategy_atuin() {
+  # FIXME: This currently escapes incorrectly, since atuin is hard-coded
+  # to replace '*' with '%', and we're not escaping any SQL LIKE wildcards.
+  typeset -g suggestion="$(atuin search --search-mode prefix --cmd-only --limit 1 "$1")"
+}

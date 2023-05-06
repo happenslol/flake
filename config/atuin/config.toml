@@ -1,0 +1,5 @@
+update_check = false
+sync_address = "https://atuin.happens.lol"
+style = "compact"
+show_preview = true
+inline_height = 10

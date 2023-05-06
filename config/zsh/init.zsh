@@ -8,14 +8,15 @@ source ~/.config/zsh/keymaps.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/alias.zsh
 
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd j zsh)"
-eval "$(direnv hook zsh)"
-
 if [[ -n "${commands[fzf-share]}" ]]; then
   source "$(fzf-share)/key-bindings.zsh"
   source "$(fzf-share)/completion.zsh"
 fi
+
+eval "$(starship init zsh)"
+eval "$(zoxide init --cmd j zsh)"
+eval "$(direnv hook zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 autoload -Uz compinit
 for _ in ~/.zcompdump(N.mh+24); do compinit; done
