@@ -45,7 +45,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC='true'
 ZSH_AUTOSUGGEST_MANUAL_REBIND='true'
 
 # Clear autosuggestions when using atuin
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('_atuin_search')
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('_atuin_search_widget')
 
 # Use atuin history for autosuggestions
 function _zsh_autosuggest_strategy_atuin() {
