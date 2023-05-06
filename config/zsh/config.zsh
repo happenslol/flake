@@ -1,3 +1,15 @@
+# Configure history
+export HISTFILE=~/.zsh_history
+export HISTSIZE=1000
+export SAVEHIST=500
+
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
+
 unsetopt flowcontrol
 unsetopt menu_complete
 setopt auto_menu
