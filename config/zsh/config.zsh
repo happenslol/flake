@@ -39,7 +39,7 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 zmodload zsh/complist
 
 # Configure autosuggestions
-ZSH_AUTOSUGGEST_STRATEGY=('atuin')
+# ZSH_AUTOSUGGEST_STRATEGY=('atuin')
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='20'
 ZSH_AUTOSUGGEST_USE_ASYNC='true'
 ZSH_AUTOSUGGEST_MANUAL_REBIND='true'

@@ -179,6 +179,8 @@ in {
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-main}/bin/wezterm -e \"$@\"")
+
+      linuxPackages_latest.perf
     ];
 
     sessionVariables = {
