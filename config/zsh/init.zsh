@@ -2,22 +2,22 @@
 
 export TERM=wezterm
 
+if [[ -n "${commands[fzf-share]}" ]]; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
+fi
+
 source ~/.config/zsh/ssh.zsh
 source ~/.config/zsh/config.zsh
 source ~/.config/zsh/keymaps.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/alias.zsh
 
-if [[ -n "${commands[fzf-share]}" ]]; then
-  source "$(fzf-share)/key-bindings.zsh"
-  source "$(fzf-share)/completion.zsh"
-fi
-
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
 eval "$(direnv hook zsh)"
 
-eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 # source ~/.config/zsh/atuin-debug.zsh
 
 autoload -Uz compinit

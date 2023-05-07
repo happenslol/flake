@@ -45,7 +45,9 @@ ZSH_AUTOSUGGEST_USE_ASYNC='true'
 ZSH_AUTOSUGGEST_MANUAL_REBIND='true'
 
 # Clear autosuggestions when using atuin
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('_atuin_search_widget')
+# NOTE: Widgets starting with '_' don't work here, which
+# is why we have to rebind the atuin widget.
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('keymap-atuin-widget')
 
 # Use atuin history for autosuggestions
 function _zsh_autosuggest_strategy_atuin() {
