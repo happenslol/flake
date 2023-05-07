@@ -104,6 +104,7 @@ format = "[|](bright-black) [$symbol($version )]($style)"
 
 [aws]
 symbol = " "
+style = "yellow"
 format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration\\] )]($style)"
 
 [python]

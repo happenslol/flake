@@ -71,15 +71,5 @@ return {
       italic = false,
       strikethrough = false,
     },
-
-    new_tab = {
-      bg_color = "#212121",
-      fg_color = "#212121",
-    },
-
-    new_tab_hover = {
-      bg_color = "#212121",
-      fg_color = "#212121",
-    },
   },
 }

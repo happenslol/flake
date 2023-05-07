@@ -8,6 +8,7 @@ config.colors = require("colors")
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.window_decorations = "NONE"
+config.show_new_tab_button_in_tab_bar = false
 
 config.bold_brightens_ansi_colors = false
 config.font = w.font("IosevkaTerm Nerd Font")
@@ -73,25 +74,51 @@ config.window_padding = {
   left = 8,
 }
 
-config.tab_max_width = 40
+config.tab_max_width = 60
 
 local function append(t, v)
   t[#t + 1] = v
 end
 
-local function tab_title(tab)
-  local title
-  if tab.tab_title and #tab.tab_title > 0 then
-    title = tab.tab_title
-  else
-    title = tab.active_pane.title
+local function truncate_title(title)
+  if #title <= config.tab_max_width - 8 then return title end
+  return title:sub(1, config.tab_max_width - 9) .. "…"
+end
+
+local function format_dir(dir)
+  local without_file_prefix = dir:gsub("^file://", "")
+  local without_home = without_file_prefix:gsub("^/home/happens", "~")
+  return without_home
+end
+
+local function get_base(s)
+  return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
+
+local function get_process_part(tab)
+  local title = tab.tab_title or tab.active_pane.title
+  if title ~= nil and title:len() > 0 then
+    return title
   end
 
-  if #title > config.tab_max_width - 6 then
-    title = title:sub(1, config.tab_max_width - 7) .. "…"
+  local base_process = get_base(tab.active_pane.foreground_process_name)
+  if base_process == "zsh" then return nil end
+  return base_process
+end
+
+local function get_tab_title(tab)
+  local dir = format_dir(tab.active_pane.current_working_dir)
+  local process = get_process_part(tab)
+
+  local has_dir = dir ~= nil and dir:len() > 0
+  local has_process = process ~= nil and process:len() > 0
+
+  if has_dir and has_process then
+    return dir .. " 󰅂 " .. process
   end
 
-  return title
+  if has_dir then return dir end
+  return process
 end
 
 w.on("format-tab-title", function(tab)
@@ -116,7 +143,8 @@ w.on("format-tab-title", function(tab)
     append(result, { Background = { AnsiColor = "Black" } })
   end
 
-  append(result, { Text = " " .. tab_title(tab) .. " " })
+  local tab_title = get_tab_title(tab)
+  append(result, { Text = "  " .. truncate_title(tab_title) .. "  " })
 
   return result
 end)
