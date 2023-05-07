@@ -16,7 +16,9 @@ fi
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
 eval "$(direnv hook zsh)"
+
 eval "$(atuin init zsh --disable-up-arrow)"
+# source ~/.config/zsh/atuin-debug.zsh
 
 autoload -Uz compinit
 for _ in ~/.zcompdump(N.mh+24); do compinit; done

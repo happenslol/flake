@@ -181,6 +181,7 @@ in {
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-main}/bin/wezterm -e \"$@\"")
 
       linuxPackages_latest.perf
+      hyperfine
     ];
 
     sessionVariables = {
