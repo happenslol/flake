@@ -39,7 +39,7 @@ gui:
   showIcons: false
   commandLogSize: 8
   skipRewordInEditorWarning: false
-  border: double
+  border: rounded
 git:
   paging:
     colorArg: always
