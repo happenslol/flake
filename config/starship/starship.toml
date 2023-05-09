@@ -27,7 +27,7 @@ disabled = true
 
 [directory]
 truncate_to_repo = false
-read_only = " "
+read_only = "  "
 read_only_style = "yellow"
 
 [nix_shell]
@@ -65,7 +65,7 @@ disabled = true
 disabled = true
 
 [nodejs]
-symbol = " "
+symbol = "  "
 style = "yellow"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
