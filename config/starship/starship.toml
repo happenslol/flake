@@ -20,7 +20,7 @@ error_symbol = "[](bold red)"
 [cmd_duration]
 min_time = 0
 style = "white dimmed"
-format = "[|](bright-black) [ $duration]($style) "
+format = "[|](bright-black) [󱑎 $duration]($style) "
 
 [battery]
 disabled = true
@@ -36,23 +36,23 @@ symbol = "[ ](cyan) [$name](cyan italic) [|](bright-black)"
 
 [git_branch]
 style = "yellow"
-symbol = "[ ](#f54c27)"
+symbol = "[  ](#f54c27)"
 format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
 format = "$all_status$ahead_behind "
 
-conflicted = " [](bold red)"
-ahead = " [](green)"
-behind = " [](green)"
-diverged = " [](yellow)"
-untracked = " [](blue)"
-stashed = " [](blue dimmed)"
+conflicted = " [ ](bold red)"
+ahead = " [ ](green)"
+behind = " [ ](green)"
+diverged = " [ ](yellow)"
+untracked = " [ ](blue)"
+stashed = " [ ](blue dimmed)"
 up_to_date = ""
-modified = " [](yellow)"
-staged = " [](green)"
+modified = " [ ](yellow)"
+staged = " [ ](green)"
 renamed = " [](yellow)"
-deleted = " [](red dimmed)"
+deleted = " [ ](red dimmed)"
 
 [gcloud]
 symbol = "[](cyan)"
@@ -70,7 +70,7 @@ style = "yellow"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
 [golang]
-symbol = "[ﳑ](#79d4fd) "
+symbol = "[ﳑ ](#79d4fd) "
 style = "cyan dimmed"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
@@ -89,6 +89,7 @@ format = "[|](bright-black) [$symbol($version) ]($style)"
 
 [kubernetes]
 disabled = false
+symbol = "󱃾  "
 style = "cyan"
 format = "[|](bright-black) [$symbol$context ]($style)"
 
@@ -103,7 +104,7 @@ style = "149"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
 [aws]
-symbol = " "
+symbol = "  "
 style = "yellow"
 format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration\\] )]($style)"
 
