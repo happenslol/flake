@@ -11,10 +11,10 @@ config.window_decorations = "NONE"
 config.show_new_tab_button_in_tab_bar = false
 
 config.bold_brightens_ansi_colors = false
-config.font = w.font("IosevkaTerm Nerd Font")
+config.font = w.font("Iosevka Nerd Font")
 
 local function iosevka(weight, style)
-  return w.font("IosevkaTerm Nerd Font", { weight = weight, style = style })
+  return w.font("Iosevka Nerd Font", { weight = weight, style = style })
 end
 
 -- This feels sluggish, maybe revisit at some point
