@@ -43,6 +43,7 @@ bindkey "^G" keymap-lazygit-widget
 function _keymap_ls() {
   echo
   exa -la --git --icons --group-directories-first
+  echo "\n"
   zle redisplay
 }
 zle -N keymap-ls-widget _keymap_ls

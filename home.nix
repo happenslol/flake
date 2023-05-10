@@ -136,6 +136,7 @@ in {
       gopls
       gotools
       revive
+      dive
 
       wofi
       mako
