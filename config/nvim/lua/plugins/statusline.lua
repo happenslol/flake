@@ -26,6 +26,7 @@ return {
               require("noice").api.status.mode.get_hl,
               cond = require("noice").api.status.mode.has,
             },
+            "selectioncount",
             "diff",
           },
           lualine_y = { "branch" },
