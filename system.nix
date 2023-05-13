@@ -178,7 +178,7 @@ in {
         recursive = true;
         monthly = 1;
         daily = 10;
-        hourly = 0;
+        hourly = 1;
         autosnap = true;
         autoprune = true;
         processChildrenOnly = true;

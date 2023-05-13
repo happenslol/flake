@@ -31,6 +31,20 @@ return {
           lualine_y = { "branch" },
           lualine_z = { "location" },
         },
+        inactive_sections = {
+          lualine_a = {
+          },
+          lualine_b = {},
+          lualine_c = {
+            {
+              "filename",
+              symbols = { modified = "", readonly = "" },
+            },
+          },
+          lualine_x = { "location" },
+          lualine_y = {},
+          lualine_z = {},
+        },
       }
     end,
   },
