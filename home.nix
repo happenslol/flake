@@ -208,14 +208,54 @@ in {
     };
   };
 
-  systemd.user.services.polkit-agent = {
-    Unit.Description = "Polkit Agent";
-    Install.WantedBy = ["graphical-session.target"];
+  systemd.user.services = {
+    polkit-agent = {
+      Unit.Description = "Polkit Agent";
+      Install.WantedBy = ["graphical-session.target"];
 
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-      Restart = "always";
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        Restart = "always";
+      };
+    };
+
+    atuin-sync = {
+      Unit.Description = "Atuin tmpfs sync";
+      Install.WantedBy = ["default.target"];
+
+      Service = {
+        Type = "simple";
+        Restart = "always";
+        ExecStart = "${pkgs.writeShellScript "atuin-sync" ''
+          mkdir -p ~/.local/share
+
+          if [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ -d ~/.local/share/atuin-db ]]; then
+            echo "local: found | tmplocal: empty"
+            echo "==> Restoring latest replica"
+            rm -rf /tmplocal/atuin-db
+            mkdir -p /tmplocal/atuin-db
+
+            ${pkgs.litestream}/bin/litestream restore \
+              -config ~/.config/atuin/litestream.yml \
+              /tmplocal/atuin-db/history.db
+
+          elif [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ ! -d ~/.local/share/atuin-db ]]; then
+            echo "local: empty | tmplocal: empty"
+            echo "==> Waiting for atuin db before replication is started"
+
+            until [[ -f /tmplocal/atuin-db/history.db ]]; do sleep 10; echo "Waiting for atuin db..."; done
+          elif [[ -f /tmplocal/atuin-db/history.db ]] && [[ ! -d ~/.local/share/atuin-db ]]; then
+            echo "local: empty | tmplocal: found"
+            echo "==> Starting litestream replication"
+          else
+            echo "local: found | tmplocal: found"
+            echo "==> Starting litestream replication"
+          fi
+
+          ${pkgs.litestream}/bin/litestream replicate -config ~/.config/atuin/litestream.yml
+        ''}";
+      };
     };
   };
 

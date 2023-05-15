@@ -166,6 +166,7 @@ in {
     gvfs.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
+    envfs.enable = true;
 
     zfs = {
       autoScrub.enable = true;
@@ -235,5 +236,11 @@ in {
     enable = true;
     xdgOpenUsePortal = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
+
+  fileSystems."/tmplocal" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = ["defaults" "uid=1000" "gid=1000" "mode=755" "size=8G"];
   };
 }
