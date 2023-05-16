@@ -8,10 +8,11 @@
   username,
   ...
 }: let
+  home = "/home/${username}";
   dotfiles =
-    config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/config";
+    config.lib.file.mkOutOfStoreSymlink "${home}/.flake/config";
   hostDotfiles =
-    config.lib.file.mkOutOfStoreSymlink "/home/${username}/.flake/hosts/${hostname}/config";
+    config.lib.file.mkOutOfStoreSymlink "${home}/.flake/hosts/${hostname}/config";
 
   makeNodePackage = args @ {
     input,
@@ -79,7 +80,7 @@ in {
 
   home = {
     inherit stateVersion username;
-    homeDirectory = "/home/${username}";
+    homeDirectory = home;
 
     packages = with pkgs; [
       cachix
@@ -228,7 +229,7 @@ in {
         Type = "simple";
         Restart = "always";
         ExecStart = "${pkgs.writeShellScript "atuin-sync" ''
-          mkdir -p ~/.local/share
+          mkdir -p ${home}/.local/share
 
           if [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ -d ~/.local/share/atuin-db ]]; then
             echo "local: found | tmplocal: empty"

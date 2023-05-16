@@ -1,5 +1,5 @@
 dbs:
   - path: /tmplocal/atuin-db/history.db
     replicas:
-      - path: ~/.local/share/atuin-backup
+      - path: ~/.local/share/atuin-db
         sync-interval: 10s
