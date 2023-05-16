@@ -66,7 +66,12 @@ in {
 
   boot = {
     plymouth.enable = true;
-    initrd.systemd.enable = true;
+    consoleLogLevel = 0;
+
+    initrd = {
+      verbose = false;
+      systemd.enable = true;
+    };
 
     # Increase max vm map count for nodejs workers
     # running out of heap memory

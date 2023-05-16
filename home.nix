@@ -234,8 +234,6 @@ in {
           if [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ -d ~/.local/share/atuin-db ]]; then
             echo "local: found | tmplocal: empty"
             echo "==> Restoring latest replica"
-            rm -rf /tmplocal/atuin-db
-            mkdir -p /tmplocal/atuin-db
 
             ${pkgs.litestream}/bin/litestream restore \
               -config ~/.config/atuin/litestream.yml \

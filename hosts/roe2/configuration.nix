@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   ...
@@ -11,25 +10,30 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  networking.hostId = "640c2c0b";
-  networking.hostName = "roe2";
+  networking = {
+    hostId = "640c2c0b";
+    hostName = "roe2";
+  };
 
-  boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
+  boot = {
+    loader.grub.gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
 
-  boot.kernelParams = [
-    # Quiet boot (See https://wiki.archlinux.org/title/silent_boot)
-    "quiet"
-    "splash"
-    "loglevel=3"
-    "nowatchdog"
-    "systemd.show_status=auto"
-    "rd.udev.log_level=3"
-  ];
+    kernelParams = [
+      "quiet"
+      "splash"
+      "loglevel=3"
+      "nowatchdog"
+      "systemd.show_status=auto"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=false"
+    ];
 
-  boot.initrd.luks.devices = {
-    root = {
-      device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";
-      preLVM = true;
+    initrd.luks.devices = {
+      root = {
+        device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";
+        preLVM = true;
+      };
     };
   };
 
