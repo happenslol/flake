@@ -69,7 +69,7 @@ in {
       enableCompletion = true;
       enableVteIntegration = true;
 
-      initExtra = ''source $HOME/.config/zsh/init.zsh'';
+      initExtra = "source $HOME/.config/zsh/init.zsh";
     };
   };
 
@@ -229,27 +229,28 @@ in {
         Type = "simple";
         Restart = "always";
         ExecStart = "${pkgs.writeShellScript "atuin-sync" ''
-          mkdir -p ${home}/.local/share
+          ${pkgs.coreutils}/bin/echo ""
+          ${pkgs.coreutils}/bin/mkdir -p ${home}/.local/share
 
-          if [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ -d ~/.local/share/atuin-db ]]; then
-            echo "local: found | tmplocal: empty"
-            echo "==> Restoring latest replica"
+          if [[ ! -f /tmplocal/atuin-db/history.db && -d ~/.local/share/atuin-db ]]; then
+            ${pkgs.coreutils}/bin/echo "local: found | tmplocal: empty"
+            ${pkgs.coreutils}/bin/echo "==> Restoring latest replica"
 
             ${pkgs.litestream}/bin/litestream restore \
               -config ~/.config/atuin/litestream.yml \
               /tmplocal/atuin-db/history.db
 
-          elif [[ ! -f /tmplocal/atuin-db/history.db ]] && [[ ! -d ~/.local/share/atuin-db ]]; then
-            echo "local: empty | tmplocal: empty"
-            echo "==> Waiting for atuin db before replication is started"
+          elif [[ ! -f /tmplocal/atuin-db/history.db && ! -d ~/.local/share/atuin-db ]]; then
+            ${pkgs.coreutils}/bin/echo "local: empty | tmplocal: empty"
+            ${pkgs.coreutils}/bin/echo "==> Waiting for atuin db before replication is started"
 
             until [[ -f /tmplocal/atuin-db/history.db ]]; do sleep 10; echo "Waiting for atuin db..."; done
-          elif [[ -f /tmplocal/atuin-db/history.db ]] && [[ ! -d ~/.local/share/atuin-db ]]; then
-            echo "local: empty | tmplocal: found"
-            echo "==> Starting litestream replication"
+          elif [[ -f /tmplocal/atuin-db/history.db && ! -d ~/.local/share/atuin-db ]]; then
+            ${pkgs.coreutils}/bin/echo "local: empty | tmplocal: found"
+            ${pkgs.coreutils}/bin/echo "==> Starting litestream replication"
           else
-            echo "local: found | tmplocal: found"
-            echo "==> Starting litestream replication"
+            ${pkgs.coreutils}/bin/echo "local: found | tmplocal: found"
+            ${pkgs.coreutils}/bin/echo "==> Starting litestream replication"
           fi
 
           ${pkgs.litestream}/bin/litestream replicate -config ~/.config/atuin/litestream.yml
