@@ -176,9 +176,7 @@ in {
       tree-sitter
       neovim
       customPackages.neovim-nightly
-
-      handlr
-      (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
+      xdg-utils
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
@@ -271,7 +269,6 @@ in {
       "waybar".source = "${dotfiles}/waybar";
       "wezterm".source = "${dotfiles}/wezterm";
       "kitty".source = "${dotfiles}/kitty";
-      "tmux".source = "${dotfiles}/tmux";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
@@ -279,6 +276,8 @@ in {
       "wofi".source = "${dotfiles}/wofi";
       "atuin".source = "${dotfiles}/atuin";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
+      "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
+      "btop/themes".source = "${dotfiles}/btop/themes";
 
       "gtk-3.0/bookmarks".source = "${dotfiles}/gtk3/bookmarks";
     };
