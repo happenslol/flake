@@ -40,7 +40,7 @@ symbol = "[  ](#f54c27)"
 format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
-format = "$all_status$ahead_behind "
+format = "($all_status$ahead_behind  )"
 
 conflicted = " [ ](bold red)"
 ahead = " [](green)"
@@ -84,7 +84,7 @@ format = "[|](bright-black) [$symbol ($version )]($style)"
 
 [package]
 style = "208"
-symbol = " "
+symbol = "  "
 format = "[|](bright-black) [$symbol($version) ]($style)"
 
 [kubernetes]
@@ -112,3 +112,7 @@ format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration
 [python]
 format = "[|](bright-black) [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
 symbol = " "
+
+[zig]
+format = "[|](bright-black) [$symbol($version )]($style)"
+symbol = " "

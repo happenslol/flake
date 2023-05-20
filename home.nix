@@ -132,6 +132,7 @@ in {
       docker-compose
       gcc
       rustup
+      zig
       nodejs_19
       yarn
       go
@@ -160,6 +161,7 @@ in {
       stylua
       selene
       rust-analyzer
+      zls
       shellcheck
       shfmt
       nil

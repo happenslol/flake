@@ -1,7 +1,7 @@
 local w = require("wezterm")
 local keymaps = require("keymaps")
 
-local config = {}
+local config = w.config_builder()
 
 config.colors = require("colors")
 

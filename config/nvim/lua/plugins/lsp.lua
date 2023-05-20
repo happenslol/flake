@@ -182,6 +182,7 @@ return {
           cssls = {},
           gopls = {},
           taplo = {},
+          zls = {},
         },
         setup = {
           tsserver = function(_, opts)
@@ -235,6 +236,7 @@ return {
       local enable_lsp_formatters = {
         ["null-ls"] = true,
         ["rust_analyzer"] = true,
+        ["zls"] = true,
       }
 
       local format = function(buf)
