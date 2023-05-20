@@ -51,7 +51,8 @@
     };
   };
 
-  wezterm-main = inputs.wezterm.packages."${system}".default;
+  wezterm-custom = inputs.wezterm.packages."${system}".default;
+  atuin-custom = inputs.atuin.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
@@ -95,7 +96,6 @@ in {
       ripgrep
       ncdu
       btop
-      atuin
       curl
       xh
       lazygit
@@ -107,7 +107,8 @@ in {
       tokei
       kitty
       tmux
-      wezterm-main
+      wezterm-custom
+      atuin-custom
       zoxide
       starship
       direnv
@@ -180,7 +181,7 @@ in {
       (writeShellScriptBin "xdg-open" "${handlr}/bin/handlr open $@")
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
-      (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-main}/bin/wezterm -e \"$@\"")
+      (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
 
       linuxPackages_latest.perf
       hyperfine

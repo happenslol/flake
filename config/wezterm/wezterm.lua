@@ -10,6 +10,8 @@ config.tab_bar_at_bottom = true
 config.window_decorations = "NONE"
 config.show_new_tab_button_in_tab_bar = false
 
+config.enable_kitty_keyboard = true
+
 config.bold_brightens_ansi_colors = false
 config.font = w.font("Iosevka Nerd Font")
 

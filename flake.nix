@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    atuin = {
+      url = "github:happenslol/atuin/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dream2nix.url = "github:nix-community/dream2nix";
     prettierd = {
       url = "github:fsouza/prettierd/main";

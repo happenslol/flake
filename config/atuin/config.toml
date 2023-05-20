@@ -3,4 +3,6 @@ db_path = "/tmplocal/atuin-db/history.db"
 sync_address = "https://atuin.happens.lol"
 style = "compact"
 show_preview = true
+show_help = false
 inline_height = 10
+number_jump_modifier = "ctrl"
