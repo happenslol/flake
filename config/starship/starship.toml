@@ -40,7 +40,7 @@ symbol = "[  ](#f54c27)"
 format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
-format = "($all_status$ahead_behind )"
+format = "$all_status$ahead_behind "
 
 conflicted = " [ ](bold red)"
 ahead = " [ ](green)"
