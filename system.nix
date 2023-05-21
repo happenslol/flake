@@ -41,6 +41,44 @@
       }
     '';
   };
+
+  patchFont = font:
+    pkgs.stdenv.mkDerivation {
+      name = "${font.name}-nerd-font";
+      src = font;
+      nativeBuildInputs = [pkgs.nerd-font-patcher];
+      buildPhase = ''
+        find -name \*.ttf -o -name \*.otf -exec nerd-font-patcher -c {} \;
+      '';
+
+      installPhase = "cp -a . $out";
+    };
+
+  iosevka-happy = pkgs.iosevka.override {
+    set = "happy";
+
+    privateBuildPlan = {
+      family = "Iosevka Happy";
+      spacing = "term";
+      serifs = "sans";
+      no-cv-ss = true;
+      export-glyph-names = false;
+
+      variants = {
+        design = {
+          lig-hyphen-chain = "without-notch";
+          lig-equal-chain = "without-notch";
+        };
+      };
+
+      ligations = {
+        inherits = "dlig";
+        enables = ["eqeqeq" "exeqeqeq"];
+      };
+    };
+  };
+
+  iosevka-happy-nerd-font = patchFont iosevka-happy;
 in {
   system = {inherit stateVersion;};
   imports = [
@@ -293,13 +331,24 @@ in {
 
   virtualisation.docker.enable = true;
 
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
+  fonts = {
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = ["Inter"];
+        serif = ["Noto Serif"];
+        monospace = ["Iosevka Happy"];
+      };
+    };
 
-    (nerdfonts.override {fonts = ["Iosevka"];})
-  ];
+    fonts = with pkgs; [
+      inter
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
+
+      iosevka-happy-nerd-font
+    ];
+  };
 
   xdg.portal = {
     enable = true;
