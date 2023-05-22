@@ -172,6 +172,8 @@ in {
       awscli2
       terraform
       kubectl
+      k9s
+      lens
       kubernetes-helm
       packer
 
