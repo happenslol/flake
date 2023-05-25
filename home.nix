@@ -173,7 +173,6 @@ in {
       terraform
       kubectl
       k9s
-      lens
       kubernetes-helm
       packer
 

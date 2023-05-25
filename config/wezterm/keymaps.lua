@@ -32,7 +32,7 @@ M.keys = {
 
   { key = 'L', mods = "CTRL|SHIFT", action = act.ShowDebugOverlay },
 
-  { key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
+  { key = "=", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
   { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
   { key = "=", mods = "CTRL", action = act.ResetFontSize },
   { key = "R", mods = "CTRL|SHIFT", action = act.ReloadConfiguration },
