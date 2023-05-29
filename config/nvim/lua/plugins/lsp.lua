@@ -156,7 +156,7 @@ return {
           },
           rust_analyzer = {},
           tsserver = {
-            flags = { debounce_text_changes = 500, allow_incremental_sync = true },
+            flags = { debounce_text_changes = 500 },
             settings = { completions = { completeFunctionCalls = true } },
             -- Speed up tsserver by requiring the root directory to be a git repo
             root_dir = require("lspconfig.util").root_pattern(".git"),

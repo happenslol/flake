@@ -24,8 +24,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = "*",
   callback = function()
-    loaded, luasnip = pcall(require, "luasnip")
-    if not loaded then return end
+    local loaded, luasnip = pcall(require, "luasnip")
+    if not loaded then
+      return
+    end
 
     if
       ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
@@ -37,6 +39,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
   end,
 })
 
+-- Always put help windows on the right
 vim.api.nvim_create_autocmd("BufEnter", {
   group = augroup("help"),
   pattern = "*.txt",
@@ -50,6 +53,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+-- Close several window types with q
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("quit"),
   pattern = "help,lspinfo,qf,startuptime,fugitive",
@@ -58,6 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Add resize keybindings to neo-tree
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("neo-tree"),
   pattern = "neo-tree",
