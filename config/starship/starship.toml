@@ -112,8 +112,12 @@ format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration
 
 [python]
 format = "[|](bright-black) [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
-symbol = " "
+symbol = "  "
 
 [zig]
 format = "[|](bright-black) [$symbol($version )]($style)"
 symbol = " "
+
+[vagrant]
+symbol = "  "
+format = "[|](bright-black) [$symbol($version )]($style)"
