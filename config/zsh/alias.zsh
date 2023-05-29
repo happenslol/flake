@@ -29,7 +29,7 @@ alias -g ....="cd ../../.."
 alias -g .....="cd ../../../.."
 alias -g ......="cd ../../../../.."
 
-alias md="mkdir -p "
+function md() { mkdir -p "$@" && cd "$@" }
 alias rd="rmdir "
 
 # Git shortcuts

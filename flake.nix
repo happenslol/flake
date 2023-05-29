@@ -46,7 +46,7 @@
     };
 
     atuin = {
-      url = "github:happenslol/atuin/dev";
+      url = "github:happenslol/atuin/fork";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

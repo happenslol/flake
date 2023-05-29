@@ -186,7 +186,7 @@ return {
         },
         setup = {
           tsserver = function(_, opts)
-            require("util").on_attach(function(client, buffer)
+            require("util").on_lsp_attach(function(client, buffer)
               if client.name == "tsserver" then
                 vim.keymap.set(
                   "n",
@@ -248,7 +248,10 @@ return {
         })
       end
 
-      util.on_attach(function(client, buffer)
+      util.on_lsp_attach(function(client, buffer)
+        -- Disable semantic tokens for performance
+        client.server_capabilities["semanticTokensProvider"] = nil
+
         local function map(mode, lhs, rhs, map_opts)
           map_opts = map_opts or {}
           map_opts.buffer = buffer
