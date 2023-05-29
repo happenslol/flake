@@ -17,19 +17,19 @@ map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down", silent = true })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
 -- Clear search
-map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true })
+map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true, desc = "Clear Highlights" })
 
 -- quickfix bindings
-map("n", "<leader>qk", ":copen<cr>", { silent = true })
-map("n", "<leader>qj", ":cclose<cr>", { silent = true })
-map("n", "<leader>ql", ":cnext<cr>", { silent = true })
-map("n", "<leader>qh", ":cprev<cr>", { silent = true })
+map("n", "<leader>qk", ":copen<cr>", { silent = true, desc = "Open Quickfix List" })
+map("n", "<leader>qj", ":cclose<cr>", { silent = true, desc = "Close Quickfix List" })
+map("n", "<leader>ql", ":cnext<cr>", { silent = true, desc = "Next Quickfix Item" })
+map("n", "<leader>qh", ":cprev<cr>", { silent = true, desc = "Previous Quickfix Item" })
 
 -- loclist bindings
-map("n", "<leader>wk", ":lopen<cr>", { silent = true })
-map("n", "<leader>wj", ":lclose<cr>", { silent = true })
-map("n", "<leader>wl", ":lnext<cr>", { silent = true })
-map("n", "<leader>wh", ":lprev<cr>", { silent = true })
+map("n", "<leader>wk", ":lopen<cr>", { silent = true, desc = "Open Location List" })
+map("n", "<leader>wj", ":lclose<cr>", { silent = true, desc = "Close Location List" })
+map("n", "<leader>wl", ":lnext<cr>", { silent = true, desc = "Next Location Item" })
+map("n", "<leader>wh", ":lprev<cr>", { silent = true, desc = "Previous Location Item" })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")

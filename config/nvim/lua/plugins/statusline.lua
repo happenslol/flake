@@ -27,7 +27,10 @@ return {
               cond = require("noice").api.status.mode.has,
             },
             "selectioncount",
-            "diff",
+            {
+              "diff",
+              symbols = { added = "  ", modified = "  ", removed = "  " },
+            },
           },
           lualine_y = { "branch" },
           lualine_z = { "location" },

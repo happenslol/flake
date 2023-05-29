@@ -328,13 +328,22 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local null = require("null-ls")
+      local eslint_patterns = { ".eslintrc.js", ".eslintrc.json", ".eslintrc" }
+
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           null.builtins.formatting.prettierd,
-          null.builtins.code_actions.eslint_d,
+          null.builtins.code_actions.eslint_d.with({
+            condition = function(utils)
+              return utils.root_has_file(eslint_patterns)
+            end,
+          }),
           null.builtins.diagnostics.eslint_d.with({
             filter = require("util").filter_eslintd_diagnostics,
+            condition = function(utils)
+              return utils.root_has_file(eslint_patterns)
+            end,
           }),
 
           null.builtins.formatting.shfmt,

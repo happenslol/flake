@@ -41,6 +41,7 @@ opt.title = true -- Set the title for tmux pane titles
 opt.shortmess = "aoctIF" -- Show no startup message
 opt.breakindent = true -- Wrap indent to match line start
 opt.linebreak = true -- Wrap lines at 'breakat'
+opt.timeoutlen = 500 -- Time to wait for a mapped sequence to complete
 
 opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
 
