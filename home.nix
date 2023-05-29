@@ -133,7 +133,7 @@ in {
       gcc
       rustup
       zig
-      nodejs_19
+      nodejs_18
       yarn
       go
       gopls
@@ -148,19 +148,18 @@ in {
       hyprpicker
       grimblast
 
-      nodejs_19.pkgs.pnpm
-      nodejs_19.pkgs.eslint_d
-      nodejs_19.pkgs.vscode-langservers-extracted
-      nodejs_19.pkgs.bash-language-server
-      nodejs_19.pkgs.yaml-language-server
-      nodejs_19.pkgs.graphql-language-service-cli
+      nodejs_18.pkgs.pnpm
+      nodejs_18.pkgs.eslint_d
+      nodejs_18.pkgs.vscode-langservers-extracted
+      nodejs_18.pkgs.bash-language-server
+      nodejs_18.pkgs.yaml-language-server
+      nodejs_18.pkgs.graphql-language-service-cli
 
       customPackages.fixed-typescript-language-server
       customPackages.prettierd
       sumneko-lua-language-server
       stylua
       selene
-      rust-analyzer
       zls
       shellcheck
       shfmt
