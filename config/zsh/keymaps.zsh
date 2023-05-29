@@ -46,3 +46,6 @@ bindkey "^K" keymap-ls-widget
 
 zle -N keymap-atuin-widget _atuin_search
 bindkey "^R" keymap-atuin-widget
+
+zle -N keymap-atuin-up-widget _atuin_up_search
+bindkey "^J" keymap-atuin-up-widget
