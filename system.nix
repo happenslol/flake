@@ -42,16 +42,21 @@
     '';
   };
 
-  patchFont = font:
+  patchIosevka = font:
     pkgs.stdenv.mkDerivation {
       name = "${font.name}-nerd-font";
       src = font;
       nativeBuildInputs = [pkgs.nerd-font-patcher];
       buildPhase = ''
-        find -name \*.ttf -o -name \*.otf -exec nerd-font-patcher -c {} \;
+        mkdir -p $out
+        find . -type f \
+          \( -name '*.ttf' -o -name '*.otf' \) \
+          -not -name '*extended*' \
+          -not -name '*thin*' \
+          -not -name '*light*' \
+          -not -name '*oblique*' \
+          -exec nerd-font-patcher -c --no-progressbars --makegroups 4 -out $out {} \;
       '';
-
-      installPhase = "cp -a . $out";
     };
 
   iosevka-happy = pkgs.iosevka.override {
@@ -78,7 +83,7 @@
     };
   };
 
-  iosevka-happy-nerd-font = patchFont iosevka-happy;
+  iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
   system = {inherit stateVersion;};
   imports = [
@@ -335,7 +340,7 @@ in {
       defaultFonts = {
         sansSerif = ["Inter"];
         serif = ["Noto Serif"];
-        monospace = ["Iosevka Happy"];
+        monospace = ["IosevkaHappy"];
       };
     };
 
@@ -344,7 +349,6 @@ in {
       noto-fonts
       noto-fonts-emoji
       noto-fonts-cjk-sans
-
       iosevka-happy-nerd-font
     ];
   };

@@ -14,7 +14,7 @@ $hg_branch\
 $all"""
 
 [character]
-success_symbol = "[󰄾 ](bold green)"
+success_symbol = "[ 󰄾](bold green)"
 error_symbol = "[󱎘 ](bold red)"
 
 [cmd_duration]
@@ -36,22 +36,22 @@ symbol = "[ ](cyan) [$name](cyan italic) [|](bright-black)"
 
 [git_branch]
 style = "yellow"
-symbol = "[  ](#f54c27)"
+symbol = "[󰊢  ](#f54c27)"
 format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
 format = "$all_status$ahead_behind "
 
 conflicted = " [ ](bold red)"
-ahead = " [ ](green)"
-behind = " [ ](green)"
-diverged = " [ ](yellow)"
+ahead = " [󰁝 ](green)"
+behind = " [󰁅 ](green)"
+diverged = " [ ](yellow)"
 untracked = " [ ](blue)"
-stashed = " [ ](blue dimmed)"
+stashed = " [ ](blue dimmed)"
 up_to_date = ""
 modified = " [ ](yellow)"
-staged = " [ ](green)"
-renamed = " [ ](yellow)"
+staged = " [ ](green)"
+renamed = " [ ](yellow)"
 deleted = " [ ](red dimmed)"
 
 [gcloud]
@@ -112,7 +112,7 @@ format = "[|](bright-black) [$symbol](yellow)[($profile )($region )(\\[$duration
 
 [python]
 format = "[|](bright-black) [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
-symbol = "  "
+symbol = " "
 
 [zig]
 format = "[|](bright-black) [$symbol($version )]($style)"

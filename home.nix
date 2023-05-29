@@ -155,6 +155,8 @@ in {
       nodejs_18.pkgs.yaml-language-server
       nodejs_18.pkgs.graphql-language-service-cli
 
+      font-manager
+
       customPackages.fixed-typescript-language-server
       customPackages.prettierd
       sumneko-lua-language-server

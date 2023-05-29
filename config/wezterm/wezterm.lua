@@ -13,10 +13,10 @@ config.show_new_tab_button_in_tab_bar = false
 config.enable_kitty_keyboard = true
 
 config.bold_brightens_ansi_colors = false
-config.font = w.font("Iosevka Happy")
+config.font = w.font("IosevkaHappy NF Medium")
 
 local function iosevka(weight, style)
-  return w.font("Iosevka Happy", { weight = weight, style = style })
+  return w.font("IosevkaHappy NF Medium", { weight = weight, style = style })
 end
 
 -- This feels sluggish, maybe revisit at some point
