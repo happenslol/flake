@@ -4,9 +4,7 @@ return {
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "windwp/nvim-ts-autotag",
-    },
+    dependencies = { "windwp/nvim-ts-autotag" },
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
@@ -33,6 +31,7 @@ return {
         "graphql",
         "hcl",
         "heex",
+        "html",
         "http",
         "ini",
         "java",
