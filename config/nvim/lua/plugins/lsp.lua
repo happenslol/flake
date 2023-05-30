@@ -134,7 +134,6 @@ return {
           },
         },
         servers = {
-          -- TODO: Set up snippet capabilities for html, json and css lsps
           jsonls = {
             on_new_config = function(new_config)
               new_config.settings.json.schemas = new_config.settings.json.schemas or {}
@@ -178,8 +177,17 @@ return {
           -- graphql = {
           --   root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
           -- },
+
+          -- TODO: Set up snippet capabilities for html, json and css lsps
           html = {},
-          cssls = {},
+          cssls = {
+            settings = {
+              css = {
+                validate = true,
+                lint = { unknownAtRules = "ignore" },
+              },
+            },
+          },
           gopls = {},
           taplo = {},
           zls = {},

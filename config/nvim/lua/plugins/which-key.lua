@@ -6,6 +6,7 @@ return {
       marks = true,
       registers = true,
       operators = {},
+      show_help = false,
 
       plugins = {
         presets = {
@@ -19,8 +20,14 @@ return {
         },
       },
 
-      layout = {
-        align = "center",
+      layout = { align = "center" },
+      disabled = { filetypes = { "neo-tree" } },
+
+      triggers_nowait = {},
+
+      triggers_blacklist = {
+        i = { "j", "k", "q", "@" },
+        v = { "j", "k" },
       },
 
       defaults = {

@@ -2,6 +2,11 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     opts = function()
+      local name_symbols = {
+        modified = "󰤌",
+        readonly = "",
+      }
+
       return {
         options = {
           theme = "materialnight",
@@ -14,13 +19,7 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "filetype" },
-          lualine_c = {
-            {
-              "filename",
-              symbols = { modified = "", readonly = "" },
-            },
-            "diagnostics",
-          },
+          lualine_c = { { "filename", symbols = name_symbols }, "diagnostics" },
           lualine_x = {
             {
               require("noice").api.status.mode.get_hl,
@@ -29,22 +28,16 @@ return {
             "selectioncount",
             {
               "diff",
-              symbols = { added = "   ", modified = "   ", removed = "   " },
+              symbols = { added = " ", modified = " ", removed = " " },
             },
           },
           lualine_y = { "branch" },
           lualine_z = { "location" },
         },
         inactive_sections = {
-          lualine_a = {
-          },
+          lualine_a = {},
           lualine_b = {},
-          lualine_c = {
-            {
-              "filename",
-              symbols = { modified = "", readonly = "" },
-            },
-          },
+          lualine_c = { { "filename", symbols = name_symbols } },
           lualine_x = { "location" },
           lualine_y = {},
           lualine_z = {},

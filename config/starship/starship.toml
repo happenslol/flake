@@ -15,7 +15,7 @@ $all"""
 
 [character]
 success_symbol = "[ 󰄾](bold green)"
-error_symbol = "[󱎘 ](bold red)"
+error_symbol = "[ 󱎘](bold red)"
 
 [cmd_duration]
 min_time = 0
@@ -27,7 +27,7 @@ disabled = true
 
 [directory]
 truncate_to_repo = false
-read_only = "  "
+read_only = "  "
 read_only_style = "yellow"
 
 [nix_shell]
@@ -40,7 +40,7 @@ symbol = "[󰊢  ](#f54c27)"
 format = "[|](bright-black) [$symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
-format = "$all_status$ahead_behind "
+format = "( $all_status$ahead_behind) "
 
 conflicted = " [ ](bold red)"
 ahead = " [󰁝 ](green)"

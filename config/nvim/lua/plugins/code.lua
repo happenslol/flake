@@ -38,4 +38,6 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,
   },
+
+  { "tpope/vim-repeat", event = "VeryLazy" },
 }

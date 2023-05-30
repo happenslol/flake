@@ -338,9 +338,9 @@ in {
   fonts = {
     fontconfig = {
       defaultFonts = {
-        sansSerif = ["Inter"];
+        sansSerif = ["Noto Sans"];
         serif = ["Noto Serif"];
-        monospace = ["IosevkaHappy"];
+        monospace = ["IosevkaHappy NF Medium"];
       };
     };
 

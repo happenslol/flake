@@ -2,6 +2,17 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
 
+-- Clear registers on startup
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = augroup("clear_registers"),
+  callback = function()
+    for i = 97, 122 do
+      local char = string.char(i)
+      vim.fn.setreg(char, "")
+    end
+  end,
+})
+
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = augroup("checktime"),
