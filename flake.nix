@@ -54,8 +54,11 @@
     };
 
     dream2nix.url = "github:nix-community/dream2nix";
+
+    # NPM packages
+
     prettierd = {
-      url = "github:fsouza/prettierd/main";
+      url = "https://github.com/fsouza/prettierd/archive/refs/tags/v0.23.4.tar.gz";
       flake = false;
     };
   };

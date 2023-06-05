@@ -1095,18 +1095,13 @@
     "prettierd": {
       "flake": false,
       "locked": {
-        "lastModified": 1685344982,
         "narHash": "sha256-GTukjkA/53N9ICdfCJr5HAqhdL5T0pth6zAk8Fu/cis=",
-        "owner": "fsouza",
-        "repo": "prettierd",
-        "rev": "16f03f81e433225ba3403791823c75a025628b4a",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/fsouza/prettierd/archive/refs/tags/v0.23.4.tar.gz"
       },
       "original": {
-        "owner": "fsouza",
-        "ref": "main",
-        "repo": "prettierd",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/fsouza/prettierd/archive/refs/tags/v0.23.4.tar.gz"
       }
     },
     "pruned-racket-catalog": {

@@ -16,26 +16,27 @@
     config.lib.file.mkOutOfStoreSymlink "${home}/.flake/hosts/${hostname}/config";
 
   makeNodePackage = args @ {
-    input,
+    source,
     binary,
     ...
   }: let
     npmPackageOutputs = inputs.dream2nix.lib.makeFlakeOutputs {
+      inherit source;
+
       systems = [system];
       config.projectRoot = ./.;
-      source = inputs.prettierd;
       projects = {
         "${binary}" = {
           name = binary;
           subsystem = "nodejs";
-          translator = args.translator or "";
+          translator = args.translator or "package-json";
         };
       };
     };
 
     npmPackages = npmPackageOutputs.packages.${system};
   in
-    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages."${binary}"}/bin/${binary} $@";
+    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages.${binary}}/bin/${binary} $@";
 
   customPackages = {
     fixed-typescript-language-server =
@@ -46,7 +47,7 @@
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
 
     prettierd = makeNodePackage {
-      input = inputs.prettierd;
+      source = inputs.prettierd;
       binary = "prettierd";
       translator = "yarn-lock";
     };
@@ -162,6 +163,7 @@ in {
 
       customPackages.fixed-typescript-language-server
       customPackages.prettierd
+
       sumneko-lua-language-server
       stylua
       selene
