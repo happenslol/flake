@@ -65,7 +65,7 @@ disabled = true
 disabled = true
 
 [nodejs]
-symbol = "  "
+symbol = "󰎙  "
 style = "yellow"
 format = "[|](bright-black) [$symbol($version )]($style)"
 

@@ -85,6 +85,7 @@ in {
 
     packages = with pkgs; [
       cachix
+      zip
       wget
       git
       difftastic
