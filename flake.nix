@@ -5,6 +5,9 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    # Old version of nixpkgs for nodejs 19
+    nixpkgs-nodejs_19.url = "github:NixOS/nixpkgs/a4b47b68244dd62a1b8f1ae96cf71fae46eb9d25";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,6 +62,7 @@
 
   outputs = inputs @ {
     nixpkgs,
+    nixpkgs-nodejs_19,
     home-manager,
     ...
   }: let
@@ -86,6 +90,8 @@
       };
     };
 
+    pkgs-nodejs_19 = import nixpkgs-nodejs_19 {inherit system;};
+
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
@@ -108,6 +114,7 @@
                   hostname
                   system
                   username
+                  pkgs-nodejs_19
                   ;
               };
 

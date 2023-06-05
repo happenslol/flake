@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-nodejs_19,
   stateVersion,
   hostname,
   inputs,
@@ -134,7 +135,6 @@ in {
       gcc
       rustup
       zig
-      nodejs_18
       yarn
       go
       gopls
@@ -149,12 +149,14 @@ in {
       hyprpicker
       grimblast
 
-      nodejs_18.pkgs.pnpm
-      nodejs_18.pkgs.eslint_d
-      nodejs_18.pkgs.vscode-langservers-extracted
-      nodejs_18.pkgs.bash-language-server
-      nodejs_18.pkgs.yaml-language-server
-      nodejs_18.pkgs.graphql-language-service-cli
+      pkgs-nodejs_19.nodejs_19
+      pkgs-nodejs_19.nodejs_19.pkgs.pnpm
+
+      nodejs_20.pkgs.eslint_d
+      nodejs_20.pkgs.vscode-langservers-extracted
+      nodejs_20.pkgs.bash-language-server
+      nodejs_20.pkgs.yaml-language-server
+      nodejs_20.pkgs.graphql-language-service-cli
 
       font-manager
 

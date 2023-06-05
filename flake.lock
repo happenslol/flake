@@ -906,6 +906,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-nodejs_19": {
+      "locked": {
+        "lastModified": 1684350798,
+        "narHash": "sha256-QaGjItOMEt7hxCNo1gWRVBBmg8dFiwOpSTf8BVwXlp4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a4b47b68244dd62a1b8f1ae96cf71fae46eb9d25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a4b47b68244dd62a1b8f1ae96cf71fae46eb9d25",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1673800717,
@@ -1122,6 +1138,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-nodejs_19": "nixpkgs-nodejs_19",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prettierd": "prettierd",
         "wezterm": "wezterm"
