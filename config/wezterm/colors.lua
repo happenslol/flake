@@ -23,14 +23,14 @@ return {
   },
 
   brights = {
-    "#404040", -- Grey
+    "#4f4f4f", -- Grey
     "#ff8b92", -- Red
     "#ddffa7", -- Lime
     "#ffe585", -- Yellow
     "#9cc4ff", -- Blue
     "#e1acff", -- Fuchsia
     "#a3f7ff", -- Aqua
-    "#ffffff", -- White
+    "#cceeee", -- White
   },
 
   compose_cursor = "#f78c6c",

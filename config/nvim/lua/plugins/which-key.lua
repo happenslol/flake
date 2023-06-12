@@ -26,6 +26,7 @@ return {
       triggers_nowait = {},
 
       triggers_blacklist = {
+        n = { "d" },
         i = { "j", "k", "q", "@" },
         v = { "j", "k" },
       },

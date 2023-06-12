@@ -42,3 +42,11 @@ map("v", ">", ">gv")
 
 -- lazy
 map("n", "<leader>ll", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+
+-- Scroll active buffer using scrollwheel
+map("n", "<ScrollWheelUp>", "3<c-y>", { silent = true })
+map("n", "<ScrollWheelDown>", "3<c-e>", { silent = true })
+
+-- Select next/previous line using scrollwheel in visual mode
+map("v", "<ScrollWheelUp>", "k", { silent = true })
+map("v", "<ScrollWheelDown>", "j", { silent = true })
