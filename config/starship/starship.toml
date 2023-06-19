@@ -55,7 +55,7 @@ renamed = " [ ](yellow)"
 deleted = " [ ](red dimmed)"
 
 [gcloud]
-symbol = "[](cyan)"
+symbol = "[󰊭 ](cyan)"
 format = "[|](bright-black) [$symbol](blue) [$project](cyan bold) [$account(@$domain )](blue dimmed)"
 
 [terraform]
@@ -70,7 +70,7 @@ style = "yellow"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
 [golang]
-symbol = "[ﳑ ](#79d4fd) "
+symbol = "[ ](#79d4fd) "
 style = "cyan dimmed"
 format = "[|](bright-black) [$symbol($version )]($style)"
 
@@ -84,7 +84,7 @@ format = "[|](bright-black) [$symbol ($version )]($style)"
 
 [package]
 style = "208"
-symbol = "  "
+symbol = "  "
 format = "[|](bright-black) [$symbol($version) ]($style)"
 
 [kubernetes]

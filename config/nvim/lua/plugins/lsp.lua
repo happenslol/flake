@@ -343,15 +343,15 @@ return {
         sources = {
           null.builtins.formatting.prettierd,
           null.builtins.code_actions.eslint_d.with({
-            -- condition = function(utils)
-            --   return utils.root_has_file(eslint_patterns)
-            -- end,
+            condition = function(utils)
+              return utils.root_has_file(eslint_patterns)
+            end,
           }),
           null.builtins.diagnostics.eslint_d.with({
             filter = require("util").filter_eslintd_diagnostics,
-            -- condition = function(utils)
-            --   return utils.root_has_file(eslint_patterns)
-            -- end,
+            condition = function(utils)
+              return utils.root_has_file(eslint_patterns)
+            end,
           }),
 
           null.builtins.formatting.shfmt,
