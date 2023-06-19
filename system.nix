@@ -200,6 +200,9 @@ in {
         gdk-pixbuf
         glib
         gtk3
+        webkitgtk
+        librsvg
+        libsoup
         libGL
         libappindicator-gtk3
         libdrm

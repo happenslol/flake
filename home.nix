@@ -129,6 +129,7 @@ in {
       nvd
       tealdeer
       gammastep
+      spotify
 
       just
       steam-run
