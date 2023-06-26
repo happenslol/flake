@@ -85,6 +85,8 @@
 
   iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
+  systemd.services.ModemManager.enable = false;
+
   system = {inherit stateVersion;};
   imports = [
     inputs.grub2-theme.nixosModules.default
