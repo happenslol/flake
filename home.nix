@@ -152,6 +152,9 @@ in {
       hyprpicker
       grimblast
 
+      python3
+      gnumake
+
       pkgs-nodejs_19.nodejs_19
       pkgs-nodejs_19.nodejs_19.pkgs.pnpm
 
@@ -202,6 +205,8 @@ in {
       MOZ_USE_XINPUT2 = "1";
       SDL_VIDEODRIVER = "wayland";
       XCURSOR_SIZE = "24";
+
+      GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
 
     file = {
