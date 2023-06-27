@@ -130,6 +130,7 @@ in {
       tealdeer
       gammastep
       spotify
+      krita
 
       just
       steam-run
