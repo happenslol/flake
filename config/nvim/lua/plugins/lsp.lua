@@ -362,6 +362,7 @@ return {
           null.builtins.formatting.goimports,
           null.builtins.formatting.clang_format,
           null.builtins.formatting.taplo,
+          null.builtins.formatting.terraform_fmt,
 
           require("typescript.extensions.null-ls.code-actions"),
         },
