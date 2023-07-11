@@ -332,10 +332,6 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
-
-    extraHosts = ''
-      116.203.16.179 opencreek.host
-    '';
   };
 
   security = {
