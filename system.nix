@@ -110,6 +110,7 @@ in {
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
+      warn-dirty = false
     '';
 
     settings.auto-optimise-store = true;
@@ -331,6 +332,10 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
+
+    extraHosts = ''
+      116.203.16.179 opencreek.host
+    '';
   };
 
   security = {
