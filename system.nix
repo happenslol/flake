@@ -362,7 +362,10 @@ in {
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+    # Prevent xdg-desktop-portal-wlr from being installed by
+    # overriding the default value of extraPortals.
+    extraPortals = pkgs.lib.mkForce [pkgs.xdg-desktop-portal-gtk];
   };
 
   fileSystems."/tmplocal" = {
