@@ -26,11 +26,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1685366298,
-        "narHash": "sha256-RCd6p9ysJNx+qcsHHIW7AlKYQTRCdqyBx0lQO1DEWxM=",
+        "lastModified": 1689182414,
+        "narHash": "sha256-Sj4gOIcXzdnpdLoTo6gmZ12K5qgn1fZZLqhsL6pb9CM=",
         "owner": "happenslol",
         "repo": "atuin",
-        "rev": "42f142594a329fd2faa5c880d1a945f75d2a3f69",
+        "rev": "b1967388620641b9374b2ab17a425bb54e3bc86f",
         "type": "github"
       },
       "original": {
@@ -1166,16 +1166,16 @@
         "zlib": "zlib"
       },
       "locked": {
-        "lastModified": 1685364490,
-        "narHash": "sha256-CKhR2JPyJkk1kMCf1Xw1TLQCiRxrdBZc022bUI3e7OI=",
+        "lastModified": 1689183337,
+        "narHash": "sha256-oxKRQpMuIzjbO8zOVPtQZUuDWR+vrfi/GgSzAl+5DQ4=",
         "owner": "happenslol",
         "repo": "wezterm",
-        "rev": "9edec12d68d44d0c92ba15d6d5014ae7242414ff",
+        "rev": "7dd7c00a6b15682eede95556aa796b0759d96a51",
         "type": "github"
       },
       "original": {
         "owner": "happenslol",
-        "ref": "fork",
+        "ref": "add-nix-flake",
         "repo": "wezterm",
         "type": "github"
       }
