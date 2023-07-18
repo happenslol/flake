@@ -12,12 +12,11 @@
       executable = true;
 
       text = ''
-        systemctl --user import-environment
         ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
           DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
           HYPRLAND_INSTANCE_SIGNATURE
 
-        systemctl --user start graphical-session.target
+        systemctl --user start hyprland-session.target
       '';
     };
   };
@@ -35,7 +34,6 @@
       input type:keyboard xkb_numlock enabled
 
       exec {
-        systemctl --user import-environment
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
         "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
       }
@@ -85,13 +83,19 @@
 
   iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
-  systemd.services.ModemManager.enable = false;
-
   system = {inherit stateVersion;};
   imports = [
     inputs.grub2-theme.nixosModules.default
     inputs.hyprland.nixosModules.default
   ];
+
+  systemd.user.targets.hyprland-session = {
+    description = "Hyprland compositor session";
+    documentation = ["man:systemd.special(7)"];
+    bindsTo = ["graphical-session.target"];
+    wants = ["graphical-session-pre.target"];
+    after = ["graphical-session-pre.target"];
+  };
 
   nix = {
     settings = {
@@ -359,13 +363,11 @@ in {
     ];
   };
 
+  # TODO: Why does this install xdg-desktop-portal-wlr
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-
-    # Prevent xdg-desktop-portal-wlr from being installed by
-    # overriding the default value of extraPortals.
-    extraPortals = pkgs.lib.mkForce [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   fileSystems."/tmplocal" = {
