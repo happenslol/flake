@@ -16,7 +16,14 @@
           DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
           HYPRLAND_INSTANCE_SIGNATURE
 
+        systemctl --user import-environment \
+          DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         systemctl --user start hyprland-session.target
+
+        # The desktop portal does not find applications if we don't do this.
+        # See: https://discourse.nixos.org/t/open-links-from-flatpak-via-host-firefox/15465/11
+        systemctl --user import-environment PATH
+        systemctl --user restart xdg-desktop-portal.service
       '';
     };
   };
@@ -366,7 +373,6 @@ in {
   # TODO: Why does this install xdg-desktop-portal-wlr
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
