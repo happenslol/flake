@@ -131,6 +131,8 @@ in {
       gammastep
       spotify
       krita
+      restic
+      vlc
 
       just
       steam-run
