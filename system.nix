@@ -376,6 +376,12 @@ in {
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
+  fileSystems."/home/happens/.local/share/atuin" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = ["defaults" "uid=1000" "gid=1000" "mode=755" "size=8G"];
+  };
+
   fileSystems."/tmplocal" = {
     device = "none";
     fsType = "tmpfs";

@@ -58,6 +58,26 @@
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
+
+  atuin-tmpfs = pkgs.writeShellScript "atuin-tmpfs" ''
+    echo "Running atuin tmpfs sync"
+    ${pkgs.coreutils}/bin/mkdir -p ${home}/.local/share/atuin-store/tmpfs
+
+    case "$1" in
+      restore)
+      echo "Restoring atuin tmpfs";
+      ${pkgs.rsync}/bin/rsync -av \
+        /home/happens/.local/share/atuin-store/tmpfs/ \
+        /home/happens/.local/share/atuin/
+      ;;
+      persist)
+      echo "Persisting atuin tmpfs"
+      ${pkgs.rsync}/bin/rsync -av --delete --recursive --force \
+        /home/happens/.local/share/atuin/ \
+        /home/happens/.local/share/atuin-store/tmpfs/
+      ;;
+    esac
+  '';
 in {
   programs = {
     home-manager.enable = true;
@@ -238,40 +258,15 @@ in {
       };
     };
 
-    atuin-sync = {
+    atuin-tmpfs-sync = {
       Unit.Description = "Atuin tmpfs sync";
       Install.WantedBy = ["default.target"];
 
       Service = {
-        Type = "simple";
-        Restart = "always";
-        ExecStart = "${pkgs.writeShellScript "atuin-sync" ''
-          ${pkgs.coreutils}/bin/echo ""
-          ${pkgs.coreutils}/bin/mkdir -p ${home}/.local/share
-
-          if [[ ! -f /tmplocal/atuin-db/history.db && -d ~/.local/share/atuin-db ]]; then
-            ${pkgs.coreutils}/bin/echo "local: found | tmplocal: empty"
-            ${pkgs.coreutils}/bin/echo "==> Restoring latest replica"
-
-            ${pkgs.litestream}/bin/litestream restore \
-              -config ~/.config/atuin/litestream.yml \
-              /tmplocal/atuin-db/history.db
-
-          elif [[ ! -f /tmplocal/atuin-db/history.db && ! -d ~/.local/share/atuin-db ]]; then
-            ${pkgs.coreutils}/bin/echo "local: empty | tmplocal: empty"
-            ${pkgs.coreutils}/bin/echo "==> Waiting for atuin db before replication is started"
-
-            until [[ -f /tmplocal/atuin-db/history.db ]]; do sleep 10; echo "Waiting for atuin db..."; done
-          elif [[ -f /tmplocal/atuin-db/history.db && ! -d ~/.local/share/atuin-db ]]; then
-            ${pkgs.coreutils}/bin/echo "local: empty | tmplocal: found"
-            ${pkgs.coreutils}/bin/echo "==> Starting litestream replication"
-          else
-            ${pkgs.coreutils}/bin/echo "local: found | tmplocal: found"
-            ${pkgs.coreutils}/bin/echo "==> Starting litestream replication"
-          fi
-
-          ${pkgs.litestream}/bin/litestream replicate -config ~/.config/atuin/litestream.yml
-        ''}";
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${atuin-tmpfs} restore";
+        ExecStop = "${atuin-tmpfs} persist";
       };
     };
   };

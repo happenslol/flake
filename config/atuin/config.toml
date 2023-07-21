@@ -1,6 +1,7 @@
 update_check = false
-db_path = "/tmplocal/atuin-db/history.db"
 sync_address = "https://atuin.happens.lol"
+key_path = "/home/happens/.local/share/atuin-store/key"
+session_path = "/home/happens/.local/share/atuin-store/session"
 style = "compact"
 invert = true
 show_preview = true
