@@ -30,4 +30,5 @@ export DELTA_PAGER="less -+X"
 
 # Node/npm
 export PATH="$PATH:$HOME/.npm-packages/bin"
+export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
 export NODE_PATH="$HOME/.npm-packages/lib/node_modules"

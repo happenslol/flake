@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   pkgs-nodejs_19,
   stateVersion,
   hostname,
@@ -203,6 +204,14 @@ in {
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
       size = 24;
+    };
+
+    activation = {
+      installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
+        export NODE_PATH="$HOME/.npm-packages/lib/node_modules"
+        ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g pnpm@8.6.10 @fsouza/prettierd@0.24.1
+      '';
     };
   };
 
