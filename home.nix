@@ -15,29 +15,6 @@
   hostDotfiles =
     config.lib.file.mkOutOfStoreSymlink "${home}/.flake/hosts/${hostname}/config";
 
-  makeNodePackage = args @ {
-    source,
-    binary,
-    ...
-  }: let
-    npmPackageOutputs = inputs.dream2nix.lib.makeFlakeOutputs {
-      inherit source;
-
-      systems = [system];
-      config.projectRoot = ./.;
-      projects = {
-        "${binary}" = {
-          name = binary;
-          subsystem = "nodejs";
-          translator = args.translator or "package-json";
-        };
-      };
-    };
-
-    npmPackages = npmPackageOutputs.packages.${system};
-  in
-    pkgs.writeShellScriptBin binary "exec -a $0 ${npmPackages.${binary}}/bin/${binary} $@";
-
   customPackages = {
     fixed-typescript-language-server =
       import ./fixes/typescript-language-server.nix pkgs;
@@ -45,12 +22,6 @@
     neovim-nightly = let
       neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
-
-    prettierd = makeNodePackage {
-      source = inputs.prettierd;
-      binary = "prettierd";
-      translator = "yarn-lock";
-    };
   };
 
   wezterm-custom = inputs.wezterm.packages."${system}".default;
@@ -153,7 +124,7 @@ in {
       krita
       restic
       vlc
-
+      node2nix
       just
       steam-run
       docker-compose
@@ -166,31 +137,23 @@ in {
       gotools
       revive
       dive
-
       wofi
       mako
       notify-desktop
       eww-wayland
       hyprpicker
       grimblast
-
       python3
       gnumake
-
       pkgs-nodejs_19.nodejs_19
-      pkgs-nodejs_19.nodejs_19.pkgs.pnpm
-
+      turbo
       nodejs_20.pkgs.eslint_d
       nodejs_20.pkgs.vscode-langservers-extracted
       nodejs_20.pkgs.bash-language-server
       nodejs_20.pkgs.yaml-language-server
       nodejs_20.pkgs.graphql-language-service-cli
-
       font-manager
-
       customPackages.fixed-typescript-language-server
-      customPackages.prettierd
-
       sumneko-lua-language-server
       stylua
       selene
@@ -201,24 +164,21 @@ in {
       alejandra
       llvmPackages_latest.libclang
       taplo
-
       awscli2
       terraform
       kubectl
       k9s
       kubernetes-helm
       packer
-
       tree-sitter
       neovim
       customPackages.neovim-nightly
       xdg-utils
+      linuxPackages_latest.perf
+      hyperfine
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
-
-      linuxPackages_latest.perf
-      hyperfine
     ];
 
     sessionVariables = {
@@ -291,8 +251,6 @@ in {
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
-
-      "gtk-3.0/bookmarks".source = "${dotfiles}/gtk3/bookmarks";
     };
 
     systemDirs.data = [gsettingsDatadir];

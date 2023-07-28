@@ -27,3 +27,7 @@ export DIRENV_LOG_FORMAT=""
 export PAGER="less -+X"
 export BAT_PAGER="less -+X"
 export DELTA_PAGER="less -+X"
+
+# Node/npm
+export PATH="$PATH:$HOME/.npm-packages/bin"
+export NODE_PATH="$HOME/.npm-packages/lib/node_modules"

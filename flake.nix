@@ -52,15 +52,6 @@
       url = "github:happenslol/atuin/fork";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    dream2nix.url = "github:nix-community/dream2nix";
-
-    # NPM packages
-
-    prettierd = {
-      url = "https://github.com/fsouza/prettierd/archive/refs/tags/v0.23.4.tar.gz";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {
