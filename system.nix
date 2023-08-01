@@ -343,6 +343,10 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
+
+    hosts = {
+      "127.0.0.1" = ["copernicus-dev-rds.cluster-cm8mhsxz88cx.eu-central-1.rds.amazonaws.com"];
+    };
   };
 
   security = {

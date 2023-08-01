@@ -341,7 +341,8 @@ return {
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          null.builtins.formatting.prettierd,
+          -- TODO: Why does prettierd not find the config anymore?
+          null.builtins.formatting.prettier,
           null.builtins.code_actions.eslint_d.with({
             -- condition = function(utils)
             --   return utils.root_has_file(eslint_patterns)

@@ -1,22 +1,38 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     dependencies = {
       {
         "s1n7ax/nvim-window-picker",
+        version = "v2.*",
         lazy = true,
-        opts = {
-          other_win_hl_color = "#415580",
-          fg_color = "#eeffff",
-          include_current = false,
-          autoselect_one = true,
-          filter_rules = {
-            bo = {
-              filetype = { "neo-tree", "neo-tree-popup", "notify" },
-              buftype = { "terminal", "quickfix" },
+        config = function()
+          require("window-picker").setup({
+            highlights = {
+              statusline = {
+                focused = {
+                  bg = "#415580",
+                  fg = "#eeffff",
+                  bold = true,
+                },
+                unfocused = {
+                  bg = "#415580",
+                  fg = "#eeffff",
+                  bold = true,
+                },
+              },
             },
-          },
-        },
+            filter_rules = {
+              include_current = false,
+              autoselect_one = true,
+              bo = {
+                filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
+                buftype = { "terminal", "quickfix" },
+              },
+            },
+          })
+        end,
       },
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",

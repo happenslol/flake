@@ -31,6 +31,11 @@
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 
+  globalNpmPackages = [
+    "pnpm@8.6.10"
+    "@fsouza/prettierd@0.24.1"
+  ];
+
   atuin-tmpfs = pkgs.writeShellScript "atuin-tmpfs" ''
     echo "Running atuin tmpfs sync"
     ${pkgs.coreutils}/bin/mkdir -p ${home}/.local/share/atuin-store/tmpfs
@@ -147,7 +152,6 @@ in {
       python3
       gnumake
       pkgs-nodejs_19.nodejs_19
-      turbo
       nodejs_20.pkgs.eslint_d
       nodejs_20.pkgs.vscode-langservers-extracted
       nodejs_20.pkgs.bash-language-server
@@ -210,7 +214,7 @@ in {
       installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
         export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
         export NODE_PATH="$HOME/.npm-packages/lib/node_modules"
-        ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g pnpm@8.6.10 @fsouza/prettierd@0.24.1
+        ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g ${lib.strings.concatStringsSep " " globalNpmPackages}
       '';
     };
   };
