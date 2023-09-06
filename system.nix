@@ -365,7 +365,7 @@ in {
       };
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       inter
       noto-fonts
       noto-fonts-emoji

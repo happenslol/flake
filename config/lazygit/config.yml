@@ -1,74 +1,74 @@
 gui:
-  windowSize: "normal"
-  scrollHeight: 5
-  scrollPastBottom: true
-  sidePanelWidth: 0.3333
-  expandFocusedSidePanel: false
-  mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
-  theme:
-    activeBorderColor:
-      - "#becccc"
-      - bold
-    inactiveBorderColor:
-      - "#424242"
-    optionsTextColor:
-      - blue
-    selectedLineBgColor:
-      - blue
-    selectedRangeBgColor:
-      - blue
-    cherryPickedCommitBgColor:
-      - cyan
-    cherryPickedCommitFgColor:
-      - blue
-    unstagedChangesColor:
-      - red
-    defaultFgColor:
-      - default
-  commitLength:
-    show: true
-  mouseEvents: true
-  skipUnstageLineWarning: false
-  skipStashWarning: false
-  showFileTree: true
-  showListFooter: true
-  showRandomTip: false
-  experimentalShowBranchHeads: false
-  showBottomLine: false
-  showCommandLog: true
-  showIcons: false
-  commandLogSize: 8
-  skipRewordInEditorWarning: false
-  border: rounded
+    windowSize: "normal"
+    scrollHeight: 5
+    scrollPastBottom: true
+    sidePanelWidth: 0.3333
+    expandFocusedSidePanel: false
+    mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
+    theme:
+        activeBorderColor:
+            - "#becccc"
+            - bold
+        inactiveBorderColor:
+            - "#424242"
+        optionsTextColor:
+            - blue
+        selectedLineBgColor:
+            - blue
+        selectedRangeBgColor:
+            - blue
+        cherryPickedCommitBgColor:
+            - cyan
+        cherryPickedCommitFgColor:
+            - blue
+        unstagedChangesColor:
+            - red
+        defaultFgColor:
+            - default
+    commitLength:
+        show: true
+    mouseEvents: true
+    skipDiscardChangeWarning: false
+    skipStashWarning: false
+    showFileTree: true
+    showListFooter: true
+    showRandomTip: false
+    experimentalShowBranchHeads: false
+    showBottomLine: false
+    showCommandLog: true
+    showIcons: false
+    commandLogSize: 8
+    skipRewordInEditorWarning: false
+    border: rounded
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-  log:
-    order: "topo-order"
-    showGraph: "when-maximised"
-    showWholeGraph: false
-  skipHookPrefix: WIP
-  autoFetch: true
-  autoRefresh: true
-  branchLogCmd: "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' {{branchName}}"
-  allBranchesLogCmd: "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-  disableForcePushing: false
-  parseEmoji: true
-  diffContextSize: 3
+    paging:
+        colorArg: always
+        pager: delta --dark --paging=never
+    log:
+        order: "topo-order"
+        showGraph: "when-maximised"
+        showWholeGraph: false
+    skipHookPrefix: WIP
+    autoFetch: true
+    autoRefresh: true
+    branchLogCmd: "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' {{branchName}}"
+    allBranchesLogCmd: "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+    disableForcePushing: false
+    parseEmoji: true
+    diffContextSize: 3
 os:
-  editPreset: "" # see "Configuring File Editing" section
-  edit: ""
-  editAtLine: ""
-  editAtLineAndWait: ""
-  open: ""
-  openLink: ""
+    editPreset: "" # see "Configuring File Editing" section
+    edit: ""
+    editAtLine: ""
+    editAtLineAndWait: ""
+    open: ""
+    openLink: ""
 refresher:
-  refreshInterval: 10
-  fetchInterval: 60
+    refreshInterval: 10
+    fetchInterval: 60
 update:
-  method: prompt # can be: prompt | background | never
-  days: 14 # how often an update is checked for
+    method: prompt # can be: prompt | background | never
+    days: 14 # how often an update is checked for
 confirmOnQuit: false
 quitOnTopLevelReturn: false
 disableStartupPopups: true
