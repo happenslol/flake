@@ -37,7 +37,7 @@ bindkey "^G" keymap-lazygit-widget
 
 function _keymap_ls() {
   echo
-  exa -la --git --icons --group-directories-first
+  eza -la --git --icons --group-directories-first
   echo "\n"
   zle reset-prompt
 }

@@ -92,7 +92,7 @@ in {
       unzip
       file
       bat
-      exa
+      eza
       ripgrep
       ncdu
       btop

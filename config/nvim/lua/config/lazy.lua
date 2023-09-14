@@ -20,11 +20,6 @@ require("lazy").setup({
   },
   checker = { notify = false },
   change_detection = { notify = false },
-  dev = {
-  	path = "~/code/nvim",
-  	patterns = { "happenslol" },
-  	fallback = false,
-  },
   performance = {
     cache = { enabled = true },
     rtp = {
