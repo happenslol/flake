@@ -32,7 +32,7 @@
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 
   globalNpmPackages = [
-    "pnpm@8.6.10"
+    "pnpm@8.7.6"
     "@fsouza/prettierd@0.24.1"
   ];
 
@@ -181,6 +181,7 @@ in {
       xdg-utils
       linuxPackages_latest.perf
       hyperfine
+      yazi
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")

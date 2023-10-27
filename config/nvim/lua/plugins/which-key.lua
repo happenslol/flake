@@ -32,9 +32,9 @@ return {
       },
 
       defaults = {
+        ["<space>g"] = { name = "+git" },
         ["<space>q"] = { name = "+quickfix" },
         ["<space>w"] = { name = "+loclist" },
-        ["<space>g"] = { name = "+git" },
         ["<space>l"] = { name = "+meta" },
         ["<space>m"] = { name = "+messages" },
         ["<space>r"] = { name = "+rename" },

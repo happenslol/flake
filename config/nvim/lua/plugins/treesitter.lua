@@ -5,6 +5,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "windwp/nvim-ts-autotag" },
+    keys = { { "<leader>th", "<cmd>TSBufToggle highlight<cr>", desc = "Toggle TS highlighting" } },
     opts = {
       highlight = {
         enable = true,
