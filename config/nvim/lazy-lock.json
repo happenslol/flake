@@ -17,6 +17,7 @@
   "leap.nvim": { "branch": "main", "commit": "5efe985cf68fac3b6a6dfe7a75fbfaca8db2af9c" },
   "lspkind.nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
+  "materialnight.nvim": { "branch": "main", "commit": "fc2f0d69ecc185dcb6c27e7da13663755ccb46d9" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "6f8c49956c89e9fefae6acdfe1d57c6293b0a03d" },
   "neoconf.nvim": { "branch": "main", "commit": "89fdbc02266d714413b805084a1b44d3cc8ce103" },
   "neodev.nvim": { "branch": "main", "commit": "a4b6e7ca11ff5be2264d5c169fcedd97d8699ec4" },

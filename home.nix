@@ -92,7 +92,7 @@ in {
       unzip
       file
       bat
-      exa
+      eza
       ripgrep
       ncdu
       btop
@@ -182,6 +182,7 @@ in {
       linuxPackages_latest.perf
       hyperfine
       yazi
+      discord
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")

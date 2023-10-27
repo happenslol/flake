@@ -152,11 +152,13 @@ in {
     supportedFilesystems = ["zfs" "ntfs"];
 
     loader = {
+      efi.canTouchEfiVariables = false;
       grub = {
         enable = true;
         device = "nodev";
         efiSupport = true;
         enableCryptodisk = true;
+        efiInstallAsRemovable = true;
       };
 
       grub2-theme = {
