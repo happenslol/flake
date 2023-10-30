@@ -87,9 +87,8 @@ local function truncate_title(title)
   return title:sub(1, config.tab_max_width - 9) .. "…"
 end
 
-local function format_dir(dir)
-  local without_file_prefix = dir:gsub("^file://", "")
-  local without_home = without_file_prefix:gsub("^/home/happens", "~")
+local function format_dir(dir_url)
+  local without_home = dir_url.file_path:gsub("^/home/happens", "~")
   return without_home
 end
 
@@ -129,7 +128,7 @@ w.on("format-tab-title", function(tab)
     append(result, { Background = { Color = "#212121" } })
     append(result, { Text = " " })
   end
-
+  --
   if tab.is_active then
     append(result, { Background = { AnsiColor = "Green" } })
   else
