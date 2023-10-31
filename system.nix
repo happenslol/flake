@@ -3,6 +3,7 @@
   pkgs,
   stateVersion,
   inputs,
+  pkgs-nodejs_19,
   ...
 }: let
   customPackages = {
@@ -353,7 +354,10 @@ in {
     pam.services.gtklock = {};
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    package = pkgs-nodejs_19.docker;
+  };
 
   fonts = {
     fontconfig = {

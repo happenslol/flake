@@ -1,6 +1,6 @@
 [[ -f ~/.secrets ]] && source ~/.secrets
 
-export PATH="$PATH:$HOME/.local/bin:$HOME/.flake/scripts"
+export PATH="$PATH:$HOME/.local/bin"
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
 

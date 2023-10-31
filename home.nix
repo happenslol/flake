@@ -132,8 +132,6 @@ in {
       vlc
       node2nix
       just
-      steam-run
-      docker-compose
       gcc
       rustup
       zig
@@ -151,14 +149,17 @@ in {
       grimblast
       python3
       gnumake
+      pkgs-nodejs_19.docker-compose
+      pkgs-nodejs_19.steam-run
       pkgs-nodejs_19.nodejs_19
-      nodejs_20.pkgs.eslint_d
-      nodejs_20.pkgs.vscode-langservers-extracted
-      nodejs_20.pkgs.bash-language-server
-      nodejs_20.pkgs.yaml-language-server
-      nodejs_20.pkgs.graphql-language-service-cli
+      nodejs_21.pkgs.eslint_d
+      nodejs_21.pkgs.vscode-langservers-extracted
+      nodejs_21.pkgs.bash-language-server
+      nodejs_21.pkgs.yaml-language-server
+      nodejs_21.pkgs.graphql-language-service-cli
+      nodejs_21.pkgs.typescript-language-server
+      # customPackages.fixed-typescript-language-server
       font-manager
-      customPackages.fixed-typescript-language-server
       sumneko-lua-language-server
       stylua
       selene

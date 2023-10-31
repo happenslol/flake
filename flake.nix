@@ -80,12 +80,15 @@
       };
     };
 
-    pkgs-nodejs_19 = import nixpkgs-nodejs_19 {inherit system;};
+    pkgs-nodejs_19 = import nixpkgs-nodejs_19 {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname;};
+        specialArgs = {inherit inputs stateVersion hostname pkgs-nodejs_19;};
 
         modules = [
           ./system.nix

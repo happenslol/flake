@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-nix-shell \
-  --command zsh \
-  -E "with import <unstable> { }; runCommand \"shell\" { buildInputs = [ $* ]; } \"\""
