@@ -17,9 +17,6 @@
     config.lib.file.mkOutOfStoreSymlink "${home}/.flake/hosts/${hostname}/config";
 
   customPackages = {
-    fixed-typescript-language-server =
-      import ./fixes/typescript-language-server.nix pkgs;
-
     neovim-nightly = let
       neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
@@ -158,7 +155,6 @@ in {
       nodejs_21.pkgs.yaml-language-server
       nodejs_21.pkgs.graphql-language-service-cli
       nodejs_21.pkgs.typescript-language-server
-      # customPackages.fixed-typescript-language-server
       font-manager
       sumneko-lua-language-server
       stylua
