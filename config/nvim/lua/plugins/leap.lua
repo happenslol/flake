@@ -17,8 +17,6 @@ return {
     keys = {
       { "s", "<Plug>(leap-forward-to)", mode = { "n", "o" }, desc = "Leap forward to" },
       { "S", "<Plug>(leap-backward-to)", mode = { "n", "o" }, desc = "Leap backward to" },
-      { "x", "<Plug>(leap-forward-till)", mode = { "x" }, desc = "Leap forward until" },
-      { "X", "<Plug>(leap-backward-till)", mode = { "x" }, desc = "Leap backward until" },
       { "gs", "<Plug>(leap-from-window)", mode = { "n", "o" }, desc = "Leap from windows" },
     },
     config = function(_, opts)
