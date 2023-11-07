@@ -180,6 +180,7 @@ in {
       hyperfine
       yazi
       discord
+      glab
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
