@@ -31,7 +31,7 @@ return {
               symbols = { added = " ", modified = " ", removed = " " },
             },
           },
-          lualine_y = { "branch" },
+          lualine_y = {},
           lualine_z = { "location" },
         },
         inactive_sections = {
