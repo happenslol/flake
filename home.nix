@@ -182,6 +182,7 @@ in {
       discord
       glab
       imagemagick
+      android-studio
 
       # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
       (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
