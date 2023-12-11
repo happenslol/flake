@@ -28,30 +28,7 @@
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 
-  globalNpmPackages = [
-    "pnpm@8.7.6"
-    "@fsouza/prettierd@0.24.1"
-  ];
-
-  atuin-tmpfs = pkgs.writeShellScript "atuin-tmpfs" ''
-    echo "Running atuin tmpfs sync"
-    ${pkgs.coreutils}/bin/mkdir -p ${home}/.local/share/atuin-store/tmpfs
-
-    case "$1" in
-      restore)
-      echo "Restoring atuin tmpfs";
-      ${pkgs.rsync}/bin/rsync -av \
-        /home/happens/.local/share/atuin-store/tmpfs/ \
-        /home/happens/.local/share/atuin/
-      ;;
-      persist)
-      echo "Persisting atuin tmpfs"
-      ${pkgs.rsync}/bin/rsync -av --delete --recursive --force \
-        /home/happens/.local/share/atuin/ \
-        /home/happens/.local/share/atuin-store/tmpfs/
-      ;;
-    esac
-  '';
+  globalNpmPackages = ["pnpm@8.7.6" "@fsouza/prettierd@0.24.1"];
 in {
   programs = {
     home-manager.enable = true;
@@ -142,7 +119,6 @@ in {
       mako
       notify-desktop
       eww-wayland
-      hyprpicker
       grimblast
       python3
       gnumake
@@ -230,18 +206,6 @@ in {
         Type = "simple";
         ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
         Restart = "always";
-      };
-    };
-
-    atuin-tmpfs-sync = {
-      Unit.Description = "Atuin tmpfs sync";
-      Install.WantedBy = ["default.target"];
-
-      Service = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = "${atuin-tmpfs} restore";
-        ExecStop = "${atuin-tmpfs} persist";
       };
     };
   };

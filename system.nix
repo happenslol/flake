@@ -2,6 +2,7 @@
   config,
   pkgs,
   stateVersion,
+  username,
   inputs,
   pkgs-nodejs_19,
   ...
@@ -97,12 +98,19 @@ in {
     inputs.hyprland.nixosModules.default
   ];
 
-  systemd.user.targets.hyprland-session = {
-    description = "Hyprland compositor session";
-    documentation = ["man:systemd.special(7)"];
-    bindsTo = ["graphical-session.target"];
-    wants = ["graphical-session-pre.target"];
-    after = ["graphical-session-pre.target"];
+  systemd = {
+    tmpfiles.rules = [
+      "d /nosync       0755 ${username} users -"
+      "d /nosync/atuin 0755 ${username} users -"
+    ];
+
+    user.targets.hyprland-session = {
+      description = "Hyprland compositor session";
+      documentation = ["man:systemd.special(7)"];
+      bindsTo = ["graphical-session.target"];
+      wants = ["graphical-session-pre.target"];
+      after = ["graphical-session-pre.target"];
+    };
   };
 
   nix = {
@@ -335,7 +343,7 @@ in {
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "vboxusers"];
       shell = pkgs.zsh;
     };
   };
@@ -354,9 +362,13 @@ in {
     pam.services.gtklock = {};
   };
 
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs-nodejs_19.docker;
+  virtualisation = {
+    virtualbox.host.enable = true;
+
+    docker = {
+      enable = true;
+      package = pkgs-nodejs_19.docker;
+    };
   };
 
   fonts = {
@@ -383,15 +395,8 @@ in {
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
-  fileSystems."/home/happens/.local/share/atuin" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = ["defaults" "uid=1000" "gid=1000" "mode=755" "size=8G"];
-  };
-
-  fileSystems."/tmplocal" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = ["defaults" "uid=1000" "gid=1000" "mode=755" "size=8G"];
+  fileSystems."/home/${username}/.local/share/atuin" = {
+    device = "/nosync/atuin";
+    options = ["bind"];
   };
 }
