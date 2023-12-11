@@ -35,6 +35,10 @@ function _keymap_lazygit() { lazygit; zle reset-prompt }
 zle -N keymap-lazygit-widget _keymap_lazygit
 bindkey "^G" keymap-lazygit-widget
 
+function _keymap_yazi() { yazi; zle reset-prompt }
+zle -N keymap-yazi-widget _keymap_yazi
+bindkey "^F" keymap-yazi-widget
+
 function _keymap_ls() {
   echo
   eza -la --git --icons --group-directories-first

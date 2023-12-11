@@ -69,6 +69,9 @@ config.key_tables = keymaps.key_tables
 
 config.window_close_confirmation = "NeverPrompt"
 
+config.check_for_updates = false
+config.show_update_window = false
+
 config.window_padding = {
   top = 8,
   right = 8,

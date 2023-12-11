@@ -18,11 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +39,7 @@
     };
 
     wezterm = {
-      url = "github:happenslol/wezterm/add-nix-flake";
+      url = "github:happenslol/wezterm/add-nix-flake?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,12 +57,11 @@
   }: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
-    stateVersion = "23.05";
+    stateVersion = "23.11";
     username = "happens";
 
     overlays = [
       inputs.nixpkgs-wayland.overlay
-      inputs.hyprpicker.overlays.default
       inputs.hyprland-contrib.overlays.default
     ];
 
@@ -88,7 +82,7 @@
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname pkgs-nodejs_19;};
+        specialArgs = {inherit inputs stateVersion hostname username pkgs-nodejs_19;};
 
         modules = [
           ./system.nix
