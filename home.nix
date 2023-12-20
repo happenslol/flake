@@ -57,12 +57,6 @@ in {
     homeDirectory = home;
 
     sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      MOZ_ENABLE_WAYLAND = "1";
-      MOZ_USE_XINPUT2 = "1";
-      SDL_VIDEODRIVER = "wayland";
-      XCURSOR_SIZE = "24";
-
       GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
     };
 
@@ -256,5 +250,6 @@ in {
     android-studio
     spacedrive
     slack
+    swaylock
   ];
 }
