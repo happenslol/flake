@@ -39,6 +39,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/nosync" = {
+    device = "rpool/user/nosync";
+    fsType = "zfs";
+  };
+
   swapDevices = [];
 
   networking.useDHCP = lib.mkDefault true;

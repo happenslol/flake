@@ -74,13 +74,14 @@ in {
       size = 24;
     };
 
-    activation = {
-      installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
-        export NODE_PATH="$HOME/.npm-packages/lib/node_modules"
-        ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g ${lib.strings.concatStringsSep " " globalNpmPackages}
-      '';
-    };
+    # TODO: Find a better way to do this
+    # activation = {
+    #   installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    #     export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
+    #     export NODE_PATH="$HOME/.npm-packages/lib/node_modules"
+    #     ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g ${lib.strings.concatStringsSep " " globalNpmPackages}
+    #   '';
+    # };
   };
 
   systemd.user.services = {
