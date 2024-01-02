@@ -93,9 +93,13 @@ symbol = "󱃾  "
 style = "cyan"
 format = "[|](bright-black) [$symbol$context ]($style)"
 
-[kubernetes.context_aliases]
-"gke_.*_(?P<var_cluster>[\\w-]+)" = "gke-$var_cluster"
-"arn:aws:eks:(?P<var_region>[\\w-]+):(?P<var_account>[\\w-]+):cluster/(?P<var_cluster>[\\w-]+)" = "eks:$var_cluster"
+[[kubernetes.contexts]]
+context_pattern = "gke_.*_(?P<var_cluster>[\\w-]+)"
+context_alias = "gke-$var_cluster"
+
+[[kubernetes.contexts]]
+context_pattern = "arn:aws:eks:(?P<var_region>[\\w-]+):(?P<var_account>[\\w-]+):cluster/(?P<var_cluster>[\\w-]+)"
+context_alias = "eks:$var_cluster"
 
 [c]
 format = "[|](bright-black) [$symbol($version(-$name) )]($style)"
