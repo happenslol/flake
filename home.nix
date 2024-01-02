@@ -213,13 +213,13 @@ in {
     python3
     gnumake
 
-    # pkgs-nodejs_19.docker-compose
-    # pkgs-nodejs_19.steam-run
-    # pkgs-nodejs_19.nodejs_19
+    pkgs-nodejs_19.docker-compose
+    pkgs-nodejs_19.steam-run
+    pkgs-nodejs_19.nodejs_19
 
-    docker-compose
-    steam-run
-    nodejs_21
+    # docker-compose
+    # steam-run
+    # nodejs_21
 
     nodejs_21.pkgs.eslint_d
     nodejs_21.pkgs.vscode-langservers-extracted

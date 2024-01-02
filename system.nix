@@ -111,6 +111,9 @@ in {
       wants = ["graphical-session-pre.target"];
       after = ["graphical-session-pre.target"];
     };
+
+    # See https://github.com/NixOS/nixpkgs/issues/180175
+    services.NetworkManager-wait-online.enable = false;
   };
 
   nix = {
