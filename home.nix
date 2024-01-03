@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   pkgs-nodejs_19,
   stateVersion,
   hostname,
