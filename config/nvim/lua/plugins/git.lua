@@ -42,4 +42,9 @@ return {
     "tpope/vim-fugitive",
     cmd = { "Git", "G", "Gdiff" },
   },
+
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
+  },
 }

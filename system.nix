@@ -4,7 +4,6 @@
   stateVersion,
   username,
   inputs,
-  pkgs-nodejs_19,
   ...
 }: let
   customPackages = {
@@ -367,10 +366,9 @@ in {
 
   virtualisation = {
     virtualbox.host.enable = true;
-
     docker = {
       enable = true;
-      package = pkgs-nodejs_19.docker;
+      storageDriver = "overlay2";
     };
   };
 
