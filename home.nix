@@ -244,5 +244,7 @@ in {
     libreoffice
     bun
     bc
+    postgresql_16
+    playerctl
   ];
 }
