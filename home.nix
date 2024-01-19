@@ -246,5 +246,6 @@ in {
     bc
     postgresql_16
     playerctl
+    nix-index
   ];
 }
