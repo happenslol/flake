@@ -36,7 +36,7 @@
     };
 
     wezterm = {
-      url = "github:wez/wezterm?dir=nix";
+      url = "github:happenslol/wezterm/add-nix-flake?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
