@@ -176,7 +176,6 @@ in {
     vimiv-qt
     nvd
     tealdeer
-    gammastep
     spotify
     krita
     restic
@@ -199,6 +198,7 @@ in {
     grimblast
     python3
     gnumake
+    wlsunset
 
     docker-compose
     steam-run
