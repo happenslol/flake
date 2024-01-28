@@ -364,12 +364,9 @@ in {
     pam.services.gtklock = {};
   };
 
-  virtualisation = {
-    virtualbox.host.enable = true;
-    docker = {
-      enable = true;
-      storageDriver = "overlay2";
-    };
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "overlay2";
   };
 
   fonts = {
