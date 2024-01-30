@@ -10,6 +10,8 @@ config.tab_bar_at_bottom = true
 config.window_decorations = "NONE"
 config.show_new_tab_button_in_tab_bar = false
 
+config.scrollback_lines = 10000
+
 config.enable_kitty_keyboard = true
 
 config.bold_brightens_ansi_colors = false
@@ -86,7 +88,9 @@ local function append(t, v)
 end
 
 local function truncate_title(title)
-  if #title <= config.tab_max_width - 8 then return title end
+  if #title <= config.tab_max_width - 8 then
+    return title
+  end
   return title:sub(1, config.tab_max_width - 9) .. "…"
 end
 
@@ -106,7 +110,9 @@ local function get_process_part(tab)
   end
 
   local base_process = get_base(tab.active_pane.foreground_process_name)
-  if base_process == "zsh" then return nil end
+  if base_process == "zsh" then
+    return nil
+  end
   return base_process
 end
 
@@ -121,7 +127,9 @@ local function get_tab_title(tab)
     return dir .. " 󰅂 " .. process
   end
 
-  if has_dir then return dir end
+  if has_dir then
+    return dir
+  end
   return process
 end
 

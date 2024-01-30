@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 map({ "n", "v" }, ";", ":")
-map({ "n", "v" }, "'", "\"")
+map({ "n", "v" }, "'", '"')
 
 -- Better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

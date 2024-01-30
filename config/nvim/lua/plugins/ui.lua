@@ -5,6 +5,9 @@ return {
   {
     "folke/noice.nvim",
     opts = {
+      -- cmdline = {
+      --   view = "cmdline"
+      -- },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -21,9 +24,10 @@ return {
     },
     keys = {
       {
+        -- TODO: Fix this
         "<s-enter>",
         function()
-          require("noice").redirect(vim.fn.getcmdline())
+          require("noice").redirect(vim.fn.getcmdline() or "")
           local keys = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
           vim.api.nvim_feedkeys(keys, "n", false)
         end,

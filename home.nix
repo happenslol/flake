@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  pkgs-nodejs_19,
   stateVersion,
   hostname,
   inputs,
@@ -27,8 +25,6 @@
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
-
-  globalNpmPackages = ["pnpm@8.7.6" "@fsouza/prettierd@0.24.1"];
 in {
   programs = {
     home-manager.enable = true;
@@ -73,15 +69,6 @@ in {
       package = pkgs.bibata-cursors;
       size = 24;
     };
-
-    # TODO: Find a better way to do this
-    # activation = {
-    #   installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    #     export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
-    #     export NODE_PATH="$HOME/.npm-packages/lib/node_modules"
-    #     ${pkgs-nodejs_19.nodejs_19}/bin/npm i -g ${lib.strings.concatStringsSep " " globalNpmPackages}
-    #   '';
-    # };
   };
 
   systemd.user.services = {
@@ -189,7 +176,6 @@ in {
     vimiv-qt
     nvd
     tealdeer
-    gammastep
     spotify
     krita
     restic
@@ -212,9 +198,12 @@ in {
     grimblast
     python3
     gnumake
-    pkgs-nodejs_19.docker-compose
-    pkgs-nodejs_19.steam-run
-    pkgs-nodejs_19.nodejs_19
+    wlsunset
+
+    docker-compose
+    steam-run
+    nodejs_21
+
     nodejs_21.pkgs.eslint_d
     nodejs_21.pkgs.vscode-langservers-extracted
     nodejs_21.pkgs.bash-language-server
@@ -252,5 +241,11 @@ in {
     spacedrive
     slack
     swaylock
+    libreoffice
+    bun
+    bc
+    postgresql_16
+    playerctl
+    nix-index
   ];
 }

@@ -26,8 +26,7 @@ return {
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
     opts = function()
-      local commentstring = require("ts_context_commentstring.integrations.comment_nvim")
-      return { pre_hook = commentstring.create_pre_hook() }
+      return { pre_hook = vim.bo.commentstring }
     end,
   },
 

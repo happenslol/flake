@@ -6,7 +6,7 @@ alias k="kubectl "
 alias sr="steam-run "
 alias tf="terraform "
 
-alias turbo="sr pnpm turbo --concurrency 50 "
+alias turbo="pnpm turbo --concurrency 50 --no-update-notifier "
 
 alias reload="source ~/.zshrc"
 alias svim="sudo -E nvim"

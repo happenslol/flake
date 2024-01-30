@@ -15,7 +15,6 @@ return {
       },
       indent = { enable = true },
       autotag = { enable = true },
-      context_commentstring = { enable = true, enable_autocmd = false },
       ensure_installed = {
         "bash",
         "c",
@@ -76,5 +75,5 @@ return {
   },
 
   { "NoahTheDuke/vim-just", ft = "just" },
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+  { "JoosepAlviste/nvim-ts-context-commentstring", event = "VeryLazy" },
 }

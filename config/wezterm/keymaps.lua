@@ -30,7 +30,15 @@ M.keys = {
   leader("v", act.ActivateCopyMode),
   leader("v", act.QuickSelect, "CTRL"),
 
-  { key = 'L', mods = "CTRL|SHIFT", action = act.ShowDebugOverlay },
+  { key = "D", mods = "CTRL|SHIFT", action = act.ShowDebugOverlay },
+  {
+    key = "L",
+    mods = "CTRL|SHIFT",
+    action = act.Multiple({
+      act.ClearScrollback("ScrollbackAndViewport"),
+      act.SendKey({ key = "L", mods = "CTRL" }),
+    }),
+  },
 
   { key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
   { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
