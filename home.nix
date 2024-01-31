@@ -247,5 +247,6 @@ in {
     postgresql_16
     playerctl
     nix-index
+    bluetuith
   ];
 }
