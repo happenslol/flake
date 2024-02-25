@@ -248,5 +248,6 @@ in {
     playerctl
     nix-index
     bluetuith
+    jless
   ];
 }
