@@ -116,6 +116,8 @@ in {
   };
 
   nix = {
+    nixPath = ["nixpkgs=${inputs.nixpkgs.outPath}"];
+
     settings = {
       trusted-users = ["root" "happens"];
 
