@@ -248,5 +248,10 @@ in {
     playerctl
     nix-index
     bluetuith
+    ollama
+    (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
+      app-engine-go
+    ]))
+    google-cloud-sql-proxy
   ];
 }
