@@ -11,10 +11,14 @@ alias turbo="pnpm turbo --concurrency 50 --no-update-notifier "
 alias reload="source ~/.zshrc"
 alias svim="sudo -E nvim"
 
+# Nix shells with zsh as default
+alias nsh="nix-shell --command zsh "
+alias ndv="nix develop --command zsh "
+
 # Remap utils to modern versions
 alias cat="bat "
 alias grep="rg "
-alias mosh="ssh "
+alias ssh="mosh "
 
 # Remap ls commands and shortcuts to exa
 alias l="eza -la --git --icons --group-directories-first "

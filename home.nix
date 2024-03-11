@@ -253,5 +253,6 @@ in {
       app-engine-go
     ]))
     google-cloud-sql-proxy
+    jless
   ];
 }
