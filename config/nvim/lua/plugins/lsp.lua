@@ -167,12 +167,6 @@ return {
 
           nil_ls = {},
 
-          -- Disable if relay config is found, see
-          -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua#L443
-          -- graphql = {
-          --   root_dir = require("lspconfig.util").root_pattern("src", "node_modules"),
-          -- },
-
           -- TODO: Set up snippet capabilities for html, json and css lsps
           html = {},
           cssls = {
@@ -185,6 +179,7 @@ return {
           },
           gopls = {},
           taplo = {},
+          eslint = {},
           zls = {},
         },
         setup = {
@@ -331,33 +326,19 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local null = require("null-ls")
-      local eslint_patterns = { ".eslintrc.js", ".eslintrc.json", ".eslintrc" }
 
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          -- TODO: Why does prettierd not find the config anymore?
-          null.builtins.formatting.prettier,
-          null.builtins.code_actions.eslint_d.with({
-            -- condition = function(utils)
-            --   return utils.root_has_file(eslint_patterns)
-            -- end,
-          }),
-          null.builtins.diagnostics.eslint_d.with({
-            filter = require("util").filter_eslintd_diagnostics,
-            -- condition = function(utils)
-            --   return utils.root_has_file(eslint_patterns)
-            -- end,
+          null.builtins.formatting.prettier.with({
+            prefer_local = "node_modules/.bin"
           }),
 
           null.builtins.formatting.shfmt,
-          null.builtins.diagnostics.shellcheck,
-          null.builtins.code_actions.shellcheck,
           null.builtins.formatting.stylua,
           null.builtins.formatting.alejandra,
           null.builtins.formatting.goimports,
           null.builtins.formatting.clang_format,
-          null.builtins.formatting.taplo,
           null.builtins.formatting.terraform_fmt,
 
           require("typescript.extensions.null-ls.code-actions"),

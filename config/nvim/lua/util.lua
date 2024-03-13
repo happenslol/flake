@@ -24,9 +24,10 @@ function M.filter_diagnostics(diagnostics)
 end
 
 function M.filter_eslintd_diagnostics(diagnostic)
-  return not vim.tbl_contains({
-    "@typescript-eslint/no-unused-vars",
-  }, diagnostic.code)
+  return true
+  -- return not vim.tbl_contains({
+  --   "@typescript-eslint/no-unused-vars",
+  -- }, diagnostic.code)
 end
 
 local function get_code_action_priority(title)

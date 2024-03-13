@@ -49,9 +49,12 @@ return {
   },
 
   {
-    "kdheepak/lazygit.nvim",
-    lazy = true,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    keys = { { "<leader>gg", ":LazyGit<cr>", desc = "Show lazygit" } },
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true,
   },
 }
