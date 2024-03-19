@@ -50,11 +50,20 @@ return {
 
   {
     "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim", "nvim-telescope/telescope.nvim" },
+    cmd = { "Neogit" },
+    keys = {
+      { "<leader>u", "<cmd>Neogit<cr>", mode = "n" },
+      { "<leader>i", "<cmd>Neogit branch<cr>", mode = "n" },
     },
-    config = true,
+    opts = {
+      disable_hint = true,
+      graph_style = "unicode",
+      kind = "split",
+      integrations = {
+        telescope = true,
+        diffview = true,
+      },
+    },
   },
 }
