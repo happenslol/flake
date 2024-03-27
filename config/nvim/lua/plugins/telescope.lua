@@ -10,9 +10,9 @@ return {
     cmd = "Telescope",
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-      { "<C-;>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
+      { "<C-b>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
       {
-        "<C-/>",
+        "<C-f>",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args()
         end,
