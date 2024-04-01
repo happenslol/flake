@@ -72,7 +72,7 @@
       family = "Iosevka Happy";
       spacing = "term";
       serifs = "sans";
-      no-cv-ss = true;
+      noCvSs = true;
       export-glyph-names = false;
 
       variants = {

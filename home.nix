@@ -35,7 +35,7 @@ in {
 
     zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       enableVteIntegration = true;
 
@@ -61,6 +61,7 @@ in {
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
       ".ssh/config".source = "${dotfiles}/ssh/config";
+      ".tmux.conf".source = "${dotfiles}/tmux/tmux.conf";
     };
 
     pointerCursor = {
@@ -194,7 +195,6 @@ in {
     wofi
     mako
     notify-desktop
-    eww-wayland
     grimblast
     python3
     gnumake
