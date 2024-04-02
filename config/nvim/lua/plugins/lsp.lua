@@ -181,6 +181,8 @@ return {
           taplo = {},
           eslint = {},
           zls = {},
+
+          tsp_server = {},
         },
         setup = {
           tsserver = function(_, opts)
@@ -209,6 +211,17 @@ return {
     end,
     config = function(_, opts)
       local util = require("util")
+      local lspconfig = require("lspconfig")
+      local configs = require("lspconfig.configs")
+
+      configs.tsp_server = {
+        default_config = {
+          cmd = { "tsp-server", "--stdio" },
+          filetypes = { "typespec" },
+          root_dir = lspconfig.util.root_pattern("tspconfig.yaml", ".git"),
+          settings = {},
+        },
+      }
 
       util.hook(vim.lsp.handlers, "textDocument/publishDiagnostics", function(prev, _, result, ctx, config)
         result.diagnostics = require("util").filter_diagnostics(result.diagnostics)
@@ -235,6 +248,7 @@ return {
         ["null-ls"] = true,
         ["rust_analyzer"] = true,
         ["zls"] = true,
+        ["tsp_server"] = true
       }
 
       local format = function(buf)
@@ -312,7 +326,7 @@ return {
           end
         end
 
-        require("lspconfig")[server].setup(server_opts)
+        lspconfig[server].setup(server_opts)
       end
 
       for server in pairs(servers) do
@@ -331,7 +345,7 @@ return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           null.builtins.formatting.prettier.with({
-            prefer_local = "node_modules/.bin"
+            prefer_local = "node_modules/.bin",
           }),
 
           null.builtins.formatting.shfmt,

@@ -71,6 +71,19 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
       require("nvim-treesitter.configs").setup(opts)
+
+      vim.filetype.add({ extension = { tsp = "typespec" } })
+
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+      ---@diagnostic disable-next-line: inject-field
+      parser_config.typespec = {
+        install_info = {
+          url = "~/code/tree-sitter-typespec",
+          files = { "src/parser.c" },
+        },
+        filetype = "typespec",
+      }
     end,
   },
 
