@@ -18,7 +18,6 @@ alias ndv="nix develop --command zsh "
 # Remap utils to modern versions
 alias cat="bat "
 alias grep="rg "
-alias ssh="mosh "
 
 # Remap ls commands and shortcuts to exa
 alias l="eza -la --git --icons --group-directories-first "
