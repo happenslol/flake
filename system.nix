@@ -65,6 +65,21 @@
       '';
     };
 
+# [buildPlans.IosevkaHappy]
+# family = "Iosevka Happy"
+# spacing = "term"
+# serifs = "sans"
+# noCvSs = false
+# exportGlyphNames = true
+#
+# [buildPlans.IosevkaHappy.variants.design]
+# lig-ltgteq = "slanted"
+# lig-equal-chain = "without-notch"
+# lig-hyphen-chain = "without-notch"
+#
+# inherits = "dlig"
+# [buildPlans.IosevkaHappy.ligations]
+
   iosevka-happy = pkgs.iosevka.override {
     set = "happy";
 
@@ -72,11 +87,12 @@
       family = "Iosevka Happy";
       spacing = "term";
       serifs = "sans";
-      noCvSs = true;
-      export-glyph-names = false;
+      noCvSs = false;
+      exportGlyphNames = true;
 
       variants = {
         design = {
+          lig-ltgteq = "slanted";
           lig-hyphen-chain = "without-notch";
           lig-equal-chain = "without-notch";
         };
