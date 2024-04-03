@@ -46,6 +46,7 @@ return {
         "json",
         "jsonc",
         "json5",
+        "just",
         "lua",
         "luadoc",
         "make",
@@ -87,6 +88,5 @@ return {
     end,
   },
 
-  { "NoahTheDuke/vim-just", ft = "just" },
   { "JoosepAlviste/nvim-ts-context-commentstring", event = "VeryLazy" },
 }
