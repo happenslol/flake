@@ -20,7 +20,6 @@
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
   };
 
-  wezterm-custom = inputs.wezterm.packages."${system}".default;
   atuin-custom = inputs.atuin.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
@@ -133,7 +132,7 @@ in {
 
   home.packages = with pkgs; [
     # Really dirty hack since gnome-terminal is hardcoded for gtk-launch
-    (writeShellScriptBin "gnome-terminal" "shift; ${wezterm-custom}/bin/wezterm -e \"$@\"")
+    (writeShellScriptBin "gnome-terminal" "shift; ${kitty}/bin/kitty -e \"$@\"")
 
     cachix
     zip
