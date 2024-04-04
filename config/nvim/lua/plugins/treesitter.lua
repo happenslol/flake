@@ -29,6 +29,7 @@ return {
         "gitcommit",
         "gitignore",
         "gitattributes",
+        "glsl",
         "go",
         "gomod",
         "gosum",
