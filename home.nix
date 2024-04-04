@@ -158,7 +158,6 @@ in {
     tokei
     kitty
     tmux
-    wezterm-custom
     atuin-custom
     zoxide
     starship
