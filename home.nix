@@ -253,5 +253,6 @@ in {
     google-cloud-sql-proxy
     jless
     mosh
+    comma
   ];
 }
