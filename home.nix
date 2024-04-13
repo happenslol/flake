@@ -254,5 +254,6 @@ in {
     jless
     mosh
     comma
+    libnotify
   ];
 }
