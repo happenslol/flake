@@ -39,4 +39,9 @@
   };
 
   services.blueman.enable = true;
+
+  nix.settings = {
+    cores = 4;
+    max-jobs = 2;
+  };
 }
