@@ -200,14 +200,14 @@ in {
 
     docker-compose
     steam-run
-    nodejs_21
+    nodejs_22
 
-    nodejs_21.pkgs.eslint_d
-    nodejs_21.pkgs.vscode-langservers-extracted
-    nodejs_21.pkgs.bash-language-server
-    nodejs_21.pkgs.yaml-language-server
-    nodejs_21.pkgs.graphql-language-service-cli
-    nodejs_21.pkgs.typescript-language-server
+    nodejs_22.pkgs.eslint_d
+    nodejs_22.pkgs.vscode-langservers-extracted
+    nodejs_22.pkgs.bash-language-server
+    nodejs_22.pkgs.yaml-language-server
+    nodejs_22.pkgs.graphql-language-service-cli
+    nodejs_22.pkgs.typescript-language-server
     font-manager
     sumneko-lua-language-server
     stylua
