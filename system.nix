@@ -201,6 +201,8 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs = {
+    steam.enable = true;
+
     ssh.startAgent = true;
     dconf.enable = true;
     zsh.enable = true;
