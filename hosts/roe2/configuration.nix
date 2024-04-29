@@ -45,7 +45,7 @@
   services.blueman.enable = true;
 
   nix.settings = {
-    cores = 4;
+    cores = 6;
     max-jobs = 4;
   };
 }
