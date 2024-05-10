@@ -255,5 +255,6 @@ in {
     mosh
     comma
     libnotify
+    distrobox
   ];
 }
