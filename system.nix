@@ -325,7 +325,6 @@ in {
     devmon.enable = true;
     udisks2.enable = true;
     envfs.enable = true;
-    fprintd.enable = true;
 
     zfs = {
       autoScrub.enable = true;
