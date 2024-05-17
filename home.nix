@@ -256,5 +256,6 @@ in {
     comma
     libnotify
     distrobox
+    vesktop
   ];
 }
