@@ -30,7 +30,6 @@
     };
   };
 
-  services.fprintd.enable = true;
   programs.light.enable = true;
 
   hardware.bluetooth = {
