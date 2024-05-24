@@ -38,9 +38,6 @@ return {
       "nvim-lua/plenary.nvim",
     },
     cmd = "Neotree",
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = true
-    end,
     opts = {
       window = {
         width = 30,
@@ -53,7 +50,7 @@ return {
       filesystem = {
         use_libuv_file_watcher = true,
         filtered_items = {
-          visible = true,
+          visible = false,
           hide_hidden = false,
           hide_dotfiles = false,
 

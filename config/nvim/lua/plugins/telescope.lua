@@ -74,7 +74,6 @@ return {
         },
         extensions = {
           fzf = {},
-          persisted = {},
           live_grep_args = vim.tbl_extend("force", live_grep_config, {
             auto_quoting = true,
             mappings = {
