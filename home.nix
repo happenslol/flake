@@ -256,6 +256,6 @@ in {
     comma
     libnotify
     distrobox
-    vesktop
+    (vesktop.override {withSystemVencord = false;})
   ];
 }
