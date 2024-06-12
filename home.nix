@@ -257,5 +257,6 @@ in {
     libnotify
     distrobox
     (vesktop.override {withSystemVencord = false;})
+    zed-editor
   ];
 }
