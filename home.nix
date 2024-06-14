@@ -253,7 +253,6 @@ in {
     google-cloud-sql-proxy
     jless
     mosh
-    comma
     libnotify
     distrobox
     (vesktop.override {withSystemVencord = false;})

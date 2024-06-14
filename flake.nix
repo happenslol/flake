@@ -44,11 +44,17 @@
       url = "github:happenslol/atuin/fork";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
+    nix-index-database,
     ...
   }: let
     inherit (nixpkgs) lib;
@@ -80,6 +86,7 @@
         specialArgs = {inherit inputs stateVersion hostname username;};
 
         modules = [
+          nix-index-database.nixosModules.nix-index
           ./system.nix
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
