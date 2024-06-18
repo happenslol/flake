@@ -65,20 +65,20 @@
       '';
     };
 
-# [buildPlans.IosevkaHappy]
-# family = "Iosevka Happy"
-# spacing = "term"
-# serifs = "sans"
-# noCvSs = false
-# exportGlyphNames = true
-#
-# [buildPlans.IosevkaHappy.variants.design]
-# lig-ltgteq = "slanted"
-# lig-equal-chain = "without-notch"
-# lig-hyphen-chain = "without-notch"
-#
-# inherits = "dlig"
-# [buildPlans.IosevkaHappy.ligations]
+  # [buildPlans.IosevkaHappy]
+  # family = "Iosevka Happy"
+  # spacing = "term"
+  # serifs = "sans"
+  # noCvSs = false
+  # exportGlyphNames = true
+  #
+  # [buildPlans.IosevkaHappy.variants.design]
+  # lig-ltgteq = "slanted"
+  # lig-equal-chain = "without-notch"
+  # lig-hyphen-chain = "without-notch"
+  #
+  # inherits = "dlig"
+  # [buildPlans.IosevkaHappy.ligations]
 
   iosevka-happy = pkgs.iosevka.override {
     set = "happy";
@@ -176,6 +176,7 @@ in {
 
     # Use latest kernel compatible with zfs
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
 
     # Enable zfs and ntfs3g
     supportedFilesystems = ["zfs" "ntfs"];
