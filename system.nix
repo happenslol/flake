@@ -202,6 +202,8 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs = {
+    command-not-found.enable = false;
+    nix-index-database.comma.enable = true;
     steam.enable = true;
 
     ssh.startAgent = true;
