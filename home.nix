@@ -170,7 +170,7 @@ in {
     signal-desktop
     element-desktop
     easyeffects
-    obsidian
+    # obsidian
     gimp
     vimiv-qt
     nvd
@@ -258,5 +258,6 @@ in {
     distrobox
     (vesktop.override {withSystemVencord = false;})
     zed-editor
+    obs-studio
   ];
 }
