@@ -170,7 +170,7 @@ in {
     signal-desktop
     element-desktop
     easyeffects
-    # obsidian
+    obsidian
     gimp
     vimiv-qt
     nvd
@@ -255,7 +255,10 @@ in {
     mosh
     libnotify
     distrobox
-    (vesktop.override {withSystemVencord = false;})
+    (vesktop.override {
+      withSystemVencord = false;
+      withMiddleClickScroll = true;
+    })
     zed-editor
     obs-studio
   ];
