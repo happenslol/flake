@@ -51,3 +51,7 @@ map("n", "<ScrollWheelDown>", "3<c-e>", { silent = true })
 -- Select next/previous line using scrollwheel in visual mode
 map("v", "<ScrollWheelUp>", "k", { silent = true })
 map("v", "<ScrollWheelDown>", "j", { silent = true })
+
+-- Delete default diagnostic keymaps
+vim.keymap.del("n", "<c-w>d")
+vim.keymap.del("n", "<c-w><c-d>")
