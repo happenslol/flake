@@ -172,7 +172,6 @@ in {
     easyeffects
     obsidian
     gimp
-    vimiv-qt
     nvd
     tealdeer
     spotify

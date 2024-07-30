@@ -306,7 +306,7 @@ in {
       wdisplays
       pulseaudio
       kanshi
-      gnome.file-roller
+      file-roller
       lm_sensors
 
       (orchis-theme.override {border-radius = 4;})
