@@ -214,6 +214,17 @@ return {
       local lspconfig = require("lspconfig")
       local configs = require("lspconfig.configs")
 
+      vim.diagnostic.config({
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+          },
+        },
+      })
+
       configs.tsp_server = {
         default_config = {
           cmd = { "tsp-server", "--stdio" },
@@ -228,21 +239,11 @@ return {
         return prev(nil, result, ctx, config)
       end)
 
-      -- util.hook(vim.lsp, "buf_request_all", function(prev, bufnr, method, params, callback)
-      --   return prev(bufnr, method, params, function(lsp_results)
-      --     if method == "textDocument/codeAction" then
-      --       return callback(require("util").sort_code_actions(lsp_results))
-      --     end
-      --
-      --     return callback(lsp_results)
-      --   end)
-      -- end)
-
       local enable_lsp_formatters = {
         ["null-ls"] = true,
         ["rust_analyzer"] = true,
         ["zls"] = true,
-        ["tsp_server"] = true
+        ["tsp_server"] = true,
       }
 
       local format = function(buf)
@@ -268,13 +269,19 @@ return {
         map("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
         map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Show LSP Info" })
 
+        -- stylua: ignore start
         map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-        map("n", "<leader>c", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-        map("n", "<leader>v", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
+        map("n", "<leader>c", function() vim.diagnostic.jump({ float = true, count = 1 }) end, { desc = "Next Diagnostic" })
+        map("n", "<leader>v", function() vim.diagnostic.jump({ float = true, count = -1 }) end, { desc = "Previous Diagnostic" })
+        map("n", "]d", function() vim.diagnostic.jump({ float = true, count = 1 }) end, { desc = "Next Diagnostic" })
+        map("n", "[d", function() vim.diagnostic.jump({ float = true, count = -1 }) end, { desc = "Previous Diagnostic" })
+        map("n", "]e", function() vim.diagnostic.jump({ float = true, severity = 1, count = 1 }) end, { desc = "Next Diagnostic" })
+        map("n", "[e", function() vim.diagnostic.jump({ float = true, severity = 1, count = -1 }) end, { desc = "Previous Diagnostic" })
         map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
         map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Show References" })
+        -- stylua: ignore end
 
         if client.server_capabilities["signatureHelpProvider"] then
           map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
