@@ -261,5 +261,7 @@ in {
     })
     zed-editor
     obs-studio
+    bruno
+    delve
   ];
 }
