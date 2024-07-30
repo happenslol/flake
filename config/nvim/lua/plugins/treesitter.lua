@@ -4,7 +4,6 @@ return {
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "windwp/nvim-ts-autotag" },
     keys = { { "<leader>th", "<cmd>TSBufToggle highlight<cr>", desc = "Toggle TS highlighting" } },
     opts = {
       highlight = {
@@ -14,7 +13,6 @@ return {
         end,
       },
       indent = { enable = true },
-      autotag = { enable = true },
       ensure_installed = {
         "bash",
         "c",
@@ -71,23 +69,13 @@ return {
       },
     },
     config = function(_, opts)
-      require("nvim-treesitter.install").prefer_git = true
       require("nvim-treesitter.configs").setup(opts)
-
-      vim.filetype.add({ extension = { tsp = "typespec" } })
-
-      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-      ---@diagnostic disable-next-line: inject-field
-      parser_config.typespec = {
-        install_info = {
-          url = "~/code/tree-sitter-typespec",
-          files = { "src/parser.c" },
-        },
-        filetype = "typespec",
-      }
     end,
   },
 
-  { "JoosepAlviste/nvim-ts-context-commentstring", event = "VeryLazy" },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
