@@ -19,7 +19,6 @@ return {
       { "theHamsta/nvim-dap-virtual-text", opts = {} },
     },
     config = function()
-      local dap = require("dap")
       local dap_go = require("dap-go")
       dap_go.setup()
     end,
@@ -57,7 +56,7 @@ return {
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
-      dapui.setup({})
+      dapui.setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({})
       end
