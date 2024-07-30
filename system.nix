@@ -176,7 +176,7 @@ in {
 
     # Use latest kernel compatible with zfs
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback liquidtux];
 
     # Enable zfs and ntfs3g
     supportedFilesystems = ["zfs" "ntfs"];
@@ -202,6 +202,7 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs = {
+    coolercontrol.enable = true;
     command-not-found.enable = false;
     nix-index-database.comma.enable = true;
     steam.enable = true;
@@ -306,6 +307,7 @@ in {
       pulseaudio
       kanshi
       gnome.file-roller
+      lm_sensors
 
       (orchis-theme.override {border-radius = 4;})
       qogir-icon-theme
