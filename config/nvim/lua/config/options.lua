@@ -31,7 +31,7 @@ opt.splitright = true -- Splitting a new window at the right of the current one
 opt.tabstop = 2 -- Number of space in a tab
 opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
 opt.undofile = true -- Enable persistent undo
-opt.updatetime = 300 -- Length of time to wait before triggering the plugin
+opt.updatetime = 200 -- Length of time to wait before triggering the plugin
 opt.virtualedit = "block" -- Allow going past end of line in visual block mode
 opt.wrap = true -- Disable wrapping of lines longer than the width of window
 opt.writebackup = false -- Disable making a backup before overwriting a file
@@ -43,18 +43,36 @@ opt.breakindent = true -- Wrap indent to match line start
 opt.linebreak = true -- Wrap lines at 'breakat'
 opt.timeoutlen = 500 -- Time to wait for a mapped sequence to complete
 opt.smartindent = false -- Disable smartindent (breaks indenting lines starting with #)
+opt.foldlevel = 99
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.jumpoptions = "view"
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.winminwidth = 5 -- Minimum window width
+opt.formatexpr = "v:lua.require'conform'.formatexpr()"
+opt.formatoptions = "jcroqlnt" -- tcqj
 
 opt.titlestring = "nvim | %{substitute(getcwd(), $HOME, '~', '')}"
+
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 
 -- Remove help entry from mouse menu
 vim.cmd.aunmenu("PopUp.How-to\\ disable\\ mouse")
 vim.cmd.aunmenu("PopUp.-1-")
 
--- TODO: Check if nvim 0.9 options are cool
--- opt.splitkeep = vim.fn.has "nvim-0.9" == 1 and "screen" or nil   -- Maintain code view when splitting
--- opt.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil       -- Show foldcolumn in nvim 0.9
+-- neovim 0.10
+opt.smoothscroll = true
+opt.foldexpr = "v:lua.require'util'.foldexpr()"
+opt.foldmethod = "expr"
+opt.foldtext = ""
 
--- TODO: Do we want these?
--- opt.foldlevel = 99                          -- Set high foldlevel for nvim-ufo
--- opt.foldlevelstart = 99                     -- Start with all code unfolded
--- opt.foldenable = true                       -- Enable fold for nvim-ufo
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
