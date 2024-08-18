@@ -383,16 +383,6 @@ return {
     "stevearc/conform.nvim",
     lazy = true,
     cmd = "ConformInfo",
-    keys = {
-      {
-        "<leader>cF",
-        function()
-          require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
-        end,
-        mode = { "n", "v" },
-        desc = "Format Injected Langs",
-      },
-    },
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
@@ -406,6 +396,10 @@ return {
         lua = { "stylua" },
         fish = { "fish_indent" },
         sh = { "shfmt" },
+        javascript = { "prettierd", "eslint_d" },
+        javascriptreact = { "prettierd", "eslint_d" },
+        typescript = { "prettierd", "eslint_d" },
+        typescriptreact = { "prettierd", "eslint_d" },
       },
       formatters = {
         injected = { options = { ignore_errors = true } },
