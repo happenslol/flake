@@ -12,8 +12,8 @@ return {
       window = {
         width = 30,
         mappings = {
-          ["<cr>"] = "open",
-          ["o"] = "open",
+          ["<cr>"] = "open_with_window_picker",
+          ["o"] = "open_with_window_picker",
           ["l"] = false,
           ["Y"] = {
             function(state)
