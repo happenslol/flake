@@ -6,6 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     cmd = "Telescope",
     keys = {
@@ -74,6 +75,7 @@ return {
         },
         extensions = {
           fzf = {},
+          ["ui-select"] = { require("telescope.themes").get_dropdown({}) },
           live_grep_args = vim.tbl_extend("force", live_grep_config, {
             auto_quoting = true,
             mappings = {
@@ -90,7 +92,7 @@ return {
             sorting_strategy = "ascending",
             layout_config = {
               prompt_position = "top",
-              width = 0.4,
+              width = 0.6,
               height = 0.6,
             },
           },

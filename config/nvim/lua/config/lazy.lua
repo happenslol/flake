@@ -20,6 +20,10 @@ require("lazy").setup({
   },
   checker = { notify = false },
   change_detection = { notify = false },
+  dev = {
+    path = "~/code",
+    patterns = { "materialnight" },
+  },
   performance = {
     cache = { enabled = true },
     rtp = {

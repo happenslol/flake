@@ -106,7 +106,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       { "b0o/SchemaStore.nvim", version = false },
       "jose-elias-alvarez/typescript.nvim",
     },
@@ -156,9 +155,9 @@ return {
             root_dir = require("lspconfig.util").root_pattern(".git"),
           },
           lua_ls = {
-            flags = { debounce_text_changes = 500 },
             settings = {
               Lua = {
+                codeLens = { enable = false },
                 workspace = { checkThirdParty = false },
                 completion = { callSnippet = "Replace" },
               },
@@ -186,7 +185,7 @@ return {
         },
         setup = {
           tsserver = function(_, opts)
-            require("util").on_lsp_attach(function(client, buffer)
+            require("util").lsp.on_attach(function(client, buffer)
               if client.name == "tsserver" then
                 vim.keymap.set(
                   "n",
@@ -214,6 +213,8 @@ return {
       local lspconfig = require("lspconfig")
       local configs = require("lspconfig.configs")
 
+      util.lsp.setup()
+
       vim.diagnostic.config({
         signs = {
           text = {
@@ -234,28 +235,7 @@ return {
         },
       }
 
-      util.hook(vim.lsp.handlers, "textDocument/publishDiagnostics", function(prev, _, result, ctx, config)
-        result.diagnostics = require("util").filter_diagnostics(result.diagnostics)
-        return prev(nil, result, ctx, config)
-      end)
-
-      local enable_lsp_formatters = {
-        ["null-ls"] = true,
-        ["rust_analyzer"] = true,
-        ["zls"] = true,
-        ["tsp_server"] = true,
-      }
-
-      local format = function(buf)
-        require("conform").format({
-          bufnr = buf,
-          filter = function(client)
-            return enable_lsp_formatters[client.name] == true
-          end,
-        })
-      end
-
-      util.on_lsp_attach(function(client, buffer)
+      util.lsp.on_attach(function(client, buffer)
         -- Disable semantic tokens for performance
         client.server_capabilities["semanticTokensProvider"] = nil
 
@@ -292,12 +272,6 @@ return {
           map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code Actions" })
         end
 
-        if client.server_capabilities["documentFormattingProvider"] then
-          map("n", "<leader>f", function()
-            format(buffer)
-          end, { desc = "Format Document" })
-        end
-
         if client.server_capabilities["definitionProvider"] then
           map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
         end
@@ -310,7 +284,12 @@ return {
       vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities() or {}
+      )
 
       local function setup(server)
         local server_opts = vim.tbl_deep_extend("force", {
@@ -337,32 +316,6 @@ return {
   },
 
   {
-    "nvimtools/none-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      local null = require("null-ls")
-
-      return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        sources = {
-          null.builtins.formatting.prettier.with({
-            prefer_local = "node_modules/.bin",
-          }),
-
-          null.builtins.formatting.shfmt,
-          null.builtins.formatting.stylua,
-          null.builtins.formatting.alejandra,
-          null.builtins.formatting.goimports,
-          null.builtins.formatting.clang_format,
-          null.builtins.formatting.terraform_fmt,
-
-          require("typescript.extensions.null-ls.code-actions"),
-        },
-      }
-    end,
-  },
-
-  {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
@@ -383,6 +336,16 @@ return {
     "stevearc/conform.nvim",
     lazy = true,
     cmd = "ConformInfo",
+    keys = {
+      {
+        "<leader>f",
+        function()
+          require("conform").format({ timeout_ms = 3000 })
+        end,
+        mode = { "n", "v" },
+        desc = "Format current buffer",
+      },
+    },
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
@@ -396,10 +359,15 @@ return {
         lua = { "stylua" },
         fish = { "fish_indent" },
         sh = { "shfmt" },
-        javascript = { "prettierd", "eslint_d" },
-        javascriptreact = { "prettierd", "eslint_d" },
-        typescript = { "prettierd", "eslint_d" },
-        typescriptreact = { "prettierd", "eslint_d" },
+        html = { "prettier" },
+        jsonc = { "prettier" },
+        yaml = { "prettier" },
+        graphql = { "prettier" },
+        javascript = { "prettier", "eslint_d" },
+        javascriptreact = { "prettier", "eslint_d" },
+        typescript = { "prettier", "eslint_d" },
+        typescriptreact = { "prettier", "eslint_d" },
+        go = { "goimports" },
       },
       formatters = {
         injected = { options = { ignore_errors = true } },
@@ -424,6 +392,92 @@ return {
           require("cmp").setup.buffer({ sources = { { name = "crates" } } })
           require("crates")
         end,
+      })
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    opts = {
+      -- Event to trigger linters
+      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+      linters_by_ft = {
+        rust = { "clippy" },
+      },
+      ---@type table<string,table>
+      linters = {},
+    },
+    config = function(_, opts)
+      local M = {}
+
+      local lint = require("lint")
+      for name, linter in pairs(opts.linters) do
+        if type(linter) == "table" and type(lint.linters[name]) == "table" then
+          ---@diagnostic disable-next-line: param-type-mismatch
+          lint.linters[name] = vim.tbl_deep_extend("force", lint.linters[name], linter)
+          if type(linter.prepend_args) == "table" then
+            lint.linters[name].args = lint.linters[name].args or {}
+            vim.list_extend(lint.linters[name].args, linter.prepend_args)
+          end
+        else
+          lint.linters[name] = linter
+        end
+      end
+      lint.linters_by_ft = opts.linters_by_ft
+
+      function M.debounce(ms, fn)
+        ---@diagnostic disable-next-line: undefined-field
+        local timer = vim.uv.new_timer()
+        return function(...)
+          local argv = { ... }
+          timer:start(ms, 0, function()
+            timer:stop()
+            vim.schedule_wrap(fn)(unpack(argv))
+          end)
+        end
+      end
+
+      function M.lint()
+        -- Use nvim-lint's logic first:
+        -- * checks if linters exist for the full filetype first
+        -- * otherwise will split filetype by "." and add all those linters
+        -- * this differs from conform.nvim which only uses the first filetype that has a formatter
+        local names = lint._resolve_linter_by_ft(vim.bo.filetype)
+
+        -- Create a copy of the names table to avoid modifying the original.
+        names = vim.list_extend({}, names)
+
+        -- Add fallback linters.
+        if #names == 0 then
+          vim.list_extend(names, lint.linters_by_ft["_"] or {})
+        end
+
+        -- Add global linters.
+        vim.list_extend(names, lint.linters_by_ft["*"] or {})
+
+        -- Filter out linters that don't exist or don't match the condition.
+        local ctx = { filename = vim.api.nvim_buf_get_name(0) }
+        ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
+        names = vim.tbl_filter(function(name)
+          local linter = lint.linters[name]
+          if not linter then
+            print("  Linter not found: " .. name)
+          end
+
+          ---@diagnostic disable-next-line: undefined-field
+          return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
+        end, names)
+
+        -- Run linters.
+        if #names > 0 then
+          lint.try_lint(names)
+        end
+      end
+
+      vim.api.nvim_create_autocmd(opts.events, {
+        group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+        callback = M.debounce(100, M.lint),
       })
     end,
   },
