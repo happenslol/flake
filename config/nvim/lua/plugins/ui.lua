@@ -5,9 +5,6 @@ return {
   {
     "folke/noice.nvim",
     opts = {
-      -- cmdline = {
-      --   view = "cmdline"
-      -- },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -24,7 +21,6 @@ return {
     },
     keys = {
       {
-        -- TODO: Fix this
         "<s-enter>",
         function()
           require("noice").redirect(vim.fn.getcmdline() or "")
@@ -111,13 +107,24 @@ return {
       },
       select = {
         backend = { "telescope" },
-        telescope = require("telescope.themes").get_cursor({}),
-        nui = {
-          position = { row = 2, col = 0 },
-          relative = "cursor",
-          max_width = 80,
-          min_height = 1,
-          max_height = 10,
+        telescope = {
+          sorting_strategy = "ascending",
+          layout_strategy = "cursor",
+          layout_config = {
+            width = 80,
+            height = 9,
+          },
+          prompt_title = false,
+          results_title = false,
+          entry_prefix = "",
+          prompt_prefix = "",
+          selection_caret = "",
+          get_status_text = function() return "" end,
+          borderchars = {
+            prompt = { "", "", "", "", "", "", "", "" },
+            results = { "", "", "", "", "", "", "", "" },
+            preview = { "", "", "", "", "", "", "", "" },
+          },
         },
       },
     },

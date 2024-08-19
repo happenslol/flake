@@ -3,37 +3,6 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
-      {
-        "s1n7ax/nvim-window-picker",
-        version = "v2.*",
-        lazy = true,
-        config = function()
-          require("window-picker").setup({
-            highlights = {
-              statusline = {
-                focused = {
-                  bg = "#415580",
-                  fg = "#eeffff",
-                  bold = true,
-                },
-                unfocused = {
-                  bg = "#415580",
-                  fg = "#eeffff",
-                  bold = true,
-                },
-              },
-            },
-            filter_rules = {
-              include_current = false,
-              autoselect_one = true,
-              bo = {
-                filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
-                buftype = { "terminal", "quickfix" },
-              },
-            },
-          })
-        end,
-      },
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
     },
@@ -43,8 +12,8 @@ return {
       window = {
         width = 30,
         mappings = {
-          ["<cr>"] = "open_with_window_picker",
-          ["o"] = "open_with_window_picker",
+          ["<cr>"] = "open",
+          ["o"] = "open",
           ["l"] = false,
           ["Y"] = {
             function(state)

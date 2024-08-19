@@ -1,11 +1,50 @@
 return {
   {
-    "L3MON4D3/LuaSnip",
-    -- TODO: Add friendly-snippets back
-    lazy = true,
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
+    "garymjr/nvim-snippets",
+    opts = { friendly_snippets = true },
+    dependencies = { "rafamadriz/friendly-snippets" },
+    keys = {
+      {
+        "<Tab>",
+        function()
+          if vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+            return
+          end
+          return "<Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      {
+        "<Tab>",
+        function()
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+        end,
+        expr = true,
+        silent = true,
+        mode = "s",
+      },
+      {
+        "<S-Tab>",
+        function()
+          if vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
+            return
+          end
+          return "<S-Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = { "i", "s" },
+      },
     },
   },
 
@@ -19,30 +58,11 @@ return {
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind.nvim",
+      "garymjr/nvim-snippets",
     },
     opts = function()
       local cmp = require("cmp")
-      local cmp_select_next = function(fallback)
-        local luasnip = require("luasnip")
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end
-
-      local cmp_select_prev = function(fallback)
-        local luasnip = require("luasnip")
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end
+      local defaults = require("cmp.config.default")()
 
       local border_opts = {
         border = "rounded",
@@ -58,15 +78,15 @@ return {
           documentation = cmp.config.window.bordered(border_opts),
         },
         snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+          expand = function(item)
+            return vim.snippet.expand(item.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<tab>"] = cmp_select_next,
-          ["<down>"] = cmp_select_next,
-          ["<s-tab>"] = cmp_select_prev,
-          ["<up>"] = cmp_select_prev,
+          ["<tab>"] = cmp.mapping.select_next_item(),
+          ["<down>"] = cmp.mapping.select_next_item(),
+          ["<s-tab>"] = cmp.mapping.select_prev_item(),
+          ["<up>"] = cmp.mapping.select_prev_item(),
           ["<c-b>"] = cmp.mapping.scroll_docs(-4),
           ["<c-f>"] = cmp.mapping.scroll_docs(4),
           ["<c-space>"] = cmp.mapping.complete(),
@@ -78,17 +98,15 @@ return {
         }),
         duplicates = {
           nvim_lsp = 1,
-          luasnip = 1,
           buffer = 1,
           path = 1,
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
+          { name = "snippets" },
           { name = "path" },
+          { name = "buffer" },
         }),
-        -- TODO: show source
         formatting = {
           format = require("lspkind").cmp_format({
             mode = "symbol_text",
@@ -97,6 +115,7 @@ return {
             menu = {},
           }),
         },
+        sorting = defaults.sorting,
       }
     end,
   },
@@ -166,7 +185,6 @@ return {
 
           nil_ls = {},
 
-          -- TODO: Set up snippet capabilities for html, json and css lsps
           html = {},
           cssls = {
             settings = {

@@ -25,9 +25,8 @@ return {
     config = function(_, opts)
       -- TODO: Get this to work
       -- Show registers when pressing remapped ' key
-      -- local registers_actions = require("which-key.plugins.registers").actions
-      -- table.insert(registers_actions, { trigger = "'", mode = "n" })
-      -- table.insert(registers_actions, { trigger = "'", mode = "v" })
+      local registers = require("which-key.plugins.registers")
+      table.insert(registers.mappings, { "'", mode = { "n", "x" }, desc = "registers" })
 
       local wk = require("which-key")
       wk.setup(opts)
