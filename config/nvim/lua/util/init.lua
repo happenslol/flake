@@ -1,8 +1,10 @@
 ---@class util
 ---@field lsp util.lsp
+---@field formatting util.formatting
 local M = {}
 
 M.lsp = require("util.lsp")
+M.formatting = require("util.formatting")
 
 function M.filter_diagnostics(diagnostics)
   return vim.tbl_filter(function(d)
@@ -18,6 +20,7 @@ function M.filter_diagnostics(diagnostics)
 end
 
 M.skip_foldexpr = {} ---@type table<number,boolean>
+---@diagnostic disable-next-line: undefined-field
 local skip_check = assert(vim.uv.new_check())
 
 function M.foldexpr()

@@ -262,5 +262,6 @@ in {
     obs-studio
     bruno
     delve
+    gofumpt
   ];
 }

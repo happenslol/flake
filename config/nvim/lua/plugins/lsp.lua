@@ -79,6 +79,7 @@ return {
         },
         snippet = {
           expand = function(item)
+            -- TODO: Fix snippet expansion
             return vim.snippet.expand(item.body)
           end,
         },
@@ -166,7 +167,6 @@ return {
             end,
             settings = { yaml = { keyOrdering = false } },
           },
-          rust_analyzer = {},
           tsserver = {
             flags = { debounce_text_changes = 500 },
             settings = { completions = { completeFunctionCalls = true } },
@@ -194,8 +194,49 @@ return {
               },
             },
           },
-          gopls = {},
-          taplo = {},
+          gopls = {
+            settings = {
+              gopls = {
+                gofumpt = true,
+                codelenses = {
+                  gc_details = false,
+                  generate = true,
+                  regenerate_cgo = true,
+                  run_govulncheck = true,
+                  test = true,
+                  tidy = true,
+                  upgrade_dependency = true,
+                  vendor = true,
+                },
+                analyses = {
+                  fieldalignment = true,
+                  nilness = true,
+                  unusedparams = true,
+                  unusedwrite = true,
+                  useany = true,
+                },
+                usePlaceholders = true,
+                completeUnimported = true,
+                staticcheck = true,
+                directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+                semanticTokens = true,
+              },
+            },
+          },
+          taplo = {
+            on_attach = function(_, buffer)
+              vim.keymap.set("n", "K", function()
+                if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+                  require("crates").show_popup()
+                else
+                  vim.lsp.buf.hover()
+                end
+              end, {
+                desc = "Show Crate Documentation",
+                buffer = buffer,
+              })
+            end,
+          },
           eslint = {},
           zls = {},
 
@@ -365,32 +406,89 @@ return {
       },
     },
     ---@module "conform"
-    ---@type conform.setupOpts
-    opts = {
-      default_format_opts = {
-        timeout_ms = 3000,
-        async = false, -- not recommended to change
-        quiet = false, -- not recommended to change
-        lsp_format = "fallback", -- not recommended to change
-      },
-      formatters_by_ft = {
+    ---@type fun():conform.setupOpts
+    opts = function()
+      local util = require("util")
+
+      local prettier_fts = {
+        "css",
+        "graphql",
+        "handlebars",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "less",
+        "markdown",
+        "markdown.mdx",
+        "scss",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "yaml",
+      }
+
+      local eslint_fts = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+      }
+
+      local formatters_by_ft = {
         lua = { "stylua" },
         fish = { "fish_indent" },
         sh = { "shfmt" },
-        html = { "prettier" },
-        jsonc = { "prettier" },
-        yaml = { "prettier" },
-        graphql = { "prettier" },
-        javascript = { "prettier", "eslint_d" },
-        javascriptreact = { "prettier", "eslint_d" },
-        typescript = { "prettier", "eslint_d" },
-        typescriptreact = { "prettier", "eslint_d" },
-        go = { "goimports" },
-      },
-      formatters = {
-        injected = { options = { ignore_errors = true } },
-      },
-    },
+        go = { "goimports", "gofumpt" },
+        nix = { "nixfmt" },
+      }
+
+      for _, ft in ipairs(prettier_fts) do
+        if not formatters_by_ft[ft] then
+          formatters_by_ft[ft] = {}
+        end
+
+        table.insert(formatters_by_ft[ft], "prettierd")
+      end
+
+      for _, ft in ipairs(eslint_fts) do
+        if not formatters_by_ft[ft] then
+          formatters_by_ft[ft] = {}
+        end
+
+        table.insert(formatters_by_ft[ft], "eslint_d")
+      end
+
+      return {
+        default_format_opts = {
+          timeout_ms = 3000,
+          async = false, -- not recommended to change
+          quiet = false, -- not recommended to change
+          lsp_format = "fallback", -- not recommended to change
+        },
+        formatters_by_ft = formatters_by_ft,
+        formatters = {
+          prettier = {
+            condition = function(_, ctx)
+              return util.formatting.has_prettier_config(ctx)
+            end,
+          },
+          eslint_d = {
+            condition = function(_, ctx)
+              return util.formatting.has_eslint_config(ctx)
+            end,
+          },
+          injected = { options = { ignore_errors = true } },
+        },
+      }
+    end,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    opts = { sources = {} },
   },
 
   {
@@ -411,6 +509,48 @@ return {
           require("crates")
         end,
       })
+    end,
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    ft = { "rust" },
+    opts = {
+      server = {
+        on_attach = function(_, bufnr)
+          vim.keymap.set("n", "<leader>dr", function()
+            vim.cmd.RustLsp("debuggables")
+          end, { desc = "Rust Debuggables", buffer = bufnr })
+        end,
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            -- Add clippy lints for Rust.
+            checkOnSave = true,
+            procMacro = {
+              enable = true,
+              ignored = {
+                ["async-trait"] = { "async_trait" },
+                ["napi-derive"] = { "napi" },
+                ["async-recursion"] = { "async_recursion" },
+              },
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+      if vim.fn.executable("rust-analyzer") == 0 then
+        vim.notify("rust-analyzer not found in PATH", vim.log.levels.ERROR)
+      end
     end,
   },
 

@@ -119,12 +119,9 @@ return {
           entry_prefix = "",
           prompt_prefix = "",
           selection_caret = "",
-          get_status_text = function() return "" end,
-          borderchars = {
-            prompt = { "", "", "", "", "", "", "", "" },
-            results = { "", "", "", "", "", "", "", "" },
-            preview = { "", "", "", "", "", "", "", "" },
-          },
+          get_status_text = function()
+            return ""
+          end,
         },
       },
     },
@@ -140,10 +137,21 @@ return {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
     event = "VeryLazy",
-    opts = {
-      symbol = "│",
-      options = { try_as_border = true },
-    },
+    opts = function()
+      local indentscope = require("mini.indentscope")
+
+      return {
+        symbol = "│",
+        options = { try_as_border = true },
+        draw = {
+          delay = 50,
+          animation = indentscope.gen_animation.linear({
+            duration = 100,
+            unit = "total",
+          }),
+        },
+      }
+    end,
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
