@@ -5,24 +5,16 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
-      "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },
     cmd = "Telescope",
     keys = {
-      { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       { "<C-b>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
-      {
-        "<C-f>",
-        function()
-          require("telescope").extensions.live_grep_args.live_grep_args()
-        end,
-        desc = "Live grep",
-      },
+      { "<C-f>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
     },
     opts = function()
       local actions = require("telescope.actions")
-      local lga_actions = require("telescope-live-grep-args.actions")
 
       local lsp_goto_config = {
         layout_strategy = "horizontal",
@@ -58,6 +50,12 @@ return {
             "--smart-case",
           },
 
+          layout_config = {
+            prompt_position = "top",
+            width = 0.9,
+            height = 0.6,
+          },
+
           prompt_prefix = "   ",
           selection_caret = "  ",
           entry_prefix = "  ",
@@ -76,12 +74,6 @@ return {
         extensions = {
           fzf = {},
           ["ui-select"] = { require("telescope.themes").get_dropdown({}) },
-          live_grep_args = vim.tbl_extend("force", live_grep_config, {
-            auto_quoting = true,
-            mappings = {
-              i = { ["<C-k>"] = lga_actions.quote_prompt() },
-            },
-          }),
         },
         pickers = {
           find_files = {
@@ -92,8 +84,7 @@ return {
             sorting_strategy = "ascending",
             layout_config = {
               prompt_position = "top",
-              width = 0.6,
-              height = 0.6,
+              width = 100,
             },
           },
           live_grep = live_grep_config,
