@@ -15,6 +15,8 @@ return {
     },
     opts = function()
       local actions = require("telescope.actions")
+      local actions_utils = require("telescope.actions.utils")
+      local builtin = require("telescope.builtin")
 
       local lsp_goto_config = {
         layout_strategy = "horizontal",
@@ -34,6 +36,34 @@ return {
           prompt_position = "top",
           width = 0.9,
           height = 0.8,
+        },
+      }
+
+      local find_files_config = {
+        hidden = true,
+        file_ignore_patterns = { ".git/" },
+
+        previewer = false,
+        sorting_strategy = "ascending",
+        layout_config = {
+          prompt_position = "top",
+          width = 100,
+        },
+        mappings = {
+          i = {
+            ["<c-f>"] = function(prompt_bufnr)
+              local paths = {}
+              actions_utils.map_entries(prompt_bufnr, function(entry)
+                table.insert(paths, entry.cwd .. "/" .. entry[1])
+              end)
+
+              actions.close(prompt_bufnr)
+              builtin.live_grep({
+                prompt_title = "Live Grep in Files",
+                search_dirs = paths,
+              })
+            end,
+          },
         },
       }
 
@@ -59,14 +89,13 @@ return {
           prompt_prefix = "   ",
           selection_caret = "  ",
           entry_prefix = "  ",
+          results_title = false,
 
           mappings = {
             i = {
               ["<esc>"] = actions.close,
               ["<c-j>"] = actions.move_selection_next,
               ["<c-k>"] = actions.move_selection_previous,
-              ["<c-f>"] = actions.preview_scrolling_down,
-              ["<c-b>"] = actions.preview_scrolling_up,
               ["<c-w>"] = actions.to_fuzzy_refine,
             },
           },
@@ -76,17 +105,7 @@ return {
           ["ui-select"] = { require("telescope.themes").get_dropdown({}) },
         },
         pickers = {
-          find_files = {
-            hidden = true,
-            file_ignore_patterns = { ".git/" },
-
-            previewer = false,
-            sorting_strategy = "ascending",
-            layout_config = {
-              prompt_position = "top",
-              width = 100,
-            },
-          },
+          find_files = find_files_config,
           live_grep = live_grep_config,
           quickfix = live_grep_config,
           lsp_definitions = lsp_goto_config,
