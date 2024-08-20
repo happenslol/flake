@@ -43,9 +43,26 @@ return {
 
   {
     "Wansmer/treesj",
-    keys = { { "<leader>s", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Line" } },
+    keys = {
+      {
+        "<leader>s",
+        function()
+          local tsj_langs = require("treesj.langs")["presets"]
+          local lang = require("util").get_pos_lang()
+          if lang ~= "" and tsj_langs[lang] then
+            require("treesj").toggle()
+          else
+            require("mini.splitjoin").toggle()
+          end
+        end,
+        desc = "Toggle Split/Join Line",
+      },
+    },
     opts = { use_default_keymaps = false },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "echasnovski/mini.splitjoin",
+    },
     config = true,
   },
 
