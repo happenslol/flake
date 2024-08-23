@@ -1,4 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+---@diagnostic disable-next-line: undefined-field
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -20,9 +22,11 @@ require("lazy").setup({
   },
   checker = { notify = false },
   change_detection = { notify = false },
+  ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
     path = "~/code",
     patterns = { "materialnight" },
+    fallback = true,
   },
   performance = {
     cache = { enabled = true },
