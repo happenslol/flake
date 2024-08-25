@@ -319,6 +319,7 @@ in {
 
     etc."greetd/environments".text = "Hyprland";
     etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetd.gtkConfig;
+    etc."dash2".source = ./config/dash2;
   };
 
   services = {
@@ -387,6 +388,7 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.gtklock = {};
+    pam.services.dash2 = {};
   };
 
   virtualisation.docker = {
