@@ -266,5 +266,6 @@ in {
     gofumpt
     halloy
     konversation
+    kooha
   ];
 }
