@@ -441,7 +441,7 @@ return {
         fish = { "fish_indent" },
         sh = { "shfmt" },
         go = { "goimports", "gofumpt" },
-        nix = { "nixfmt" },
+        nix = { "alejandra" },
       }
 
       for _, ft in ipairs(prettier_fts) do
