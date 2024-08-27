@@ -264,5 +264,7 @@ in {
     bruno
     delve
     gofumpt
+    halloy
+    konversation
   ];
 }
