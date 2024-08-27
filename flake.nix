@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "nixpkgs/nixos-24.05";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -42,7 +44,7 @@
 
     atuin = {
       url = "github:happenslol/atuin/fork";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     nix-index-database = {
@@ -53,13 +55,14 @@
 
   outputs = inputs @ {
     nixpkgs,
+    nixpkgs-stable,
     home-manager,
     nix-index-database,
     ...
   }: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
-    stateVersion = "23.11";
+    stateVersion = "24.05";
     username = "happens";
 
     overlays = [
@@ -80,10 +83,14 @@
       };
     };
 
+    pkgs-stable = import nixpkgs-stable {
+      inherit system;
+    };
+
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname username;};
+        specialArgs = {inherit inputs stateVersion hostname username pkgs-stable;};
 
         modules = [
           nix-index-database.nixosModules.nix-index

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   stateVersion,
   username,
   inputs,
@@ -49,10 +50,10 @@
   };
 
   patchIosevka = font:
-    pkgs.stdenv.mkDerivation {
+    pkgs-stable.stdenv.mkDerivation {
       name = "${font.name}-nerd-font";
       src = font;
-      nativeBuildInputs = [pkgs.nerd-font-patcher];
+      nativeBuildInputs = [pkgs-stable.nerd-font-patcher];
       buildPhase = ''
         mkdir -p $out
         find . -type f \
@@ -80,7 +81,7 @@
   # inherits = "dlig"
   # [buildPlans.IosevkaHappy.ligations]
 
-  iosevka-happy = pkgs.iosevka.override {
+  iosevka-happy = pkgs-stable.iosevka.override {
     set = "happy";
 
     privateBuildPlan = {
