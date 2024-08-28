@@ -6,6 +6,7 @@
   username,
   inputs,
   hostname,
+  system,
   ...
 }: let
   customPackages = {
@@ -43,13 +44,13 @@
     };
   };
 
+  dash2 = inputs.dash2.packages."${system}".default;
+
   greetdGtkConfig = ''
-      [Settings]
-      gtk-application-prefer-dark-theme = true
-      gtk-theme-name = Orchis-Dark
-      gtk-cursor-theme-name = Bibata-Modern-Classic
-      gtk-cursor-theme-size = 24
-    '';
+    [Settings]
+    gtk-cursor-theme-name = Bibata-Modern-Classic
+    gtk-cursor-theme-size = 24
+  '';
 
   patchIosevka = font:
     pkgs-stable.stdenv.mkDerivation {
@@ -301,6 +302,7 @@ in {
       wget
       curl
       swww
+      kitty
       wayland
       glib
       wl-clipboard
@@ -314,15 +316,19 @@ in {
 
       (orchis-theme.override {border-radius = 4;})
       qogir-icon-theme
-      bibata-cursors
       customPackages.setup-hyprland-environment
+      customPackages.session
+      bibata-cursors
+      gtk3
+      dash2
     ];
 
     pathsToLink = ["/share/zsh"];
 
-    etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetdGtkConfig;
-    etc."greetd/greeter_home/.config/hypr".source = ./config/hypr;
-    etc."greetd/greeter_home/.config/host/hypr".source = ./config/hosts + "/${hostname}/hypr";
+    etc."greetd/.local/share/icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
+    etc."greetd/.config/gtk-3.0/settings.ini".text = greetdGtkConfig;
+    etc."greetd/.config/hypr".source = ./config/hypr;
+    etc."greetd/.config/host/hypr".source = ./hosts + "/${hostname}/config/hypr";
 
     etc."dash2".source = ./config/dash2;
   };
@@ -363,16 +369,12 @@ in {
 
     greetd = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.sway}/bin/sway --config ${greetd.swayConfig}";
-        };
-      };
+      settings.default_session.command = "hyprland -c ~/.config/hypr/greeter.conf > /dev/null 2>&1";
     };
   };
 
   users.users = {
-    greeter.home = "/etc/greetd/greeter_home";
+    greeter.home = "/etc/greetd";
 
     happens = {
       isNormalUser = true;

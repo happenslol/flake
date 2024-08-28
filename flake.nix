@@ -95,7 +95,7 @@
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname username pkgs-stable;};
+        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable;};
 
         modules = [
           nix-index-database.nixosModules.nix-index
@@ -118,7 +118,7 @@
                   ;
               };
 
-              users.${username}.imports = [./home.nix];
+              users.${username} = import ./home.nix;
             };
           }
         ];
