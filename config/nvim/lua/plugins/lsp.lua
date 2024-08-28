@@ -374,23 +374,23 @@ return {
     end,
   },
 
-  {
-    "zbirenbaum/copilot.lua",
-    enable = false,
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-        keymap = {
-          accept = "<c-j>",
-          next = "<c-l>",
-          prev = "<c-h>",
-          dismiss = "<c-u>",
-        },
-      },
-    },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   enable = true,
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   opts = {
+  --     suggestion = {
+  --       auto_trigger = true,
+  --       keymap = {
+  --         accept = "<c-j>",
+  --         next = "<c-l>",
+  --         prev = "<c-h>",
+  --         dismiss = "<c-u>",
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "supermaven-inc/supermaven-nvim",
