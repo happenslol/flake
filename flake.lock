@@ -65,11 +65,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1724845653,
-        "narHash": "sha256-G8med+8XWJU8PjIQu+VfJf69lIv3FagQmicQrGdFXHw=",
+        "lastModified": 1724880785,
+        "narHash": "sha256-9s+sUyNWwb6gf0HyHQFoGwdM4HGDjorLoUrBW7Y/iZw=",
         "owner": "happenslol",
         "repo": "dash2",
-        "rev": "f3e33c3bf0138ab21bf6a38ad1dcef207209780c",
+        "rev": "f490222050b4075ff9b5fdfec841bfbc018723fb",
         "type": "github"
       },
       "original": {

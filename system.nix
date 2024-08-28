@@ -46,12 +46,6 @@
 
   dash2 = inputs.dash2.packages."${system}".default;
 
-  greetdGtkConfig = ''
-    [Settings]
-    gtk-cursor-theme-name = Bibata-Modern-Classic
-    gtk-cursor-theme-size = 24
-  '';
-
   patchIosevka = font:
     pkgs-stable.stdenv.mkDerivation {
       name = "${font.name}-nerd-font";
@@ -119,6 +113,8 @@ in {
 
   systemd = {
     tmpfiles.rules = [
+      "Z /etc/greetd - greeter greeter"
+
       "d /nosync       0755 ${username} users -"
       "d /nosync/atuin 0755 ${username} users -"
     ];
@@ -326,7 +322,7 @@ in {
     pathsToLink = ["/share/zsh"];
 
     etc."greetd/.local/share/icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
-    etc."greetd/.config/gtk-3.0/settings.ini".text = greetdGtkConfig;
+    etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./hosts + "/${hostname}/config/hypr";
 
