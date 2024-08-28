@@ -323,6 +323,13 @@ in {
 
     pathsToLink = ["/share/zsh"];
 
+    etc."greetd/.icons/default/index.theme".text = ''
+      [Icon Theme
+      Name=Default
+      Comment=Default Cursor Theme
+      Inherits=Bibata-Modern-Classic
+    '';
+
     etc."greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
