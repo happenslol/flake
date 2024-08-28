@@ -21,6 +21,7 @@
   };
 
   atuin-custom = inputs.atuin.packages."${system}".default;
+  dash2 = inputs.dash2.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
@@ -267,5 +268,6 @@ in {
     halloy
     konversation
     kooha
+    dash2
   ];
 }

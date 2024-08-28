@@ -47,6 +47,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    dash2 = {
+      url = "github:happenslol/dash2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -5,6 +5,7 @@
   stateVersion,
   username,
   inputs,
+  hostname,
   ...
 }: let
   customPackages = {
@@ -14,6 +15,7 @@
       executable = true;
 
       text = ''
+        #!/usr/bin/env bash
         ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
           DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
           HYPRLAND_INSTANCE_SIGNATURE
@@ -28,26 +30,26 @@
         systemctl --user restart xdg-desktop-portal.service
       '';
     };
+
+    session = pkgs.writeTextFile {
+      name = "setup-hyprland-environment";
+      destination = "/bin/hyprland-session";
+      executable = true;
+
+      text = ''
+        #!/usr/bin/env bash
+        ${pkgs.hyprland}/bin/hyprland > /dev/null 2>&1
+      '';
+    };
   };
 
-  greetd = {
-    gtkConfig = ''
+  greetdGtkConfig = ''
       [Settings]
       gtk-application-prefer-dark-theme = true
       gtk-theme-name = Orchis-Dark
       gtk-cursor-theme-name = Bibata-Modern-Classic
       gtk-cursor-theme-size = 24
     '';
-
-    swayConfig = pkgs.writeText "greetd-sway-config" ''
-      input type:keyboard xkb_numlock enabled
-
-      exec {
-        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
-        "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
-      }
-    '';
-  };
 
   patchIosevka = font:
     pkgs-stable.stdenv.mkDerivation {
@@ -194,7 +196,7 @@ in {
 
       grub2-theme = {
         enable = true;
-        resolution = "2560x1440";
+        resolution = "3840x2160";
       };
     };
   };
@@ -318,8 +320,10 @@ in {
 
     pathsToLink = ["/share/zsh"];
 
-    etc."greetd/environments".text = "Hyprland";
-    etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetd.gtkConfig;
+    etc."greetd/greeter_home/.config/gtk-3.0/settings.ini".text = greetdGtkConfig;
+    etc."greetd/greeter_home/.config/hypr".source = ./config/hypr;
+    etc."greetd/greeter_home/.config/host/hypr".source = ./config/hosts + "/${hostname}/hypr";
+
     etc."dash2".source = ./config/dash2;
   };
 
