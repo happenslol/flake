@@ -376,6 +376,7 @@ return {
 
   {
     "zbirenbaum/copilot.lua",
+    enable = false,
     cmd = "Copilot",
     event = "InsertEnter",
     opts = {
@@ -389,6 +390,35 @@ return {
         },
       },
     },
+  },
+
+  {
+    "supermaven-inc/supermaven-nvim",
+    cmd = {
+      "SupermavenStart",
+      "SupermavenStop",
+      "SupermavenRestart",
+      "SupermavenToggle",
+      "SupermavenStatus",
+      "SupermavenUseFree",
+      "SupermavenUsePro",
+      "SupermavenLogout",
+      "SupermavenShowLog",
+      "SupermavenClearLog",
+    },
+    event = "InsertEnter",
+    config = function()
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<c-j>",
+          clear_suggestion = "<c-u>",
+          accept_word = "<c-l>",
+        },
+        color = {
+          suggestion_color = "#6f6f6f",
+        },
+      })
+    end,
   },
 
   {
