@@ -56,6 +56,11 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niqs = {
+      url = "github:diniamo/niqspkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -88,6 +93,8 @@
       };
     };
 
+    niqs = inputs.niqs.packages."${system}";
+
     pkgs-stable = import nixpkgs-stable {
       inherit system;
     };
@@ -95,7 +102,7 @@
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable;};
+        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable niqs;};
 
         modules = [
           nix-index-database.nixosModules.nix-index
@@ -108,15 +115,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {
-                inherit
-                  inputs
-                  stateVersion
-                  hostname
-                  system
-                  username
-                  ;
-              };
+              extraSpecialArgs = {inherit inputs stateVersion hostname system username niqs;};
 
               users.${username} = import ./home.nix;
             };

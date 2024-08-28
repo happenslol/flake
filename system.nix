@@ -7,6 +7,7 @@
   inputs,
   hostname,
   system,
+  niqs,
   ...
 }: let
   customPackages = {
@@ -315,13 +316,14 @@ in {
       customPackages.setup-hyprland-environment
       customPackages.session
       bibata-cursors
+      niqs.bibata-hyprcursor
       gtk3
       dash2
     ];
 
     pathsToLink = ["/share/zsh"];
 
-    etc."greetd/.local/share/icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
+    etc."greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./hosts + "/${hostname}/config/hypr";
