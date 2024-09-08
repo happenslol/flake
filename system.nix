@@ -203,7 +203,6 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs = {
-    coolercontrol.enable = true;
     command-not-found.enable = false;
     nix-index-database.comma.enable = true;
     steam.enable = true;
