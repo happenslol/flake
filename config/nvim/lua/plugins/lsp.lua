@@ -167,11 +167,25 @@ return {
             end,
             settings = { yaml = { keyOrdering = false } },
           },
-          tsserver = {
-            flags = { debounce_text_changes = 500 },
-            settings = { completions = { completeFunctionCalls = true } },
-            -- Speed up tsserver by requiring the root directory to be a git repo
+          vtsls = {
+            -- Speed up lsp by requiring the root directory to be a git repo
             root_dir = require("lspconfig.util").root_pattern(".git"),
+            settings = {
+              complete_function_calls = true,
+              vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                  completion = {
+                    enableServerSideFuzzyMatch = true,
+                  },
+                },
+              },
+              typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = { completeFunctionCalls = true },
+              },
+            },
           },
           lua_ls = {
             settings = {
@@ -242,29 +256,7 @@ return {
 
           tsp_server = {},
         },
-        setup = {
-          tsserver = function(_, opts)
-            require("util").lsp.on_attach(function(client, buffer)
-              if client.name == "tsserver" then
-                vim.keymap.set(
-                  "n",
-                  "<leader>ro",
-                  "<cmd>TypescriptOrganizeImports<cr>",
-                  { buffer = buffer, desc = "Organize Imports" }
-                )
-                vim.keymap.set(
-                  "n",
-                  "<leader>rR",
-                  "<cmd>TypescriptRenameFile<cr>",
-                  { buffer = buffer, desc = "Rename File" }
-                )
-              end
-            end)
-
-            require("typescript").setup({ server = opts })
-            return true
-          end,
-        },
+        setup = {},
       }
     end,
     config = function(_, opts)
