@@ -229,6 +229,9 @@ in {
       ];
     };
 
+    _1password.enable = true;
+    _1password-gui.enable = true;
+
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
@@ -332,9 +335,8 @@ in {
     etc."greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
-    etc."greetd/.config/host/hypr".source = ./hosts + "/${hostname}/config/hypr";
-
-    etc."dash2".source = ./config/dash2;
+    etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
+    etc."dash2".source = ./. + "/hosts/${hostname}/config/dash2";
   };
 
   services = {
