@@ -1,3 +1,12 @@
+local uv = vim.loop
+
+local function log_file(str)
+    local fd = assert(uv.fs_open("/tmp/vim-log.txt", "a", 438))
+
+    uv.fs_write(fd, str, -1)
+    uv.fs_close(fd)
+end
+
 return {
   {
     "garymjr/nvim-snippets",
@@ -112,8 +121,16 @@ return {
           format = require("lspkind").cmp_format({
             mode = "symbol_text",
             maxwidth = 50,
-            ellipsis_char = "...",
-            menu = {},
+            ellipsis_char = "…",
+            before = function(entry, vim_item)
+              if vim_item.menu ~= nil then
+                if vim_item.menu:len() > 30 then
+                  vim_item.menu = vim_item.menu:sub(1, 29) .. "…"
+                end
+              end
+
+              return vim_item
+            end,
           }),
         },
         sorting = defaults.sorting,
