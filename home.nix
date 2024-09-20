@@ -79,8 +79,8 @@ in {
 
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-        Restart = "always";
+        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        Restart = "on-failure";
       };
     };
   };

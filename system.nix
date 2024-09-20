@@ -230,7 +230,10 @@ in {
     };
 
     _1password.enable = true;
-    _1password-gui.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = ["${username}"];
+    };
 
     nix-ld = {
       enable = true;
