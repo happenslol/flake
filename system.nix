@@ -380,6 +380,13 @@ in {
       enable = true;
       settings.default_session.command = "hyprland -c ~/.config/hypr/greeter.conf > /dev/null 2>&1";
     };
+
+    printing.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
   };
 
   users.users = {
