@@ -491,13 +491,13 @@ return {
         table.insert(formatters_by_ft[ft], "prettierd")
       end
 
-      for _, ft in ipairs(eslint_fts) do
-        if not formatters_by_ft[ft] then
-          formatters_by_ft[ft] = {}
-        end
-
-        table.insert(formatters_by_ft[ft], "eslint_d")
-      end
+      -- for _, ft in ipairs(eslint_fts) do
+      --   if not formatters_by_ft[ft] then
+      --     formatters_by_ft[ft] = {}
+      --   end
+      --
+      --   table.insert(formatters_by_ft[ft], "eslint_d")
+      -- end
 
       return {
         default_format_opts = {
