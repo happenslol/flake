@@ -271,5 +271,6 @@ in {
     konversation
     kooha
     dash2
+    qmk
   ];
 }
