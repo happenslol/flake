@@ -449,4 +449,6 @@ in {
     device = "/nosync/atuin";
     options = ["bind"];
   };
+
+  hardware.sane.enable = true;
 }
