@@ -168,7 +168,6 @@ in {
     direnv
     google-chrome
     firefox-bin
-    bitwarden
     tdesktop
     webcord
     signal-desktop

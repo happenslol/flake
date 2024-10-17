@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
+    nixpkgs-pinned.url = "github:NixOS/nixpkgs/63dacb46bf939521bdc93981b4cbb7ecb58427a0";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -66,6 +67,7 @@
   outputs = inputs @ {
     nixpkgs,
     nixpkgs-stable,
+    nixpkgs-pinned,
     home-manager,
     nix-index-database,
     ...
@@ -95,14 +97,13 @@
 
     niqs = inputs.niqs.packages."${system}";
 
-    pkgs-stable = import nixpkgs-stable {
-      inherit system;
-    };
+    pkgs-stable = import nixpkgs-stable {inherit system;};
+    pkgs-pinned = import nixpkgs-pinned {inherit system;};
 
     mkHost = hostname:
       lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable niqs;};
+        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable pkgs-pinned niqs;};
 
         modules = [
           nix-index-database.nixosModules.nix-index
