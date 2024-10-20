@@ -274,5 +274,8 @@ in {
     qmk
     qimgv
     hub
+    transmission_4-gtk
+    usbutils
+    exfat
   ];
 }
