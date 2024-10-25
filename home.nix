@@ -271,5 +271,10 @@ in {
     kooha
     dash2
     qmk
+    qimgv
+    hub
+    transmission_4-gtk
+    usbutils
+    exfat
   ];
 }
