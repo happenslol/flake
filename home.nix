@@ -21,7 +21,7 @@
   };
 
   atuin-custom = inputs.atuin.packages."${system}".default;
-  dash2 = inputs.dash2.packages."${system}".default;
+  # dash2 = inputs.dash2.packages."${system}".default;
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
@@ -105,7 +105,7 @@ in {
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
-      "dash2".source = "${hostDotfiles}/dash2";
+      # "dash2".source = "${hostDotfiles}/dash2";
     };
 
     systemDirs.data = [gsettingsDatadir];
@@ -269,12 +269,15 @@ in {
     halloy
     konversation
     kooha
-    dash2
+    # dash2
     qmk
     qimgv
     hub
     transmission_4-gtk
     usbutils
     exfat
+    openssl
+    watchexec
+    process-compose
   ];
 }
