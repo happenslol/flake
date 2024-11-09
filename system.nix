@@ -46,7 +46,7 @@
     };
   };
 
-  dash2 = inputs.dash2.packages."${system}".default;
+  # dash2 = inputs.dash2.packages."${system}".default;
 
   greetd = {
     gtkConfig = ''
@@ -168,7 +168,7 @@ in {
       ];
     };
 
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
       warn-dirty = false
@@ -342,7 +342,7 @@ in {
       bibata-cursors
       niqs.bibata-hyprcursor
       gtk3
-      dash2
+      # dash2
     ];
 
     pathsToLink = ["/share/zsh"];
@@ -358,7 +358,7 @@ in {
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
-    etc."dash2".source = ./. + "/hosts/${hostname}/config/dash2";
+    # etc."dash2".source = ./. + "/hosts/${hostname}/config/dash2";
   };
 
   services = {
@@ -440,7 +440,7 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.gtklock = {};
-    pam.services.dash2 = {};
+    # pam.services.dash2 = {};
   };
 
   virtualisation.docker = {
