@@ -279,5 +279,6 @@ in {
     openssl
     watchexec
     process-compose
+    pulumi-bin
   ];
 }
