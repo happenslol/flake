@@ -243,7 +243,7 @@ in {
     swaylock
     libreoffice
     bun
-    bc
+    wcalc
     postgresql_16
     playerctl
     nix-index
