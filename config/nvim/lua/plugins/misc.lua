@@ -1,4 +1,6 @@
 return {
+  { "sphamba/smear-cursor.nvim", opts = {} },
+
   -- {
   --   "olimorris/persisted.nvim",
   --   lazy = false,
