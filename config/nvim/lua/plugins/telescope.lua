@@ -6,12 +6,14 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "Myzel394/jsonfly.nvim",
     },
     cmd = "Telescope",
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       { "<C-b>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
       { "<C-f>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<leader>pj", "<cmd>Telescope jsonfly<cr>", desc = "JSON Path Search" },
     },
     opts = function()
       local actions = require("telescope.actions")
@@ -102,6 +104,7 @@ return {
         },
         extensions = {
           fzf = {},
+          jsonfly = {},
           ["ui-select"] = { require("telescope.themes").get_dropdown({}) },
         },
         pickers = {
