@@ -1,141 +1,60 @@
-local uv = vim.loop
-
-local function log_file(str)
-    local fd = assert(uv.fs_open("/tmp/vim-log.txt", "a", 438))
-
-    uv.fs_write(fd, str, -1)
-    uv.fs_close(fd)
-end
-
 return {
   {
-    "garymjr/nvim-snippets",
-    opts = { friendly_snippets = true },
-    dependencies = { "rafamadriz/friendly-snippets" },
-    keys = {
-      {
-        "<Tab>",
-        function()
-          if vim.snippet.active({ direction = 1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(1)
-            end)
-            return
-          end
-          return "<Tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = "i",
+    "saghen/blink.cmp",
+    lazy = false,
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "v0.*",
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = "enter",
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<C-l>"] = { "snippet_forward", "fallback" },
+        ["<C-h>"] = { "snippet_backward", "fallback" },
       },
-      {
-        "<Tab>",
-        function()
-          vim.schedule(function()
-            vim.snippet.jump(1)
-          end)
-        end,
-        expr = true,
-        silent = true,
-        mode = "s",
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = "mono",
       },
-      {
-        "<S-Tab>",
-        function()
-          if vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
-            return
-          end
-          return "<S-Tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = { "i", "s" },
+
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
       },
+
+      completion = {
+        list = { selection = "auto_insert" },
+        accept = { auto_brackets = { enabled = true } },
+
+        menu = {
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          min_width = 60,
+          max_height = 10,
+          draw = {
+            treesitter = true,
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1 },
+            },
+          },
+        },
+
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+          window = {
+            border = "rounded",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
+        },
+      },
+
+      signature = { enabled = true },
     },
-  },
-
-  {
-    "hrsh7th/nvim-cmp",
-    version = false,
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "onsails/lspkind.nvim",
-      "garymjr/nvim-snippets",
-    },
-    opts = function()
-      local cmp = require("cmp")
-      local defaults = require("cmp.config.default")()
-
-      local border_opts = {
-        border = "rounded",
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-      }
-
-      return {
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
-        window = {
-          completion = cmp.config.window.bordered(border_opts),
-          documentation = cmp.config.window.bordered(border_opts),
-        },
-        snippet = {
-          expand = function(item)
-            -- TODO: Fix snippet expansion
-            return vim.snippet.expand(item.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<tab>"] = cmp.mapping.select_next_item(),
-          ["<down>"] = cmp.mapping.select_next_item(),
-          ["<s-tab>"] = cmp.mapping.select_prev_item(),
-          ["<up>"] = cmp.mapping.select_prev_item(),
-          ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<c-f>"] = cmp.mapping.scroll_docs(4),
-          ["<c-space>"] = cmp.mapping.complete(),
-          ["<c-d>"] = cmp.mapping.abort(),
-          ["<cr>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-          }),
-        }),
-        duplicates = {
-          nvim_lsp = 1,
-          buffer = 1,
-          path = 1,
-        },
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "snippets" },
-          { name = "path" },
-          { name = "buffer" },
-        }),
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "…",
-            before = function(entry, vim_item)
-              if vim_item.menu ~= nil then
-                if vim_item.menu:len() > 30 then
-                  vim_item.menu = vim_item.menu:sub(1, 29) .. "…"
-                end
-              end
-
-              return vim_item
-            end,
-          }),
-        },
-        sorting = defaults.sorting,
-      }
-    end,
   },
 
   {
@@ -273,7 +192,6 @@ return {
 
           tsp_server = {},
         },
-        setup = {},
       }
     end,
     config = function(_, opts)
@@ -351,55 +269,12 @@ return {
 
       vim.diagnostic.config(opts.diagnostics)
 
-      local servers = opts.servers
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities() or {}
-      )
-
-      local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
-
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
-        elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then
-            return
-          end
-        end
-
-        lspconfig[server].setup(server_opts)
-      end
-
-      for server in pairs(servers) do
-        setup(server)
+      for server, config in pairs(opts.servers) do
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
       end
     end,
   },
-
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   enable = true,
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   opts = {
-  --     suggestion = {
-  --       auto_trigger = true,
-  --       keymap = {
-  --         accept = "<c-j>",
-  --         next = "<c-l>",
-  --         prev = "<c-h>",
-  --         dismiss = "<c-u>",
-  --       },
-  --     },
-  --   },
-  -- },
 
   {
     "supermaven-inc/supermaven-nvim",
@@ -592,90 +467,4 @@ return {
       end
     end,
   },
-
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- Event to trigger linters
-  --     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-  --     linters_by_ft = {
-  --       rust = { "clippy" },
-  --     },
-  --     ---@type table<string,table>
-  --     linters = {},
-  --   },
-  --   config = function(_, opts)
-  --     local M = {}
-  --
-  --     local lint = require("lint")
-  --     for name, linter in pairs(opts.linters) do
-  --       if type(linter) == "table" and type(lint.linters[name]) == "table" then
-  --         ---@diagnostic disable-next-line: param-type-mismatch
-  --         lint.linters[name] = vim.tbl_deep_extend("force", lint.linters[name], linter)
-  --         if type(linter.prepend_args) == "table" then
-  --           lint.linters[name].args = lint.linters[name].args or {}
-  --           vim.list_extend(lint.linters[name].args, linter.prepend_args)
-  --         end
-  --       else
-  --         lint.linters[name] = linter
-  --       end
-  --     end
-  --     lint.linters_by_ft = opts.linters_by_ft
-  --
-  --     function M.debounce(ms, fn)
-  --       ---@diagnostic disable-next-line: undefined-field
-  --       local timer = vim.uv.new_timer()
-  --       return function(...)
-  --         local argv = { ... }
-  --         timer:start(ms, 0, function()
-  --           timer:stop()
-  --           vim.schedule_wrap(fn)(unpack(argv))
-  --         end)
-  --       end
-  --     end
-  --
-  --     function M.lint()
-  --       -- Use nvim-lint's logic first:
-  --       -- * checks if linters exist for the full filetype first
-  --       -- * otherwise will split filetype by "." and add all those linters
-  --       -- * this differs from conform.nvim which only uses the first filetype that has a formatter
-  --       local names = lint._resolve_linter_by_ft(vim.bo.filetype)
-  --
-  --       -- Create a copy of the names table to avoid modifying the original.
-  --       names = vim.list_extend({}, names)
-  --
-  --       -- Add fallback linters.
-  --       if #names == 0 then
-  --         vim.list_extend(names, lint.linters_by_ft["_"] or {})
-  --       end
-  --
-  --       -- Add global linters.
-  --       vim.list_extend(names, lint.linters_by_ft["*"] or {})
-  --
-  --       -- Filter out linters that don't exist or don't match the condition.
-  --       local ctx = { filename = vim.api.nvim_buf_get_name(0) }
-  --       ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
-  --       names = vim.tbl_filter(function(name)
-  --         local linter = lint.linters[name]
-  --         if not linter then
-  --           print("  Linter not found: " .. name)
-  --         end
-  --
-  --         ---@diagnostic disable-next-line: undefined-field
-  --         return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
-  --       end, names)
-  --
-  --       -- Run linters.
-  --       if #names > 0 then
-  --         lint.try_lint(names)
-  --       end
-  --     end
-  --
-  --     vim.api.nvim_create_autocmd(opts.events, {
-  --       group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
-  --       callback = M.debounce(100, M.lint),
-  --     })
-  --   end,
-  -- },
 }
