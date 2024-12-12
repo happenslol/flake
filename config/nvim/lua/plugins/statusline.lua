@@ -23,7 +23,7 @@ return {
       return {
         options = {
           theme = "materialnight",
-          globalstatus = vim.o.laststatus == 3,
+          globalstatus = false,
           disabled_filetypes = { "neo-tree", "qf" },
           component_separators = { left = "", right = "" },
           section_separators = { left = " ", right = " " },

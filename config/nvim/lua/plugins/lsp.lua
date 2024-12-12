@@ -3,7 +3,7 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
-    version = "v0.*",
+    build = "nix run .#build-plugin",
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -17,12 +17,17 @@ return {
       },
 
       appearance = {
-        use_nvim_cmp_as_default = true,
+        use_nvim_cmp_as_default = false,
         nerd_font_variant = "mono",
       },
 
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
+
+        -- Disable cmdline completions
+        cmdline = function()
+          return {}
+        end,
       },
 
       completion = {
@@ -31,14 +36,18 @@ return {
 
         menu = {
           border = "rounded",
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          min_width = 60,
           max_height = 10,
           draw = {
-            treesitter = true,
+            treesitter = false,
             columns = {
               { "label", "label_description", gap = 1 },
               { "kind_icon", "kind", gap = 1 },
+            },
+
+            components = {
+              kind = { width = { fixed = 8 } },
+              label = { width = { min = 12, max = 52 } },
+              label_description = { width = { min = 10, max = 30 } },
             },
           },
         },
@@ -46,10 +55,7 @@ return {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
-          window = {
-            border = "rounded",
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
+          window = { border = "rounded" },
         },
       },
 

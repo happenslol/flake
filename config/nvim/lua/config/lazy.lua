@@ -24,8 +24,8 @@ require("lazy").setup({
   change_detection = { notify = false },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
-    path = "~/code",
-    patterns = { "materialnight" },
+    path = "~/code/nvim",
+    patterns = { "materialnight.nvim" },
     fallback = true,
   },
   performance = {
