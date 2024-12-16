@@ -248,7 +248,6 @@ in {
     playerctl
     nix-index
     bluetuith
-    ollama
     (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
       app-engine-go
     ]))
@@ -262,23 +261,17 @@ in {
       withMiddleClickScroll = true;
     })
     zed-editor
-    obs-studio
-    bruno
     delve
     gofumpt
     halloy
-    konversation
     kooha
-    # dash2
     qmk
     qimgv
     hub
-    transmission_4-gtk
     usbutils
     exfat
     openssl
     watchexec
-    process-compose
-    pulumi-bin
+    bambu-studio
   ];
 }
