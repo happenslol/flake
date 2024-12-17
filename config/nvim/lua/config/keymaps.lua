@@ -27,10 +27,13 @@ map("n", "<leader>ql", ":cnext<cr>", { silent = true, desc = "Next Quickfix Item
 map("n", "<leader>qh", ":cprev<cr>", { silent = true, desc = "Previous Quickfix Item" })
 
 -- loclist bindings
-map("n", "<leader>wk", ":lopen<cr>", { silent = true, desc = "Open Location List" })
-map("n", "<leader>wj", ":lclose<cr>", { silent = true, desc = "Close Location List" })
-map("n", "<leader>wl", ":lnext<cr>", { silent = true, desc = "Next Location Item" })
-map("n", "<leader>wh", ":lprev<cr>", { silent = true, desc = "Previous Location Item" })
+map("n", "<leader>ek", ":lopen<cr>", { silent = true, desc = "Open Location List" })
+map("n", "<leader>ej", ":lclose<cr>", { silent = true, desc = "Close Location List" })
+map("n", "<leader>el", ":lnext<cr>", { silent = true, desc = "Next Location Item" })
+map("n", "<leader>eh", ":lprev<cr>", { silent = true, desc = "Previous Location Item" })
+
+-- quicksave
+map("n", "<leader>w", ":w<cr>", { silent = true, desc = "Quicksave" })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
