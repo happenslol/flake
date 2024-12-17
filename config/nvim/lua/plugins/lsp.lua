@@ -25,9 +25,9 @@ return {
         default = { "lsp", "path", "snippets", "buffer" },
 
         -- Disable cmdline completions
-        cmdline = function()
-          return {}
-        end,
+        -- cmdline = function()
+        --   return {}
+        -- end,
       },
 
       completion = {
@@ -38,7 +38,7 @@ return {
           border = "rounded",
           max_height = 10,
           draw = {
-            treesitter = false,
+            treesitter = { "lsp" },
             columns = {
               { "label", "label_description", gap = 1 },
               { "kind_icon", "kind", gap = 1 },
