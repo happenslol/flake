@@ -273,6 +273,6 @@ in {
     openssl
     watchexec
     bambu-studio
-    google-drive-ocamlfuse
+    synology-drive-client
   ];
 }
