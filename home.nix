@@ -274,5 +274,6 @@ in {
     watchexec
     bambu-studio
     synology-drive-client
+    kicad-small
   ];
 }
