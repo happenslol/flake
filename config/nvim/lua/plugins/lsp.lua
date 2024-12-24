@@ -243,12 +243,16 @@ return {
 
         -- stylua: ignore start
         map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-        map("n", "<leader>c", function() vim.diagnostic.jump({ float = true, count = 1 }) end, { desc = "Next Diagnostic" })
-        map("n", "<leader>v", function() vim.diagnostic.jump({ float = true, count = -1 }) end, { desc = "Previous Diagnostic" })
+        map("n", "<leader>c", function() vim.diagnostic.jump({ float = true, count = 1 }) end,
+          { desc = "Next Diagnostic" })
+        map("n", "<leader>v", function() vim.diagnostic.jump({ float = true, count = -1 }) end,
+          { desc = "Previous Diagnostic" })
         map("n", "]d", function() vim.diagnostic.jump({ float = true, count = 1 }) end, { desc = "Next Diagnostic" })
         map("n", "[d", function() vim.diagnostic.jump({ float = true, count = -1 }) end, { desc = "Previous Diagnostic" })
-        map("n", "]e", function() vim.diagnostic.jump({ float = true, severity = 1, count = 1 }) end, { desc = "Next Diagnostic" })
-        map("n", "[e", function() vim.diagnostic.jump({ float = true, severity = 1, count = -1 }) end, { desc = "Previous Diagnostic" })
+        map("n", "]e", function() vim.diagnostic.jump({ float = true, severity = 1, count = 1 }) end,
+          { desc = "Next Diagnostic" })
+        map("n", "[e", function() vim.diagnostic.jump({ float = true, severity = 1, count = -1 }) end,
+          { desc = "Previous Diagnostic" })
         map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
@@ -319,7 +323,18 @@ return {
       {
         "<leader>f",
         function()
-          require("conform").format({ timeout_ms = 3000 })
+          require("conform").format({
+            async = true,
+            timeout_ms = 3000,
+            quiet = false,
+            lsp_format = "first",
+            filter = function(client)
+              return not vim.tbl_contains({
+                "vtsls",
+                "gopls",
+              }, client.name)
+            end,
+          })
         end,
         mode = { "n", "v" },
         desc = "Format current buffer",
@@ -349,13 +364,6 @@ return {
         "yaml",
       }
 
-      local eslint_fts = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-      }
-
       local formatters_by_ft = {
         lua = { "stylua" },
         fish = { "fish_indent" },
@@ -372,21 +380,7 @@ return {
         table.insert(formatters_by_ft[ft], "prettierd")
       end
 
-      -- for _, ft in ipairs(eslint_fts) do
-      --   if not formatters_by_ft[ft] then
-      --     formatters_by_ft[ft] = {}
-      --   end
-      --
-      --   table.insert(formatters_by_ft[ft], "eslint_d")
-      -- end
-
       return {
-        default_format_opts = {
-          timeout_ms = 3000,
-          async = false, -- not recommended to change
-          quiet = false, -- not recommended to change
-          lsp_format = "fallback", -- not recommended to change
-        },
         formatters_by_ft = formatters_by_ft,
         formatters = {
           prettier = {
@@ -420,15 +414,8 @@ return {
         name = "crates.nvim",
       },
     },
-    init = function()
-      vim.api.nvim_create_autocmd("BufRead", {
-        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-        pattern = "Cargo.toml",
-        callback = function()
-          require("cmp").setup.buffer({ sources = { { name = "crates" } } })
-          require("crates")
-        end,
-      })
+    config = function(_, opts)
+      require("crates").setup(opts)
     end,
   },
   {
