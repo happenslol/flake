@@ -358,6 +358,7 @@ in {
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
+    etc."greetd/environments".text = "Hyprland";
     # etc."dash2".source = ./. + "/hosts/${hostname}/config/dash2";
   };
 
@@ -440,6 +441,7 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.gtklock = {};
+    pam.services.dash3 = {};
     # pam.services.dash2 = {};
   };
 
@@ -481,7 +483,6 @@ in {
 
   hardware.sane.enable = true;
 }
-
 # {
 #   config,
 #   pkgs,
@@ -912,3 +913,4 @@ in {
 #     options = ["bind"];
 #   };
 # }
+
