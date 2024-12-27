@@ -1,0 +1,61 @@
+mouse-hide-while-typing = true
+cursor-style = block
+shell-integration-features = no-cursor
+window-theme = ghostty
+
+window-decoration = false
+gtk-tabs-location = "bottom"
+
+font-size = 12
+font-family = "Iosevka Term Nerd Font Complete Medium"
+font-family-bold = "Iosevka Term Nerd Font Complete Extrabold"
+font-family-italic = "Iosevka Term Nerd Font Complete Medium Italic"
+font-family-bold-italic = "Iosevka Term Nerd Font Complete Extrabold Italic"
+
+# Theme
+background = #212121
+foreground = #EEFFFF
+cursor-color = #ECEFF1
+selection-foreground = #EEFFFF
+selection-background = #444444
+palette = 0=#2B2B2B
+palette = 1=#F07178
+palette = 2=#C3E88D
+palette = 3=#FFCB6B
+palette = 4=#82AAFF
+palette = 5=#C792EA
+palette = 6=#89DDFF
+palette = 7=#FFFFFF
+palette = 8=#4F4F4F
+palette = 9=#FF8B92
+palette = 10=#DDFFA7
+palette = 11=#FFE585
+palette = 12=#9CC4FF
+palette = 13=#E1ACFF
+palette = 14=#A3F7FF
+palette = 15=#CCEEEE
+
+# Keymap
+keybind = ctrl+e>c=new_tab
+keybind = ctrl+e>x=close_surface
+
+keybind = ctrl+e>1=goto_tab:1
+keybind = ctrl+e>2=goto_tab:2
+keybind = ctrl+e>3=goto_tab:3
+keybind = ctrl+e>4=goto_tab:4
+keybind = ctrl+e>5=goto_tab:5
+keybind = ctrl+e>6=goto_tab:6
+keybind = ctrl+e>7=goto_tab:7
+keybind = ctrl+e>8=goto_tab:8
+keybind = ctrl+e>9=goto_tab:9
+
+keybind = ctrl+e>ctrl+l=move_tab:+1
+keybind = ctrl+e>ctrl+h=move_tab:-1
+
+keybind = ctrl+e>o=new_split:down
+keybind = ctrl+e>u=new_split:right
+
+keybind = ctrl+e>l=goto_split:right
+keybind = ctrl+e>h=goto_split:left
+keybind = ctrl+e>j=goto_split:bottom
+keybind = ctrl+e>k=goto_split:top

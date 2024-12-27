@@ -102,6 +102,7 @@ in {
       "mako".source = "${dotfiles}/mako";
       "wofi".source = "${dotfiles}/wofi";
       "atuin".source = "${dotfiles}/atuin";
+      "ghostty".source = "${dotfiles}/ghostty";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
