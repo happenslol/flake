@@ -195,8 +195,8 @@ in {
     # running out of heap memory
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
-    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback liquidtux];
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
     # Enable zfs and ntfs3g
     supportedFilesystems = ["zfs" "ntfs"];
@@ -662,7 +662,7 @@ in {
 #
 #     # Use latest kernel compatible with zfs
 #     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-#     extraModulePackages = with config.boot.kernelPackages; [v4l2loopback liquidtux];
+#     extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 #
 #     # Enable zfs and ntfs3g
 #     supportedFilesystems = ["zfs" "ntfs"];

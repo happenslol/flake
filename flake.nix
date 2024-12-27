@@ -48,6 +48,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
+
     # dash2 = {
     #   url = "github:happenslol/dash2";
     #   inputs.nixpkgs.follows = "nixpkgs";

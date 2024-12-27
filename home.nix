@@ -275,5 +275,6 @@ in {
     bambu-studio
     synology-drive-client
     kicad-small
+    inputs.ghostty.packages.${system}.ghostty
   ];
 }
