@@ -1,13 +1,11 @@
 {
   config,
   pkgs,
-  pkgs-stable,
   pkgs-pinned,
   stateVersion,
   username,
   inputs,
   hostname,
-  system,
   niqs,
   ...
 }: let
@@ -150,6 +148,22 @@ in {
 
     # See https://github.com/NixOS/nixpkgs/issues/180175
     services.NetworkManager-wait-online.enable = false;
+
+    # See https://bbs.archlinux.org/viewtopic.php?id=295916
+    services.sleep-rfkill = {
+      description = "Disable bluetooth and wifi while suspended";
+      before = ["sleep.target"];
+      wantedBy = ["sleep.target"];
+
+      unitConfig.StopWhenUnneeded = "yes";
+      
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = "yes";
+        ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth wifi";
+        ExecStop = "${pkgs.util-linux}/bin/rfkill unblock bluetooth wifi";
+      };
+    };
   };
 
   nix = {
