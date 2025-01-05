@@ -2,9 +2,13 @@ mouse-hide-while-typing = true
 cursor-style = block
 shell-integration-features = no-cursor
 window-theme = ghostty
+resize-overlay = never
 
 window-decoration = false
 gtk-tabs-location = "bottom"
+gtk-adwaita = true
+adw-toolbar-style = flat
+gtk-wide-tabs = false
 
 font-size = 12
 font-family = "Iosevka Term Nerd Font Complete Medium"
