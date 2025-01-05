@@ -19,7 +19,7 @@ return {
             vim.keymap.set("n", "q", "<cmd>qa!<cr>", { buffer = true, silent = true })
             vim.keymap.set("v", "y", function()
               print(vim.v.register)
-              if vim.v.register == '+' then
+              if vim.v.register == "+" then
                 return "y<cmd>qa!<cr>"
               else
                 return "y"
