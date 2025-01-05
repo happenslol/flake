@@ -139,7 +139,7 @@ return {
             },
           },
 
-          elixirls = {},
+          elixirls = { cmd = { "elixir-ls" } },
           nil_ls = {},
 
           html = {},
