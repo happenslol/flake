@@ -139,6 +139,7 @@ return {
             },
           },
 
+          elixirls = {},
           nil_ls = {},
 
           html = {},

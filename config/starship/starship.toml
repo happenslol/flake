@@ -129,3 +129,6 @@ format = "[|](bright-black) [$symbol($version )]($style)"
 [bun]
 symbol = "  "
 format = "[|](bright-black) [$symbol($version )]($style)"
+
+[elixir]
+format = "[|](bright-black) [$symbol($version \\(OTP $otp_version\\) )]($style)"

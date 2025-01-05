@@ -277,5 +277,7 @@ in {
     synology-drive-client
     kicad-small
     inputs.ghostty.packages.${system}.ghostty
+    beam27Packages.elixir
+    beam27Packages.elixir-ls
   ];
 }
