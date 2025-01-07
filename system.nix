@@ -167,6 +167,7 @@ in {
   };
 
   nix = {
+    registry.nixkpgs.flake = inputs.nixpkgs;
     nixPath = ["nixpkgs=${inputs.nixpkgs.outPath}"];
 
     settings = {
