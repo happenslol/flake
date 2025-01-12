@@ -23,15 +23,18 @@ return {
 
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
-
-        -- Disable cmdline completions
-        -- cmdline = function()
-        --   return {}
-        -- end,
       },
 
       completion = {
-        list = { selection = "auto_insert" },
+        list = {
+          selection = {
+            auto_insert = true,
+            preselect = function(ctx)
+              return ctx.mode ~= "cmdline"
+            end,
+          },
+        },
+
         accept = { auto_brackets = { enabled = true } },
 
         menu = {
@@ -59,7 +62,7 @@ return {
         },
       },
 
-      signature = { enabled = true },
+      -- signature = { enabled = true },
     },
   },
 
@@ -333,6 +336,7 @@ return {
               return not vim.tbl_contains({
                 "vtsls",
                 "gopls",
+                "nil_ls",
               }, client.name)
             end,
           })
