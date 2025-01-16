@@ -82,6 +82,7 @@
       '';
     };
 
+  # NOTE: Iosevka build plan
   # [buildPlans.IosevkaHappy]
   # family = "Iosevka Happy"
   # spacing = "term"
@@ -131,12 +132,7 @@ in {
   ];
 
   systemd = {
-    tmpfiles.rules = [
-      "Z /etc/greetd - greeter greeter"
-
-      "d /nosync       0755 ${username} users -"
-      "d /nosync/atuin 0755 ${username} users -"
-    ];
+    tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
 
     user.targets.hyprland-session = {
       description = "Hyprland compositor session";
@@ -357,7 +353,6 @@ in {
       bibata-cursors
       niqs.bibata-hyprcursor
       gtk3
-      # dash2
     ];
 
     pathsToLink = ["/share/zsh"];
@@ -374,7 +369,6 @@ in {
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
     etc."greetd/environments".text = "Hyprland";
-    # etc."dash2".source = ./. + "/hosts/${hostname}/config/dash2";
   };
 
   services = {
@@ -420,12 +414,6 @@ in {
       };
     };
 
-    # TODO: Fix this
-    # greetd = {
-    #   enable = true;
-    #   settings.default_session.command = "hyprland -c ~/.config/hypr/greeter.conf > /dev/null 2>&1";
-    # };
-
     printing.enable = true;
     avahi = {
       enable = true;
@@ -447,17 +435,12 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
-
-    hosts = {
-      "127.0.0.1" = ["copernicus-dev-rds.cluster-cm8mhsxz88cx.eu-central-1.rds.amazonaws.com"];
-    };
   };
 
   security = {
     rtkit.enable = true;
     pam.services.gtklock = {};
     pam.services.dash3 = {};
-    # pam.services.dash2 = {};
   };
 
   virtualisation.docker = {
@@ -483,17 +466,10 @@ in {
     ];
   };
 
-  # TODO: Why does this install xdg-desktop-portal-wlr
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
-
     wlr.enable = pkgs.lib.mkForce false;
-  };
-
-  fileSystems."/home/${username}/.local/share/atuin" = {
-    device = "/nosync/atuin";
-    options = ["bind"];
   };
 
   hardware.sane.enable = true;

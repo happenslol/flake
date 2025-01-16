@@ -37,21 +37,3 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 
 # Load required modules
 zmodload zsh/complist
-
-# Configure autosuggestions
-ZSH_AUTOSUGGEST_STRATEGY=('atuin')
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='20'
-ZSH_AUTOSUGGEST_USE_ASYNC='true'
-ZSH_AUTOSUGGEST_MANUAL_REBIND='true'
-
-# Clear autosuggestions when using atuin
-# NOTE: Widgets starting with '_' don't work here, which
-# is why we have to rebind the atuin widget.
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=('keymap-atuin-widget')
-
-# Use atuin history for autosuggestions
-function _zsh_autosuggest_strategy_atuin() {
-  # FIXME: This currently escapes incorrectly, since atuin is hard-coded
-  # to replace '*' with '%', and we're not escaping any SQL LIKE wildcards.
-  typeset -g suggestion="$(atuin search --search-mode prefix --cmd-only --limit 1 "$1")"
-}

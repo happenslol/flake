@@ -20,9 +20,6 @@
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
   };
 
-  atuin-custom = inputs.atuin.packages."${system}".default;
-  # dash2 = inputs.dash2.packages."${system}".default;
-
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
 in {
@@ -101,12 +98,10 @@ in {
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
       "wofi".source = "${dotfiles}/wofi";
-      "atuin".source = "${dotfiles}/atuin";
       "ghostty".source = "${dotfiles}/ghostty";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
-      # "dash2".source = "${hostDotfiles}/dash2";
     };
 
     systemDirs.data = [gsettingsDatadir];
@@ -163,7 +158,6 @@ in {
     tokei
     kitty
     tmux
-    atuin-custom
     zoxide
     starship
     direnv

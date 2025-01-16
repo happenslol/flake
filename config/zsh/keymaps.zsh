@@ -47,9 +47,3 @@ function _keymap_ls() {
 }
 zle -N keymap-ls-widget _keymap_ls
 bindkey "^K" keymap-ls-widget
-
-zle -N keymap-atuin-widget _atuin_search
-bindkey "^R" keymap-atuin-widget
-
-zle -N keymap-atuin-up-widget _atuin_up_search
-bindkey "^J" keymap-atuin-up-widget

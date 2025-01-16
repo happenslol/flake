@@ -43,11 +43,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    atuin = {
-      url = "github:happenslol/atuin/fork";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     ghostty = {
       url = "github:ghostty-org/ghostty";
       inputs.nixpkgs-unstable.follows = "nixpkgs";

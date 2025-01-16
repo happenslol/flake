@@ -1,5 +1,0 @@
-user = "happens"
-primary_display = ["DP-4", "DP-2", "DP-1", "eDP-1"]
-
-[session]
-cmd = ["/bin/hyprland-session"]
