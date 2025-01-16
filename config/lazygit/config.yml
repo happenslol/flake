@@ -1,5 +1,5 @@
 gui:
-    windowSize: "normal"
+    screenMode: "normal"
     scrollHeight: 5
     scrollPastBottom: true
     sidePanelWidth: 0.3333
