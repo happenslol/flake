@@ -274,5 +274,6 @@ in {
     beam27Packages.elixir
     beam27Packages.elixir-ls
     inotify-tools
+    liquidctl
   ];
 }
