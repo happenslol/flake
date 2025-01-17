@@ -276,5 +276,6 @@ in {
     inotify-tools
     liquidctl
     openrgb-with-all-plugins
+    vtsls
   ];
 }
