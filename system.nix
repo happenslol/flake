@@ -126,10 +126,7 @@
   iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
   system = {inherit stateVersion;};
-  imports = [
-    inputs.grub2-theme.nixosModules.default
-    inputs.hyprland.nixosModules.default
-  ];
+  imports = [inputs.hyprland.nixosModules.default];
 
   systemd = {
     tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
@@ -211,22 +208,6 @@ in {
 
     # Enable zfs and ntfs3g
     supportedFilesystems = ["zfs" "ntfs"];
-
-    loader = {
-      efi.canTouchEfiVariables = false;
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        enableCryptodisk = true;
-        efiInstallAsRemovable = true;
-      };
-
-      grub2-theme = {
-        enable = true;
-        resolution = "3840x2160";
-      };
-    };
   };
 
   time.timeZone = "Europe/Berlin";

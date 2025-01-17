@@ -1,30 +1,20 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-
-    inputs.grub2-theme.nixosModules.default
   ];
 
   networking = {
-    hostId = "640c2c0b";
-    hostName = "roe2";
+    hostId = "8d27ab3f";
+    hostName = "hei";
   };
 
   boot = {
-    loader.grub = {
-      gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
-
-      grub2-theme = {
-        enable = true;
-        resolution = "3840x2160";
-      };
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     kernelParams = [
@@ -37,13 +27,6 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=false"
     ];
-
-    initrd.luks.devices = {
-      root = {
-        device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";
-        preLVM = true;
-      };
-    };
   };
 
   hardware.bluetooth = {

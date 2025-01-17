@@ -48,11 +48,6 @@
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
 
-    # dash2 = {
-    #   url = "github:happenslol/dash2";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +69,7 @@
   }: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
-    stateVersion = "24.05";
+    stateVersion = "24.11";
     username = "happens";
 
     overlays = [
@@ -127,6 +122,7 @@
     nixosConfigurations = {
       mira = mkHost "mira";
       roe2 = mkHost "roe2";
+      hei = mkHost "hei";
     };
   };
 }
