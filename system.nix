@@ -380,6 +380,11 @@ in {
       };
     };
 
+    hardware.openrgb = {
+      enable = true;
+      package = pkgs.openrgb-with-all-plugins;
+    };
+
     pipewire = {
       enable = true;
       alsa.enable = true;

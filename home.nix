@@ -275,5 +275,6 @@ in {
     beam27Packages.elixir-ls
     inotify-tools
     liquidctl
+    openrgb-with-all-plugins
   ];
 }
