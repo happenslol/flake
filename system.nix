@@ -139,22 +139,29 @@ in {
       after = ["graphical-session-pre.target"];
     };
 
-    # See https://github.com/NixOS/nixpkgs/issues/180175
-    services.NetworkManager-wait-online.enable = false;
+    services = {
+      # See https://github.com/NixOS/nixpkgs/issues/180175
+      NetworkManager-wait-online.enable = false;
 
-    # See https://bbs.archlinux.org/viewtopic.php?id=295916
-    services.sleep-rfkill = {
-      description = "Disable bluetooth and wifi while suspended";
-      before = ["sleep.target"];
-      wantedBy = ["sleep.target"];
+      # See https://github.com/openzfs/zfs/issues/10891
+      # Our root is on pool, so our pools are already imported whenever this
+      # service would run.
+      systemd-udev-settle.enable = false;
 
-      unitConfig.StopWhenUnneeded = "yes";
+      # See https://bbs.archlinux.org/viewtopic.php?id=295916
+      sleep-rfkill = {
+        description = "Disable bluetooth and wifi while suspended";
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
 
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = "yes";
-        ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth wifi";
-        ExecStop = "${pkgs.util-linux}/bin/rfkill unblock bluetooth wifi";
+        unitConfig.StopWhenUnneeded = "yes";
+
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = "yes";
+          ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth wifi";
+          ExecStop = "${pkgs.util-linux}/bin/rfkill unblock bluetooth wifi";
+        };
       };
     };
   };
