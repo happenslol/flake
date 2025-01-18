@@ -274,5 +274,6 @@ in {
     liquidctl
     openrgb-with-all-plugins
     vtsls
+    inputs.zen-browser.packages."${system}".default
   ];
 }

@@ -357,6 +357,12 @@ in {
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
     etc."greetd/environments".text = "Hyprland";
+
+    # Allow 1password to communicate with zen
+    etc."1password/custom_allowed_browsers" = {
+      text = ".zen-wrapped";
+      mode = "0755";
+    };
   };
 
   services = {
