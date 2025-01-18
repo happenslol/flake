@@ -97,7 +97,6 @@ in {
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
       "wofi".source = "${dotfiles}/wofi";
-      "ghostty".source = "${dotfiles}/ghostty";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
@@ -269,7 +268,6 @@ in {
     bambu-studio
     synology-drive-client
     kicad-small
-    inputs.ghostty.packages.${system}.ghostty
     beam27Packages.elixir
     beam27Packages.elixir-ls
     inotify-tools
