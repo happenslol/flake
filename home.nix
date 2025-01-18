@@ -91,7 +91,6 @@ in {
       "nix".source = "${dotfiles}/nix";
       "zsh".source = "${dotfiles}/zsh";
       "waybar".source = "${dotfiles}/waybar";
-      "wezterm".source = "${dotfiles}/wezterm";
       "kitty".source = "${dotfiles}/kitty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "hypr".source = "${dotfiles}/hypr";

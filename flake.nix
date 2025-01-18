@@ -38,11 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ghostty = {
       url = "github:ghostty-org/ghostty";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
@@ -83,10 +78,6 @@
       config = {
         allowUnfree = true;
         allowBroken = true;
-
-        permittedInsecurePackages = [
-          "electron-25.9.0"
-        ];
       };
     };
 

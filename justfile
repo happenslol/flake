@@ -22,7 +22,7 @@ default:
   git push
 
 # Format all files
-format: format-nix format-nvim format-wezterm
+format: format-nix format-nvim
 
 @format-nix:
   alejandra -q ./**/*.nix
@@ -30,7 +30,3 @@ format: format-nix format-nvim format-wezterm
 # Format nvim configuration
 @format-nvim:
   stylua -f config/nvim/stylua.toml ./config/nvim/**/*.lua
-
-# Format wezterm configuration
-@format-wezterm:
-  stylua -f config/wezterm/stylua.toml ./config/wezterm/**/*.lua
