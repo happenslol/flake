@@ -44,8 +44,6 @@
     };
   };
 
-  # dash2 = inputs.dash2.packages."${system}".default;
-
   greetd = {
     gtkConfig = ''
       [Settings]
@@ -218,12 +216,32 @@ in {
   };
 
   time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+
+    inputMethod = {
+      enable = true;
+      type = "fcitx5";
+
+      fcitx5 = {
+        waylandFrontend = true;
+        addons = with pkgs; [
+          fcitx5-mozc
+          fcitx5-anthy
+          fcitx5-gtk
+        ];
+      };
+
+      ibus.engines = with pkgs.ibus-engines; [anthy];
+    };
+  };
 
   programs = {
     command-not-found.enable = false;
     nix-index-database.comma.enable = true;
     steam.enable = true;
+    corectrl.enable = true;
 
     ssh.startAgent = true;
     dconf.enable = true;
@@ -374,6 +392,9 @@ in {
     devmon.enable = true;
     udisks2.enable = true;
     envfs.enable = true;
+
+    # Start xdg autostart services
+    xserver.desktopManager.runXdgAutostartIfNone = true;
 
     zfs = {
       autoScrub.enable = true;
