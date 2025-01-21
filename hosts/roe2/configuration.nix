@@ -18,8 +18,14 @@
   };
 
   boot = {
-    loader.grub = {
-      gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
+    loader = {
+      grub = {
+        gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+        efiInstallAsRemovable = true;
+      };
 
       grub2-theme = {
         enable = true;

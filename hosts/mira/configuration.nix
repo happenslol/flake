@@ -12,8 +12,14 @@
   networking.hostName = "mira";
 
   boot = {
-    loader.grub = {
-      gfxmodeEfi = pkgs.lib.mkForce "2256x1504,auto";
+    loader = {
+      grub = {
+        gfxmodeEfi = pkgs.lib.mkForce "2256x1504,auto";
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+        efiInstallAsRemovable = true;
+      };
 
       grub2-theme = {
         enable = true;
