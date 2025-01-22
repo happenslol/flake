@@ -41,8 +41,10 @@ in {
   };
 
   services = {
-    kanshi.enable = true;
-    easyeffects.enable = true;
+    easyeffects = {
+      enable = true;
+      preset = "default";
+    };
   };
 
   home = {
@@ -100,6 +102,7 @@ in {
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
+      "easyeffects".source = "${dotfiles}/easyeffects";
     };
 
     systemDirs.data = [gsettingsDatadir];
