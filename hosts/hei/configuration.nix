@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -34,10 +38,31 @@
     settings.General.experimental = true;
   };
 
-  services.blueman.enable = true;
-
   nix.settings = {
     cores = 6;
     max-jobs = 4;
+  };
+
+  services = {
+    blueman.enable = true;
+
+    udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
+    '';
+  };
+
+  systemd.services.corsair-h150i-liquidctl = {
+    enable = true;
+    description = "CPU AIO Fan Control";
+    wantedBy = ["default.target"];
+    requires = ["dev-corsair-h150i.device"];
+    after = ["dev-corsair-h150i.device"];
+
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${pkgs.liquidctl}/bin/liquidctl initialize --pump-mode quiet
+      ${pkgs.liquidctl}/bin/liquidctl set fan speed 30 40 40 50 45 60 50 90
+      ${pkgs.liquidctl}/bin/liquidctl set led color fixed 444444
+    '';
   };
 }
