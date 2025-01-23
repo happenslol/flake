@@ -17,8 +17,13 @@
 
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      timeout = 0;
       efi.canTouchEfiVariables = true;
+
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 50;
+      };
     };
 
     kernelParams = [
@@ -33,14 +38,14 @@
     ];
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    settings.General.experimental = true;
-  };
-
   nix.settings = {
     cores = 6;
     max-jobs = 4;
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    settings.General.experimental = true;
   };
 
   services = {

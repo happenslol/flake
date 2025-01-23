@@ -8,8 +8,6 @@
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-
-    inputs.grub2-theme.nixosModules.default
   ];
 
   networking = {
@@ -19,17 +17,12 @@
 
   boot = {
     loader = {
-      grub = {
-        gfxmodeEfi = pkgs.lib.mkForce "2560x1440,auto";
-        device = "nodev";
-        efiSupport = true;
-        enableCryptodisk = true;
-        efiInstallAsRemovable = true;
-      };
+      timeout = 0;
+      efi.canTouchEfiVariables = true;
 
-      grub2-theme = {
+      systemd-boot = {
         enable = true;
-        resolution = "3840x2160";
+        configurationLimit = 50;
       };
     };
 
@@ -43,13 +36,11 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=false"
     ];
+  };
 
-    initrd.luks.devices = {
-      root = {
-        device = "/dev/disk/by-uuid/9f3bdcd9-ff39-4b58-bed5-736600a5bab1";
-        preLVM = true;
-      };
-    };
+  nix.settings = {
+    cores = 6;
+    max-jobs = 4;
   };
 
   hardware.bluetooth = {
@@ -57,10 +48,26 @@
     settings.General.experimental = true;
   };
 
-  services.blueman.enable = true;
+  services = {
+    blueman.enable = true;
 
-  nix.settings = {
-    cores = 6;
-    max-jobs = 4;
+    udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
+    '';
+  };
+
+  systemd.services.corsair-h150i-liquidctl = {
+    enable = true;
+    description = "CPU AIO Fan Control";
+    wantedBy = ["default.target"];
+    requires = ["dev-corsair-h150i.device"];
+    after = ["dev-corsair-h150i.device"];
+
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${pkgs.liquidctl}/bin/liquidctl initialize --pump-mode quiet
+      ${pkgs.liquidctl}/bin/liquidctl set fan speed 30 40 40 50 45 60 50 90
+      ${pkgs.liquidctl}/bin/liquidctl set led color fixed 444444
+    '';
   };
 }
