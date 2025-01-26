@@ -51,6 +51,7 @@
   services = {
     blueman.enable = true;
 
+    # TODO: Fix this
     # udev.extraRules = ''
     #   ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
     # '';

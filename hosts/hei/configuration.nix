@@ -51,17 +51,18 @@
   services = {
     blueman.enable = true;
 
-    udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
-    '';
+    # TODO: Fix this
+    # udev.extraRules = ''
+    #   ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
+    # '';
   };
 
   systemd.services.corsair-h150i-liquidctl = {
     enable = true;
     description = "CPU AIO Fan Control";
     wantedBy = ["default.target"];
-    requires = ["dev-corsair-h150i.device"];
-    after = ["dev-corsair-h150i.device"];
+    # requires = ["dev-corsair-h150i.device"];
+    # after = ["dev-corsair-h150i.device"];
 
     serviceConfig.Type = "oneshot";
     script = ''
