@@ -279,5 +279,6 @@ in {
     vtsls
     inputs.zen-browser.packages."${system}".default
     lact
+    _1password-cli
   ];
 }
