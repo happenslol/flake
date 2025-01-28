@@ -290,9 +290,7 @@ in {
         gdk-pixbuf
         glib
         gtk3
-        webkitgtk
         librsvg
-        libsoup
         libGL
         libappindicator-gtk3
         libdrm
@@ -403,14 +401,12 @@ in {
 
     sanoid = {
       enable = true;
-      datasets."rpool/user" = {
-        recursive = true;
+      datasets."rpool/home" = {
         monthly = 1;
         daily = 10;
         hourly = 1;
         autosnap = true;
         autoprune = true;
-        processChildrenOnly = true;
       };
     };
 
