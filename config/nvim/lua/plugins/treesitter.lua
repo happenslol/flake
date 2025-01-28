@@ -21,8 +21,8 @@ return {
         "hcl", "html", "http", "ini", "java", "javascript", "jq", "jsdoc",
         "json", "jsonc", "json5", "just", "lua", "luadoc", "make", "markdown",
         "markdown_inline", "nix", "rasi", "regex", "rust", "sql", "svelte",
-        "terraform", "toml", "tsx", "typescript", "vim", "vue", "yaml", "yuck",
-        "zig",
+        "terraform", "toml", "tsx", "typescript", "typespec", "vim", "vue",
+        "yaml", "yuck", "zig",
       },
     },
     config = function(_, opts)
