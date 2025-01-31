@@ -63,6 +63,11 @@
     '';
   };
 
+  rocmEnv = pkgs.symlinkJoin {
+    name = "rocm-combined";
+    paths = with pkgs.rocmPackages; [rocblas hipblas clr];
+  };
+
   patchIosevka = font:
     pkgs-pinned.stdenv.mkDerivation {
       name = "${font.name}-nerd-font";
@@ -127,7 +132,10 @@ in {
   imports = [inputs.hyprland.nixosModules.default];
 
   systemd = {
-    tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
+    tmpfiles.rules = [
+      "Z /etc/greetd - greeter greeter"
+      "L+ /opt/rocm - - - - ${rocmEnv}"
+    ];
 
     user.targets.hyprland-session = {
       description = "Hyprland compositor session";
@@ -393,6 +401,12 @@ in {
 
     # Start xdg autostart services
     xserver.desktopManager.runXdgAutostartIfNone = true;
+
+    ollama = {
+      enable = true;
+      acceleration = "rocm";
+      rocmOverrideGfx = "10.3.6";
+    };
 
     zfs = {
       autoScrub.enable = true;
