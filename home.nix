@@ -235,6 +235,7 @@ in {
     glab
     imagemagick
     android-studio
+    android-tools
     spacedrive
     slack
     swaylock
@@ -281,5 +282,6 @@ in {
     inputs.zen-browser.packages."${system}".default
     lact
     _1password-cli
+    aider-chat
   ];
 }
