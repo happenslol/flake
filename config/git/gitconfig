@@ -11,6 +11,7 @@
 [core]
   sshCommand = "ssh -i ~/.ssh/$(hostname).personal.id_ed25519"
   pager = delta
+  excludesfile = ~/.gitignore
 
 [includeIf "gitdir:~/opencreek/"]
   path = ~/.gitconfig-opencreek

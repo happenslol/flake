@@ -59,6 +59,7 @@ in {
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
+      ".gitignore".source = "${dotfiles}/git/gitignore";
       ".ssh/config".source = "${dotfiles}/ssh/config";
       ".tmux.conf".source = "${dotfiles}/tmux/tmux.conf";
     };
