@@ -283,5 +283,8 @@ in {
     lact
     _1password-cli
     aider-chat
+    zapzap
+    whatsapp-for-linux
+    inputs.serve.packages."${system}".default
   ];
 }
