@@ -270,7 +270,7 @@ in {
     exfat
     openssl
     watchexec
-    bambu-studio
+    # bambu-studio
     synology-drive-client
     kicad-small
     beam27Packages.elixir
