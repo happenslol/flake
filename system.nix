@@ -223,7 +223,10 @@ in {
     supportedFilesystems = ["zfs" "ntfs"];
   };
 
-  time.timeZone = "Europe/Berlin";
+  time = {
+    timeZone = "Europe/Berlin";
+    hardwareClockInLocalTime = true;
+  };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
