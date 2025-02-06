@@ -263,6 +263,11 @@ in {
       wrapperFeatures.gtk = true;
     };
 
+    river = {
+      enable = true;
+      xwayland.enable = true;
+    };
+
     hyprland = {
       enable = true;
       xwayland.enable = true;
