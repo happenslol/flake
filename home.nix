@@ -287,5 +287,7 @@ in {
     whatsapp-for-linux
     inputs.serve.packages."${system}".default
     lldb
+    valgrind
+    kcachegrind
   ];
 }
