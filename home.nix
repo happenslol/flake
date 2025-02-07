@@ -289,5 +289,6 @@ in {
     lldb
     valgrind
     kcachegrind
+    ouch
   ];
 }
