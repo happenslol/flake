@@ -107,7 +107,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {inherit inputs stateVersion hostname system username niqs;};
+              extraSpecialArgs = {inherit inputs stateVersion hostname system username niqs pkgs-stable;};
 
               users.${username} = import ./home.nix;
             };

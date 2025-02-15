@@ -93,13 +93,11 @@ in {
       "nvim".source = "${dotfiles}/nvim";
       "nix".source = "${dotfiles}/nix";
       "zsh".source = "${dotfiles}/zsh";
-      "waybar".source = "${dotfiles}/waybar";
       "kitty".source = "${dotfiles}/kitty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
-      "wofi".source = "${dotfiles}/wofi";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
@@ -253,10 +251,7 @@ in {
     mosh
     libnotify
     distrobox
-    (vesktop.override {
-      withSystemVencord = false;
-      withMiddleClickScroll = true;
-    })
+    (vesktop.override {electron = electron_33;})
     zed-editor
     delve
     gofumpt
@@ -269,8 +264,6 @@ in {
     exfat
     openssl
     watchexec
-    # bambu-studio
-    synology-drive-client
     kicad-small
     beam27Packages.elixir
     beam27Packages.elixir-ls
