@@ -189,7 +189,6 @@ in {
     gotools
     revive
     dive
-    wofi
     mako
     notify-desktop
     grimblast
@@ -290,5 +289,6 @@ in {
     valgrind
     kcachegrind
     ouch
+    fuzzel
   ];
 }
