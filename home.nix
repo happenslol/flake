@@ -164,7 +164,6 @@ in {
     google-chrome
     firefox-bin
     tdesktop
-    webcord
     signal-desktop
     element-desktop
     easyeffects
@@ -228,7 +227,6 @@ in {
     linuxPackages_latest.perf
     hyperfine
     yazi
-    discord
     glab
     imagemagick
     android-studio
