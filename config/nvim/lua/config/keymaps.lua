@@ -3,6 +3,10 @@ local map = vim.keymap.set
 map({ "n", "v" }, ";", ":")
 map({ "n", "v" }, "'", '"')
 
+-- Mouse buttons back/forward
+map({ "n", "v" }, "<X1Mouse>", "<c-o>", { silent = true })
+map({ "n", "v" }, "<X2Mouse>", "<c-i>", { silent = true })
+
 -- Better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
