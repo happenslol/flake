@@ -281,5 +281,6 @@ in {
     kcachegrind
     ouch
     fuzzel
+    pcsx2
   ];
 }
