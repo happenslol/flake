@@ -201,7 +201,6 @@ in {
     nodejs_22.pkgs.vscode-langservers-extracted
     nodejs_22.pkgs.bash-language-server
     nodejs_22.pkgs.yaml-language-server
-    nodejs_22.pkgs.graphql-language-service-cli
     nodejs_22.pkgs.typescript-language-server
     font-manager
     sumneko-lua-language-server
