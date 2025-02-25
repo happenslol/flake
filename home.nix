@@ -281,5 +281,6 @@ in {
     ouch
     fuzzel
     pcsx2
+    libqalculate
   ];
 }
