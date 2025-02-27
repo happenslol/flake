@@ -282,5 +282,6 @@ in {
     fuzzel
     pcsx2
     libqalculate
+    minecraft
   ];
 }
