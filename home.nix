@@ -283,5 +283,6 @@ in {
     pcsx2
     libqalculate
     minecraft
+    prismlauncher
   ];
 }
