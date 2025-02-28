@@ -248,7 +248,11 @@ in {
     mosh
     libnotify
     distrobox
-    (vesktop.override {electron = electron_33;})
+    (vesktop.override {
+      electron = electron_33;
+      withTTS = false;
+      withMiddleClickScroll = true;
+    })
     zed-editor
     delve
     gofumpt
@@ -277,7 +281,6 @@ in {
     inputs.serve.packages."${system}".default
     lldb
     valgrind
-    kcachegrind
     ouch
     fuzzel
     pcsx2

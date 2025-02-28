@@ -129,7 +129,6 @@
   iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
   system = {inherit stateVersion;};
-  imports = [inputs.hyprland.nixosModules.default];
 
   systemd = {
     tmpfiles.rules = [
