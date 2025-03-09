@@ -287,5 +287,6 @@ in {
     libqalculate
     minecraft
     prismlauncher
+    nix-search-cli
   ];
 }
