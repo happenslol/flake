@@ -564,6 +564,29 @@
         "type": "github"
       }
     },
+    "pk-agent": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741544023,
+        "narHash": "sha256-q3EcbOv/AsmRL2k7WOWfWowKH5LoZN9nu7tPVpdXRnI=",
+        "owner": "happenslol",
+        "repo": "pk-agent",
+        "rev": "7c270547324c573d63a0c89273d39f481b57c201",
+        "type": "github"
+      },
+      "original": {
+        "owner": "happenslol",
+        "repo": "pk-agent",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "flake": false,
       "locked": {
@@ -593,8 +616,30 @@
         "nixpkgs-pinned": "nixpkgs-pinned",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-wayland": "nixpkgs-wayland",
+        "pk-agent": "pk-agent",
+        "rust-overlay": "rust-overlay",
         "serve": "serve",
         "zen-browser": "zen-browser"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741486734,
+        "narHash": "sha256-3hrpyTLNmnJpioVT1DDoVgsp7fWYkuS3JWCtfHsX1rk=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "d95582a900bd0e7e516ce3bed0503f742649fffb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "serve": {

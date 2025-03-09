@@ -23,6 +23,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Make sure all dependencies that use the rust overlay use the same one
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +57,12 @@
     serve = {
       url = "github:happenslol/serve";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pk-agent = {
+      url = "github:happenslol/pk-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
   };
 

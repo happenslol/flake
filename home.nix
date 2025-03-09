@@ -22,6 +22,18 @@
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
+
+  happypkgs = {
+    serve = inputs.serve.packages."${system}".default;
+    pk-agent = inputs.pk-agent.packages."${system}".default;
+    pk-agent-dbg = pkgs.writeShellScriptBin "pk-agent-dbg" ''
+      echo "wayland display: $WAYLAND_DISPLAY"
+      echo "runtime dir: $XDG_RUNTIME_DIR"
+      echo "dbus session bus address: $DBUS_SESSION_BUS_ADDRESS"
+
+      exec ${happypkgs.pk-agent}/bin/pk-agent
+    '';
+  };
 in {
   programs = {
     home-manager.enable = true;
@@ -74,13 +86,25 @@ in {
 
   systemd.user.services = {
     polkit-agent = {
-      Unit.Description = "Polkit Agent";
+      Unit = {
+        Description = "Polkit Agent";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+
       Install.WantedBy = ["graphical-session.target"];
 
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        ExecStart = "${happypkgs.pk-agent-dbg}/bin/pk-agent-dbg";
         Restart = "on-failure";
+        Environment = [
+          "XDG_SESSION_TYPE=wayland"
+          "WAYLAND_DISPLAY=wayland-1"
+          "GDK_BACKEND=wayland"
+          "XDG_RUNTIME_DIR=/run/user/1000"
+          "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+        ];
       };
     };
   };
@@ -278,7 +302,7 @@ in {
     aider-chat
     zapzap
     whatsapp-for-linux
-    inputs.serve.packages."${system}".default
+    happypkgs.serve
     lldb
     valgrind
     ouch
