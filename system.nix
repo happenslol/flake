@@ -53,13 +53,17 @@
       gtk-cursor-theme-size = 24
     '';
 
-    swayConfig = pkgs.writeText "greetd-sway-config" ''
-      input type:keyboard xkb_numlock enabled
+    hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
+      $mod = SUPER
 
-      exec {
-        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
-        "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
+      animations {
+        enabled = false
       }
+
+      source = ~/.config/hypr/common.conf
+      source = ~/.config/host/hypr/hyprland.conf
+
+      exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
     '';
   };
 
@@ -257,24 +261,19 @@ in {
     dconf.enable = true;
     zsh.enable = true;
 
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
-
     river = {
       enable = true;
       xwayland.enable = true;
     };
-
-    niri.enable = true;
 
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
 
-    xwayland.enable = pkgs.lib.mkForce false;
+    niri.enable = true;
+
+    xwayland.enable = pkgs.lib.mkForce true;
 
     thunar = {
       enable = true;
@@ -377,6 +376,7 @@ in {
       bibata-cursors
       niqs.bibata-hyprcursor
       gtk3
+      xwayland-satellite
     ];
 
     pathsToLink = ["/share/zsh"];
@@ -454,7 +454,7 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.sway}/bin/sway --config ${greetd.swayConfig}";
+          command = "${pkgs.hyprland}/bin/Hyprland -c ${greetd.hyprlandConfig}";
         };
       };
     };
