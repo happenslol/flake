@@ -267,10 +267,14 @@ in {
       xwayland.enable = true;
     };
 
+    niri.enable = true;
+
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
+
+    xwayland.enable = pkgs.lib.mkForce false;
 
     thunar = {
       enable = true;
@@ -284,6 +288,7 @@ in {
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = ["${username}"];
+      package = pkgs._1password-gui-beta;
     };
 
     nix-ld = {
@@ -387,7 +392,10 @@ in {
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
-    etc."greetd/environments".text = "Hyprland";
+    etc."greetd/environments".text = ''
+      Hyprland
+      niri-session
+    '';
 
     # Allow 1password to communicate with zen
     etc."1password/custom_allowed_browsers" = {

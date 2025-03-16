@@ -312,5 +312,7 @@ in {
     minecraft
     prismlauncher
     nix-search-cli
+    niri
+    alacritty
   ];
 }
