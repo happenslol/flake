@@ -261,17 +261,17 @@ in {
     dconf.enable = true;
     zsh.enable = true;
 
-    river = {
-      enable = true;
-      xwayland.enable = true;
-    };
+    # river = {
+    #   enable = true;
+    #   xwayland.enable = true;
+    # };
 
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
 
-    niri.enable = true;
+    # niri.enable = true;
 
     xwayland.enable = pkgs.lib.mkForce true;
 
@@ -348,7 +348,7 @@ in {
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
   environment = {
-    enableAllTerminfo = true;
+    # enableAllTerminfo = true;
     shells = [pkgs.zsh pkgs.bash];
     binsh = "${pkgs.dash}/bin/dash";
 
