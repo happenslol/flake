@@ -37,25 +37,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Cancel snippet session when leaving insert
--- vim.api.nvim_create_autocmd("ModeChanged", {
---   pattern = "*",
---   callback = function()
---     local loaded, luasnip = pcall(require, "luasnip")
---     if not loaded then
---       return
---     end
---
---     if
---       ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
---       and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
---       and not luasnip.session.jump_active
---     then
---       luasnip.unlink_current()
---     end
---   end,
--- })
-
 -- Always put help windows on the right
 vim.api.nvim_create_autocmd("BufEnter", {
   group = augroup("help"),

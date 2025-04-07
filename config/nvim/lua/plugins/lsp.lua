@@ -2,7 +2,10 @@ return {
   {
     "saghen/blink.cmp",
     lazy = false,
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      "Kaiser-Yang/blink-cmp-avante",
+    },
     build = "nix run .#build-plugin",
 
     ---@module 'blink.cmp'
@@ -10,10 +13,10 @@ return {
     opts = {
       keymap = {
         preset = "enter",
-        ["<Tab>"] = { "select_next", "fallback" },
-        ["<S-Tab>"] = { "select_prev", "fallback" },
-        ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-h>"] = { "snippet_backward", "fallback" },
+        -- ["<Tab>"] = { "select_next", "fallback" },
+        -- ["<S-Tab>"] = { "select_prev", "fallback" },
+        -- ["<C-l>"] = { "snippet_forward", "fallback" },
+        -- ["<C-h>"] = { "snippet_backward", "fallback" },
       },
 
       appearance = {
@@ -22,7 +25,27 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = {
+          "lazydev",
+          "avante",
+          "lsp",
+          "path",
+          "snippets",
+          "buffer",
+        },
+        providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {},
+          },
+
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 100,
+          },
+        },
       },
 
       completion = {
@@ -217,6 +240,9 @@ return {
       util.lsp.setup()
 
       vim.diagnostic.config({
+        jump = {
+          float = true,
+        },
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = " ",
@@ -247,43 +273,9 @@ return {
           vim.keymap.set(mode, lhs, rhs, map_opts)
         end
 
-        map("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" })
-        map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Show LSP Info" })
-
-        -- stylua: ignore start
-        map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-        map("n", "<leader>c", function() vim.diagnostic.jump({ float = true, count = 1 }) end,
-          { desc = "Next Diagnostic" })
-        map("n", "<leader>v", function() vim.diagnostic.jump({ float = true, count = -1 }) end,
-          { desc = "Previous Diagnostic" })
-        map("n", "]d", function() vim.diagnostic.jump({ float = true, count = 1 }) end, { desc = "Next Diagnostic" })
-        map("n", "[d", function() vim.diagnostic.jump({ float = true, count = -1 }) end, { desc = "Previous Diagnostic" })
-        map("n", "]e", function() vim.diagnostic.jump({ float = true, severity = 1, count = 1 }) end,
-          { desc = "Next Diagnostic" })
-        map("n", "[e", function() vim.diagnostic.jump({ float = true, severity = 1, count = -1 }) end,
-          { desc = "Previous Diagnostic" })
-        map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
         map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Show References" })
-        -- stylua: ignore end
-
-        if client.server_capabilities["signatureHelpProvider"] then
-          map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
-          map("i", "<c-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
-        end
-
-        if client.server_capabilities["codeActionProvider"] then
-          map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code Actions" })
-        end
-
-        if client.server_capabilities["definitionProvider"] then
-          map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
-        end
-
-        if client.server_capabilities["renameProvider"] then
-          map("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename" })
-        end
       end)
 
       vim.diagnostic.config(opts.diagnostics)
@@ -342,6 +334,7 @@ return {
                 "vtsls",
                 "gopls",
                 "nil_ls",
+                "lua_ls",
               }, client.name)
             end,
           })
@@ -462,5 +455,11 @@ return {
         vim.notify("rust-analyzer not found in PATH", vim.log.levels.ERROR)
       end
     end,
+  },
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } },
   },
 }

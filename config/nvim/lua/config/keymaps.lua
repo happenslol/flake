@@ -21,21 +21,6 @@ map("n", "<c-right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down", silent = true })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
--- Clear search
-map("n", "<leader>h", "<cmd>nohl<cr>", { silent = true, desc = "Clear Highlights" })
-
--- quickfix bindings
-map("n", "<leader>qk", ":copen<cr>", { silent = true, desc = "Open Quickfix List" })
-map("n", "<leader>qj", ":cclose<cr>", { silent = true, desc = "Close Quickfix List" })
-map("n", "<leader>ql", ":cnext<cr>", { silent = true, desc = "Next Quickfix Item" })
-map("n", "<leader>qh", ":cprev<cr>", { silent = true, desc = "Previous Quickfix Item" })
-
--- loclist bindings
-map("n", "<leader>ek", ":lopen<cr>", { silent = true, desc = "Open Location List" })
-map("n", "<leader>ej", ":lclose<cr>", { silent = true, desc = "Close Location List" })
-map("n", "<leader>el", ":lnext<cr>", { silent = true, desc = "Next Location Item" })
-map("n", "<leader>eh", ":lprev<cr>", { silent = true, desc = "Previous Location Item" })
-
 -- quicksave
 map("n", "<leader>w", ":w<cr>", { silent = true, desc = "Quicksave" })
 
@@ -70,3 +55,6 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 -- Delete default diagnostic keymaps
 vim.keymap.del("n", "<c-w>d")
 vim.keymap.del("n", "<c-w><c-d>")
+
+-- Clear highlights on <esc> in normal mode
+map("n", "<esc>", ":noh<cr><esc>", { silent = true })
