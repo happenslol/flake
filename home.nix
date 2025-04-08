@@ -314,5 +314,7 @@ in {
     nix-search-cli
     niri
     alacritty
+    plandex
+    plandex-server
   ];
 }

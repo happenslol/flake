@@ -47,7 +47,7 @@ return {
       { "<leader>gA", function() require("tinygit").amendNoEdit({ stageAllIfNothingChanged = true }) end, desc = "Amend all" },
       { "<leader>gg", function() require("tinygit").smartCommit() end, desc = "Commit" },
       { "<leader>gp", function() require("tinygit").push() end, desc = "Push" },
-      { "<leader>gh", function() require("tinygit").fileHistory() end, desc = "File History" },
+      { "<leader>gh", function() require("tinygit").fileHistory() end, mode = { "n", "v" }, desc = "File History" },
     },
   },
 

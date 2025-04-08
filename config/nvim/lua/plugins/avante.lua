@@ -3,7 +3,16 @@ return {
   event = "VeryLazy",
   version = false,
   opts = {
-    provider = "openai",
+    provider = "gemini",
+
+    claude = {
+      endpoint = "https://api.anthropic.com",
+      model = "claude-3-7-sonnet-20250219",
+      timeout = 30000,
+      temperature = 0,
+      max_tokens = 20480,
+    },
+
     openai = {
       endpoint = "https://api.openai.com/v1",
       model = "gpt-4o",
@@ -11,6 +20,14 @@ return {
       temperature = 0,
       max_tokens = 8192,
       -- reasoning_effort = "medium",
+    },
+
+    gemini = {
+      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+      model = "gemini-2.0-flash",
+      timeout = 30000,
+      temperature = 0,
+      max_tokens = 8192,
     },
 
     hints = { enabled = false },

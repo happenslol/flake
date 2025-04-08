@@ -66,7 +66,7 @@ return {
               })
             end,
           },
-        },
+    },
       }
 
       return {
