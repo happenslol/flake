@@ -315,6 +315,5 @@ in {
     niri
     alacritty
     plandex
-    plandex-server
   ];
 }
