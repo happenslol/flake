@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   version = false,
   opts = {
-    provider = "gemini",
+    provider = "claude",
     cursor_applying_provider = "groq",
 
     behaviour = {
@@ -46,6 +46,7 @@ return {
     },
 
     hints = { enabled = false },
+    web_search_engine = { provider = "kagi" },
   },
   build = "make",
   dependencies = {

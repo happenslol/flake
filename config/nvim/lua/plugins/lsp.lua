@@ -13,8 +13,8 @@ return {
     opts = {
       keymap = {
         preset = "enter",
-        -- ["<Tab>"] = { "select_next", "fallback" },
-        -- ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
         -- ["<C-l>"] = { "snippet_forward", "fallback" },
         -- ["<C-h>"] = { "snippet_backward", "fallback" },
       },
@@ -272,6 +272,13 @@ return {
           map_opts.silent = map_opts.silent ~= false
           vim.keymap.set(mode, lhs, rhs, map_opts)
         end
+
+        map("n", "<leader>c", function()
+          vim.diagnostic.jump({ float = true, count = 1 })
+        end, { desc = "Next Diagnostic" })
+        map("n", "<leader>v", function()
+          vim.diagnostic.jump({ float = true, count = -1 })
+        end, { desc = "Previous Diagnostic" })
 
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
