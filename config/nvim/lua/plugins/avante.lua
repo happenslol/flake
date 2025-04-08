@@ -5,6 +5,10 @@ return {
   opts = {
     provider = "gemini",
 
+    behaviour = {
+      enable_cursor_planning_mode = true,
+    },
+
     claude = {
       endpoint = "https://api.anthropic.com",
       model = "claude-3-7-sonnet-20250219",
