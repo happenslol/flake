@@ -4,6 +4,7 @@ return {
   version = false,
   opts = {
     provider = "gemini",
+    cursor_applying_provider = "groq",
 
     behaviour = {
       enable_cursor_planning_mode = true,
@@ -32,6 +33,16 @@ return {
       timeout = 30000,
       temperature = 0,
       max_tokens = 8192,
+    },
+
+    vendors = {
+      groq = { -- define groq provider
+        __inherited_from = "openai",
+        api_key_name = "GROQ_API_KEY",
+        endpoint = "https://api.groq.com/openai/v1/",
+        model = "llama-3.3-70b-versatile",
+        max_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
+      },
     },
 
     hints = { enabled = false },

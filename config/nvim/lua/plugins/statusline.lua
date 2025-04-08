@@ -24,7 +24,7 @@ return {
         options = {
           theme = "materialnight",
           globalstatus = false,
-          disabled_filetypes = { "neo-tree", "qf" },
+          disabled_filetypes = { "neo-tree", "qf", "Avante", "AvanteSelectedFiles", "AvanteInput" },
           component_separators = { left = "", right = "" },
           section_separators = { left = " ", right = " " },
         },
