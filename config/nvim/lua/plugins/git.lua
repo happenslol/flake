@@ -28,7 +28,7 @@ return {
         map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
         map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
         map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
-        map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+        map("n", "<leader>gP", gs.preview_hunk, "Preview Hunk")
         map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
         map("n", "<leader>gd", gs.diffthis, "Diff This")
         map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
@@ -39,31 +39,17 @@ return {
   },
 
   {
-    "tpope/vim-fugitive",
-    cmd = { "Git", "G", "Gdiff" },
-  },
-
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
-  },
-
-  {
-    "NeogitOrg/neogit",
-    dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim", "nvim-telescope/telescope.nvim" },
-    cmd = { "Neogit" },
+    "chrisgrieser/nvim-tinygit",
+    event = "VeryLazy",
+    -- stylua: ignore
     keys = {
-      { "<leader>u", "<cmd>Neogit<cr>", mode = "n" },
-      { "<leader>i", "<cmd>Neogit branch<cr>", mode = "n" },
-    },
-    opts = {
-      disable_hint = true,
-      graph_style = "unicode",
-      kind = "split",
-      integrations = {
-        telescope = true,
-        diffview = true,
-      },
+      { "<leader>ga", function() require("tinygit").interactiveStaging() end, desc = "Stage" },
+      { "<leader>gA", function() require("tinygit").amendNoEdit({ stageAllIfNothingChanged = true }) end, desc = "Amend all" },
+      { "<leader>gg", function() require("tinygit").smartCommit() end, desc = "Commit" },
+      { "<leader>gp", function() require("tinygit").push() end, desc = "Push" },
+      { "<leader>gh", function() require("tinygit").fileHistory() end, desc = "File History" },
     },
   },
+
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
 }
