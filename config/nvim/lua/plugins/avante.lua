@@ -4,10 +4,11 @@ return {
   version = false,
   opts = {
     provider = "claude",
-    cursor_applying_provider = "groq",
+    -- cursor_applying_provider = "groq",
 
     behaviour = {
-      enable_cursor_planning_mode = true,
+      enable_claude_text_editor_tool_mode = true,
+      -- enable_cursor_planning_mode = true,
     },
 
     claude = {
@@ -48,7 +49,9 @@ return {
     hints = { enabled = false },
     web_search_engine = { provider = "kagi" },
   },
+
   build = "make",
+
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "stevearc/dressing.nvim",
