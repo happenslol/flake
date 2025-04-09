@@ -48,6 +48,8 @@ return {
 
     hints = { enabled = false },
     web_search_engine = { provider = "kagi" },
+
+    windows = { sidebar_header = { enabled = false } },
   },
 
   build = "make",

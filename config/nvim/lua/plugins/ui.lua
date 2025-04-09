@@ -52,30 +52,6 @@ return {
         end,
         desc = "Noice All",
       },
-      -- {
-      --   "<c-f>",
-      --   function()
-      --     if not require("noice.lsp").scroll(4) then
-      --       return "<c-f>"
-      --     end
-      --   end,
-      --   silent = true,
-      --   expr = true,
-      --   desc = "Scroll forward",
-      --   mode = { "i", "n", "s" },
-      -- },
-      -- {
-      --   "<c-b>",
-      --   function()
-      --     if not require("noice.lsp").scroll(-4) then
-      --       return "<c-b>"
-      --     end
-      --   end,
-      --   silent = true,
-      --   expr = true,
-      --   desc = "Scroll backward",
-      --   mode = { "i", "n", "s" },
-      -- },
     },
   },
 
@@ -87,48 +63,6 @@ return {
   },
 
   {
-    "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
-    opts = {
-      input = {
-        default_prompt = "➤ ",
-        win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
-      },
-      select = {
-        backend = { "telescope" },
-        telescope = {
-          sorting_strategy = "ascending",
-          layout_strategy = "cursor",
-          layout_config = {
-            width = 80,
-            height = 9,
-          },
-          prompt_title = false,
-          results_title = false,
-          entry_prefix = "",
-          prompt_prefix = "",
-          selection_caret = "",
-          get_status_text = function()
-            return ""
-          end,
-        },
-      },
-    },
-  },
-
-  {
     "NvChad/nvim-colorizer.lua",
     event = "VeryLazy",
     opts = { user_default_options = { names = false } },
@@ -136,7 +70,6 @@ return {
 
   {
     "echasnovski/mini.indentscope",
-    version = false, -- wait till new 0.7.0 release to put it back on semver
     event = "VeryLazy",
     opts = function()
       local indentscope = require("mini.indentscope")
