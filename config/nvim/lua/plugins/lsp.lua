@@ -283,6 +283,10 @@ return {
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
         map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Show References" })
+
+        if client.server_capabilities["definitionProvider"] then
+          map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
+        end
       end)
 
       vim.diagnostic.config(opts.diagnostics)
