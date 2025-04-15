@@ -595,11 +595,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741544023,
-        "narHash": "sha256-q3EcbOv/AsmRL2k7WOWfWowKH5LoZN9nu7tPVpdXRnI=",
+        "lastModified": 1744715350,
+        "narHash": "sha256-As9gK10Fe79Fv/5CezsO0vRw6J2jPJbJg+1Odu1r8/8=",
         "owner": "happenslol",
         "repo": "pk-agent",
-        "rev": "7c270547324c573d63a0c89273d39f481b57c201",
+        "rev": "088582b60f9a926fc2a2f0f12078b94bc7d9ee0d",
         "type": "github"
       },
       "original": {
