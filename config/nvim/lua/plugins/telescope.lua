@@ -80,6 +80,7 @@ return {
             "--line-number",
             "--column",
             "--smart-case",
+            "--pcre2",
           },
 
           layout_config = {

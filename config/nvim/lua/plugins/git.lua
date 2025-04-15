@@ -22,8 +22,8 @@ return {
         -- stylua: ignore start
         map("n", "]h", gs.next_hunk, "Next Hunk")
         map("n", "[h", gs.prev_hunk, "Prev Hunk")
-        map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<cr>", "Stage Hunk")
+        map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<cr>", "Reset Hunk")
         map("n", "<leader>gt", gs.toggle_current_line_blame, "Toggle Current Line Blame")
         map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
         map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
@@ -32,7 +32,7 @@ return {
         map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
         map("n", "<leader>gd", gs.diffthis, "Diff This")
         map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        map({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
         -- stylua: ignore end
       end,
     },
@@ -51,5 +51,19 @@ return {
     },
   },
 
-  { "akinsho/git-conflict.nvim", version = "*", config = true },
+  {
+    "akinsho/git-conflict.nvim",
+    event = "VeryLazy",
+    version = "*",
+    config = true,
+    keys = {
+      { "<leader>gco", ":GitConflictChooseOurs<cr>", mode = "n", desc = "Choose ours" },
+      { "<leader>gct", ":GitConflictChooseTheirs<cr>", mode = "n", desc = "Choose theirs" },
+      { "<leader>gcb", ":GitConflictChooseBoth<cr>", mode = "n", desc = "Choose both" },
+      { "<leader>gcn", ":GitConflictChooseNone<cr>", mode = "n", desc = "Choose none" },
+      { "]c", ":GitConflictNextConflict<cr>", mode = "n", desc = "Next conflict" },
+      { "[c", ":GitConflictPrevConflict<cr>", mode = "n", desc = "Previous conflict" },
+      { "<leader>gcl", ":GitConflictListQf<cr>", mode = "n", desc = "List conflicts" },
+    },
+  },
 }

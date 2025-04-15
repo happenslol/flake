@@ -314,6 +314,6 @@ in {
     nix-search-cli
     niri
     alacritty
-    plandex
+    aichat
   ];
 }
