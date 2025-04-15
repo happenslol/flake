@@ -132,3 +132,6 @@ format = "[|](bright-black) [$symbol($version )]($style)"
 
 [elixir]
 format = "[|](bright-black) [$symbol($version \\(OTP $otp_version\\) )]($style)"
+
+[swift]
+format = "[|](bright-black) [$symbol($version )]($style)"
