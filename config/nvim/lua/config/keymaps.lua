@@ -58,3 +58,7 @@ vim.keymap.del("n", "<c-w><c-d>")
 
 -- Clear highlights on <esc> in normal mode
 map("n", "<esc>", ":noh<cr><esc>", { silent = true })
+
+-- Restart LSP and show info
+map("n", "<leader>lr", ":LspRestart<cr>", { silent = true })
+map("n", "<leader>li", ":LspInfo<cr>", { silent = true })
