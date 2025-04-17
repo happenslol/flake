@@ -66,3 +66,7 @@ map("n", "<esc>", function()
 
   return "<esc>"
 end, { silent = true, expr = true })
+
+-- Restart LSP and show info
+map("n", "<leader>lr", ":LspRestart<cr>", { silent = true })
+map("n", "<leader>li", ":LspInfo<cr>", { silent = true })
