@@ -25,7 +25,10 @@ require("lazy").setup({
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
     path = "~/code/nvim",
-    patterns = { "materialnight.nvim" },
+    patterns = {
+      "materialnight.nvim",
+      "avante.nvim",
+    },
     fallback = true,
   },
   performance = {

@@ -53,8 +53,16 @@ map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
 -- Delete default diagnostic keymaps
-vim.keymap.del("n", "<c-w>d")
-vim.keymap.del("n", "<c-w><c-d>")
+-- vim.keymap.del("n", "<c-w>d")
+-- TODO: Why did we do this again?
+-- vim.keymap.del("n", "<c-w><c-d>")
 
 -- Clear highlights on <esc> in normal mode
-map("n", "<esc>", ":noh<cr><esc>", { silent = true })
+map("n", "<esc>", function()
+  vim.cmd("nohlsearch")
+  if vim.snippet.active() then
+    vim.snippet.stop()
+  end
+
+  return "<esc>"
+end, { silent = true, expr = true })
