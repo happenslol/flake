@@ -48,7 +48,7 @@ in {
       enableCompletion = true;
       enableVteIntegration = true;
 
-      initExtra = "source $HOME/.config/zsh/init.zsh";
+      initContent = "source $HOME/.config/zsh/init.zsh";
     };
   };
 
@@ -126,6 +126,7 @@ in {
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
       "easyeffects/input/default.json".source = "${dotfiles}/easyeffects/input/default.json";
+      "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
     };
 
     systemDirs.data = [gsettingsDatadir];
