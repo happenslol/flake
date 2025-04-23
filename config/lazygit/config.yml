@@ -5,6 +5,7 @@ gui:
     sidePanelWidth: 0.3333
     expandFocusedSidePanel: false
     mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
+    skipDiscardChangeWarning: true
     theme:
         activeBorderColor:
             - "#becccc"
@@ -14,9 +15,7 @@ gui:
         optionsTextColor:
             - blue
         selectedLineBgColor:
-            - blue
-        selectedRangeBgColor:
-            - blue
+            - '#323232'
         cherryPickedCommitBgColor:
             - cyan
         cherryPickedCommitFgColor:
@@ -28,12 +27,10 @@ gui:
     commitLength:
         show: true
     mouseEvents: true
-    skipDiscardChangeWarning: false
     skipStashWarning: false
     showFileTree: true
     showListFooter: true
     showRandomTip: false
-    experimentalShowBranchHeads: false
     showBottomLine: false
     showCommandLog: true
     showIcons: false
@@ -55,7 +52,6 @@ git:
     allBranchesLogCmd: "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
     disableForcePushing: false
     parseEmoji: true
-    diffContextSize: 3
 os:
     editPreset: "" # see "Configuring File Editing" section
     edit: ""
