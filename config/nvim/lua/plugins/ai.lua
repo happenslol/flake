@@ -1,16 +1,3 @@
-local disabled_provider_tools = {
-  "list_files",
-  "search_files",
-  "read_file",
-  "create_file",
-  "rename_file",
-  "delete_file",
-  "create_dir",
-  "rename_dir",
-  "delete_dir",
-  "bash",
-}
-
 return {
   {
     "yetone/avante.nvim",
@@ -31,8 +18,6 @@ return {
         timeout = 30000,
         temperature = 0,
         max_tokens = 20480,
-
-        disabled_tools = disabled_provider_tools,
       },
 
       openai = {
@@ -41,8 +26,6 @@ return {
         timeout = 30000,
         temperature = 0,
         max_tokens = 8192,
-
-        disabled_tools = disabled_provider_tools,
       },
 
       gemini = {
@@ -51,8 +34,6 @@ return {
         timeout = 30000,
         temperature = 0,
         max_tokens = 20480,
-
-        disabled_tools = disabled_provider_tools,
       },
 
       vendors = {
