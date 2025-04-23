@@ -315,5 +315,8 @@ in {
     niri
     alacritty
     aichat
+    goose-cli
+    code-cursor
+    windsurf
   ];
 }
