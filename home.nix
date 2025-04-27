@@ -26,13 +26,7 @@
   happypkgs = {
     serve = inputs.serve.packages."${system}".default;
     pk-agent = inputs.pk-agent.packages."${system}".default;
-    pk-agent-dbg = pkgs.writeShellScriptBin "pk-agent-dbg" ''
-      echo "wayland display: $WAYLAND_DISPLAY"
-      echo "runtime dir: $XDG_RUNTIME_DIR"
-      echo "dbus session bus address: $DBUS_SESSION_BUS_ADDRESS"
-
-      exec ${happypkgs.pk-agent}/bin/pk-agent
-    '';
+    peek = inputs.peek.packages."${system}".default;
   };
 in {
   programs = {
@@ -96,7 +90,7 @@ in {
 
       Service = {
         Type = "simple";
-        ExecStart = "${happypkgs.pk-agent-dbg}/bin/pk-agent-dbg";
+        ExecStart = "${happypkgs.pk-agent}/bin/pk-agent";
         Restart = "on-failure";
         Environment = [
           "XDG_SESSION_TYPE=wayland"
@@ -319,5 +313,6 @@ in {
     goose-cli
     code-cursor
     windsurf
+    happypkgs.peek
   ];
 }
