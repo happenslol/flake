@@ -1,5 +1,11 @@
 return {
-  { "nmac427/guess-indent.nvim", config = true },
+  {
+    "nmac427/guess-indent.nvim",
+    config = true,
+    keys = {
+      { "<leader>i", "<cmd>GuessIndent<cr>", desc = "Guess indentation" },
+    },
+  },
   { "kylechui/nvim-surround", config = true, event = "VeryLazy" },
   { "folke/ts-comments.nvim", event = "VeryLazy", opts = {} },
 
