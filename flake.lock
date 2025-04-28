@@ -627,11 +627,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745785720,
-        "narHash": "sha256-E9Xj8ktUp/h8IL7CB6bIkTQo0uBmFED5HrV0kJ1He0s=",
+        "lastModified": 1745837408,
+        "narHash": "sha256-WW4ch2xYG97VA12jzvKUHFRWnxFbhyzgD1Dkc9XpDGI=",
         "owner": "happenslol",
         "repo": "peek",
-        "rev": "d6a57dcae33deb28f2684a493669c80648dfe8ac",
+        "rev": "8abb6d41724fd83ba31416183f048f168f60a6eb",
         "type": "github"
       },
       "original": {
