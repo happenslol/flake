@@ -112,6 +112,7 @@ in {
       "nix".source = "${dotfiles}/nix";
       "zsh".source = "${dotfiles}/zsh";
       "kitty".source = "${dotfiles}/kitty";
+      "ghostty".source = "${dotfiles}/ghostty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "hypr".source = "${dotfiles}/hypr";
       "tealdeer".source = "${dotfiles}/tealdeer";
@@ -314,5 +315,6 @@ in {
     code-cursor
     windsurf
     happypkgs.peek
+    ghostty
   ];
 }
