@@ -10,6 +10,7 @@ source ~/.config/zsh/config.zsh
 source ~/.config/zsh/keymaps.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/alias.zsh
+source ~/.config/zsh/util.zsh
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
