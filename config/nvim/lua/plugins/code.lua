@@ -2,6 +2,7 @@ return {
   {
     "nmac427/guess-indent.nvim",
     config = true,
+    lazy = false,
     keys = {
       { "<leader>i", "<cmd>GuessIndent<cr>", desc = "Guess indentation" },
     },
