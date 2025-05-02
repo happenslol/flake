@@ -316,5 +316,6 @@ in {
     windsurf
     happypkgs.peek
     ghostty
+    hyprpicker
   ];
 }

@@ -12,6 +12,7 @@ window-theme = ghostty
 resize-overlay = never
 focus-follows-mouse = true
 confirm-close-surface = false
+window-new-tab-position = end
 
 linux-cgroup = single-instance
 gtk-single-instance = true
@@ -20,6 +21,8 @@ adw-toolbar-style = flat
 gtk-wide-tabs = false
 
 # Theme
+gtk-custom-css = "./ghostty.css"
+
 cursor-color = "#ECEFF1"
 
 background = "#212121"
