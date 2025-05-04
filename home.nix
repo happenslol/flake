@@ -317,5 +317,6 @@ in {
     happypkgs.peek
     ghostty
     hyprpicker
+    mitmproxy
   ];
 }
