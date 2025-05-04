@@ -1,5 +1,5 @@
 # Fonts
-font-family = "IosevkaHappy NF"
+font-family = "IosevkaHappy NF Medium"
 font-family-bold = "IosevkaHappy NF Bold"
 font-family-italic = "IosevkaHappy NF Italic"
 font-family-bold-italic = "IosevkaHappy NF Bold Italic"
@@ -13,6 +13,7 @@ resize-overlay = never
 focus-follows-mouse = true
 confirm-close-surface = false
 window-new-tab-position = end
+mouse-scroll-multiplier = 0.5
 
 linux-cgroup = single-instance
 gtk-single-instance = true
@@ -50,7 +51,7 @@ palette = 15=#CCEEEE
 
 # Keymap
 keybind = ctrl+e>c=new_tab
-keybind = ctrl+e>x=close_tab
+keybind = ctrl+e>x=close_surface
 
 keybind = ctrl+e>o=new_split:down
 keybind = ctrl+e>u=new_split:right

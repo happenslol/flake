@@ -1,3 +1,7 @@
+tabbar tabbox {
+  background-color: #212121;
+}
+
 tab {
   font-family: "monospace";
 }
@@ -5,10 +9,6 @@ tab {
 tab:selected {
   background-color: #82aaff;
   color: #212121;
-}
-
-tabbox {
-  background-color: #212121;
 }
 
 tabbox > separator {
