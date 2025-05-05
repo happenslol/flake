@@ -85,6 +85,7 @@
     username = "happens";
 
     overlays = [
+      (import ./overlays/pnpm.nix)
       inputs.nixpkgs-wayland.overlay
       inputs.hyprland-contrib.overlays.default
     ];
