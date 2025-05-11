@@ -26,8 +26,8 @@ require("lazy").setup({
   dev = {
     path = "~/code/nvim",
     patterns = {
-      "materialnight.nvim",
       "avante.nvim",
+      "happenslol",
     },
     fallback = true,
   },

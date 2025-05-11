@@ -18,6 +18,10 @@
     neovim-nightly = let
       neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
     in (pkgs.writeShellScriptBin "nvim-nightly" "exec -a $0 ${neovim-nightly}/bin/nvim $@");
+
+    codelldb = pkgs.writeShellScriptBin "codelldb" ''
+      exec -a $0 ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
+    '';
   };
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
@@ -319,6 +323,7 @@ in {
     hyprpicker
     mitmproxy
     vscode-js-debug
-    bacon
+    luarocks
+    customPackages.codelldb
   ];
 }

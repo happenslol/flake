@@ -15,8 +15,6 @@ return {
         preset = "enter",
         ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
-        -- ["<C-l>"] = { "snippet_forward", "fallback" },
-        -- ["<C-h>"] = { "snippet_backward", "fallback" },
       },
 
       appearance = {
@@ -84,8 +82,6 @@ return {
           window = { border = "rounded" },
         },
       },
-
-      -- signature = { enabled = true },
     },
   },
 
@@ -273,12 +269,12 @@ return {
           vim.keymap.set(mode, lhs, rhs, map_opts)
         end
 
-        map("n", "<leader>c", function()
-          vim.diagnostic.jump({ float = true, count = 1 })
-        end, { desc = "Next Diagnostic" })
-        map("n", "<leader>v", function()
-          vim.diagnostic.jump({ float = true, count = -1 })
-        end, { desc = "Previous Diagnostic" })
+        map("n", "]e", function()
+          vim.diagnostic.jump({ float = true, count = 1, severity = vim.diagnostic.severity.ERROR })
+        end, { desc = "Next Error" })
+        map("n", "[e", function()
+          vim.diagnostic.jump({ float = true, count = -1, severity = vim.diagnostic.severity.ERROR })
+        end, { desc = "Previous Error" })
 
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
         map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
@@ -430,41 +426,6 @@ return {
     },
     config = function(_, opts)
       require("crates").setup(opts)
-    end,
-  },
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    ft = { "rust" },
-    opts = {
-      server = {
-        on_attach = function(_, bufnr)
-          vim.keymap.set("n", "<leader>dR", function()
-            vim.cmd.RustLsp("debuggables")
-          end, { desc = "Rust Debuggables", buffer = bufnr })
-        end,
-        default_settings = {
-          -- rust-analyzer language server configuration
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
-            },
-            -- Add clippy lints for Rust.
-            checkOnSave = true,
-            procMacro = { enable = true },
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
-      if vim.fn.executable("rust-analyzer") == 0 then
-        vim.notify("rust-analyzer not found in PATH", vim.log.levels.ERROR)
-      end
     end,
   },
 
