@@ -95,6 +95,9 @@
       config = {
         allowUnfree = true;
         allowBroken = true;
+
+        # Vesktop currently depends on an old electron version
+        permittedInsecurePackages = ["electron-33.4.11"];
       };
     };
 

@@ -314,9 +314,10 @@ in {
     goose-cli
     code-cursor
     windsurf
-    happypkgs.peek
+    # happypkgs.peek
     ghostty
     hyprpicker
     mitmproxy
+    vscode-js-debug
   ];
 }
