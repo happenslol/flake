@@ -178,10 +178,7 @@ return {
             size = 40,
           },
           {
-            elements = {
-              { id = "repl", size = 0.6 },
-              { id = "console", size = 0.4 },
-            },
+            elements = { { id = "repl", size = 1 } },
             position = "bottom",
             size = 10,
           },
