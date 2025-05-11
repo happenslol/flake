@@ -76,7 +76,7 @@ return {
           lualine_z = {},
         },
 
-        extensions = { "neo-tree", "lazy" },
+        extensions = { "neo-tree", "lazy", "nvim-dap-ui", "quickfix" },
       }
     end,
   },

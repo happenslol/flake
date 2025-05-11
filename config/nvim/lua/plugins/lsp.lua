@@ -439,7 +439,7 @@ return {
     opts = {
       server = {
         on_attach = function(_, bufnr)
-          vim.keymap.set("n", "<leader>dr", function()
+          vim.keymap.set("n", "<leader>dR", function()
             vim.cmd.RustLsp("debuggables")
           end, { desc = "Rust Debuggables", buffer = bufnr })
         end,
