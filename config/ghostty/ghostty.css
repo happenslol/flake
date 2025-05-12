@@ -8,11 +8,13 @@ tab {
 
 tab:selected {
   background-color: #82aaff;
+  border-color: #82aaff;
   color: #212121;
 }
 
-tabbox > separator {
-  opacity: 0;
+separator {
+  background-color: #212121;
+  border-color: #212121;
 }
 
 button.tab-close-button {
