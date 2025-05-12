@@ -10,12 +10,16 @@ window-inherit-working-directory = true
 window-decoration = none
 window-theme = ghostty
 resize-overlay = never
-focus-follows-mouse = true
 confirm-close-surface = false
-window-new-tab-position = end
-mouse-scroll-multiplier = 0.5
-
+mouse-scroll-multiplier = 0.6
+unfocused-split-opacity = 0.85
 linux-cgroup = single-instance
+
+# Undecided on these
+# window-new-tab-position = end
+# focus-follows-mouse = true
+
+# GTK/Adwaita config
 gtk-single-instance = true
 gtk-tabs-location = bottom
 adw-toolbar-style = flat
