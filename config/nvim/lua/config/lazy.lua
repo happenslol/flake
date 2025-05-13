@@ -28,6 +28,7 @@ require("lazy").setup({
     patterns = {
       "avante.nvim",
       "happenslol",
+      "crates.nvim",
     },
     fallback = true,
   },
