@@ -417,16 +417,16 @@ return {
 
   {
     "Saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
+    -- event = { "BufRead Cargo.toml" },
     opts = {
-      null_ls = {
+      completion = { crates = { enabled = true } },
+      lsp = {
         enabled = true,
-        name = "crates.nvim",
+        actions = true,
+        completion = true,
+        hover = true,
       },
     },
-    config = function(_, opts)
-      require("crates").setup(opts)
-    end,
   },
 
   {
