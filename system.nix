@@ -475,6 +475,12 @@ in {
       extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "vboxusers"];
       shell = pkgs.zsh;
     };
+
+    root.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS2P0chvWgX5gvfIMKcaSLclj/Awowvqk3lwXHzy4HU" # mira.personal
+    ];
   };
 
   networking = {

@@ -47,3 +47,11 @@ function _keymap_ls() {
 }
 zle -N keymap-ls-widget _keymap_ls
 bindkey "^K" keymap-ls-widget
+
+function _on_focus_in() { echo "\nfocus in\n" }
+zle -N on-focus-in-widget _on_focus_in
+bindkey "^[[I" on-focus-in-widget
+
+function _on_focus_out() { echo "\nfocus out\n" }
+zle -N on-focus-out-widget _on_focus_out
+bindkey "^[[O" on-focus-out-widget

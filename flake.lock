@@ -30,6 +30,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747274630,
+        "narHash": "sha256-87RJwXbfOHyzTB9LYagAQ6vOZhszCvd8Gvudu+gf3qo=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "ec7c109a4f794fce09aad87239eab7f66540b888",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -274,26 +294,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "grub2-theme": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1681053603,
-        "narHash": "sha256-oDdlqcEXw9XcINcQr6otwozBaDsvbfZvVKDgY9lc0dY=",
-        "owner": "happenslol",
-        "repo": "grub2-theme",
-        "rev": "9423a4db1e7ea40bf8ff98943b1a489105cdf2ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "happenslol",
-        "repo": "grub2-theme",
         "type": "github"
       }
     },
@@ -730,7 +730,7 @@
     },
     "root": {
       "inputs": {
-        "grub2-theme": "grub2-theme",
+        "disko": "disko",
         "home-manager": "home-manager",
         "hyprland-contrib": "hyprland-contrib",
         "neovim-nightly-overlay": "neovim-nightly-overlay",

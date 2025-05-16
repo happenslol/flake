@@ -8,6 +8,11 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,11 +36,6 @@
 
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    grub2-theme = {
-      url = "github:happenslol/grub2-theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -75,6 +75,7 @@
     nixpkgs,
     nixpkgs-stable,
     nixpkgs-pinned,
+    disko,
     home-manager,
     nix-index-database,
     ...
@@ -114,9 +115,11 @@
 
         modules = [
           nix-index-database.nixosModules.nix-index
+          disko.nixosModules.disko
           ./system.nix
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
           (./. + "/hosts/${hostname}/configuration.nix")
+          (./. + "/hosts/${hostname}/disk-config.nix")
 
           home-manager.nixosModules.home-manager
           {
