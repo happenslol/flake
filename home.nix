@@ -325,5 +325,6 @@ in {
     vscode-js-debug
     luarocks
     customPackages.codelldb
+    webcord
   ];
 }
