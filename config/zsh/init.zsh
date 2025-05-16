@@ -16,6 +16,8 @@ eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
 eval "$(direnv hook zsh)"
 
+[[ -f ~/code/basejump/zig-out/bin/basejump ]] && eval "$($HOME/code/basejump/zig-out/bin/basejump init)"
+
 autoload -Uz compinit
 for _ in ~/.zcompdump(N.mh+24); do compinit; done
 compinit -C
