@@ -136,7 +136,7 @@
     nixosConfigurations = {
       mira = mkHost {
         hostname = "mira";
-        stateVersion = "25.05";
+        stateVersion = "24.11";
       };
       roe2 = mkHost {
         hostname = "roe2";

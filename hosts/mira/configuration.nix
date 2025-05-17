@@ -1,37 +1,33 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  imports = [
-    inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
-    inputs.grub2-theme.nixosModules.default
-  ];
+{inputs, ...}: {
+  imports = [inputs.nixos-hardware.nixosModules.framework-12th-gen-intel];
 
-  networking.hostId = "3ef514cd";
-  networking.hostName = "mira";
+  networking = {
+    hostId = "3ef514cd";
+    hostName = "mira";
+  };
 
   boot = {
     loader = {
-      grub = {
-        gfxmodeEfi = pkgs.lib.mkForce "2256x1504,auto";
-        device = "nodev";
-        efiSupport = true;
-        enableCryptodisk = true;
-        efiInstallAsRemovable = true;
-      };
+      timeout = 0;
+      efi.canTouchEfiVariables = true;
 
-      grub2-theme = {
+      systemd-boot = {
         enable = true;
-        resolution = "3840x2160";
+        configurationLimit = 50;
       };
     };
 
     kernelParams = [
       "quiet"
-      "i915.force_probe=46a6"
       "splash"
       "loglevel=3"
+      "nowatchdog"
+      "systemd.show_status=auto"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=false"
+
+      "i915.force_probe=46a6"
 
       # Enable deep sleep
       "mem_sleep_default=deep"
@@ -39,13 +35,6 @@
       # https://community.frame.work/t/linux-battery-life-tuning/6665/156
       "nvme.noacpi=1"
     ];
-
-    initrd.luks.devices = {
-      root = {
-        device = "/dev/disk/by-uuid/bf23029a-e7de-415a-bfa2-6999f826a8b0";
-        preLVM = true;
-      };
-    };
   };
 
   programs.light.enable = true;
