@@ -81,7 +81,6 @@
   }: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
-    stateVersion = "24.11";
     username = "happens";
 
     overlays = [
@@ -107,7 +106,10 @@
     pkgs-stable = import nixpkgs-stable {inherit system;};
     pkgs-pinned = import nixpkgs-pinned {inherit system;};
 
-    mkHost = hostname:
+    mkHost = {
+      hostname,
+      stateVersion,
+    }:
       lib.nixosSystem {
         inherit system pkgs;
         specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable pkgs-pinned niqs;};
@@ -132,9 +134,18 @@
       };
   in {
     nixosConfigurations = {
-      mira = mkHost "mira";
-      roe2 = mkHost "roe2";
-      hei = mkHost "hei";
+      mira = mkHost {
+        hostname = "mira";
+        stateVersion = "25.05";
+      };
+      roe2 = mkHost {
+        hostname = "roe2";
+        stateVersion = "24.11";
+      };
+      hei = mkHost {
+        hostname = "hei";
+        stateVersion = "24.11";
+      };
     };
   };
 }
