@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -10,18 +9,18 @@
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["i915"];
+  boot.initrd.kernelModules = ["i915" "zfs"];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "rpool/system/root";
+    device = "rpool/root";
     fsType = "zfs";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/84BE-504B";
-    fsType = "vfat";
+  fileSystems."/var" = {
+    device = "rpool/var";
+    fsType = "zfs";
   };
 
   fileSystems."/nix" = {
@@ -29,19 +28,14 @@
     fsType = "zfs";
   };
 
-  fileSystems."/var" = {
-    device = "rpool/system/var";
-    fsType = "zfs";
-  };
-
   fileSystems."/home" = {
-    device = "rpool/user/home";
+    device = "rpool/home";
     fsType = "zfs";
   };
 
-  fileSystems."/nosync" = {
-    device = "rpool/user/nosync";
-    fsType = "zfs";
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-partlabel/disk-root-ESP";
+    fsType = "vfat";
   };
 
   swapDevices = [];
