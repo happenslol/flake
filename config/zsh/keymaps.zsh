@@ -31,6 +31,10 @@ function _keymap_nvim() { nvim-nightly; zle reset-prompt }
 zle -N keymap-nvim-widget _keymap_nvim
 bindkey "^N" keymap-nvim-widget
 
+function _keymap_nvim_blank() { NVIM_SESSION_BLANK=1 nvim-nightly; zle reset-prompt }
+zle -N keymap-nvim-blank-widget _keymap_nvim_blank
+bindkey "^[[109;5u" keymap-nvim-blank-widget
+
 function _keymap_lazygit() { lazygit; zle reset-prompt }
 zle -N keymap-lazygit-widget _keymap_lazygit
 bindkey "^G" keymap-lazygit-widget
