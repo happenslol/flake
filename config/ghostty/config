@@ -14,6 +14,7 @@ confirm-close-surface = false
 mouse-scroll-multiplier = 0.6
 unfocused-split-opacity = 0.85
 linux-cgroup = single-instance
+mouse-hide-while-typing = true
 
 # Undecided on these
 # window-new-tab-position = end
