@@ -85,6 +85,7 @@
 
     overlays = [
       (import ./overlays/pnpm.nix)
+      (import ./overlays/1password.nix)
       inputs.nixpkgs-wayland.overlay
       inputs.hyprland-contrib.overlays.default
     ];
