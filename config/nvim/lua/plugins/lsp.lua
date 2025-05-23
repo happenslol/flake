@@ -342,6 +342,7 @@ return {
                 "gopls",
                 "nil_ls",
                 "lua_ls",
+                "html",
               }, client.name)
             end,
           })
