@@ -124,8 +124,8 @@ in {
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
       "btop/btop.conf".source = "${dotfiles}/btop/btop.conf";
       "btop/themes".source = "${dotfiles}/btop/themes";
-      "easyeffects/input/default.json".source = "${dotfiles}/easyeffects/input/default.json";
       "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
+      "pnpm/rc".source = "${dotfiles}/pnpm/rc";
     };
 
     systemDirs.data = [gsettingsDatadir];
