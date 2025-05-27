@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     "saghen/blink.cmp",
@@ -8,7 +9,7 @@ return {
     },
     build = "nix run .#build-plugin",
 
-    ---@module 'blink.cmp'
+    ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
       keymap = {

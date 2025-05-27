@@ -1,18 +1,44 @@
+---@type LazySpec
 return {
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
+    lazy = false,
+    version = "^6",
     ft = { "rust" },
+
+    ---@module "rustaceanvim"
+    ---@type rustaceanvim.Config
     opts = {
+      tools = {
+        code_actions = {
+          keys = {
+            confirm = { "<cr>", "<space>" },
+            quit = { "q", "<esc>" },
+          },
+        },
+
+        float_win_config = {
+          border = "rounded",
+        },
+      },
+
       server = {
         on_attach = function(_, bufnr)
           vim.keymap.set("n", "<leader>dR", function()
             vim.cmd.RustLsp("debuggables")
           end, { desc = "Rust Debuggables", buffer = bufnr })
 
-          -- vim.keymap.set("n", "<leader>", function()
-          --   vim.cmd.RustLsp("codeAction")
-          -- end, { desc = "Code Action", buffer = bufnr })
+          vim.keymap.set("n", "grm", function()
+            vim.cmd.RustLsp("expandMacro")
+          end, { desc = "Expand Macro", buffer = bufnr })
+
+          vim.keymap.set("n", "gra", function()
+            vim.cmd.RustLsp("codeAction")
+          end, { desc = "Code Actions", buffer = bufnr })
+
+          vim.keymap.set("n", "K", function()
+            vim.cmd.RustLsp({ "hover", "actions" })
+          end, { desc = "", buffer = bufnr })
         end,
         default_settings = {
           ["rust-analyzer"] = {
@@ -36,16 +62,18 @@ return {
             },
           },
         },
+      },
 
-        dap = {
-          adapter = {
-            type = "server",
-            port = "${port}",
-            host = "127.0.0.1",
-            executable = { command = "codelldb", args = { "--port", "${port}" } },
-          },
+      dap = {
+        adapter = {
+          type = "server",
+          port = "${port}",
+          host = "127.0.0.1",
+          executable = { command = "codelldb", args = { "--port", "${port}" } },
         },
       },
+
+      was_g_rustaceanvim_sourced = nil,
     },
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
