@@ -3,6 +3,7 @@ set shell := ["zsh", "-c"]
 alias p := push
 alias f := format
 alias a := apply
+alias npmi := npm-install
 
 default:
   just --list
@@ -11,6 +12,14 @@ default:
 @apply:
   git add .
   sudo nixos-rebuild switch --flake ~/.flake#
+
+[working-directory: "packages/npm-global"]
+npm-install *ARGS:
+  #!/usr/bin/env zsh
+  npm i --package-lock-only {{ARGS}}
+  hash=$(prefetch-npm-deps package-lock.json)
+  escaped=$(printf '%s\n' "$hash" | sed -e 's/[\/&]/\\&/g')
+  sed -i "s|npmDepsHash = \".*\";|npmDepsHash = \"$escaped\";|" default.nix
 
 # Build the current flake configuration
 @build:

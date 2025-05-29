@@ -22,6 +22,8 @@
     codelldb = pkgs.writeShellScriptBin "codelldb" ''
       exec -a $0 ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
     '';
+
+    npm-global = pkgs.callPackage ./packages/npm-global {};
   };
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
@@ -326,5 +328,7 @@ in {
     luarocks
     customPackages.codelldb
     webcord
+    customPackages.npm-global
+    prefetch-npm-deps
   ];
 }
