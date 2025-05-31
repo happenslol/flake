@@ -80,35 +80,6 @@ return {
           },
         },
       },
-
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-          code = {
-            border = "thin",
-            inline_pad = 1,
-          },
-        },
-        ft = { "markdown", "Avante" },
-      },
     },
-  },
-
-  {
-    "ravitemer/mcphub.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "MCPHub",
-    build = "bundled_build.lua",
-    config = function()
-      require("mcphub").setup({
-        use_bundled_binary = true,
-        extensions = {
-          avante = {
-            make_slash_commands = true,
-          },
-        },
-      })
-    end,
   },
 }

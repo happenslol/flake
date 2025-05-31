@@ -20,7 +20,10 @@ return {
       use_git_branch = true,
       autostart = should_load,
       autoload = should_load,
-      allowed_dirs = { "~" },
+      ignored_dirs = { "/nix", "/tmp" },
+
+      -- TODO: This isn't working
+      allowed_dirs = { "~/" },
     }
   end,
 }

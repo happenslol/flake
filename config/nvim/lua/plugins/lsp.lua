@@ -156,7 +156,7 @@ return {
             settings = {
               Lua = {
                 codeLens = { enable = false },
-                workspace = { checkThirdParty = false },
+                workspace = { checkThirdParty = true },
                 completion = { callSnippet = "Replace" },
               },
             },

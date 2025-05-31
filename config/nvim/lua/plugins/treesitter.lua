@@ -15,14 +15,14 @@ return {
       indent = { enable = true },
       -- stylua: ignore
       ensure_installed = {
-        "bash", "c", "cpp", "comment", "css", "cue", "dockerfile", "dot",
-        "elixir", "heex", "eex", "git_rebase", "gitcommit", "gitignore",
-        "gitattributes", "glsl", "go", "gomod", "gosum", "gowork", "graphql",
-        "hcl", "html", "http", "ini", "java", "javascript", "jq", "jsdoc",
-        "json", "jsonc", "json5", "just", "lua", "luadoc", "make", "markdown",
-        "markdown_inline", "nix", "rasi", "regex", "rust", "sql", "svelte",
-        "terraform", "toml", "tsx", "typescript", "typespec", "vim", "vue",
-        "yaml", "yuck", "zig",
+        "bash", "c", "cpp", "python", "c_sharp", "comment", "css", "cue",
+        "dockerfile", "dot", "elixir", "heex", "eex", "git_rebase",
+        "gitcommit", "gitignore", "gitattributes", "glsl", "go", "gomod",
+        "gosum", "gowork", "graphql", "hcl", "html", "http", "ini", "java",
+        "javascript", "jq", "jsdoc", "json", "jsonc", "json5", "just", "lua",
+        "luadoc", "make", "markdown", "markdown_inline", "nix", "rasi",
+        "regex", "rust", "sql", "svelte", "terraform", "toml", "tsx",
+        "typescript", "typespec", "vim", "vue", "yaml", "yuck", "zig",
       },
     },
     config = function(_, opts)
