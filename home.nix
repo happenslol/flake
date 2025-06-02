@@ -330,5 +330,6 @@ in {
     webcord
     customPackages.npm-global
     prefetch-npm-deps
+    fend
   ];
 }
