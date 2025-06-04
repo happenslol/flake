@@ -6,5 +6,6 @@ return {
   },
   build = "cargo build --release",
   lazy = false,
+
   opts = {},
 }

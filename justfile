@@ -13,7 +13,7 @@ default:
   git add .
   sudo nixos-rebuild switch --flake ~/.flake#
 
-[working-directory: "packages/npm-global"]
+[working-directory: "npm-global"]
 npm-install *ARGS:
   #!/usr/bin/env zsh
   npm i --package-lock-only {{ARGS}}

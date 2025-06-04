@@ -49,11 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     serve = {
       url = "github:happenslol/serve";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -84,10 +79,10 @@
     username = "happens";
 
     overlays = [
-      (import ./overlays/pnpm.nix)
-      (import ./overlays/1password.nix)
+      (import ./overlay.nix)
       inputs.nixpkgs-wayland.overlay
       inputs.hyprland-contrib.overlays.default
+      inputs.neovim-nightly-overlay.overlays.default
     ];
 
     pkgs = import nixpkgs {

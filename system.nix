@@ -9,39 +9,26 @@
   niqs,
   ...
 }: let
-  customPackages = {
-    setup-hyprland-environment = pkgs.writeTextFile {
-      name = "setup-hyprland-environment";
-      destination = "/bin/setup-hyprland-environment";
-      executable = true;
+  setup-hyprland-environment = pkgs.writeTextFile {
+    name = "setup-hyprland-environment";
+    destination = "/bin/setup-hyprland-environment";
+    executable = true;
 
-      text = ''
-        #!/usr/bin/env bash
-        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
-          DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
-          HYPRLAND_INSTANCE_SIGNATURE
+    text = ''
+      #!/usr/bin/env bash
+      ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
+        DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
+        HYPRLAND_INSTANCE_SIGNATURE
 
-        systemctl --user import-environment \
-          DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-        systemctl --user start hyprland-session.target
+      systemctl --user import-environment \
+        DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      systemctl --user start hyprland-session.target
 
-        # The desktop portal does not find applications if we don't do this.
-        # See: https://discourse.nixos.org/t/open-links-from-flatpak-via-host-firefox/15465/11
-        systemctl --user import-environment PATH
-        systemctl --user restart xdg-desktop-portal.service
-      '';
-    };
-
-    session = pkgs.writeTextFile {
-      name = "setup-hyprland-environment";
-      destination = "/bin/hyprland-session";
-      executable = true;
-
-      text = ''
-        #!/usr/bin/env bash
-        ${pkgs.hyprland}/bin/hyprland > /dev/null 2>&1
-      '';
-    };
+      # The desktop portal does not find applications if we don't do this.
+      # See: https://discourse.nixos.org/t/open-links-from-flatpak-via-host-firefox/15465/11
+      systemctl --user import-environment PATH
+      systemctl --user restart xdg-desktop-portal.service
+    '';
   };
 
   greetd = {
@@ -67,11 +54,6 @@
     '';
   };
 
-  rocmEnv = pkgs.symlinkJoin {
-    name = "rocm-combined";
-    paths = with pkgs.rocmPackages; [rocblas hipblas clr];
-  };
-
   patchIosevka = font:
     pkgs-pinned.stdenv.mkDerivation {
       name = "${font.name}-nerd-font";
@@ -89,22 +71,6 @@
       '';
     };
 
-  # NOTE: Iosevka build plan
-  # [buildPlans.IosevkaHappy]
-  # family = "Iosevka Happy"
-  # spacing = "term"
-  # serifs = "sans"
-  # noCvSs = false
-  # exportGlyphNames = true
-  #
-  # [buildPlans.IosevkaHappy.variants.design]
-  # lig-ltgteq = "slanted"
-  # lig-equal-chain = "without-notch"
-  # lig-hyphen-chain = "without-notch"
-  #
-  # inherits = "dlig"
-  # [buildPlans.IosevkaHappy.ligations]
-
   iosevka-happy = pkgs-pinned.iosevka.override {
     set = "happy";
 
@@ -115,12 +81,10 @@
       noCvSs = false;
       exportGlyphNames = true;
 
-      variants = {
-        design = {
-          lig-ltgteq = "slanted";
-          lig-hyphen-chain = "without-notch";
-          lig-equal-chain = "without-notch";
-        };
+      variants.design = {
+        lig-ltgteq = "slanted";
+        lig-hyphen-chain = "without-notch";
+        lig-equal-chain = "without-notch";
       };
 
       ligations = {
@@ -135,10 +99,7 @@ in {
   system = {inherit stateVersion;};
 
   systemd = {
-    tmpfiles.rules = [
-      "Z /etc/greetd - greeter greeter"
-      "L+ /opt/rocm - - - - ${rocmEnv}"
-    ];
+    tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
 
     user.targets.hyprland-session = {
       description = "Hyprland compositor session";
@@ -215,14 +176,12 @@ in {
       systemd.enable = true;
     };
 
-    # Increase max vm map count for nodejs workers
-    # running out of heap memory
+    # Increase max vm map count for nodejs workers running out of heap memory
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
     kernelPackages = pkgs.linuxKernel.packages.linux_6_14;
     extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
-    # Enable zfs and ntfs3g
     supportedFilesystems = ["zfs" "ntfs"];
   };
 
@@ -261,17 +220,10 @@ in {
     dconf.enable = true;
     zsh.enable = true;
 
-    # river = {
-    #   enable = true;
-    #   xwayland.enable = true;
-    # };
-
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
-
-    # niri.enable = true;
 
     xwayland.enable = pkgs.lib.mkForce true;
 
@@ -292,116 +244,38 @@ in {
 
     nix-ld = {
       enable = true;
-      libraries = with pkgs; [
-        stdenv.cc.cc
-        fuse3
-        alsa-lib
-        at-spi2-atk
-        at-spi2-core
-        atk
-        cairo
-        cups
-        curl
-        dbus
-        expat
-        fontconfig
-        freetype
-        gdk-pixbuf
-        glib
-        gtk3
-        librsvg
-        libGL
-        libappindicator-gtk3
-        libdrm
-        libnotify
-        libpulseaudio
-        libuuid
-        libusb1
-        xorg.libxcb
-        libxkbcommon
-        mesa
-        nspr
-        nss
-        pango
-        pipewire
-        systemd
-        icu
-        openssl
-        xorg.libX11
-        xorg.libXScrnSaver
-        xorg.libXcomposite
-        xorg.libXcursor
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXi
-        xorg.libXrandr
-        xorg.libXrender
-        xorg.libXtst
-        xorg.libxkbfile
-        xorg.libxshmfence
-        zlib
-      ];
+      libraries = builtins.concatLists (builtins.attrValues (import ./ld.nix pkgs));
     };
   };
 
   # See https://nixos.wiki/wiki/Command_Shell
   users.defaultUserShell = pkgs.zsh;
+
   environment = {
-    # enableAllTerminfo = true;
+    enableAllTerminfo = true;
     shells = [pkgs.zsh pkgs.bash];
     binsh = "${pkgs.dash}/bin/dash";
 
     systemPackages = with pkgs; [
-      vim
-      wget
+      neovim
       curl
-      swww
       kitty
-      wayland
-      glib
-      wl-clipboard
-      slurp
-      grim
-      wdisplays
-      pulseaudio
-      kanshi
-      file-roller
-      lm_sensors
 
+      setup-hyprland-environment
+
+      # Theme stuff
       (orchis-theme.override {border-radius = 4;})
-      qogir-icon-theme
-      customPackages.setup-hyprland-environment
-      customPackages.session
       bibata-cursors
       niqs.bibata-hyprcursor
-      gtk3
-      xwayland-satellite
+      qogir-icon-theme
     ];
 
     pathsToLink = ["/share/zsh"];
-
-    etc."greetd/.icons/default/index.theme".text = ''
-      [Icon Theme
-      Name=Default
-      Comment=Default Cursor Theme
-      Inherits=Bibata-Modern-Classic
-    '';
 
     etc."greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
     etc."greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
     etc."greetd/.config/hypr".source = ./config/hypr;
     etc."greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
-    etc."greetd/environments".text = ''
-      Hyprland
-      niri-session
-    '';
-
-    # Allow 1password to communicate with zen
-    etc."1password/custom_allowed_browsers" = {
-      text = ".zen-wrapped";
-      mode = "0755";
-    };
   };
 
   services = {
@@ -416,12 +290,6 @@ in {
 
     # Start xdg autostart services
     xserver.desktopManager.runXdgAutostartIfNone = true;
-
-    ollama = {
-      enable = true;
-      acceleration = "rocm";
-      rocmOverrideGfx = "10.3.6";
-    };
 
     zfs = {
       autoScrub.enable = true;
@@ -439,11 +307,6 @@ in {
       };
     };
 
-    hardware.openrgb = {
-      enable = true;
-      package = pkgs.openrgb-with-all-plugins;
-    };
-
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -452,11 +315,7 @@ in {
 
     greetd = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.hyprland}/bin/Hyprland -c ${greetd.hyprlandConfig}";
-        };
-      };
+      settings.default_session.command = "${pkgs.hyprland}/bin/Hyprland -c ${greetd.hyprlandConfig}";
     };
 
     printing.enable = true;
@@ -472,7 +331,7 @@ in {
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "vboxusers"];
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
       shell = pkgs.zsh;
     };
   };
@@ -482,24 +341,19 @@ in {
     firewall.enable = false;
   };
 
-  security = {
-    rtkit.enable = true;
-    pam.services.gtklock = {};
-    pam.services.dash3 = {};
-  };
+  security.rtkit.enable = true;
 
   virtualisation.docker = {
     enable = true;
     storageDriver = "overlay2";
+    autoPrune.enable = true;
   };
 
   fonts = {
-    fontconfig = {
-      defaultFonts = {
-        sansSerif = ["Noto Sans"];
-        serif = ["Noto Serif"];
-        monospace = ["IosevkaHappy NF Medium"];
-      };
+    fontconfig.defaultFonts = {
+      sansSerif = ["Noto Sans"];
+      serif = ["Noto Serif"];
+      monospace = ["IosevkaHappy NF Medium"];
     };
 
     packages = with pkgs; [

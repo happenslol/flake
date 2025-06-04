@@ -27,7 +27,7 @@ zle -N down-line-or-beginning-search
 
 bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 
-function _keymap_nvim() { nvim-nightly; zle reset-prompt }
+function _keymap_nvim() { nvim; zle reset-prompt }
 zle -N keymap-nvim-widget _keymap_nvim
 bindkey "^N" keymap-nvim-widget
 

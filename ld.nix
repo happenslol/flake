@@ -1,0 +1,55 @@
+pkgs: {
+  pkgs = with pkgs; [
+    stdenv.cc.cc
+    fuse3
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    cairo
+    cups
+    curl
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    librsvg
+    libGL
+    libappindicator-gtk3
+    libdrm
+    libnotify
+    libpulseaudio
+    libuuid
+    libusb1
+    libxkbcommon
+    mesa
+    nspr
+    nss
+    pango
+    pipewire
+    systemd
+    icu
+    openssl
+    zlib
+  ];
+
+  xorg = with pkgs.xorg; [
+    libxcb
+    libX11
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libXtst
+    libxkbfile
+    libxshmfence
+  ];
+}

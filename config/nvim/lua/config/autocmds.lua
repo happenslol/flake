@@ -44,9 +44,9 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
-  callback = function(event)
+  callback = function(ev)
     local exclude = { "gitcommit" }
-    local buf = event.buf
+    local buf = ev.buf
     if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
       return
     end
@@ -93,14 +93,14 @@ vim.api.nvim_create_autocmd("FileType", {
     "startuptime",
     "tsplayground",
   },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
+  callback = function(ev)
+    vim.bo[ev.buf].buflisted = false
     vim.schedule(function()
       vim.keymap.set("n", "q", function()
         vim.cmd("close")
-        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+        pcall(vim.api.nvim_buf_delete, ev.buf, { force = true })
       end, {
-        buffer = event.buf,
+        buffer = ev.buf,
         silent = true,
         desc = "Quit buffer",
       })
@@ -112,8 +112,18 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("neo-tree"),
   pattern = "neo-tree",
-  callback = function(event)
-    vim.keymap.set("n", "<c-l>", "<cmd>vertical resize +15<cr>", { buffer = event.buf, silent = true })
-    vim.keymap.set("n", "<c-h>", "<cmd>vertical resize -15<cr>", { buffer = event.buf, silent = true })
+  callback = function(ev)
+    vim.keymap.set("n", "<c-l>", "<cmd>vertical resize +15<cr>", { buffer = ev.buf, silent = true })
+    vim.keymap.set("n", "<c-h>", "<cmd>vertical resize -15<cr>", { buffer = ev.buf, silent = true })
+  end,
+})
+
+-- Allow running lua code in lua buffers
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("lua_dev"),
+  pattern = "lua",
+  callback = function(ev)
+    vim.keymap.set("n", "<leader>rl", ":%lua<cr>", { buffer = ev.buf })
+    vim.keymap.set("x", "<leader>rl", ":'<,'>lua<cr>", { buffer = ev.buf })
   end,
 })
