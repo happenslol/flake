@@ -113,6 +113,7 @@ pkgs: {
     hyprpicker
     prefetch-npm-deps
     vesktop
+    fend
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
