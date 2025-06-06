@@ -114,6 +114,9 @@ pkgs: {
     prefetch-npm-deps
     vesktop
     fend
+    pulseaudio
+    bun
+    vscode-js-debug
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
