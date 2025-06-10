@@ -118,6 +118,7 @@ in {
       "btop/themes".source = "${dotfiles}/btop/themes";
       "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
       "pnpm/rc".source = "${dotfiles}/pnpm/rc";
+      "zed".source = "${dotfiles}/zed";
     };
 
     systemDirs.data = [gsettingsDatadir];
