@@ -1,0 +1,51 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "ctrl-n": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-n": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      ";": "command_palette::Toggle",
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward",
+      "space w": "workspace::Save",
+      "space f": "editor::Format",
+      "g r a": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      ";": "vim::VisualCommand",
+      "shift-s": ["vim::PushAddSurrounds", {}]
+    }
+  },
+  {
+    "context": "VimControl && VimCount",
+    "bindings": {
+      ";": "vim::CountCommand"
+    }
+  },
+  {
+    "context": "ChangesList || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Welcome",
+    "bindings": {
+      ";": "command_palette::Toggle"
+    }
+  }
+]
