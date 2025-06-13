@@ -1,6 +1,7 @@
 SSH_ENV="$HOME/.ssh/agent-environment"
 
 function start_agent {
+  # Prevent ssh-agent from echoing its id when starting
   ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
   chmod 600 "${SSH_ENV}"
   . "${SSH_ENV}" > /dev/null
