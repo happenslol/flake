@@ -142,9 +142,14 @@ disabled = false
 format = "[$loaded](green)[$allowed](#f78c6c) "
 unloaded_msg = ""
 allowed_msg = ""
-
 # Alternative icons:
 #     
 loaded_msg = "󱥾 "
 not_allowed_msg = "󱧊 "
 denied_msg = "󰉘 "
+
+[username]
+format = "[$user]($style)[@](bright-black)"
+
+[hostname]
+format = "[$hostname]($style) "

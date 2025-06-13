@@ -9,6 +9,12 @@
   niqs,
   ...
 }: let
+  sshPublicKeys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS2P0chvWgX5gvfIMKcaSLclj/Awowvqk3lwXHzy4HU" # mira.personal
+  ];
+
   setup-hyprland-environment = pkgs.writeTextFile {
     name = "setup-hyprland-environment";
     destination = "/bin/setup-hyprland-environment";
@@ -329,6 +335,11 @@ in {
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        domain = true;
+      };
     };
   };
 
@@ -339,6 +350,7 @@ in {
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
       shell = pkgs.zsh;
+      openssh.authorizedKeys.keys = sshPublicKeys;
     };
   };
 
