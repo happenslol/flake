@@ -1,7 +1,3 @@
-# Frequently used
-alias nv="nvim-nightly "
-alias nvo="nvim "
-
 alias k="kubectl "
 alias sr="steam-run "
 alias tf="terraform "
