@@ -117,6 +117,7 @@ pkgs: {
     pulseaudio
     bun
     vscode-js-debug
+    foot
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
