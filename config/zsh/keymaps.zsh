@@ -31,7 +31,7 @@ function _keymap_nvim() { nvim; zle reset-prompt }
 zle -N keymap-nvim-widget _keymap_nvim
 bindkey "^N" keymap-nvim-widget
 
-function _keymap_nvim_blank() { NVIM_SESSION_BLANK=1 nvim-nightly; zle reset-prompt }
+function _keymap_nvim_blank() { NVIM_SESSION_BLANK=1 nvim; zle reset-prompt }
 zle -N keymap-nvim-blank-widget _keymap_nvim_blank
 bindkey "^[[109;5u" keymap-nvim-blank-widget
 
@@ -42,6 +42,10 @@ bindkey "^G" keymap-lazygit-widget
 function _keymap_yazi() { yazi; zle reset-prompt }
 zle -N keymap-yazi-widget _keymap_yazi
 bindkey "^F" keymap-yazi-widget
+
+function _keymap_edit_flake() { (cd ~/.flake && nvim); zle reset-prompt }
+zle -N keymap-edit-flake-widget _keymap_edit_flake
+bindkey "^[[09;5u" keymap-edit-flake-widget
 
 function _keymap_ls() {
   echo
