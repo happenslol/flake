@@ -15,7 +15,7 @@
 
 [includeIf "gitdir:~/opencreek/"]
   path = ~/.gitconfig-opencreek
-[includeIf "gitdir:~/garage51/"]
+[includeIf "gitdir:~/garage/"]
   path = ~/.gitconfig-garage
 
 [url "git@github.com:"]

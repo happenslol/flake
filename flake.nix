@@ -105,29 +105,28 @@
     mkHost = {
       hostname,
       stateVersion,
-    }:
-      lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable pkgs-pinned niqs;};
+    }: (lib.nixosSystem {
+      inherit system pkgs;
+      specialArgs = {inherit inputs stateVersion hostname username system pkgs-stable pkgs-pinned niqs;};
 
-        modules = [
-          nix-index-database.nixosModules.nix-index
-          ./system.nix
-          (./. + "/hosts/${hostname}/hardware-configuration.nix")
-          (./. + "/hosts/${hostname}/configuration.nix")
+      modules = [
+        nix-index-database.nixosModules.nix-index
+        ./system.nix
+        (./. + "/hosts/${hostname}/hardware-configuration.nix")
+        (./. + "/hosts/${hostname}/configuration.nix")
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {inherit inputs stateVersion hostname system username niqs pkgs-stable;};
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {inherit inputs stateVersion hostname system username niqs pkgs-stable;};
 
-              users.${username} = import ./home.nix;
-            };
-          }
-        ];
-      };
+            users.${username} = import ./home.nix;
+          };
+        }
+      ];
+    });
   in {
     nixosConfigurations = {
       mira = mkHost {
@@ -143,5 +142,7 @@
         stateVersion = "24.11";
       };
     };
+
+    devShells.${system} = import ./devshells.nix pkgs;
   };
 }
