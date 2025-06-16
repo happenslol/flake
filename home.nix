@@ -107,7 +107,6 @@ in {
       "host".source = hostDotfiles;
       "bat".source = "${dotfiles}/bat";
       "nvim".source = "${dotfiles}/nvim";
-      "nix".source = "${dotfiles}/nix";
       "zsh".source = "${dotfiles}/zsh";
       "kitty".source = "${dotfiles}/kitty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";

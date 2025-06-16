@@ -148,6 +148,7 @@ in {
 
     settings = {
       trusted-users = ["root" "happens"];
+      experimental-features = ["nix-command" "flakes" "pipe-operators"];
 
       substituters = [
         "https://nix-community.cachix.org"
@@ -160,10 +161,7 @@ in {
     };
 
     package = pkgs.nixVersions.stable;
-    extraOptions = ''
-      experimental-features = nix-command flakes pipe-operators
-      warn-dirty = false
-    '';
+    extraOptions = "warn-dirty = false";
 
     settings.auto-optimise-store = true;
     gc = {
