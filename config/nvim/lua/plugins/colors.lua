@@ -1,6 +1,7 @@
 return {
   {
     "happenslol/materialnight.nvim",
+    dev = false,
     lazy = false,
     priority = 1000,
     config = {},

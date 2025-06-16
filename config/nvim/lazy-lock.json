@@ -18,6 +18,7 @@
   "leap.nvim": { "branch": "main", "commit": "10c14af4ddfb34dbd7721f0bfb2b4d91f0558907" },
   "lualine.nvim": { "branch": "master", "commit": "a94fc68960665e54408fe37dcf573193c4ce82c9" },
   "markview.nvim": { "branch": "main", "commit": "9d0d9e322250a79b457df7e31a00f76858c168ba" },
+  "materialnight.nvim": { "branch": "main", "commit": "046acb2b79f04496889cf64aea8d3433296cc111" },
   "mini.indentscope": { "branch": "main", "commit": "5fdc3edf7bb1b6365980c2c47dac2f19ec93c97b" },
   "mini.pairs": { "branch": "main", "commit": "42407ccb80ec59c84e7c91d815f42ed90a8cc093" },
   "mini.splitjoin": { "branch": "main", "commit": "ebde0e2a33ec983ade3b2bb3c495b3751b458e4c" },

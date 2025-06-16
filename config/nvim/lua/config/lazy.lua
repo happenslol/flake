@@ -22,7 +22,6 @@ require("lazy").setup({
   },
   checker = { notify = false },
   change_detection = { notify = false },
-  ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
     path = "~/code/nvim",
     patterns = {
