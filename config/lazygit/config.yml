@@ -1,70 +1,71 @@
 gui:
-    screenMode: "normal"
-    scrollHeight: 5
-    scrollPastBottom: true
-    sidePanelWidth: 0.3333
-    expandFocusedSidePanel: false
-    mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
-    skipDiscardChangeWarning: true
-    theme:
-        activeBorderColor:
-            - "#becccc"
-            - bold
-        inactiveBorderColor:
-            - "#424242"
-        optionsTextColor:
-            - blue
-        selectedLineBgColor:
-            - '#323232'
-        cherryPickedCommitBgColor:
-            - cyan
-        cherryPickedCommitFgColor:
-            - blue
-        unstagedChangesColor:
-            - red
-        defaultFgColor:
-            - default
-    commitLength:
-        show: true
-    mouseEvents: true
-    skipStashWarning: false
-    showFileTree: true
-    showListFooter: true
-    showRandomTip: false
-    showBottomLine: false
-    showCommandLog: true
-    showIcons: false
-    commandLogSize: 8
-    skipRewordInEditorWarning: false
-    border: rounded
+  screenMode: "normal"
+  scrollHeight: 5
+  scrollPastBottom: true
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: false
+  mainPanelSplitMode: "flexible" # one of "horizontal" | "flexible" | "vertical"
+  skipDiscardChangeWarning: true
+  theme:
+    activeBorderColor:
+      - "#becccc"
+      - bold
+    inactiveBorderColor:
+      - "#424242"
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - '#323232'
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default
+  commitLength:
+    show: true
+  mouseEvents: true
+  skipStashWarning: false
+  showFileTree: true
+  showListFooter: true
+  showRandomTip: false
+  showBottomLine: false
+  showCommandLog: true
+  showIcons: false
+  commandLogSize: 8
+  skipRewordInEditorWarning: false
+  border: rounded
 git:
-    paging:
-        colorArg: always
-        pager: delta --dark --paging=never
-    log:
-        order: "topo-order"
-        showGraph: "when-maximised"
-        showWholeGraph: false
-    skipHookPrefix: WIP
-    autoFetch: true
-    autoRefresh: true
-    branchLogCmd: "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' {{branchName}}"
-    allBranchesLogCmd: "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-    disableForcePushing: false
-    parseEmoji: true
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  log:
+    order: "topo-order"
+    showGraph: "when-maximised"
+    showWholeGraph: false
+  skipHookPrefix: WIP
+  autoFetch: true
+  autoRefresh: true
+  branchLogCmd: "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' {{branchName}}"
+  disableForcePushing: false
+  parseEmoji: true
+  allBranchesLogCmds:
+    - log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 os:
-    editPreset: "" # see "Configuring File Editing" section
-    edit: ""
-    editAtLine: ""
-    editAtLineAndWait: ""
-    open: ""
-    openLink: ""
+  editPreset: "" # see "Configuring File Editing" section
+  edit: ""
+  editAtLine: ""
+  editAtLineAndWait: ""
+  open: ""
+  openLink: ""
 refresher:
-    refreshInterval: 10
-    fetchInterval: 60
+  refreshInterval: 10
+  fetchInterval: 60
 update:
-    method: prompt # can be: prompt | background | never
-    days: 14 # how often an update is checked for
+  method: prompt # can be: prompt | background | never
+  days: 14 # how often an update is checked for
 confirmOnQuit: false
 quitOnTopLevelReturn: false
 disableStartupPopups: true
