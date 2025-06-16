@@ -68,6 +68,5 @@ map("n", "<esc>", function()
 end, { silent = true, expr = true })
 
 -- Restart LSP and show info
--- TODO: Figure out a new keymap/function to restart all LSPs, new LspRestart
--- needs an ID
 map("n", "<leader>li", ":LspInfo<cr>", { silent = true })
+map("n", "<leader>lr", ":LspRestart<cr>", { silent = true })
