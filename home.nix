@@ -66,6 +66,7 @@ in {
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
       ".gitignore".source = "${dotfiles}/git/gitignore";
       ".ssh/config".source = "${dotfiles}/ssh/config";
+      ".cargo/config.toml".source = "${dotfiles}/cargo/config.toml";
     };
 
     pointerCursor = {

@@ -118,6 +118,8 @@ pkgs: {
     bun
     vscode-js-debug
     foot
+    sccache
+    cargo-wizard
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
