@@ -1,0 +1,22 @@
+#!/bin/bash
+# Usage: squash-branch.sh [base_branch=main]
+
+set -e
+
+BASE_BRANCH="${1:-main}"
+ORIG_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+NEW_BRANCH="${ORIG_BRANCH}-squashed"
+
+# Get upstream branch of current branch, if any
+UPSTREAM=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$ORIG_BRANCH")
+
+PATCH=$(git diff "$BASE_BRANCH"... --binary)
+
+git checkout "$BASE_BRANCH"
+git checkout -b "$NEW_BRANCH"
+echo "$PATCH" | git apply --index --whitespace=nowarn
+git commit -m "Squashed changes from $ORIG_BRANCH"
+
+if [ -n "$UPSTREAM" ]; then
+  git branch --set-upstream-to="$UPSTREAM" "$NEW_BRANCH"
+fi

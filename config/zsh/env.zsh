@@ -33,3 +33,6 @@ export PATH="$PATH:$HOME/.npm-packages/bin"
 export NPM_CONFIG_PREFIX="${NPM_CONFIG_PREFIX:-"$HOME/.npm-packages"}"
 export NODE_PATH="${NODE_PATH:-"$HOME/.npm-packages/lib/node_modules"}"
 export NODE_OPTIONS="--max-old-space-size=16384"
+
+# git scripts
+export PATH="$PATH:$HOME/.git-scripts"
