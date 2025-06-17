@@ -1,22 +1,26 @@
 #!/bin/bash
-# Usage: squash-branch.sh [base_branch=main]
+# Usage: git-squash-branch [base_branch=main]
 
 set -e
 
 BASE_BRANCH="${1:-main}"
 ORIG_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-NEW_BRANCH="${ORIG_BRANCH}-squashed"
-
-# Get upstream branch of current branch, if any
+UNSQUASHED_BRANCH="${ORIG_BRANCH}-unsquashed"
+PATCH=$(git diff "$BASE_BRANCH"... --binary)
 UPSTREAM=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$ORIG_BRANCH")
 
-PATCH=$(git diff "$BASE_BRANCH"... --binary)
+# Rename current branch to -unsquashed
+git branch -m "$UNSQUASHED_BRANCH"
 
-git checkout "$BASE_BRANCH"
-git checkout -b "$NEW_BRANCH"
+# Recreate the original branch name from BASE_BRANCH
+git switch "$BASE_BRANCH"
+git switch -c "$ORIG_BRANCH"
+
+# Apply patch and create single commit
 echo "$PATCH" | git apply --index --whitespace=nowarn
-git commit -m "Squashed changes from $ORIG_BRANCH"
+git commit -m "Squashed changes from $UNSQUASHED_BRANCH"
 
+# Restore upstream tracking
 if [ -n "$UPSTREAM" ]; then
-  git branch --set-upstream-to="$UPSTREAM" "$NEW_BRANCH"
+  git branch --set-upstream-to="$UPSTREAM" "$ORIG_BRANCH"
 fi
