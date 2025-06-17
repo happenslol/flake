@@ -52,11 +52,6 @@ map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search R
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
--- Delete default diagnostic keymaps
--- vim.keymap.del("n", "<c-w>d")
--- TODO: Why did we do this again?
--- vim.keymap.del("n", "<c-w><c-d>")
-
 -- Clear highlights on <esc> in normal mode
 map("n", "<esc>", function()
   vim.cmd("nohlsearch")
@@ -70,3 +65,13 @@ end, { silent = true, expr = true })
 -- Restart LSP and show info
 map("n", "<leader>li", ":LspInfo<cr>", { silent = true })
 map("n", "<leader>lr", ":LspRestart<cr>", { silent = true })
+
+-- Clear current session and buffers
+map("n", "<leader>lc", function()
+  vim.cmd("vnew")
+  vim.cmd("only")
+
+  local close = require("close_buffers")
+  close.delete({ type = "hidden", force = true })
+  close.delete({ type = "nameless", force = true })
+end, { silent = true })
