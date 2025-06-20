@@ -63,8 +63,8 @@ map("n", "<esc>", function()
 end, { silent = true, expr = true })
 
 -- Restart LSP and show info
-map("n", "<leader>li", ":LspInfo<cr>", { silent = true })
-map("n", "<leader>lr", ":LspRestart<cr>", { silent = true })
+map("n", "<leader>li", ":LspInfo<cr>", { silent = true, desc = "Show LSP Info" })
+map("n", "<leader>lr", ":LspRestart<cr>", { silent = true, desc = "Restart LSPs" })
 
 -- Clear current session and buffers
 map("n", "<leader>lc", function()
@@ -74,4 +74,17 @@ map("n", "<leader>lc", function()
   local close = require("close_buffers")
   close.delete({ type = "hidden", force = true })
   close.delete({ type = "nameless", force = true })
-end, { silent = true })
+end, { silent = true, desc = "Clear Session" })
+
+-- Copy current buffer name to clipboard
+
+map("n", "<leader>lp", function()
+  local full_filename = vim.fn.expand("%:t")
+  if not full_filename or full_filename == "" then
+    vim.notify("No filename available")
+    return
+  end
+
+  vim.fn.setreg("+", full_filename)
+  vim.notify("Copied `" .. full_filename .. "` to clipboard")
+end, { silent = true, desc = "Copy Current Buffer Name" })
