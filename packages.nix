@@ -120,6 +120,7 @@ pkgs: {
     foot
     sccache
     cargo-wizard
+    nixd
   ];
 
   node = with pkgs.nodejs_22.pkgs; [

@@ -53,3 +53,10 @@ alias gm="git merge "
 # Custom commands
 alias ,flake="just -f ~/.flake/justfile "
 alias ,nixdev="nix develop --command zsh "
+
+# Devices
+alias bt="bluetuith "
+alias sink="pactl set-default-sink "
+alias src="pactl set-default-source "
+alias unmute="pactl set-sink-mute @DEFAULT_SINK@ false"
+alias mute="pactl set-sink-mute @DEFAULT_SINK@ true"

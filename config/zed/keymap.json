@@ -1,21 +1,16 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
   {
     "context": "ProjectPanel",
     "bindings": {
-      "ctrl-n": "workspace::ToggleLeftDock"
+      "ctrl-n": "workspace::ToggleLeftDock",
+      "ctrl-l": "workspace::ToggleRightDock"
     }
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-n": "project_panel::ToggleFocus"
+      "ctrl-n": "workspace::ToggleLeftDock",
+      "ctrl-l": "workspace::ToggleRightDock"
     }
   },
   {
@@ -46,6 +41,20 @@
     "context": "ChangesList || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Welcome",
     "bindings": {
       ";": "command_palette::Toggle"
+    }
+  },
+  {
+    "context": "Editor && edit_prediction",
+    "bindings": {
+      "ctrl-j": "editor::AcceptEditPrediction",
+      "alt-l": null
+    }
+  },
+  {
+    "context": "Editor && edit_prediction_conflict",
+    "bindings": {
+      "ctrl-j": "editor::AcceptEditPrediction",
+      "alt-l": null
     }
   }
 ]
