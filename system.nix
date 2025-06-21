@@ -308,12 +308,20 @@ in {
 
     sanoid = {
       enable = true;
-      datasets."rpool/home" = {
-        monthly = 1;
-        daily = 10;
-        hourly = 1;
-        autosnap = true;
-        autoprune = true;
+      datasets = {
+        "rpool/home" = {
+          monthly = 1;
+          daily = 10;
+          hourly = 1;
+          autosnap = true;
+          autoprune = true;
+        };
+
+        "rpool/home/state" = {
+          daily = 1;
+          autosnap = true;
+          autoprune = true;
+        };
       };
     };
 

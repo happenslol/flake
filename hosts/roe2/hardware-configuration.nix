@@ -2,6 +2,7 @@
   config,
   lib,
   modulesPath,
+  username,
   ...
 }: {
   imports = [
@@ -13,31 +14,41 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" =
-    { device = "rpool/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "rpool/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/var" =
-    { device = "rpool/var";
-      fsType = "zfs";
-    };
+  fileSystems."/var" = {
+    device = "rpool/var";
+    fsType = "zfs";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "rpool/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4464-7A23";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/home/${username}/.local" = {
+    device = "rpool/home/local";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/${username}/.cache" = {
+    device = "rpool/home/cache";
+    fsType = "zfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4464-7A23";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
 
   swapDevices = [];
 
