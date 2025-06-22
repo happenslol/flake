@@ -312,13 +312,14 @@ in {
         "rpool/home" = {
           monthly = 1;
           daily = 10;
-          hourly = 1;
+          hourly = 3;
           autosnap = true;
           autoprune = true;
         };
 
         "rpool/home/state" = {
           daily = 1;
+          hourly = 1;
           autosnap = true;
           autoprune = true;
         };
