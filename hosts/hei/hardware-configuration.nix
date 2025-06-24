@@ -2,11 +2,10 @@
   config,
   lib,
   modulesPath,
+  username,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot.initrd.availableKernelModules = ["thunderbolt" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["zfs"];
@@ -30,6 +29,16 @@
 
   fileSystems."/home" = {
     device = "rpool/home";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/${username}/.local" = {
+    device = "rpool/home/local";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/${username}/.cache" = {
+    device = "rpool/home/cache";
     fsType = "zfs";
   };
 
