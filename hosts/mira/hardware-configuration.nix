@@ -2,11 +2,10 @@
   config,
   lib,
   modulesPath,
+  username,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["i915" "zfs"];
@@ -33,11 +32,21 @@
     fsType = "zfs";
   };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/97F6-8F57";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/home/${username}/.local" = {
+    device = "rpool/home/local";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/${username}/.cache" = {
+    device = "rpool/home/cache";
+    fsType = "zfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/97F6-8F57";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
 
   swapDevices = [];
 
