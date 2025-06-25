@@ -1,8 +1,8 @@
 {
   "agent": {
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-3-7-sonnet-latest"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-thinking"
     },
     "version": "2"
   },
@@ -32,8 +32,16 @@
   "ui_font_size": 15,
   "buffer_font_size": 15,
   "theme": {
-    "mode": "system",
-    "light": "Ayu Dark",
+    "mode": "dark",
+    "light": "Dayfox",
     "dark": "One Dark"
+  },
+  "use_system_path_prompts": false,
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "agent_review": false,
+    "code_actions": false,
+    "selections_menu": false
   }
 }

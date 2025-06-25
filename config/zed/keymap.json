@@ -32,6 +32,12 @@
     }
   },
   {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "ctrl-l": "assistant::InlineAssist"
+    }
+  },
+  {
     "context": "VimControl && VimCount",
     "bindings": {
       ";": "vim::CountCommand"
