@@ -63,9 +63,9 @@ return {
   },
 
   {
-    "NvChad/nvim-colorizer.lua",
+    "brenoprata10/nvim-highlight-colors",
     event = "VeryLazy",
-    opts = { user_default_options = { names = false } },
+    config = true,
   },
 
   {
