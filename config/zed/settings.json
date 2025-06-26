@@ -1,5 +1,6 @@
 {
   "agent": {
+    "default_profile": "ask",
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4-thinking"
@@ -7,7 +8,7 @@
     "version": "2"
   },
   "features": {
-    "edit_prediction_provider": "supermaven"
+    "edit_prediction_provider": "zed"
   },
   "tab_size": 2,
   "auto_signature_help": false,
@@ -26,11 +27,12 @@
     "show": "never"
   },
   "middle_click_paste": false,
+  "ui_font_family": "IosevkaHappy Nerd Font",
   "buffer_font_family": "IosevkaHappy Nerd Font",
   "buffer_line_height": { "custom": 1.4 },
   "vim_mode": true,
   "ui_font_size": 15,
-  "buffer_font_size": 15,
+  "buffer_font_size": 16,
   "theme": {
     "mode": "dark",
     "light": "Dayfox",
@@ -38,10 +40,14 @@
   },
   "use_system_path_prompts": false,
   "toolbar": {
-    "breadcrumbs": false,
+    "breadcrumbs": true,
     "quick_actions": false,
     "agent_review": false,
     "code_actions": false,
     "selections_menu": false
+  },
+  "terminal": {
+    "line_height": "standard",
+    "toolbar": { "breadcrumbs": false }
   }
 }
