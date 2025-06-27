@@ -4,9 +4,10 @@
 set -e
 
 BASE_BRANCH="${1:-main}"
+MERGE_BASE=$(git merge-base "$BASE_BRANCH" HEAD)
 ORIG_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 UNSQUASHED_BRANCH="${ORIG_BRANCH}-unsquashed"
-PATCH=$(git diff "$BASE_BRANCH"... --binary)
+PATCH=$(git diff "$BASE_BRANCH".."$MERGE_BASE" --binary)
 UPSTREAM=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$ORIG_BRANCH")
 
 # Rename current branch to -unsquashed
