@@ -297,6 +297,7 @@ in {
     devmon.enable = true;
     udisks2.enable = true;
     envfs.enable = true;
+    gnome.gnome-keyring.enable = true;
 
     # Start xdg autostart services
     xserver.desktopManager.runXdgAutostartIfNone = true;
