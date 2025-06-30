@@ -32,7 +32,9 @@
   "buffer_line_height": { "custom": 1.4 },
   "vim_mode": true,
   "ui_font_size": 15,
+  "agent_font_size": 18,
   "buffer_font_size": 16,
+  "always_treat_brackets_as_autoclosed": false,
   "theme": {
     "mode": "dark",
     "light": "Dayfox",

@@ -121,6 +121,7 @@ pkgs: {
     sccache
     cargo-wizard
     nixd
+    gcr # gnome keyring SystemPrompter
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
