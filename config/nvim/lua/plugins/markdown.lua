@@ -5,10 +5,7 @@ return {
 
   opts = {
     preview = { enable = false, icon_provider = "devicons" },
-    markdown = {
-      headings = {
-        shift_width = 0,
-      },
-    },
+    experimental = { check_rtp = false },
+    markdown = { headings = { shift_width = 0 } },
   },
 }
