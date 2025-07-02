@@ -3,7 +3,7 @@
     "default_profile": "ask",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4-thinking"
+      "model": "claude-3-7-sonnet"
     },
     "version": "2"
   },
@@ -17,15 +17,16 @@
     "git_gutter": "hide",
     "inline_blame": { "enabled": false }
   },
+  "gutter": {
+    "folds": false,
+    "breakpoints": false,
+    "runnables": true,
+    "min_line_number_digits": 3
+  },
   "soft_wrap": "editor_width",
   "format_on_save": "off",
-  "tabs": {},
-  "tab_bar": {
-    "show": false
-  },
-  "scrollbar": {
-    "show": "never"
-  },
+  "tab_bar": { "show": false },
+  "scrollbar": { "show": "never" },
   "middle_click_paste": false,
   "ui_font_family": "IosevkaHappy Nerd Font",
   "buffer_font_family": "IosevkaHappy Nerd Font",
@@ -34,7 +35,12 @@
   "ui_font_size": 15,
   "agent_font_size": 18,
   "buffer_font_size": 16,
-  "always_treat_brackets_as_autoclosed": false,
+  "always_treat_brackets_as_autoclosed": true,
+  "icon_theme": {
+    "mode": "dark",
+    "dark": "Colored Zed Icons Theme Dark",
+    "light": "Colored Zed Icons Theme Light"
+  },
   "theme": {
     "mode": "dark",
     "light": "Dayfox",
@@ -51,5 +57,20 @@
   "terminal": {
     "line_height": "standard",
     "toolbar": { "breadcrumbs": false }
+  },
+  "unstable.ui_density": "compact",
+  "languages": {
+    "TypeScript": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    },
+    "TSX": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    }
   }
 }

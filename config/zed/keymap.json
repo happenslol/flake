@@ -21,20 +21,24 @@
       "shift-s": "vim::PushSneakBackward",
       "space w": "workspace::Save",
       "space f": "editor::Format",
-      "g r a": "editor::ToggleCodeActions"
+      "g r a": "editor::ToggleCodeActions",
+      // TODO: This should only go to errors, but there doesn't seem to be an
+      // action for that yet
+      "] e": "editor::GoToDiagnostic",
+      "[ e": "editor::GoToPreviousDiagnostic"
     }
   },
   {
     "context": "vim_mode == visual",
     "bindings": {
       ";": "vim::VisualCommand",
-      "shift-s": ["vim::PushAddSurrounds", {}]
-    }
-  },
-  {
-    "context": "vim_mode == visual",
-    "bindings": {
-      "ctrl-l": "assistant::InlineAssist"
+      "shift-s": ["vim::PushAddSurrounds", {}],
+      "ctrl-l": "assistant::InlineAssist",
+      "shift-k": "editor::MoveLineUp",
+      "shift-j": "editor::MoveLineDown",
+      ">": "editor::Indent",
+      "<": "editor::Outdent",
+      "g w": "vim::Rewrap"
     }
   },
   {
@@ -53,6 +57,7 @@
     "context": "Editor && edit_prediction",
     "bindings": {
       "ctrl-j": "editor::AcceptEditPrediction",
+      "tab": "editor::Tab",
       "alt-l": null
     }
   },
@@ -60,6 +65,7 @@
     "context": "Editor && edit_prediction_conflict",
     "bindings": {
       "ctrl-j": "editor::AcceptEditPrediction",
+      "tab": "editor::Tab",
       "alt-l": null
     }
   }
