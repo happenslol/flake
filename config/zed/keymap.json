@@ -18,7 +18,13 @@
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-m": "workspace::ToggleBottomDock"
+      "ctrl-m": "workspace::ToggleBottomDock",
+      "ctrl-e o": "pane::SplitRight",
+      "ctrl-e u": "pane::SplitDown",
+      "ctrl-e h": "workspace::ActivatePaneLeft",
+      "ctrl-e j": "workspace::ActivatePaneDown",
+      "ctrl-e k": "workspace::ActivatePaneUp",
+      "ctrl-e l": "workspace::ActivatePaneRight"
     }
   },
   {
