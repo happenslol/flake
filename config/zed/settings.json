@@ -1,14 +1,17 @@
 {
   "agent": {
     "default_profile": "ask",
+    "version": "2",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet"
-    },
-    "version": "2"
+      "model": "claude-sonnet-4"
+    }
   },
   "features": {
-    "edit_prediction_provider": "zed"
+    "edit_prediction_provider": "supermaven"
+  },
+  "project_panel": {
+    "auto_reveal_entries": false
   },
   "tab_size": 2,
   "auto_signature_help": false,
@@ -36,6 +39,8 @@
   "agent_font_size": 18,
   "buffer_font_size": 16,
   "always_treat_brackets_as_autoclosed": true,
+  "pane_split_direction_horizontal": "down",
+  "pane_split_direction_vertical": "right",
   "icon_theme": {
     "mode": "dark",
     "dark": "Colored Zed Icons Theme Dark",
@@ -43,7 +48,7 @@
   },
   "theme": {
     "mode": "dark",
-    "light": "Dayfox",
+    "light": "cozy night",
     "dark": "cozy night"
   },
   "use_system_path_prompts": false,
@@ -59,7 +64,22 @@
     "toolbar": { "breadcrumbs": false }
   },
   "unstable.ui_density": "compact",
+  "lsp": {
+    "nil": {
+      "initialization_options": {
+        "formatting": { "command": ["alejandra", "--quiet", "--"] }
+      }
+    }
+  },
   "languages": {
+    "Lua": {
+      "formatter": {
+        "external": {
+          "command": "stylua",
+          "arguments": ["--stdin-filepath", "{buffer_path}", "-"]
+        }
+      }
+    },
     "TypeScript": {
       "formatter": "prettier",
       "code_actions_on_format": {
@@ -71,6 +91,7 @@
       "code_actions_on_format": {
         "source.fixAll.eslint": true
       }
-    }
+    },
+    "Nix": { "language_servers": ["nil", "!nixd"] }
   }
 }

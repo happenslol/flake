@@ -120,7 +120,6 @@ pkgs: {
     foot
     sccache
     cargo-wizard
-    nixd
     gcr # gnome keyring SystemPrompter
   ];
 

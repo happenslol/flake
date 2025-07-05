@@ -2,3 +2,4 @@
 /result
 /config/nvim/queries
 .aider*
+/config/zed/development_credentials

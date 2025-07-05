@@ -1,15 +1,35 @@
 [
   {
-    "context": "ProjectPanel",
+    "context": "Workspace",
     "bindings": {
-      "ctrl-n": "workspace::ToggleLeftDock",
-      "ctrl-l": "workspace::ToggleRightDock"
+      "ctrl-n": "project_panel::ToggleFocus",
+      "ctrl-l": "agent::ToggleFocus",
+      "ctrl-m": "terminal_panel::ToggleFocus"
     }
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-n": "workspace::ToggleLeftDock",
+      "ctrl-l": "agent::ToggleFocus",
+      "ctrl-m": "terminal_panel::ToggleFocus",
+      "space m": "pane::RevealInProjectPanel"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-m": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "ctrl-n": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "AgentPanel > MessageEditor > Editor",
+    "bindings": {
       "ctrl-l": "workspace::ToggleRightDock"
     }
   },
@@ -26,6 +46,13 @@
       // action for that yet
       "] e": "editor::GoToDiagnostic",
       "[ e": "editor::GoToPreviousDiagnostic"
+    }
+  },
+  {
+    "context": "VimControl",
+    "bindings": {
+      "k": ["vim::Up", { "display_lines": true }],
+      "j": ["vim::Down", { "display_lines": true }]
     }
   },
   {
