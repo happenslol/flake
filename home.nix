@@ -25,9 +25,7 @@
     '';
 
     npm-global = pkgs.callPackage ./npm-global {};
-
     serve = inputs.serve.packages."${system}".default;
-    peek = inputs.peek.packages."${system}".default;
   };
 in {
   programs = {
