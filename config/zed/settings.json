@@ -5,16 +5,18 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
-    }
+    },
+    "button": false,
+    "play_sound_when_agent_done": true
   },
   "features": {
     "edit_prediction_provider": "supermaven"
   },
-  "project_panel": {
-    "auto_reveal_entries": false
-  },
   "tab_size": 2,
-  "auto_signature_help": false,
+  "auto_update": false,
+  "auto_signature_help": true,
+  "inline_code_actions": false,
+  "show_completions_on_input": true,
   "max_tabs": 1,
   "git": {
     "git_gutter": "hide",
@@ -22,10 +24,12 @@
   },
   "gutter": {
     "folds": false,
-    "breakpoints": false,
+    "breakpoints": true,
     "runnables": true,
     "min_line_number_digits": 3
   },
+  // TODO: What does this do?
+  "bottom_dock_layout": "right_aligned",
   "soft_wrap": "editor_width",
   "format_on_save": "off",
   "tab_bar": { "show": false },
@@ -59,11 +63,6 @@
     "code_actions": false,
     "selections_menu": false
   },
-  "terminal": {
-    "line_height": "standard",
-    "toolbar": { "breadcrumbs": false }
-  },
-  "unstable.ui_density": "compact",
   "lsp": {
     "nil": {
       "initialization_options": {
@@ -93,5 +92,56 @@
       }
     },
     "Nix": { "language_servers": ["nil", "!nixd"] }
+  },
+  "restore_on_startup": "last_workspace",
+  "when_closing_with_no_tabs": "keep_window_open",
+  "use_system_prompts": false,
+  "current_line_highlight": "gutter",
+  "title_bar": {
+    "show_onboarding_banner": false,
+    "show_sign_in": false
+  },
+  "project_panel": {
+    "button": false,
+    "auto_reveal_entries": false,
+    "auto_fold_dirs": false,
+    "show_diagnostics": "errors",
+    "hide_root": true,
+    "hide_gitignore": true
+  },
+  "search": {
+    "button": false,
+    "regex": true
+  },
+  "use_smartcase_search": true,
+  "outline_panel": {
+    "button": false
+  },
+  "git_panel": {
+    "button": false
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "diagnostics": {
+    "button": true,
+    "include_warnings": true
+  },
+  "terminal": {
+    "line_height": "standard",
+    "toolbar": { "breadcrumbs": true },
+    "button": false
+  },
+  "auto_install_extensions": {
+    "colored-zed-icons-theme": true,
+    "git-firefly": true,
+    "graphql": true,
+    "html": true,
+    "lua": true,
+    "nix": true,
+    "tom": true
+  },
+  "debugger": {
+    "button": false
   }
 }

@@ -1,18 +1,33 @@
 [
   {
+    "bindings": {
+      "ctrl-f": "project_search::ToggleFocus",
+      "ctrl-o": "pane::GoBack",
+      "ctrl-i": "pane::GoForward"
+    }
+  },
+  {
+    "context": "Pane > EmptyPane",
+    "bindings": {
+      "q": "pane::CloseActiveItem",
+      "ctrl-o": "pane::GoBack"
+    }
+  },
+  {
     "context": "Workspace",
     "bindings": {
       "ctrl-n": "project_panel::ToggleFocus",
-      "ctrl-l": "agent::ToggleFocus",
-      "ctrl-m": "terminal_panel::ToggleFocus"
+      "ctrl-m": "terminal_panel::ToggleFocus",
+      "ctrl-f": "project_search::ToggleFocus"
     }
   },
   {
     "context": "Editor",
     "bindings": {
+      "ctrl-n": "project_panel::ToggleFocus",
       "ctrl-l": "agent::ToggleFocus",
       "ctrl-m": "terminal_panel::ToggleFocus",
-      "space m": "pane::RevealInProjectPanel"
+      "ctrl-f": "project_search::ToggleFocus"
     }
   },
   {
@@ -28,15 +43,58 @@
     }
   },
   {
-    "context": "ProjectPanel",
+    "context": "ProjectPanel && !editing",
     "bindings": {
-      "ctrl-n": "workspace::ToggleLeftDock"
+      ";": "command_palette::Toggle",
+      "ctrl-n": "workspace::ToggleLeftDock",
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "h": "project_panel::ToggleHideGitIgnore"
     }
   },
   {
     "context": "AgentPanel > MessageEditor > Editor",
     "bindings": {
-      "ctrl-l": "workspace::ToggleRightDock"
+      "ctrl-l": "workspace::ToggleRightDock",
+      "ctrl-n": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "AgentPanel > ContextEditor > Editor",
+    "bindings": {
+      "ctrl-l": "workspace::ToggleRightDock",
+      "ctrl-n": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "AgentPanel > MessageEditor > Editor && vim_mode == normal",
+    "bindings": {
+      "space n": "agent::NewThread",
+      "space m": "agent::NewTextThread"
+    }
+  },
+  {
+    "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
+    "bindings": {
+      "space n": "agent::NewThread",
+      "space m": "agent::NewTextThread"
+    }
+  },
+  {
+    "context": "KeyContextView",
+    "bindings": {
+      "q": "pane::CloseActiveItem"
+    }
+  },
+  {
+    "context": "GitPanel > Editor",
+    "bindings": {
+      "escape": "workspace::ToggleLeftDock"
     }
   },
   {
@@ -48,6 +106,16 @@
       "space w": "workspace::Save",
       "space f": "editor::Format",
       "g r a": "editor::ToggleCodeActions",
+      "space m": "pane::RevealInProjectPanel",
+      "space l r": "editor::RestartLanguageServer",
+      "space l d": "dev::OpenKeyContextView",
+      "space x x": "diagnostics::Deploy",
+      "space g g": "git_panel::ToggleFocus",
+      "space g s": "git::Switch",
+      "space g c": "git::Commit",
+      "space g p": "git::Push",
+      "space g a": "git::Add",
+
       // TODO: This should only go to errors, but there doesn't seem to be an
       // action for that yet
       "] e": "editor::GoToDiagnostic",
@@ -65,7 +133,7 @@
     "context": "vim_mode == visual",
     "bindings": {
       ";": "vim::VisualCommand",
-      "shift-s": ["vim::PushAddSurrounds", {}],
+      "shift-s": "vim::PushAddSurrounds",
       "ctrl-l": "assistant::InlineAssist",
       "shift-k": "editor::MoveLineUp",
       "shift-j": "editor::MoveLineDown",
@@ -78,6 +146,12 @@
     "context": "VimControl && VimCount",
     "bindings": {
       ";": "vim::CountCommand"
+    }
+  },
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "ctrl-f": "project_search::ToggleFocus"
     }
   },
   {
