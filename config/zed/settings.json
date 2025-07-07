@@ -107,7 +107,7 @@
     "auto_fold_dirs": false,
     "show_diagnostics": "errors",
     "hide_root": true,
-    "hide_gitignore": true
+    "hide_gitignore": false
   },
   "search": {
     "button": false,
