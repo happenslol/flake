@@ -1,3 +1,4 @@
+# Use with: # `use flake ~/.flake#<name>`
 {
   pkgs,
   pkgs-playwright,
