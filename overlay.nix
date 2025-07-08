@@ -1,21 +1,21 @@
 self: super: {
   # pnpm has intermittent issues on ZFS when linking many files at once. We can
   # just try multiple times and wait until we succeed, but setting the
-  # package-import-method to hardlink for all packages works as well.
+  # package-import-method to hardlink for packages with this issue works fine.
   #
   # https://github.com/pnpm/pnpm/issues/4161
   # https://github.com/pnpm/pnpm/issues/7024
   # https://github.com/pnpm/pnpm/issues/5803
-  pnpm =
-    super.pnpm
+  pnpm_10 =
+    super.pnpm_10
     // {
-      fetchDeps = origArgs: let
+      fetchDeps = args: let
         # Extract user-provided prePnpmInstall if any
-        packagePreInstall = origArgs.prePnpmInstall or "";
+        packagePreInstall = args.prePnpmInstall or "";
 
         # Hardlink all packages
         preInstall = ''
-          echo "→ Global: setting package-import-method to hardlink"
+          echo "→ pnpm overlay: setting package-import-method to hardlink"
           pnpm config set package-import-method hardlink
         '';
 
@@ -25,7 +25,19 @@ self: super: {
           ${packagePreInstall}
         '';
       in
-        super.pnpm.fetchDeps (origArgs // {prePnpmInstall = combinedPre;});
+        super.pnpm_10.fetchDeps (args // {prePnpmInstall = combinedPre;});
+
+      configHook =
+        super.makeSetupHook {
+          name = "pnpm-config-hook";
+          propagatedBuildInputs = [super.pnpm_10];
+        } (super.writeScript "pnpm-config-hook.sh" ''
+          local patched="$(cat ${super.pnpm_10.configHook}/nix-support/setup-hook \
+            | sed '/pnpm config set store-dir/a pnpm config set package-import-method hardlink' \
+          )"
+
+          eval "$patched"
+        '');
     };
 
   # 1password has a lot of problems when running under wayland (broken copy/paste
