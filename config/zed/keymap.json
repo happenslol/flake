@@ -10,15 +10,17 @@
     "context": "Pane > EmptyPane",
     "bindings": {
       "q": "pane::CloseActiveItem",
-      "ctrl-o": "pane::GoBack"
+      "ctrl-o": "pane::GoBack",
+      "ctrl-g": "git_panel::ToggleFocus",
+      "ctrl-n": "project_panel::ToggleFocus",
+      "ctrl-m": "terminal_panel::ToggleFocus",
+      "ctrl-f": "project_search::ToggleFocus"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-n": "project_panel::ToggleFocus",
-      "ctrl-m": "terminal_panel::ToggleFocus",
-      "ctrl-f": "project_search::ToggleFocus"
+      "ctrl-n": "project_panel::ToggleFocus"
     }
   },
   {
@@ -27,7 +29,8 @@
       "ctrl-n": "project_panel::ToggleFocus",
       "ctrl-l": "agent::ToggleFocus",
       "ctrl-m": "terminal_panel::ToggleFocus",
-      "ctrl-f": "project_search::ToggleFocus"
+      "ctrl-f": "project_search::ToggleFocus",
+      "ctrl-g": "git_panel::ToggleFocus"
     }
   },
   {
@@ -94,7 +97,20 @@
   {
     "context": "GitPanel > Editor",
     "bindings": {
-      "escape": "workspace::ToggleLeftDock"
+      "ctrl-g": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "GitPanel && ChangesList",
+    "bindings": {
+      "ctrl-g": "workspace::ToggleLeftDock",
+      "d": "git::RestoreFile",
+      "a": "git::StageAll",
+      "s": "git::UnstageAll",
+      "c": "git::Commit",
+      "p": "git::Pull",
+      "P": "git::Push",
+      "space": "git::ToggleStaged"
     }
   },
   {
@@ -110,10 +126,10 @@
       "space l r": "editor::RestartLanguageServer",
       "space l d": "dev::OpenKeyContextView",
       "space x x": "diagnostics::Deploy",
-      "space g g": "git_panel::ToggleFocus",
       "space g s": "git::Switch",
       "space g c": "git::Commit",
-      "space g p": "git::Push",
+      "space g p": "git::Pull",
+      "space g P": "git::Push",
       "space g a": "git::Add",
 
       // TODO: This should only go to errors, but there doesn't seem to be an

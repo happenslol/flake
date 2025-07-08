@@ -6,6 +6,9 @@
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-pinned.url = "github:NixOS/nixpkgs/63dacb46bf939521bdc93981b4cbb7ecb58427a0";
 
+    # Playwright 1.53.1
+    nixpkgs-playwright.url = "github:NixOS/nixpkgs/b32441ec0fae600e647cf4e6d6c245286a583106";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -65,6 +68,7 @@
     nixpkgs,
     nixpkgs-stable,
     nixpkgs-pinned,
+    nixpkgs-playwright,
     home-manager,
     nix-index-database,
     ...
@@ -96,6 +100,7 @@
 
     pkgs-stable = import nixpkgs-stable {inherit system;};
     pkgs-pinned = import nixpkgs-pinned {inherit system;};
+    pkgs-playwright = import nixpkgs-playwright {inherit system;};
 
     mkHost = {
       hostname,
@@ -138,6 +143,6 @@
       };
     };
 
-    devShells.${system} = import ./devshells.nix pkgs;
+    devShells.${system} = import ./devshells.nix {inherit pkgs pkgs-playwright;};
   };
 }
