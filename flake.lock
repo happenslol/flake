@@ -560,6 +560,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-playwright": {
+      "locked": {
+        "lastModified": 1751472477,
+        "narHash": "sha256-DpGMd/4DAawRGegP8ISHHbpARRhDS2ABwjiLTAjO7Uk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b32441ec0fae600e647cf4e6d6c245286a583106",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b32441ec0fae600e647cf4e6d6c245286a583106",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1735563628,
@@ -661,6 +677,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-pinned": "nixpkgs-pinned",
+        "nixpkgs-playwright": "nixpkgs-playwright",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "pk-agent": "pk-agent",
