@@ -332,7 +332,17 @@ return {
       {
         "<leader>f",
         function()
-          require("conform").format()
+          require("conform").format({
+            async = true,
+            timeout_ms = 3000,
+            quiet = false,
+
+            -- Only use lsp formatter for eslint
+            lsp_format = "first",
+            filter = function(client)
+              return client.name == "eslint"
+            end,
+          })
         end,
         mode = { "n", "v" },
         desc = "Format current buffer",
@@ -411,17 +421,7 @@ return {
 
       ---@type conform.setupOpts
       return {
-        default_format_opts = {
-          async = true,
-          timeout_ms = 3000,
-          quiet = false,
-
-          -- Only use lsp formatter for eslint
-          lsp_format = "first",
-          filter = function(client)
-            return vim.tbl_contains({ "eslint" }, client.name)
-          end,
-        },
+        default_format_opts = {},
         formatters_by_ft = formatters_by_ft,
         formatters = {
           -- Only use biome if there's no prettier config
@@ -441,11 +441,11 @@ return {
               return util.formatting.has_prettier_config(ctx)
             end),
           },
-          eslint_d = {
-            condition = cached("eslint_d", function(_, ctx)
-              return util.formatting.has_eslint_config(ctx)
-            end),
-          },
+          -- eslint_d = {
+          --   condition = cached("eslint_d", function(_, ctx)
+          --     return util.formatting.has_eslint_config(ctx)
+          --   end),
+          -- },
           injected = { options = { ignore_errors = true } },
         },
       }
