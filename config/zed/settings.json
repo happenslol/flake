@@ -14,7 +14,7 @@
   },
   "tab_size": 2,
   "auto_update": false,
-  "auto_signature_help": true,
+  "show_signature_help_after_edits": true,
   "inline_code_actions": false,
   "show_completions_on_input": true,
   "max_tabs": 1,
@@ -29,7 +29,7 @@
     "min_line_number_digits": 3
   },
   // TODO: What does this do?
-  "bottom_dock_layout": "right_aligned",
+  "bottom_dock_layout": "full",
   "soft_wrap": "editor_width",
   "format_on_save": "off",
   "tab_bar": { "show": false },
