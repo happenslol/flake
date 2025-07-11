@@ -121,6 +121,8 @@ pkgs: {
     sccache
     cargo-wizard
     gcr # gnome keyring SystemPrompter
+    difftastic
+    mergiraf
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
