@@ -7,6 +7,12 @@
     }
   },
   {
+    "context": "!Terminal",
+    "bindings": {
+      "ctrl-l": "agent::ToggleFocus"
+    }
+  },
+  {
     "context": "Pane > EmptyPane",
     "bindings": {
       "q": "pane::CloseActiveItem",
