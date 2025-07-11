@@ -1,10 +1,8 @@
 ---@class util
 ---@field lsp util.lsp
----@field formatting util.formatting
 local M = {}
 
 M.lsp = require("util.lsp")
-M.formatting = require("util.formatting")
 
 function M.filter_diagnostics(diagnostics)
   return vim.tbl_filter(function(d)
