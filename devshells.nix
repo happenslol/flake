@@ -12,4 +12,15 @@
       eval "$(fnm env --use-on-cd --resolve-engines --log-level quiet)"
     '';
   };
+
+  gui = pkgs.mkShell rec {
+    name = "gui";
+    packages = with pkgs; [
+      libxkbcommon
+      vulkan-loader
+      wayland
+    ];
+
+    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath packages;
+  };
 }

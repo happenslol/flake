@@ -1,6 +1,7 @@
 set shell := ["zsh", "-c"]
 
 alias p := push
+alias d := develop
 alias f := format
 alias a := apply
 alias npmi := npm-install
@@ -39,3 +40,8 @@ format: format-nix format-nvim
 # Format nvim configuration
 @format-nvim:
   stylua -f config/nvim/stylua.toml ./config/nvim/**/*.lua
+
+# Use a global devshell
+[no-cd]
+@develop shell="gui":
+  nix develop ~/.flake#{{shell}} --command zsh
