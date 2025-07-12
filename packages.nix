@@ -121,6 +121,7 @@ pkgs: {
     sccache
     cargo-wizard
     gcr # gnome keyring SystemPrompter
+    heaptrack
   ];
 
   node = with pkgs.nodejs_22.pkgs; [
