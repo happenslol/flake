@@ -197,10 +197,10 @@
             "background": "#f07178"
           }
         ],
-        "version_control.added": "#ff0000",
-        "version_control.added_background": "#ff0000",
-        "version_control.deleted": "#f07178",
-        "version_control.deleted_background": "#f0717826",
+        "version_control.added": "#41a6b5",
+        "version_control.added_background": "#c3e88d26",
+        "version_control.deleted": "#f07178aa",
+        "version_control.deleted_background": "#82aaff26",
         "version_control.modified": "#ffcb6b",
         "version_control.modified_background": "#ffcb6b26",
         "version_control.renamed": "#89ddff",
