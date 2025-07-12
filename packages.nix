@@ -122,6 +122,8 @@ pkgs: {
     cargo-wizard
     gcr # gnome keyring SystemPrompter
     heaptrack
+    difftastic
+    mergiraf
   ];
 
   node = with pkgs.nodejs_22.pkgs; [

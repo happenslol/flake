@@ -12,6 +12,7 @@
   sshCommand = "ssh -i ~/.ssh/$(hostname).personal.id_ed25519"
   pager = delta
   excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
 
 [includeIf "gitdir:~/opencreek/"]
   path = ~/.gitconfig-opencreek
@@ -30,8 +31,15 @@
 [interactive]
   diffFilter = delta --color-only
 
+[merge]
+  conflictStyle = "diff3"
+
 [diff]
-  colorMoved = default
+  external = difft --display=side-by-side-show-both --tab-width=2
+
+[merge "mergiraf"]
+  name = mergiraf
+  driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 
 [delta]
   navigate = true

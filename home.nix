@@ -60,6 +60,7 @@ in {
 
     file = {
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
+      ".gitattributes".source = "${dotfiles}/git/gitattributes";
       ".gitconfig-garage".source = "${dotfiles}/git/gitconfig-garage";
       ".gitconfig-opencreek".source = "${dotfiles}/git/gitconfig-opencreek";
       ".gitignore".source = "${dotfiles}/git/gitignore";
