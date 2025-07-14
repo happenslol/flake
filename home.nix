@@ -25,7 +25,8 @@
     '';
 
     npm-global = pkgs.callPackage ./npm-global {};
-    serve = inputs.serve.packages."${system}".default;
+    serve = inputs.serve.packages.${system}.default;
+    status = inputs.status.packages.${system}.default;
   };
 in {
   programs = {

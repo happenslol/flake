@@ -62,6 +62,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+
+    status.url = "github:happenslol/status";
   };
 
   outputs = inputs @ {
