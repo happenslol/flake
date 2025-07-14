@@ -88,10 +88,39 @@
     }
   },
   {
+    "context": "AgentPanel > MessageEditor > Editor && vim_mode == insert",
+    "bindings": {
+      "enter": "editor::Newline"
+    }
+  },
+  {
     "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
     "bindings": {
       "space n": "agent::NewThread",
       "space m": "agent::NewTextThread"
+    }
+  },
+  {
+    "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
+    "bindings": {
+    }
+  },
+  {
+    "context": "AgentPanel > ContextEditor > Editor && vim_mode == insert",
+    "bindings": {
+      "enter": "editor::Newline"
+    }
+  },
+  {
+    "context": "AgentPanel > EditMessageEditor > Editor && vim_mode == insert",
+    "bindings": {
+      "enter": "editor::Newline"
+    }
+  },
+  {
+    "context": "AgentPanel > EditMessageEditor > Editor && vim_mode == normal",
+    "bindings": {
+      "enter": "menu::Confirm"
     }
   },
   {

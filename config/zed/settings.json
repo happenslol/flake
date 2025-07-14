@@ -1,5 +1,6 @@
 {
   "agent": {
+    "always_allow_tool_actions": true,
     "default_profile": "write",
     "version": "2",
     "default_model": {
