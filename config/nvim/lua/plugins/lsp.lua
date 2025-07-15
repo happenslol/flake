@@ -329,6 +329,7 @@ return {
     event = { "BufRead Cargo.toml" },
     opts = {
       completion = { crates = { enabled = true } },
+      popup = { border = "rounded" },
       lsp = {
         enabled = true,
         actions = true,
