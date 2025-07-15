@@ -51,8 +51,8 @@ alias gd="git diff "
 alias gm="git merge "
 
 # Custom commands
-alias ,flake="just -f ~/.flake/justfile "
-alias ,nixdev="nix develop --command zsh "
+alias flake="just -f ~/.flake/justfile "
+alias nixdev="nix develop --command zsh "
 
 # Devices
 alias bt="bluetuith "

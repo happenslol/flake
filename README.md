@@ -2,7 +2,7 @@
 
 Non-obvious things this does:
 
-- Global commands with ,flake
+- Global commands with flake
 - Install global npm packages at specific versions using a custom nix package
 - Change pnpm config for all nixpkgs packages (needed due to a ZFS/pnpm bug)
 - Force 1password specifically to X11

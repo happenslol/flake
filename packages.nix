@@ -31,10 +31,8 @@ pkgs: {
     element-desktop
     easyeffects
     obsidian
-    gimp
     spotify
     restic
-    vlc
     just
     gcc
     rustup
@@ -52,7 +50,7 @@ pkgs: {
     wl-clipboard
     docker-compose
     steam-run
-    nodejs_22
+    nodejs_24
     font-manager
     sumneko-lua-language-server
     stylua
@@ -79,8 +77,6 @@ pkgs: {
     swaylock
     libreoffice
     bun
-    wcalc
-    postgresql_16
     playerctl
     nix-index
     bluetuith
@@ -98,7 +94,6 @@ pkgs: {
     exfat
     openssl
     watchexec
-    kicad-small
     inotify-tools
     liquidctl
     vtsls
@@ -106,11 +101,8 @@ pkgs: {
     ouch
     fuzzel
     nix-search-cli
-    niri
     alacritty
     code-cursor
-    windsurf
-    hyprpicker
     prefetch-npm-deps
     vesktop
     fend
@@ -121,12 +113,11 @@ pkgs: {
     sccache
     cargo-wizard
     gcr # gnome keyring SystemPrompter
-    heaptrack
     difftastic
     mergiraf
   ];
 
-  node = with pkgs.nodejs_22.pkgs; [
+  node = with pkgs.nodejs_24.pkgs; [
     eslint_d
     vscode-langservers-extracted
     bash-language-server
