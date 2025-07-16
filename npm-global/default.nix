@@ -2,7 +2,7 @@
 buildNpmPackage {
   name = "npm-global";
   src = ./.;
-  npmDepsHash = "sha256-fSeBMltDsd5z4XChxD16Y8V9ar9hXunKkrzbl0IuoqY=";
+  npmDepsHash = "sha256-9YTDBVgIZHf+CjSSacjdAXgMr0CNwodpiLEqsODMXvk=";
   dontNpmBuild = true;
   postInstall = ''
     mkdir -p $out/bin $out/lib
