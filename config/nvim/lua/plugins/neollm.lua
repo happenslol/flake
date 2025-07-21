@@ -4,6 +4,7 @@ return {
   dependencies = { { "OXY2DEV/markview.nvim", lazy = false } },
   build = "nix build",
   lazy = false,
+  enabled = false,
 
   opts = {},
 }

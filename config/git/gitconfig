@@ -35,23 +35,36 @@
   conflictStyle = "diff3"
 
 [diff]
-  external = difft --display=side-by-side-show-both --tab-width=2
+  # external = difft --display=side-by-side-show-both --tab-width=2
 
 [merge "mergiraf"]
   name = mergiraf
   driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 
 [delta]
+  features = decorations line-numbers
   navigate = true
   light = false
   syntax-theme = base16
-  line-numbers = true
   side-by-side = true
   tabs = 2
   minus-style = syntax bold "#3c3333"
   plus-style = syntax bold "#333c33"
+
+[delta "decorations"]
+  file-style = bold yellow
+  file-decoration-style = yellow box dim
+  hunk-header-decoration-style = gray dim ul
+
+[delta "line-numbers"]
+  line-numbers = true
+  line-numbers-left-style = gray dim
+  line-numbers-right-style = gray dim
   line-numbers-minus-style = red bold
   line-numbers-plus-style = green bold
+  line-numbers-left-format = "{nm:>4} │"
+  line-numbers-right-format = "{np:>4} │"
+
 [pull]
 	rebase = false
 [advice]
