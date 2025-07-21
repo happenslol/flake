@@ -27,9 +27,6 @@ return {
           disabled_filetypes = {
             "neo-tree",
             "qf",
-            "Avante",
-            "AvanteSelectedFiles",
-            "AvanteInput",
             "neollm-input",
             "neollm-chat",
           },

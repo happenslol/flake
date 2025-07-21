@@ -25,7 +25,6 @@ require("lazy").setup({
   dev = {
     path = "~/code/nvim",
     patterns = {
-      "avante.nvim",
       "happenslol",
       "crates.nvim",
     },
