@@ -7,6 +7,8 @@ end
 local enabled_lsp_formatters = {
   "eslint",
   "rust-analyzer",
+  "taplo",
+  "tsp_server",
 }
 
 return {
