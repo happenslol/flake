@@ -194,6 +194,7 @@ in {
         thunar-volman
       ];
     };
+    file-roller.enable = true;
 
     _1password.enable = true;
     _1password-gui = {
