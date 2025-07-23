@@ -3,8 +3,6 @@
   pkgs,
   stateVersion,
   hostname,
-  inputs,
-  system,
   username,
   ...
 }: let
@@ -16,18 +14,6 @@
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
-
-  pk-agent = inputs.pk-agent.packages."${system}".default;
-
-  custom = {
-    codelldb = pkgs.writeShellScriptBin "codelldb" ''
-      exec -a $0 ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
-    '';
-
-    npm-global = pkgs.callPackage ./npm-global {};
-    serve = inputs.serve.packages.${system}.default;
-    status = inputs.status.packages.${system}.default;
-  };
 in {
   programs = {
     home-manager.enable = true;
@@ -56,8 +42,7 @@ in {
     homeDirectory = home;
 
     packages =
-      (builtins.concatLists (builtins.attrValues (import ./packages.nix pkgs)))
-      ++ (builtins.attrValues custom);
+      builtins.concatLists (builtins.attrValues (import ./packages.nix pkgs));
 
     file = {
       ".gitconfig".source = "${dotfiles}/git/gitconfig";
@@ -79,26 +64,23 @@ in {
   };
 
   systemd.user.services = {
-    polkit-agent = {
+    status = {
+      Install.WantedBy = ["graphical-session.target"];
       Unit = {
-        Description = "Polkit Agent";
+        Description = "Status";
         PartOf = ["graphical-session.target"];
         After = ["graphical-session.target"];
       };
 
-      Install.WantedBy = ["graphical-session.target"];
-
       Service = {
         Type = "simple";
-        ExecStart = "${pk-agent}/bin/pk-agent";
+        ExecStart = "${pkgs.status}/bin/status";
         Restart = "on-failure";
-        Environment = [
-          "XDG_SESSION_TYPE=wayland"
-          "WAYLAND_DISPLAY=wayland-1"
-          "GDK_BACKEND=wayland"
-          "XDG_RUNTIME_DIR=/run/user/1000"
-          "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
-        ];
+        Environment = [];
+
+        # NOTE: Prob need this for dbus
+        # "XDG_RUNTIME_DIR=/run/user/1000"
+        # "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
       };
     };
   };

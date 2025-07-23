@@ -1,5 +1,7 @@
 pkgs: {
   pkgs = with pkgs; [
+    npm-global
+    serve
     zip
     wget
     git
