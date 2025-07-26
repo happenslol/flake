@@ -1,4 +1,10 @@
-self: super: {
+inputs: self: super: {
+  serve = inputs.serve.packages.${self.system}.default;
+  status = inputs.status.packages.${self.system}.default;
+
+  # Add our bundled npm packages
+  npm-global = self.callPackage ./npm-global {};
+
   # pnpm has intermittent issues on ZFS when linking many files at once. We can
   # just try multiple times and wait until we succeed, but setting the
   # package-import-method to hardlink for packages with this issue works fine.
@@ -53,4 +59,9 @@ self: super: {
     withTTS = false;
     withMiddleClickScroll = true;
   };
+
+  # Extract codelldb from the vscode extension
+  codelldb = self.writeShellScriptBin "codelldb" ''
+    exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
+  '';
 }

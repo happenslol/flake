@@ -1,12 +1,10 @@
 {
   config,
   pkgs,
-  pkgs-pinned,
   stateVersion,
   username,
   inputs,
   hostname,
-  niqs,
   ...
 }: let
   sshPublicKeys = [
@@ -59,48 +57,6 @@
       exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
     '';
   };
-
-  patchIosevka = font:
-    pkgs-pinned.stdenv.mkDerivation {
-      name = "${font.name}-nerd-font";
-      src = font;
-      nativeBuildInputs = [pkgs-pinned.nerd-font-patcher];
-      buildPhase = ''
-        mkdir -p $out
-        find . -type f \
-          \( -name '*.ttf' -o -name '*.otf' \) \
-          -not -name '*extended*' \
-          -not -name '*thin*' \
-          -not -name '*light*' \
-          -not -name '*oblique*' \
-          -exec nerd-font-patcher -c --no-progressbars --makegroups 4 -out $out {} \;
-      '';
-    };
-
-  iosevka-happy = pkgs-pinned.iosevka.override {
-    set = "happy";
-
-    privateBuildPlan = {
-      family = "Iosevka Happy";
-      spacing = "term";
-      serifs = "sans";
-      noCvSs = false;
-      exportGlyphNames = true;
-
-      variants.design = {
-        lig-ltgteq = "slanted";
-        lig-hyphen-chain = "without-notch";
-        lig-equal-chain = "without-notch";
-      };
-
-      ligations = {
-        inherits = "dlig";
-        enables = ["eqeqeq" "exeqeqeq"];
-      };
-    };
-  };
-
-  iosevka-happy-nerd-font = patchIosevka iosevka-happy;
 in {
   system = {inherit stateVersion;};
 
@@ -238,6 +194,7 @@ in {
         thunar-volman
       ];
     };
+    file-roller.enable = true;
 
     _1password.enable = true;
     _1password-gui = {
@@ -270,7 +227,6 @@ in {
       # Theme stuff
       (orchis-theme.override {border-radius = 4;})
       bibata-cursors
-      niqs.bibata-hyprcursor
       qogir-icon-theme
     ];
 
@@ -382,7 +338,7 @@ in {
     fontconfig.defaultFonts = {
       sansSerif = ["Noto Sans"];
       serif = ["Noto Serif"];
-      monospace = ["IosevkaHappy NF Medium"];
+      monospace = ["Iosevka Term Nerd Font Complete Medium"];
     };
 
     packages = with pkgs; [
@@ -390,7 +346,7 @@ in {
       noto-fonts
       noto-fonts-emoji
       noto-fonts-cjk-sans
-      iosevka-happy-nerd-font
+      nerd-fonts.iosevka-term
     ];
   };
 
