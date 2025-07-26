@@ -102,7 +102,6 @@ pkgs: {
     fuzzel
     nix-search-cli
     alacritty
-    code-cursor
     prefetch-npm-deps
     vesktop
     fend
