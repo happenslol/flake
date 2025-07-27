@@ -15,7 +15,7 @@ alias ndv="nix develop --command zsh "
 alias cat="bat "
 alias grep="rg "
 
-# Remap ls commands and shortcuts to exa
+# Remap ls commands and shortcuts to eza
 alias l="eza -la --git --icons --group-directories-first "
 alias lt="eza --tree --icons --group-directories-first "
 

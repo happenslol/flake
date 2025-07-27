@@ -49,7 +49,7 @@ bindkey "^[[09;5u" keymap-edit-flake-widget
 
 function _keymap_ls() {
   echo
-  eza -la --git --icons --group-directories-first
+  eza -la --git --icons --group-directories-first $(pwd)
   echo "\n"
   zle reset-prompt
 }
