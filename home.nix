@@ -102,6 +102,8 @@ in {
       "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
       "pnpm/rc".source = "${dotfiles}/pnpm/rc";
       "zed".source = "${dotfiles}/zed";
+
+      "status".source = "${hostDotfiles}/status";
     };
 
     systemDirs.data = [gsettingsDatadir];

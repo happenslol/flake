@@ -104,7 +104,6 @@ pkgs: {
     fuzzel
     nix-search-cli
     alacritty
-    code-cursor
     prefetch-npm-deps
     vesktop
     fend
@@ -118,6 +117,7 @@ pkgs: {
     difftastic
     mergiraf
     tealdeer
+    pinta
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
