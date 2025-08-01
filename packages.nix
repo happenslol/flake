@@ -116,6 +116,7 @@ pkgs: {
     gcr # gnome keyring SystemPrompter
     difftastic
     mergiraf
+    tealdeer
     pinta
   ];
 
