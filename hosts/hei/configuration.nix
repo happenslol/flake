@@ -43,9 +43,14 @@
     max-jobs = 4;
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    settings.General.experimental = true;
+  hardware = {
+    # Enable vulkan amd drivers
+    graphics.extraPackages = [pkgs.amdvlk];
+
+    bluetooth = {
+      enable = true;
+      settings.General.experimental = true;
+    };
   };
 
   services = {
