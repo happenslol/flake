@@ -1,1 +1,3 @@
-time_display = "DP-3"
+[time]
+display = "DP-3"
+opacity = 0.1
