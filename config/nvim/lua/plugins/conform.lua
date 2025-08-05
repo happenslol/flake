@@ -9,6 +9,7 @@ local enabled_lsp_formatters = {
   "rust-analyzer",
   "taplo",
   "tsp_server",
+  "zls"
 }
 
 return {
