@@ -118,6 +118,7 @@ pkgs: {
     mergiraf
     tealdeer
     pinta
+    process-compose
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
