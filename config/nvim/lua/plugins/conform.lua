@@ -9,7 +9,7 @@ local enabled_lsp_formatters = {
   "rust-analyzer",
   "taplo",
   "tsp_server",
-  "zls"
+  "zls",
 }
 
 return {
@@ -111,6 +111,13 @@ return {
       formatters = {
         -- Only use biome if there's no prettier config
         biome = {
+          args = {
+            "check",
+            "--write",
+            "--assist-enabled=false",
+            "--stdin-file-path",
+            "$FILENAME",
+          },
           condition = cached("biome", function(_, ctx)
             return not has_prettier_config(ctx)
           end),
