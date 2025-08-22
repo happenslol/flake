@@ -1,6 +1,7 @@
 return {
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "MunifTanjim/nui.nvim", lazy = true },
+  { "kevinhwang91/nvim-bqf", ft = "qf" },
 
   {
     "folke/noice.nvim",
