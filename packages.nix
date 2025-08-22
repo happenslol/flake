@@ -105,7 +105,6 @@ pkgs: {
     nix-search-cli
     alacritty
     prefetch-npm-deps
-    vesktop
     fend
     pulseaudio
     bun
@@ -119,6 +118,7 @@ pkgs: {
     tealdeer
     pinta
     process-compose
+    discord
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

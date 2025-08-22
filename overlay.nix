@@ -46,13 +46,6 @@ inputs: self: super: {
         '');
     };
 
-  # Configure vesktop
-  vesktop = super.vesktop.override {
-    electron = self.electron_33;
-    withTTS = false;
-    withMiddleClickScroll = true;
-  };
-
   # Extract codelldb from the vscode extension
   codelldb = self.writeShellScriptBin "codelldb" ''
     exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
