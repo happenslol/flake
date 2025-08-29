@@ -54,7 +54,7 @@
       source = ~/.config/hypr/common.conf
       source = ~/.config/host/hypr/hyprland.conf
 
-      exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
+      exec-once = ${pkgs.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
     '';
   };
 in {
@@ -140,7 +140,8 @@ in {
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
     kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
-    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
+    # Re-enable after https://github.com/NixOS/nixpkgs/issues/436300 lands
+    # extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
     supportedFilesystems = ["zfs" "ntfs"];
   };
