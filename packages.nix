@@ -136,4 +136,6 @@ pkgs: {
 
   llvm = with pkgs.llvmPackages_latest; [libclang];
   linux = with pkgs.linuxPackages_latest; [perf];
+
+  ai-tools = with pkgs.nix-ai-tools; [claude-code];
 }

@@ -50,4 +50,7 @@ inputs: self: super: {
   codelldb = self.writeShellScriptBin "codelldb" ''
     exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
   '';
+
+  # Add nix-ai-tools packages to pkgs
+  nix-ai-tools = inputs.nix-ai-tools.packages.${self.system};
 }

@@ -139,7 +139,7 @@ in {
     # Increase max vm map count for nodejs workers running out of heap memory
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
     # Re-enable after https://github.com/NixOS/nixpkgs/issues/436300 lands
     # extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
