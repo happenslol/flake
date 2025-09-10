@@ -44,7 +44,7 @@
   };
 
   hardware = {
-    graphics.extraPackages = [pkgs.amdvlk];
+    xpadneo.enable = true;
 
     bluetooth = {
       enable = true;

@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   stateVersion,
   username,
@@ -175,6 +174,8 @@ in {
     command-not-found.enable = false;
     nix-index-database.comma.enable = true;
     steam.enable = true;
+    gamescope.enable = true;
+    gamemode.enable = true;
     corectrl.enable = true;
 
     ssh.startAgent = true;
