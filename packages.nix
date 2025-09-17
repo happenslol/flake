@@ -119,6 +119,7 @@ pkgs: {
     pinta
     process-compose
     discord
+    beekeeper-studio
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
