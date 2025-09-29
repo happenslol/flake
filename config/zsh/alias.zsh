@@ -3,7 +3,7 @@ alias sr="steam-run "
 alias tf="terraform "
 
 alias lpm='node $(realpath $(which pnpm)) '
-alias turbo='node $(realpath $(which pnpm)) turbo --ui stream --concurrency 50 --no-update-notifier '
+alias turbo='node $(realpath $(which pnpm)) turbo --ui stream --concurrency 8 --no-update-notifier '
 
 alias reload="source ~/.zshrc"
 alias svim="sudo -E nvim"
