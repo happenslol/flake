@@ -120,6 +120,7 @@ pkgs: {
     process-compose
     discord
     beekeeper-studio
+    glow
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
