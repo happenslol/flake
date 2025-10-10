@@ -88,6 +88,7 @@ in {
   xdg = {
     configFile = {
       "host".source = hostDotfiles;
+      "scripts".source = "${dotfiles}/scripts";
       "bat".source = "${dotfiles}/bat";
       "nvim".source = "${dotfiles}/nvim";
       "zsh".source = "${dotfiles}/zsh";

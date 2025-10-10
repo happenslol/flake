@@ -10,11 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,7 +43,6 @@
     home-manager,
     nix-index-database,
     nixpkgs-wayland,
-    hyprland-contrib,
     neovim-nightly-overlay,
     ...
   }: let
@@ -59,7 +53,6 @@
     overlays = [
       (import ./overlay.nix inputs)
       nixpkgs-wayland.overlay
-      hyprland-contrib.overlays.default
       neovim-nightly-overlay.overlays.default
     ];
 

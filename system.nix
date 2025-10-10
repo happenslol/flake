@@ -208,6 +208,7 @@ in {
       "greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
       "greetd/.config/sway".source = ./config/sway;
       "greetd/.config/host/sway".source = ./. + "/hosts/${hostname}/config/sway";
+      "greetd/environments".text = "uwsm start -- /run/current-system/sw/bin/sway";
     };
   };
 

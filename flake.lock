@@ -290,26 +290,6 @@
         "type": "github"
       }
     },
-    "hyprland-contrib": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1755680610,
-        "narHash": "sha256-g7/g5o0spemkZCzPa8I21RgCmN0Kv41B5z9Z5HQWraY=",
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "rev": "04721247f417256ca96acf28cdfe946cf1006263",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "type": "github"
-      }
-    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -500,7 +480,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "hyprland-contrib": "hyprland-contrib",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-ai-tools": "nix-ai-tools",
         "nix-index-database": "nix-index-database",

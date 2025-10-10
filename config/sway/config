@@ -14,6 +14,11 @@ bindsym $mod+q kill
 bindsym $mod+Alt+Backspace exec systemctl suspend
 bindsym $mod+Shift+Backspace exec swaylock -f -c 212121 && systemctl suspend
 
+bindsym Print exec grimshot --notify savecopy area
+bindsym SHIFT+Print exec grimshot --notify savecopy output
+bindsym CTRL+Print exec grimshot --notify savecopy active
+bindsym CTRL+SHIFT+Print exec grimshot --notify savecopy screen
+
 bindsym $mod+Shift+c reload
 
 bindsym $mod+h focus left
@@ -73,8 +78,6 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioStop exec playerctl stop
 
-bindsym Print exec grim
-
 floating_modifier $mod normal
 bindsym --whole-window $mod+button2 floating toggle
 
@@ -82,7 +85,7 @@ default_border pixel 2
 default_floating_border pixel 20
 
 corner_radius 8
-gaps inner 10
+gaps inner 15
 
 # class                 border    bground   text      indicator child_border
 client.focused          #5c5c5c   #212121   #000000   #5c5c5c   #5c5c5c
@@ -90,3 +93,6 @@ client.focused_inactive #212121   #212121   #000000   #212121   #212121
 client.unfocused        #212121   #212121   #000000   #212121   #212121
 client.urgent           #FFCB6B   #212121   #000000   #FFCB6B   #FFCB6B
 client.placeholder      #212121   #212121   #000000   #212121   #212121
+
+exec uwsm finalize
+exec mako

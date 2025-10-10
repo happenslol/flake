@@ -45,7 +45,6 @@ pkgs: {
     revive
     dive
     mako
-    grimblast
     python3
     gnumake
     wlsunset
@@ -122,6 +121,7 @@ pkgs: {
     beekeeper-studio
     glow
     localsend
+    sway-contrib.grimshot
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
