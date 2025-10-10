@@ -12,28 +12,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS2P0chvWgX5gvfIMKcaSLclj/Awowvqk3lwXHzy4HU" # mira.personal
   ];
 
-  setup-hyprland-environment = pkgs.writeTextFile {
-    name = "setup-hyprland-environment";
-    destination = "/bin/setup-hyprland-environment";
-    executable = true;
-
-    text = ''
-      #!/usr/bin/env bash
-      ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
-        DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland \
-        HYPRLAND_INSTANCE_SIGNATURE
-
-      systemctl --user import-environment \
-        DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      systemctl --user start hyprland-session.target
-
-      # The desktop portal does not find applications if we don't do this.
-      # See: https://discourse.nixos.org/t/open-links-from-flatpak-via-host-firefox/15465/11
-      systemctl --user import-environment PATH
-      systemctl --user restart xdg-desktop-portal.service
-    '';
-  };
-
   greetd = {
     gtkConfig = ''
       [Settings]
@@ -43,17 +21,11 @@
       gtk-cursor-theme-size = 24
     '';
 
-    hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-      $mod = SUPER
+    swayConfig = pkgs.writeText "greetd-sway-config" ''
+      exec "${pkgs.gtkgreet}/bin/gtkgreet -l; ${pkgs.swayfx}/bin/swaymsg exit"
 
-      animations {
-        enabled = false
-      }
-
-      source = ~/.config/hypr/common.conf
-      source = ~/.config/host/hypr/hyprland.conf
-
-      exec-once = ${pkgs.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
+      include ~/.config/sway/common.conf
+      include ~/.config/host/sway/host.conf
     '';
   };
 in {
@@ -61,14 +33,6 @@ in {
 
   systemd = {
     tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
-
-    user.targets.hyprland-session = {
-      description = "Hyprland compositor session";
-      documentation = ["man:systemd.special(7)"];
-      bindsTo = ["graphical-session.target"];
-      wants = ["graphical-session-pre.target"];
-      after = ["graphical-session-pre.target"];
-    };
 
     services = {
       # See https://github.com/NixOS/nixpkgs/issues/180175
@@ -182,12 +146,19 @@ in {
     dconf.enable = true;
     zsh.enable = true;
 
-    hyprland = {
+    sway = {
       enable = true;
       xwayland.enable = true;
+      package = pkgs.swayfx;
     };
 
-    xwayland.enable = pkgs.lib.mkForce true;
+    uwsm = {
+      enable = true;
+      waylandCompositors.sway = {
+        prettyName = "Sway";
+        binPath = "/run/current-system/sw/bin/sway";
+      };
+    };
 
     thunar = {
       enable = true;
@@ -224,8 +195,6 @@ in {
       curl
       kitty
 
-      setup-hyprland-environment
-
       # Theme stuff
       (orchis-theme.override {border-radius = 4;})
       bibata-cursors
@@ -237,12 +206,8 @@ in {
     etc = {
       "greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
       "greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
-      "greetd/.config/hypr".source = ./config/hypr;
-      "greetd/.config/host/hypr".source = ./. + "/hosts/${hostname}/config/hypr";
-      "greetd/environments".text = ''
-        Hyprland
-        niri-session
-      '';
+      "greetd/.config/sway".source = ./config/sway;
+      "greetd/.config/host/sway".source = ./. + "/hosts/${hostname}/config/sway";
     };
   };
 
@@ -296,7 +261,7 @@ in {
 
     greetd = {
       enable = true;
-      settings.default_session.command = "${pkgs.hyprland}/bin/Hyprland -c ${greetd.hyprlandConfig}";
+      settings.default_session.command = "${pkgs.swayfx}/bin/sway --config ${greetd.swayConfig}";
     };
 
     printing.enable = true;

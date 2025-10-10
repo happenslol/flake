@@ -1,0 +1,92 @@
+include ~/.config/sway/common.conf
+include ~/.config/host/sway/host.conf
+
+set $mod Mod4
+
+bindsym $mod+p exec fuzzel
+bindsym $mod+x exec kitty -1
+bindsym $mod+z exec firefox
+bindsym $mod+c exec zeditor
+bindsym $mod+e exec thunar
+
+bindsym $mod+q kill
+
+bindsym $mod+Alt+Backspace exec systemctl suspend
+bindsym $mod+Shift+Backspace exec swaylock -f -c 212121 && systemctl suspend
+
+bindsym $mod+Shift+c reload
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+Shift+f fullscreen
+
+mode "resize" {
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -2%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +2%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioStop exec playerctl stop
+
+bindsym Print exec grim
+
+floating_modifier $mod normal
+bindsym --whole-window $mod+button2 floating toggle
+
+default_border pixel 2
+default_floating_border pixel 20
+
+corner_radius 8
+gaps inner 10
+
+# class                 border    bground   text      indicator child_border
+client.focused          #5c5c5c   #212121   #000000   #5c5c5c   #5c5c5c
+client.focused_inactive #212121   #212121   #000000   #212121   #212121
+client.unfocused        #212121   #212121   #000000   #212121   #212121
+client.urgent           #FFCB6B   #212121   #000000   #FFCB6B   #FFCB6B
+client.placeholder      #212121   #212121   #000000   #212121   #212121

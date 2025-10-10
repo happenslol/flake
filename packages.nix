@@ -121,6 +121,7 @@ pkgs: {
     discord
     beekeeper-studio
     glow
+    localsend
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

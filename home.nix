@@ -93,7 +93,7 @@ in {
       "zsh".source = "${dotfiles}/zsh";
       "kitty".source = "${dotfiles}/kitty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
-      "hypr".source = "${dotfiles}/hypr";
+      "sway".source = "${dotfiles}/sway";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
@@ -102,7 +102,6 @@ in {
       "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
       "pnpm/rc".source = "${dotfiles}/pnpm/rc";
       "zed".source = "${dotfiles}/zed";
-
       "status".source = "${hostDotfiles}/status";
     };
 
