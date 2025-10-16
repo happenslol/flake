@@ -82,7 +82,7 @@ floating_modifier $mod normal
 bindsym --whole-window $mod+button2 floating toggle
 
 default_border pixel 2
-default_floating_border pixel 20
+default_floating_border pixel 2
 
 corner_radius 8
 gaps inner 15
