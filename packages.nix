@@ -62,7 +62,7 @@ pkgs: {
     nil
     alejandra
     taplo
-    awscli2
+    # awscli2
     terraform
     kubectl
     tree-sitter
@@ -122,6 +122,8 @@ pkgs: {
     glow
     localsend
     sway-contrib.grimshot
+    kicad
+    perf
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
@@ -138,7 +140,5 @@ pkgs: {
   ];
 
   llvm = with pkgs.llvmPackages_latest; [libclang];
-  linux = with pkgs.linuxPackages_latest; [perf];
-
   ai-tools = with pkgs.nix-ai-tools; [claude-code];
 }
