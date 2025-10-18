@@ -62,7 +62,6 @@ pkgs: {
     nil
     alejandra
     taplo
-    # awscli2
     terraform
     kubectl
     tree-sitter
@@ -124,6 +123,8 @@ pkgs: {
     sway-contrib.grimshot
     kicad
     perf
+    biome
+    # awscli2
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
