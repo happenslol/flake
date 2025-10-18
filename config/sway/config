@@ -11,8 +11,8 @@ bindsym $mod+e exec thunar
 
 bindsym $mod+q kill
 
-bindsym $mod+Alt+Backspace exec systemctl suspend
-bindsym $mod+Shift+Backspace exec swaylock -f -c 212121 && systemctl suspend
+bindsym $mod+Shift+End exec systemctl suspend
+bindsym $mod+Ctrl+End exec swaylock -f -c 212121 && systemctl suspend
 
 bindsym Print exec grimshot --notify savecopy area
 bindsym SHIFT+Print exec grimshot --notify savecopy output
