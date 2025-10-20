@@ -53,6 +53,7 @@ in {
       ".ssh/config".source = "${dotfiles}/ssh/config";
       ".git-scripts".source = "${dotfiles}/git/scripts";
       ".cargo/config.toml".source = "${dotfiles}/cargo/config.toml";
+      ".tmux.conf".source = "${dotfiles}/tmux/tmux.conf";
     };
 
     pointerCursor = {

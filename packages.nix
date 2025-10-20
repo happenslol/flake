@@ -124,6 +124,7 @@ pkgs: {
     kicad
     perf
     biome
+    tmux
     # awscli2
   ];
 
