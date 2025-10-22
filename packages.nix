@@ -47,7 +47,6 @@ pkgs: {
     mako
     python3
     gnumake
-    wlsunset
     wl-clipboard
     docker-compose
     steam-run
