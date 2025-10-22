@@ -124,7 +124,7 @@ pkgs: {
     perf
     biome
     tmux
-    # awscli2
+    awscli2
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
