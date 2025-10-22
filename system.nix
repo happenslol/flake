@@ -10,6 +10,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS2P0chvWgX5gvfIMKcaSLclj/Awowvqk3lwXHzy4HU" # mira.personal
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+OhmDhccVxUIjk90xOeS/7oX7JY8hpvKGufThO3LEL" # pixel.personal
   ];
 
   greetd = {
@@ -221,6 +222,7 @@ in {
     devmon.enable = true;
     udisks2.enable = true;
     envfs.enable = true;
+    tailscale.enable = true;
     gnome = {
       gnome-keyring.enable = true;
       gcr-ssh-agent.enable = false;
