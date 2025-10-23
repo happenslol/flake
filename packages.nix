@@ -47,7 +47,6 @@ pkgs: {
     mako
     python3
     gnumake
-    wlsunset
     wl-clipboard
     docker-compose
     steam-run
@@ -125,7 +124,7 @@ pkgs: {
     perf
     biome
     tmux
-    # awscli2
+    awscli2
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
