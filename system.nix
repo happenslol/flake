@@ -322,8 +322,9 @@ in {
 
   xdg.portal = {
     enable = true;
+    config = {common = {default = "wlr";};};
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    wlr.enable = pkgs.lib.mkForce false;
+    wlr.enable = true;
   };
 
   hardware.sane.enable = true;
