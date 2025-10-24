@@ -124,7 +124,8 @@ return {
           },
           vtsls = {
             -- Speed up lsp by requiring the root directory to be a git repo
-            root_dir = require("lspconfig.util").root_pattern(".git"),
+            -- TODO: This doesn't work anymore, do we still need the speed?
+            -- root_dir = require("lspconfig.util").root_pattern(".git"),
             settings = {
               complete_function_calls = true,
               vtsls = {
@@ -219,7 +220,7 @@ return {
         },
       }
     end,
-    config = function(_, opts)
+    config = vim.schedule_wrap(function(_, opts)
       local util = require("util")
       local lspconfig = require("lspconfig")
       local configs = require("lspconfig.configs")
@@ -287,7 +288,7 @@ return {
 
       -- Enable all configured LSPs
       vim.lsp.enable(servers)
-    end,
+    end),
   },
 
   {
