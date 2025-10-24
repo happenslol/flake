@@ -278,10 +278,15 @@ return {
 
       vim.diagnostic.config(opts.diagnostics)
 
+      local servers = {}
       for server, config in pairs(opts.servers) do
         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+        vim.lsp.config(server, config)
+        servers[#servers + 1] = server
       end
+
+      -- Enable all configured LSPs
+      vim.lsp.enable(servers)
     end,
   },
 

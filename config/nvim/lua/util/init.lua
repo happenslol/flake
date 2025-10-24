@@ -116,4 +116,14 @@ function M.fg(name)
   return fg and { fg = string.format("#%06x", fg) } or nil
 end
 
+---@param tbl table
+---@return string[]
+function M.keys(tbl)
+  local keys = {}
+  for k in pairs(tbl) do
+    keys[#keys + 1] = k
+  end
+  return keys
+end
+
 return M
