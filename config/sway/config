@@ -84,8 +84,8 @@ bindsym --whole-window $mod+button2 floating toggle
 default_border pixel 2
 default_floating_border pixel 2
 
-corner_radius 8
-gaps inner 15
+# corner_radius 8
+# gaps inner 15
 
 # class                 border    bground   text      indicator child_border
 client.focused          #5c5c5c   #212121   #000000   #5c5c5c   #5c5c5c

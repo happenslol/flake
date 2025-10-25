@@ -150,7 +150,7 @@ in {
     sway = {
       enable = true;
       xwayland.enable = true;
-      package = pkgs.swayfx;
+      # package = pkgs.swayfx;
     };
 
     uwsm = {
@@ -322,9 +322,16 @@ in {
 
   xdg.portal = {
     enable = true;
-    config = {common = {default = "wlr";};};
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    wlr.enable = true;
+
+    wlr = {
+      enable = true;
+      settings.screencast = {
+        output_name = "DP-1";
+        chooser_type = "simple";
+        chooser_cmd = "${pkgs.slurp}/bin/slurp -f 'Monitor: %o' -or";
+      };
+    };
   };
 
   hardware.sane.enable = true;
