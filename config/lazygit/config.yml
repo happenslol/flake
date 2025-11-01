@@ -39,7 +39,7 @@ gui:
   border: rounded
 git:
   commit:
-    autoWrapCommitMessage: false
+    autoWrapCommitMessage: true
   paging:
     colorArg: always
     pager: delta --dark --paging=never
