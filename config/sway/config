@@ -8,6 +8,7 @@ bindsym $mod+x exec kitty -1
 bindsym $mod+z exec firefox
 bindsym $mod+c exec zeditor
 bindsym $mod+e exec thunar
+bindsym $mod+v exec pavucontrol
 
 bindsym $mod+q kill
 
@@ -96,3 +97,6 @@ client.placeholder      #212121   #212121   #000000   #212121   #212121
 
 exec uwsm finalize
 exec mako
+
+# Window rules
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
