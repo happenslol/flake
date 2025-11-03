@@ -2,7 +2,7 @@
 pkgs: {
   sigma = pkgs.mkShell {
     name = "sigma";
-    packages = with pkgs; [fnm pkgs.playwright watchman];
+    packages = with pkgs; [fnm playwright watchman];
     shellHook = ''
       export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
       export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}"
