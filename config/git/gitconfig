@@ -3,10 +3,18 @@
 
 [push]
   autoSetupRemote = true
+[pull]
+	rebase = false
 
 [user]
   name = Hilmar Wiegand
   email = me@hwgnd.de
+
+[advice]
+	skippedCherryPicks = false
+
+[rerere]
+	enabled = true
 
 [core]
   sshCommand = "ssh -i ~/.ssh/$(hostname).personal.id_ed25519"
@@ -64,8 +72,3 @@
   line-numbers-plus-style = green bold
   line-numbers-left-format = "{nm:>4} │"
   line-numbers-right-format = "{np:>4} │"
-
-[pull]
-	rebase = false
-[advice]
-	skippedCherryPicks = false
