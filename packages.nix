@@ -126,6 +126,7 @@ pkgs: {
     tmux
     awscli2
     pavucontrol
+    ungoogled-chromium
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
