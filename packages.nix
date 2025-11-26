@@ -127,6 +127,7 @@ pkgs: {
     awscli2
     pavucontrol
     ungoogled-chromium
+    lutris
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
