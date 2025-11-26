@@ -10,6 +10,8 @@ bindsym $mod+c exec zeditor
 bindsym $mod+e exec thunar
 bindsym $mod+v exec pavucontrol
 
+bindsym $mod+a exec /home/happens/code/launch/result/bin/launch
+
 bindsym $mod+q kill
 
 bindsym $mod+Shift+End exec systemctl suspend
