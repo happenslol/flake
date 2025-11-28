@@ -61,6 +61,10 @@
     # '';
   };
 
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1d50", ATTR{idProduct}=="615e", MODE="0666", GROUP="plugdev", TAG+="uaccess"
+  '';
+
   systemd.services.corsair-h150i-liquidctl = {
     enable = true;
     description = "CPU AIO Fan Control";

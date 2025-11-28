@@ -284,7 +284,7 @@ in {
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video"];
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = sshPublicKeys;
     };
