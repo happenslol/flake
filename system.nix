@@ -103,7 +103,7 @@ in {
     # Increase max vm map count for nodejs workers running out of heap memory
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
     # Re-enable after https://github.com/NixOS/nixpkgs/issues/436300 lands
     # extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
@@ -168,7 +168,6 @@ in {
         thunar-volman
       ];
     };
-    file-roller.enable = true;
 
     _1password.enable = true;
     _1password-gui = {
@@ -187,7 +186,7 @@ in {
   users.defaultUserShell = pkgs.zsh;
 
   environment = {
-    enableAllTerminfo = true;
+    # enableAllTerminfo = true;
     shells = [pkgs.zsh pkgs.bash];
     binsh = "${pkgs.dash}/bin/dash";
 
@@ -314,7 +313,7 @@ in {
     packages = with pkgs; [
       inter
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts-cjk-sans
       nerd-fonts.iosevka-term
     ];

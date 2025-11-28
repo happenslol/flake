@@ -1,6 +1,6 @@
 inputs: self: super: {
-  serve = inputs.serve.packages.${self.system}.default;
-  status = inputs.status.packages.${self.system}.default;
+  serve = inputs.serve.packages.${self.stdenv.hostPlatform.system}.default;
+  status = inputs.status.packages.${self.stdenv.hostPlatform.system}.default;
 
   # Add our bundled npm packages
   npm-global = self.callPackage ./npm-global {};
@@ -52,5 +52,5 @@ inputs: self: super: {
   '';
 
   # Add nix-ai-tools packages to pkgs
-  nix-ai-tools = inputs.nix-ai-tools.packages.${self.system};
+  nix-ai-tools = inputs.nix-ai-tools.packages.${self.stdenv.hostPlatform.system};
 }

@@ -28,7 +28,7 @@ pkgs: {
     direnv
     google-chrome
     firefox-bin
-    tdesktop
+    telegram-desktop
     signal-desktop
     element-desktop
     easyeffects
@@ -52,7 +52,7 @@ pkgs: {
     steam-run
     nodejs_24
     font-manager
-    sumneko-lua-language-server
+    lua-language-server
     stylua
     selene
     zls
@@ -128,6 +128,8 @@ pkgs: {
     pavucontrol
     ungoogled-chromium
     lutris
+    file-roller
+    nix-tree
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
