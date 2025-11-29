@@ -10,9 +10,10 @@ return {
     },
     cmd = "Telescope",
     keys = {
-      { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-      { "<C-b>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
-      { "<C-f>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<c-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { "<c-b>", "<cmd>Telescope resume<cr>", desc = "Last Search" },
+      { "<c-f>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<c-f>", "<cmd>Telescope grep_string<cr>", desc = "Grep String", mode = "v" },
       { "<leader>pj", "<cmd>Telescope jsonfly<cr>", desc = "JSON Path Search" },
     },
     opts = function()
@@ -111,6 +112,7 @@ return {
         pickers = {
           find_files = find_files_config,
           live_grep = live_grep_config,
+          grep_string = live_grep_config,
           quickfix = live_grep_config,
           lsp_definitions = lsp_goto_config,
           lsp_implementations = lsp_goto_config,
