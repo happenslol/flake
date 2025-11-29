@@ -2,6 +2,7 @@ include ~/.config/sway/common.conf
 include ~/.config/host/sway/host.conf
 
 set $mod Mod4
+set $hyper Ctrl+Shift+Mod1+Mod4
 
 bindsym $mod+p exec fuzzel
 bindsym $mod+x exec kitty -1
@@ -10,7 +11,8 @@ bindsym $mod+c exec zeditor
 bindsym $mod+e exec thunar
 bindsym $mod+v exec pavucontrol
 
-bindsym $mod+a exec /home/happens/code/launch/result/bin/launch
+# hyper keybinds
+bindsym $hyper+j exec /home/happens/code/launch/result/bin/launch
 
 bindsym $mod+q kill
 
