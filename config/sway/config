@@ -2,7 +2,7 @@ include ~/.config/sway/common.conf
 include ~/.config/host/sway/host.conf
 
 set $mod Mod4
-set $hyper Ctrl+Shift+Mod1+Mod4
+set $hyper Mod3
 
 bindsym $mod+p exec fuzzel
 bindsym $mod+x exec kitty -1
