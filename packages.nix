@@ -130,6 +130,7 @@ pkgs: {
     lutris
     file-roller
     nix-tree
+    d-spy
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
