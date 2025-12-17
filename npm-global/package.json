@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "dependencies": {
     "@fsouza/prettierd": "^0.26.1",
-    "pnpm": "^10.20.0",
-    "prettier": "^3.5.3",
-    "yarn": "^1.22.22"
+    "prettier": "^3.5.3"
   }
 }
