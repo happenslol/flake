@@ -222,6 +222,7 @@ in {
     udisks2.enable = true;
     envfs.enable = true;
     tailscale.enable = true;
+    flatpak.enable = true;
     gnome = {
       gnome-keyring.enable = true;
       gcr-ssh-agent.enable = false;
