@@ -132,6 +132,7 @@ pkgs: {
     nix-tree
     corepack
     obs-studio
+    d-spy
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
