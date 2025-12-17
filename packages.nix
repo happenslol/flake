@@ -130,6 +130,8 @@ pkgs: {
     lutris
     file-roller
     nix-tree
+    corepack
+    obs-studio
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
