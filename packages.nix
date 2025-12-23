@@ -130,7 +130,6 @@ pkgs: {
     lutris
     file-roller
     nix-tree
-    corepack
     obs-studio
     d-spy
   ];

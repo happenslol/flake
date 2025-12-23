@@ -36,3 +36,6 @@ export NODE_OPTIONS="--max-old-space-size=16384"
 
 # git scripts
 export PATH="$PATH:$HOME/.git-scripts"
+
+# corepack
+export PATH="$PATH:$HOME/.corepack"
