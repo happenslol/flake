@@ -63,8 +63,8 @@ map("n", "<esc>", function()
 end, { silent = true, expr = true })
 
 -- Restart LSP and show info
-map("n", "<leader>li", ":LspInfo<cr>", { silent = true, desc = "Show LSP Info" })
-map("n", "<leader>lr", ":LspRestart<cr>", { silent = true, desc = "Restart LSPs" })
+map("n", "<leader>li", ":lsp info<cr>", { silent = true, desc = "Show LSP Info" })
+map("n", "<leader>lr", ":lsp restart<cr>", { silent = true, desc = "Restart LSPs" })
 
 -- Clear current session and buffers
 map("n", "<leader>lc", function()
