@@ -148,5 +148,12 @@ pkgs: {
   ];
 
   llvm = with pkgs.llvmPackages_latest; [libclang];
-  ai-tools = with pkgs.nix-ai-tools; [claude-code];
+
+  ai-tools = with pkgs.nix-ai-tools; [
+    ccusage
+    claude-code
+    codex
+    gemini-cli
+    opencode
+  ];
 }
