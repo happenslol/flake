@@ -15,6 +15,7 @@ require("kitty-scrollback").setup({
     keymaps_enabled = false,
     status_window = { autoclose = true },
     paste_window = { hide_footer = true, yank_register = "y" },
+    scrollback_buffer_cols = 400,
   },
 })
 

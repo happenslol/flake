@@ -2,4 +2,11 @@
 -- configuration/usage is in kitty-scrollback-init.lua
 
 ---@type LazySpec
-return { { "mikesmithgh/kitty-scrollback.nvim", enabled = true, lazy = true } }
+return {
+  {
+    "happenslol/kitty-scrollback.nvim",
+    branch = "make-scrollback-cols-configurable",
+    enabled = true,
+    lazy = true,
+  },
+}
