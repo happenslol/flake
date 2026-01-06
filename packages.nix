@@ -132,6 +132,8 @@ pkgs: {
     nix-tree
     obs-studio
     d-spy
+    snx-rs
+    waybar
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
@@ -151,6 +153,7 @@ pkgs: {
 
   ai-tools = with pkgs.nix-ai-tools; [
     ccusage
+    ccstatusline
     claude-code
     codex
     gemini-cli

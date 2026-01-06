@@ -224,6 +224,7 @@ in {
     envfs.enable = true;
     tailscale.enable = true;
     flatpak.enable = true;
+    resolved.enable = true;
     gnome = {
       gnome-keyring.enable = true;
       gcr-ssh-agent.enable = false;

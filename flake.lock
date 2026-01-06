@@ -409,11 +409,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749128304,
-        "narHash": "sha256-QvQ6gBpXjfAChBdChuTYvN9e7EAtdHSbEUkvgVDZ2r4=",
+        "lastModified": 1767102420,
+        "narHash": "sha256-HDIZ5+u4O5LWBLMgNgt/02AdxhIfSTrxQY/Ws14kCvk=",
         "owner": "happenslol",
         "repo": "serve",
-        "rev": "48240f44fea325302783ea84b55a28ab644a9512",
+        "rev": "e1e5e3184b91747712c0d03df0b15d49fd452eab",
         "type": "github"
       },
       "original": {
