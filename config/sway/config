@@ -108,4 +108,5 @@ exec mako
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 for_window [app_id="1password"] floating enable, resize set 50 ppt 50 ppt
 for_window [app_id="Thunar"] floating enable
-for_window [title="File Operation Progress" app_id="Thunar"] floating enable
+for_window [app_id="Thunar" title="File Operation Progress"] floating enable
+for_window [app_id="Slack" title="^Huddle:"] floating enable
