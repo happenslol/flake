@@ -61,8 +61,10 @@
     # '';
   };
 
+  # vial and zmk studio
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="1d50", ATTR{idProduct}=="615e", MODE="0666", GROUP="plugdev", TAG+="uaccess"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
   '';
 
   systemd.services.corsair-h150i-liquidctl = {
