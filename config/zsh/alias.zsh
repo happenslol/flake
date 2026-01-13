@@ -12,10 +12,6 @@ alias svim="sudo -E nvim"
 alias nsh="nix-shell --command zsh "
 alias ndv="nix develop --command zsh "
 
-# Remap utils to modern versions
-alias cat="bat "
-alias grep="rg "
-
 # Remap ls commands and shortcuts to eza
 alias l="eza -la --git --icons --group-directories-first "
 alias lt="eza --tree --icons --group-directories-first "
