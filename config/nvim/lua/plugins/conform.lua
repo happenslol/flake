@@ -60,6 +60,7 @@ return {
     }
 
     local biome_fts = {
+      "astro",
       "css",
       "graphql",
       "javascript",
