@@ -116,7 +116,6 @@ pkgs: {
     pinta
     process-compose
     discord
-    beekeeper-studio
     glow
     localsend
     sway-contrib.grimshot
