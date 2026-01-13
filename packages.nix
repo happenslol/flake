@@ -134,6 +134,10 @@ pkgs: {
     d-spy
     snx-rs
     waybar
+    zulip
+    gimp
+    postgresql_18
+    inkscape
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
