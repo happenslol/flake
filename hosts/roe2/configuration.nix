@@ -43,38 +43,27 @@
     max-jobs = 4;
   };
 
-  hardware = {
-    xpadneo.enable = true;
-
-    bluetooth = {
-      enable = true;
-      settings.General.experimental = true;
-    };
+  hardware.bluetooth = {
+    enable = true;
+    settings.General.experimental = true;
   };
 
   services = {
     blueman.enable = true;
 
-    # TODO: Fix this
-    # udev.extraRules = ''
-    #   ACTION=="add", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="6940", ATTRS{idProduct}=="3137", SYMLINK+="corsair-h150i", TAG+="systemd"
-    # '';
-  };
-
-  # vial and zmk studio
-  services.udev = {
-    packages = with pkgs; [via vial];
-    extraRules = ''
-      SUBSYSTEM=="usb", ATTR{idVendor}=="1d50", ATTR{idProduct}=="615e", MODE="0666", GROUP="plugdev", TAG+="uaccess"
-    '';
+    # udev = {
+    #   # vial and zmk studio
+    #   packages = with pkgs; [via vial];
+    #   extraRules = ''
+    #     SUBSYSTEM=="usb", ATTR{idVendor}=="1d50", ATTR{idProduct}=="615e", MODE="0666", GROUP="plugdev", TAG+="uaccess"
+    #   '';
+    # };
   };
 
   systemd.services.corsair-h150i-liquidctl = {
     enable = true;
     description = "CPU AIO Fan Control";
     wantedBy = ["default.target"];
-    # requires = ["dev-corsair-h150i.device"];
-    # after = ["dev-corsair-h150i.device"];
 
     serviceConfig.Type = "oneshot";
     script = ''

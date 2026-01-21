@@ -336,5 +336,9 @@ in {
     };
   };
 
-  hardware.sane.enable = true;
+  hardware = {
+    sane.enable = true;
+    xpadneo.enable = true;
+    steam-hardware.enable = true;
+  };
 }
