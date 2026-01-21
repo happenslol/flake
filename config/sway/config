@@ -12,8 +12,8 @@ bindsym $mod+e exec thunar
 bindsym $mod+v exec pavucontrol
 
 bindsym $hyper+j exec /home/happens/code/launch/result/bin/launch
-bindsym $hyper+h exec kitty -1
-bindsym $hyper+m exec firefox
+bindsym $hyper+m exec kitty -1
+bindsym $hyper+h exec firefox
 bindsym $hyper+y exec thunar
 
 bindsym $mod+q kill
