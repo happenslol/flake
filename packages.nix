@@ -133,10 +133,10 @@ pkgs: {
     d-spy
     snx-rs
     waybar
-    zulip
     gimp
     postgresql_18
     inkscape
+    nextcloud-talk-desktop
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
@@ -161,19 +161,5 @@ pkgs: {
     codex
     gemini-cli
     opencode
-  ];
-
-  custom = let
-    mkAppImage = pkgs.callPackage ./util/appimage.nix {};
-  in [
-    (mkAppImage {
-      name = "twist";
-      url = "https://downloads.twist.com/linux/Twist-1.0.8.AppImage";
-      sha256 = "sha256-A+ndG62lEIssetF+U1ZsaLD/0jKNCLXTTQzHLFeVs+k=";
-      icon = "https://twist.com/a/img/fav/apple-touch-icon.png";
-      iconSha256 = "sha256-r8oQEdq/nPKgu2O9wxFcfj2iANXm+5BPXJqkebbqTYE=";
-      desktopName = "Twist";
-      mimeTypes = ["x-scheme-handler/com.twist"];
-    })
   ];
 }
