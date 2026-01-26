@@ -136,7 +136,6 @@ pkgs: {
     gimp
     postgresql_18
     inkscape
-    nextcloud-talk-desktop
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
