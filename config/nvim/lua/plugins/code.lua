@@ -99,9 +99,14 @@ return {
 
   {
     "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      highlight = {
+        pattern = [[.*<(KEYWORDS)\s*%(\(.*\))?\s*:]]
+      }
+    },
     -- stylua: ignore
     keys = {
       { "]t",         function() require("todo-comments").jump_next() end,              desc = "Next Todo Comment" },
