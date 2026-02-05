@@ -136,6 +136,7 @@ pkgs: {
     gimp
     postgresql_18
     inkscape
+    ghostty
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

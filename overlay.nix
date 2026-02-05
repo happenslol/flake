@@ -1,6 +1,7 @@
 inputs: self: super: {
   serve = inputs.serve.packages.${self.stdenv.hostPlatform.system}.default;
   status = inputs.status.packages.${self.stdenv.hostPlatform.system}.default;
+  ghostty = inputs.ghostty.packages.${self.stdenv.hostPlatform.system}.default;
 
   # Add our bundled npm packages
   npm-global = self.callPackage ./npm-global {};

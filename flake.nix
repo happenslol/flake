@@ -36,6 +36,7 @@
     };
 
     status.url = "github:happenslol/status";
+    ghostty.url = "github:ghostty-org/ghostty";
   };
 
   outputs = inputs @ {
