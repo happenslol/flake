@@ -88,3 +88,14 @@ map("n", "<leader>lp", function()
   vim.fn.setreg("+", full_filename)
   vim.notify("Copied `" .. full_filename .. "` to clipboard")
 end, { silent = true, desc = "Copy Current Buffer Name" })
+
+map("n", "<leader>lP", function()
+  local relative_path = vim.fn.expand("%:.")
+  if not relative_path or relative_path == "" then
+    vim.notify("No file path available")
+    return
+  end
+
+  vim.fn.setreg("+", relative_path)
+  vim.notify("Copied `" .. relative_path .. "` to clipboard")
+end, { silent = true, desc = "Copy Current Buffer Relative Path" })

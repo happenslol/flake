@@ -57,3 +57,6 @@ alias sink="pactl set-default-sink "
 alias src="pactl set-default-source "
 alias unmute="pactl set-sink-mute @DEFAULT_SINK@ false"
 alias mute="pactl set-sink-mute @DEFAULT_SINK@ true"
+
+# Claude Code profiles
+alias claude-oc="CLAUDE_CONFIG_DIR=~/.claude-oc claude "

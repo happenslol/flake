@@ -34,6 +34,12 @@ return {
         map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
         -- stylua: ignore end
+
+        map("n", "<leader>gl", function()
+          gs.toggle_linehl()
+          gs.toggle_numhl()
+          gs.toggle_signs()
+        end, "Toggle diff mode")
       end,
     },
   },

@@ -15,6 +15,7 @@ return {
       { "<c-f>", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       { "<c-f>", "<cmd>Telescope grep_string<cr>", desc = "Grep String", mode = "v" },
       { "<leader>pj", "<cmd>Telescope jsonfly<cr>", desc = "JSON Path Search" },
+      { "<leader>pg", "<cmd>Telescope git_status<cr>", desc = "Git Status" },
     },
     opts = function()
       local actions = require("telescope.actions")
@@ -67,7 +68,7 @@ return {
               })
             end,
           },
-    },
+        },
       }
 
       return {
@@ -120,6 +121,18 @@ return {
           lsp_document_symbols = lsp_goto_config,
           lsp_diagnostics = lsp_goto_config,
           lsp_lsp_type_definitions = lsp_goto_config,
+
+          git_status = {
+            git_icons = {
+              added = " ",
+              changed = " ",
+              copied = " ",
+              deleted = " ",
+              renamed = " ",
+              unmerged = "",
+              untracked = " ",
+            },
+          },
         },
       }
     end,
