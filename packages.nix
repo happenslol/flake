@@ -137,6 +137,7 @@ pkgs: {
     postgresql_18
     inkscape
     ghostty
+    dotool
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
