@@ -138,6 +138,9 @@ pkgs: {
     inkscape
     ghostty
     dotool
+    sqlite
+    jetbrains.datagrip
+    uv
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
