@@ -34,9 +34,8 @@ pkgs: {
     icu
     openssl
     zlib
-  ];
 
-  xorg = with pkgs.xorg; [
+    # xorg packages
     libxcb
     libX11
     libXScrnSaver

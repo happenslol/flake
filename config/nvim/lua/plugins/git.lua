@@ -36,7 +36,6 @@ return {
         -- stylua: ignore end
 
         map("n", "<leader>gl", function()
-          gs.toggle_linehl()
           gs.toggle_numhl()
           gs.toggle_signs()
         end, "Toggle diff mode")
