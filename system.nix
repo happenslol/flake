@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   stateVersion,
   username,
@@ -69,6 +70,8 @@ in {
     services = {
       # See https://github.com/NixOS/nixpkgs/issues/180175
       NetworkManager-wait-online.enable = false;
+      tailscaled.after = ["systemd-networkd-wait-online.service"];
+      pia-vpn.after = ["systemd-networkd-wait-online.service"];
 
       # See https://github.com/openzfs/zfs/issues/10891
       # Our root is on pool, so our pools are already imported whenever this
@@ -310,6 +313,14 @@ in {
         addresses = true;
         domain = true;
       };
+    };
+
+    pia-vpn = {
+      enable = true;
+      environmentFile = config.sops.secrets.pia.path;
+      certificateFile = ./pia.ca.rsa.4096.crt;
+      namespace = "pia";
+      region = "de-frankfurt";
     };
   };
 

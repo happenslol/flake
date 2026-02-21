@@ -83,6 +83,7 @@
       modules = [
         nix-index-database.nixosModules.nix-index
         sops-nix.nixosModules.sops
+        ./modules/pia-vpn.nix
         ./system.nix
         (./. + "/hosts/${hostname}/hardware-configuration.nix")
         (./. + "/hosts/${hostname}/configuration.nix")
