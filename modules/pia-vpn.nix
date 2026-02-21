@@ -94,6 +94,9 @@ in
           [Match]
           Name = ''${interface}
 
+          [Link]
+          RequiredForOnline = no
+
           [Network]
           Description = WireGuard PIA network interface
           Address = ''${peerip}/32
@@ -160,6 +163,7 @@ in
       boot.kernelModules = ["wireguard"];
 
       systemd.network.enable = true;
+      systemd.network.wait-online.enable = false;
 
       systemd.services.pia-vpn = {
         description = "Connect to Private Internet Access on ${cfg.interface}";
