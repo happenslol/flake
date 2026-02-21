@@ -65,7 +65,10 @@ in {
   system = {inherit stateVersion;};
 
   systemd = {
-    tmpfiles.rules = ["Z /etc/greetd - greeter greeter"];
+    tmpfiles.rules = [
+      "Z /etc/greetd - greeter greeter"
+      "d /home/happens/media 2775 happens media -"
+    ];
 
     services = {
       # See https://github.com/NixOS/nixpkgs/issues/180175
@@ -427,15 +430,21 @@ in {
     };
   };
 
+  users.groups.media = {};
+
   users.users = {
     greeter.home = "/etc/greetd";
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp" "input" "transmission"];
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp" "input" "transmission" "media"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = sshPublicKeys;
     };
+
+    radarr.extraGroups = ["media"];
+    sonarr.extraGroups = ["media"];
+    transmission.extraGroups = ["media"];
   };
 
   networking = {
