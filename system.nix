@@ -73,6 +73,67 @@ in {
       tailscaled.after = ["systemd-networkd-wait-online.service"];
       pia-vpn.after = ["systemd-networkd-wait-online.service"];
 
+      transmission-dirs = {
+        description = "Create Transmission download directories";
+        requiredBy = ["transmission.service"];
+        before = ["transmission.service"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/mkdir -p /home/happens/transmission/.incomplete && ${pkgs.coreutils}/bin/chown -R transmission:transmission /home/happens/transmission'";
+        };
+      };
+
+      transmission = {
+        bindsTo = ["pia-vpn.service"];
+        after = ["pia-vpn.service"];
+        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+      };
+
+      transmission-rpc-proxy = {
+        description = "Forward Transmission RPC from pia namespace to host";
+        after = ["transmission.service"];
+        bindsTo = ["transmission.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:9091,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:9091'";
+          Restart = "always";
+        };
+      };
+
+      radarr = {
+        bindsTo = ["pia-vpn.service"];
+        after = ["pia-vpn.service"];
+        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+      };
+
+      sonarr = {
+        bindsTo = ["pia-vpn.service"];
+        after = ["pia-vpn.service"];
+        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+      };
+
+      radarr-rpc-proxy = {
+        description = "Forward Radarr from pia namespace to host";
+        after = ["radarr.service"];
+        bindsTo = ["radarr.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:7878,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:7878'";
+          Restart = "always";
+        };
+      };
+
+      sonarr-rpc-proxy = {
+        description = "Forward Sonarr from pia namespace to host";
+        after = ["sonarr.service"];
+        bindsTo = ["sonarr.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8989,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:8989'";
+          Restart = "always";
+        };
+      };
+
       # See https://github.com/openzfs/zfs/issues/10891
       # Our root is on pool, so our pools are already imported whenever this
       # service would run.
@@ -248,6 +309,24 @@ in {
   };
 
   services = {
+    nginx = {
+      enable = true;
+      virtualHosts = {
+        "transmission.local" = {
+          listen = [{addr = "127.0.0.1"; port = 80;}];
+          locations."/".proxyPass = "http://127.0.0.1:9091";
+        };
+        "radarr.local" = {
+          listen = [{addr = "127.0.0.1"; port = 80;}];
+          locations."/".proxyPass = "http://127.0.0.1:7878";
+        };
+        "sonarr.local" = {
+          listen = [{addr = "127.0.0.1"; port = 80;}];
+          locations."/".proxyPass = "http://127.0.0.1:8989";
+        };
+      };
+    };
+
     upower.enable = true;
     openssh.enable = true;
     dbus.enable = true;
@@ -315,12 +394,36 @@ in {
       };
     };
 
+    transmission = {
+      enable = true;
+      home = "/var/lib/transmission";
+      package = pkgs.transmission_4;
+      settings = {
+        download-dir = "/home/happens/transmission";
+        incomplete-dir = "/home/happens/transmission/.incomplete";
+        incomplete-dir-enabled = true;
+        rpc-bind-address = "0.0.0.0";
+        rpc-whitelist-enabled = false;
+      };
+    };
+
+    radarr.enable = true;
+    sonarr.enable = true;
+
     pia-vpn = {
       enable = true;
       environmentFile = config.sops.secrets.pia.path;
       certificateFile = ./pia.ca.rsa.4096.crt;
       namespace = "pia";
       region = "de-frankfurt";
+      portForward = {
+        enable = true;
+        script = ''
+          ${pkgs.curl}/bin/curl -s http://127.0.0.1:9091/transmission/rpc \
+            -H "$(${pkgs.curl}/bin/curl -s http://127.0.0.1:9091/transmission/rpc | ${pkgs.gnugrep}/bin/grep -oP 'X-Transmission-Session-Id: \S+')" \
+            -d '{"method":"session-set","arguments":{"peer-port":'"$port"'}}'
+        '';
+      };
     };
   };
 
@@ -329,7 +432,7 @@ in {
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp" "input"];
+      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp" "input" "transmission"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = sshPublicKeys;
     };
@@ -338,6 +441,9 @@ in {
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
+    hosts = {
+      "127.0.0.1" = ["transmission.local" "radarr.local" "sonarr.local"];
+    };
   };
 
   security.rtkit.enable = true;

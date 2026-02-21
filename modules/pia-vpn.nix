@@ -417,16 +417,16 @@ in
           gateway="$(echo $wg | jq -r '.server_vip')"
 
           echo Fetching token from $meta_ip...
-          tokenResponse="$(curl --no-progress-meter -m 5 \
-            -u "$PIA_USER:$PIA_PASS" \
-            --connect-to "$meta_hostname::$meta_ip" \
-            --cacert "${cfg.certificateFile}" \
-            "https://$meta_hostname/authv3/generateToken" || true)"
-          if [ "$(echo "$tokenResponse" | jq -r '.status' || true)" != "OK" ]; then
+          tokenResponse="$(curl -s --location --request POST \
+            --no-progress-meter -m 5 \
+            'https://www.privateinternetaccess.com/api/client/v2/token' \
+            --form "username=$PIA_USER" \
+            --form "password=$PIA_PASS" || true)"
+          token="$(echo "$tokenResponse" | jq -r '.token')"
+          if [ -z "$token" ]; then
             >&2 echo "Failed to generate token. Stopping."
             exit 1
           fi
-          token="$(echo "$tokenResponse" | jq -r '.token')"
 
           echo "Fetching port forwarding configuration from $gateway..."
           pfconfig="$(curl --no-progress-meter -m 5 \
