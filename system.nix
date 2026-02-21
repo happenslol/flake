@@ -67,7 +67,9 @@ in {
   systemd = {
     tmpfiles.rules = [
       "Z /etc/greetd - greeter greeter"
+      "d /home/happens 0711 happens users -"
       "d /home/happens/media 2775 happens media -"
+      "d /home/happens/transmission 2775 happens media -"
     ];
 
     services = {
@@ -89,7 +91,10 @@ in {
       transmission = {
         bindsTo = ["pia-vpn.service"];
         after = ["pia-vpn.service"];
-        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+        serviceConfig = {
+          NetworkNamespacePath = "/var/run/netns/pia";
+          BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        };
       };
 
       transmission-rpc-proxy = {
@@ -106,13 +111,19 @@ in {
       radarr = {
         bindsTo = ["pia-vpn.service"];
         after = ["pia-vpn.service"];
-        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+        serviceConfig = {
+          NetworkNamespacePath = "/var/run/netns/pia";
+          BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        };
       };
 
       sonarr = {
         bindsTo = ["pia-vpn.service"];
         after = ["pia-vpn.service"];
-        serviceConfig.NetworkNamespacePath = "/var/run/netns/pia";
+        serviceConfig = {
+          NetworkNamespacePath = "/var/run/netns/pia";
+          BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        };
       };
 
       radarr-rpc-proxy = {
@@ -303,6 +314,7 @@ in {
     pathsToLink = ["/share/zsh"];
 
     etc = {
+      "netns/pia/resolv.conf".text = "nameserver 10.0.0.243\n";
       "greetd/.icons/Bibata-Modern-Classic".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
       "greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
       "greetd/.config/sway".source = ./config/sway;
@@ -316,15 +328,30 @@ in {
       enable = true;
       virtualHosts = {
         "transmission.local" = {
-          listen = [{addr = "127.0.0.1"; port = 80;}];
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 80;
+            }
+          ];
           locations."/".proxyPass = "http://127.0.0.1:9091";
         };
         "radarr.local" = {
-          listen = [{addr = "127.0.0.1"; port = 80;}];
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 80;
+            }
+          ];
           locations."/".proxyPass = "http://127.0.0.1:7878";
         };
         "sonarr.local" = {
-          listen = [{addr = "127.0.0.1"; port = 80;}];
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 80;
+            }
+          ];
           locations."/".proxyPass = "http://127.0.0.1:8989";
         };
       };
