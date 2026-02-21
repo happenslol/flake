@@ -6,6 +6,37 @@
   hostname,
   ...
 }: let
+  mkSopsSecrets = {
+    file,
+    owner ? null,
+  }: let
+    content = builtins.fromJSON (builtins.readFile file);
+
+    collectPaths = prefix: attrs:
+      builtins.concatLists (builtins.attrValues (builtins.mapAttrs (
+          name: value:
+            if name == "sops"
+            then []
+            else if builtins.isAttrs value
+            then collectPaths "${prefix}${name}/" value
+            else ["${prefix}${name}"]
+        )
+        attrs));
+
+    paths = collectPaths "" content;
+  in
+    builtins.listToAttrs (map (path: {
+        name = path;
+        value =
+          {sopsFile = file;}
+          // (
+            if owner != null
+            then {inherit owner;}
+            else {}
+          );
+      })
+      paths);
+
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
@@ -340,5 +371,14 @@ in {
     sane.enable = true;
     xpadneo.enable = true;
     steam-hardware.enable = true;
+  };
+
+  sops = {
+    defaultSopsFile = ./secrets.json;
+    environment.SOPS_AGE_SSH_PRIVATE_KEY_FILE = "/home/${username}/.ssh/${hostname}.personal.id_ed25519";
+    secrets = mkSopsSecrets {
+      file = ./secrets.json;
+      owner = username;
+    };
   };
 }

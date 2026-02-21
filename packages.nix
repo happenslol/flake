@@ -141,6 +141,7 @@ pkgs: {
     sqlite
     jetbrains.datagrip
     uv
+    sops
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

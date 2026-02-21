@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     status.url = "github:happenslol/status";
     ghostty.url = "github:ghostty-org/ghostty";
   };
@@ -45,6 +50,7 @@
     nix-index-database,
     nixpkgs-wayland,
     neovim-nightly-overlay,
+    sops-nix,
     ...
   }: let
     inherit (nixpkgs) lib;
@@ -76,6 +82,7 @@
 
       modules = [
         nix-index-database.nixosModules.nix-index
+        sops-nix.nixosModules.sops
         ./system.nix
         (./. + "/hosts/${hostname}/hardware-configuration.nix")
         (./. + "/hosts/${hostname}/configuration.nix")

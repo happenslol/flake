@@ -39,3 +39,6 @@ export PATH="$PATH:$HOME/.git-scripts"
 
 # corepack
 export PATH="$PATH:$HOME/.corepack"
+
+# sops default key
+export SOPS_AGE_SSH_PRIVATE_KEY_FILE="/home/happens/.ssh/$HOST.personal.id_ed25519"
