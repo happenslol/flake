@@ -44,6 +44,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/srv/media" = {
+    device = "rpool/media";
+    fsType = "zfs";
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/4464-7A23";
     fsType = "vfat";
