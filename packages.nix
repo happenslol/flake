@@ -142,6 +142,8 @@ pkgs: {
     jetbrains.datagrip
     uv
     sops
+    gh
+    wingthing
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
@@ -166,5 +168,6 @@ pkgs: {
     codex
     gemini-cli
     opencode
+    happy-coder
   ];
 }

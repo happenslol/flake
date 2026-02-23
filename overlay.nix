@@ -52,6 +52,24 @@ inputs: self: super: {
     exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
   '';
 
+  wingthing = self.stdenv.mkDerivation {
+    pname = "wingthing";
+    version = "0.109.0";
+
+    src = self.fetchurl {
+      url = "https://github.com/ehrlich-b/wingthing/releases/download/v0.109.0/wt-linux-amd64";
+      hash = "sha256-EweoQtH6AfPB0QngApQ8yVflGZOh4UVGWFGjbQxUhD4=";
+    };
+
+    dontUnpack = true;
+
+    nativeBuildInputs = [self.autoPatchelfHook];
+
+    installPhase = ''
+      install -Dm755 $src $out/bin/wt
+    '';
+  };
+
   # Add nix-ai-tools packages to pkgs
   nix-ai-tools = inputs.nix-ai-tools.packages.${self.stdenv.hostPlatform.system};
 }
