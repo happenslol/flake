@@ -71,5 +71,5 @@ inputs: self: super: {
   };
 
   # Add nix-ai-tools packages to pkgs
-  nix-ai-tools = inputs.nix-ai-tools.packages.${self.stdenv.hostPlatform.system};
+  llm-agents = inputs.llm-agents.packages.${self.stdenv.hostPlatform.system};
 }

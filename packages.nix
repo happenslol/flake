@@ -161,12 +161,10 @@ pkgs: {
 
   llvm = with pkgs.llvmPackages_latest; [libclang];
 
-  ai-tools = with pkgs.nix-ai-tools; [
+  llm-agents = with pkgs.llm-agents; [
     ccusage
     ccstatusline
     claude-code
-    codex
-    gemini-cli
     opencode
     happy-coder
   ];
