@@ -55,19 +55,28 @@ inputs: self: super: {
   wingthing = self.stdenv.mkDerivation {
     pname = "wingthing";
     version = "0.109.0";
-
+    dontUnpack = true;
+    nativeBuildInputs = [self.autoPatchelfHook];
+    installPhase = ''install -Dm755 $src $out/bin/wt'';
     src = self.fetchurl {
       url = "https://github.com/ehrlich-b/wingthing/releases/download/v0.109.0/wt-linux-amd64";
       hash = "sha256-EweoQtH6AfPB0QngApQ8yVflGZOh4UVGWFGjbQxUhD4=";
     };
+  };
 
-    dontUnpack = true;
-
-    nativeBuildInputs = [self.autoPatchelfHook];
-
+  fence = self.stdenv.mkDerivation {
+    pname = "fence";
+    version = "0.1.30";
+    sourceRoot = ".";
+    nativeBuildInputs = [self.autoPatchelfHook self.makeWrapper];
     installPhase = ''
-      install -Dm755 $src $out/bin/wt
+      install -Dm755 fence $out/bin/fence
+      wrapProgram $out/bin/fence --prefix PATH : ${self.lib.makeBinPath [self.socat self.bubblewrap self.bpftrace]}
     '';
+    src = self.fetchurl {
+      url = "https://github.com/Use-Tusk/fence/releases/download/v0.1.30/fence_0.1.30_Linux_x86_64.tar.gz";
+      hash = "sha256-J1WCNXJ+2+H25ADPjj7xcyJ84nI3Au0OqwGLOL9l67k=";
+    };
   };
 
   # Add nix-ai-tools packages to pkgs

@@ -144,6 +144,7 @@ pkgs: {
     sops
     gh
     wingthing
+    fence
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

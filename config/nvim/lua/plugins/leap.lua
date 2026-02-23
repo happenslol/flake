@@ -1,7 +1,8 @@
 return {
   {
     "ggandor/flit.nvim",
-    dependencies = { "ggandor/leap.nvim" },
+    lazy = false,
+    dependencies = { "https://codeberg.org/andyg/leap.nvim" },
     keys = function()
       local ret = {}
       for _, key in ipairs({ "f", "F", "t", "T" }) do
@@ -13,10 +14,11 @@ return {
   },
 
   {
-    "ggandor/leap.nvim",
+    "https://codeberg.org/andyg/leap.nvim",
+    lazy = false,
     keys = {
-      { "s", "<Plug>(leap-forward-to)", mode = { "n", "o" }, desc = "Leap forward to" },
-      { "S", "<Plug>(leap-backward-to)", mode = { "n", "o" }, desc = "Leap backward to" },
+      { "s", "<Plug>(leap-forward)", mode = { "n", "o" }, desc = "Leap forward" },
+      { "S", "<Plug>(leap-backward)", mode = { "n", "o" }, desc = "Leap backward" },
       { "gs", "<Plug>(leap-from-window)", mode = { "n", "o" }, desc = "Leap from windows" },
     },
     config = function(_, opts)
