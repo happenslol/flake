@@ -8,3 +8,7 @@ Non-obvious things this does:
 - Force 1password specifically to X11
 - Allow dynamic binary execution with nix-ld
 - Install codelldb for rust debugging without vscode
+
+## Snippets
+
+- `SOPS_AGE_SSH_PRIVATE_KEY_FILE=~/.ssh/... sops updatekeys secrets.json`

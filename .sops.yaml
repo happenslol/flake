@@ -1,7 +1,9 @@
 keys:
   - &roe2 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW"
+  - &hei "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn"
 creation_rules:
   - path_regex: secrets\.json$
     key_groups:
       - age:
           - *roe2
+          - *hei
