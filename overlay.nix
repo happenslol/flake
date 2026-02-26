@@ -64,9 +64,9 @@ inputs: self: super: {
     };
   };
 
-  fence = self.stdenv.mkDerivation {
+  fence = self.stdenv.mkDerivation rec {
     pname = "fence";
-    version = "0.1.30";
+    version = "0.1.32";
     sourceRoot = ".";
     nativeBuildInputs = [self.autoPatchelfHook self.makeWrapper];
     installPhase = ''
@@ -74,8 +74,8 @@ inputs: self: super: {
       wrapProgram $out/bin/fence --prefix PATH : ${self.lib.makeBinPath [self.socat self.bubblewrap self.bpftrace]}
     '';
     src = self.fetchurl {
-      url = "https://github.com/Use-Tusk/fence/releases/download/v0.1.30/fence_0.1.30_Linux_x86_64.tar.gz";
-      hash = "sha256-J1WCNXJ+2+H25ADPjj7xcyJ84nI3Au0OqwGLOL9l67k=";
+      url = "https://github.com/Use-Tusk/fence/releases/download/v${version}/fence_${version}_Linux_x86_64.tar.gz";
+      hash = "sha256-qN7gFwg0x0MUSDQkwqcBD6y+ApizxqdmdIYcw0Clots=";
     };
   };
 
