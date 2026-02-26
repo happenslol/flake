@@ -28,7 +28,7 @@ gui:
     show: true
   mouseEvents: true
   skipStashWarning: false
-  showFileTree: true
+  showFileTree: false
   showListFooter: true
   showRandomTip: false
   showBottomLine: false
