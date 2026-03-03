@@ -1,8 +1,36 @@
 # Use with: # `use flake ~/.flake#<name>`
 pkgs: {
-  sigma = pkgs.mkShell {
+  sigma = let
+    worktree = pkgs.writeShellScriptBin "worktree" ''
+      set -euo pipefail
+
+      if [ $# -lt 1 ]; then
+        echo "Usage: worktree <branch>" >&2
+        exit 1
+      fi
+
+      branch="$1"
+      worktree_path=".worktrees/$branch"
+
+      if git show-ref --verify --quiet "refs/heads/$branch"; then
+        git worktree add "$worktree_path" "$branch" >&2
+      else
+        git worktree add -b "$branch" "$worktree_path" >&2
+      fi
+
+      cp apps/backend/.env "$worktree_path/apps/backend/.env"
+      cp apps/automator/.env "$worktree_path/apps/automator/.env"
+      cp .envrc "$worktree_path/.envrc"
+
+      pnpm --dir "$worktree_path" install >&2
+
+      direnv allow "$worktree_path" >&2
+
+      echo "$worktree_path"
+    '';
+  in pkgs.mkShell {
     name = "sigma";
-    packages = with pkgs; [fnm playwright watchman];
+    packages = with pkgs; [fnm playwright watchman worktree];
     shellHook = ''
       export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
       export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}"
