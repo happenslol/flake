@@ -5,17 +5,18 @@ pkgs: {
       set -euo pipefail
 
       if [ $# -lt 1 ]; then
-        echo "Usage: worktree <branch>" >&2
+        echo "Usage: worktree <branch> [base]" >&2
         exit 1
       fi
 
       branch="$1"
+      base="''${2:-main}"
       worktree_path=".worktrees/$branch"
 
       if git show-ref --verify --quiet "refs/heads/$branch"; then
         git worktree add "$worktree_path" "$branch" >&2
       else
-        git worktree add -b "$branch" "$worktree_path" >&2
+        git worktree add -b "$branch" "$worktree_path" "$base" >&2
       fi
 
       cp apps/backend/.env "$worktree_path/apps/backend/.env"
