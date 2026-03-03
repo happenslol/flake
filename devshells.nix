@@ -11,17 +11,31 @@ pkgs: {
 
       branch="$1"
       base="''${2:-main}"
-      worktree_path=".worktrees/$branch"
+
+      main_dir=$(git rev-parse --path-format=absolute --git-common-dir)
+      main_dir="''${main_dir%/.git}"
+      worktree_path="$main_dir/../sigma-worktrees/''${branch//\//_}"
 
       if git show-ref --verify --quiet "refs/heads/$branch"; then
-        git worktree add "$worktree_path" "$branch" >&2
+        git -C "$main_dir" worktree add "$worktree_path" "$branch" >&2
       else
-        git worktree add -b "$branch" "$worktree_path" "$base" >&2
+        git -C "$main_dir" worktree add -b "$branch" "$worktree_path" "$base" >&2
       fi
 
-      cp apps/backend/.env "$worktree_path/apps/backend/.env"
-      cp apps/automator/.env "$worktree_path/apps/automator/.env"
-      cp .envrc "$worktree_path/.envrc"
+      cp "$main_dir/apps/backend/.env" "$worktree_path/apps/backend/.env"
+      cp "$main_dir/tasks/automator/.env" "$worktree_path/tasks/automator/.env"
+      cp "$main_dir/.envrc" "$worktree_path/.envrc"
+      if [ -f "$main_dir/.claude/settings.local.json" ]; then
+        mkdir -p "$worktree_path/.claude"
+        cp "$main_dir/.claude/settings.local.json" "$worktree_path/.claude/settings.local.json"
+      fi
+
+      wt_git_dir=$(git -C "$worktree_path" rev-parse --git-dir)
+      main_git_dir=$(git -C "$main_dir" rev-parse --git-common-dir)
+      if [ -f "$main_git_dir/info/exclude" ]; then
+        mkdir -p "$wt_git_dir/info"
+        cp "$main_git_dir/info/exclude" "$wt_git_dir/info/exclude"
+      fi
 
       pnpm --dir "$worktree_path" install >&2
 
