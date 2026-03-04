@@ -18,6 +18,8 @@ pkgs: {
 
       if git show-ref --verify --quiet "refs/heads/$branch"; then
         git -C "$main_dir" worktree add "$worktree_path" "$branch" >&2
+      elif git -C "$main_dir" show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+        git -C "$main_dir" worktree add --track -b "$branch" "$worktree_path" "origin/$branch" >&2
       else
         git -C "$main_dir" worktree add -b "$branch" "$worktree_path" "$base" >&2
       fi
