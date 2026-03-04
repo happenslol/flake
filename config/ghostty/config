@@ -21,6 +21,7 @@ window-padding-y = 2
 window-decoration = none
 confirm-close-surface = false
 gtk-tabs-location = bottom
+gtk-custom-css = style.css
 
 # Colors
 foreground = #EEFFFF
