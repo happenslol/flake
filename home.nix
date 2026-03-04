@@ -94,6 +94,7 @@ in {
       "nvim".source = "${dotfiles}/nvim";
       "zsh".source = "${dotfiles}/zsh";
       "kitty".source = "${dotfiles}/kitty";
+      "ghostty".source = "${dotfiles}/ghostty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "sway".source = "${dotfiles}/sway";
       "tealdeer".source = "${dotfiles}/tealdeer";

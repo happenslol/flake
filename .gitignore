@@ -1,5 +1,5 @@
 /packages/npm-global/node_modules
-/result
 /config/nvim/queries
-.aider*
 /config/zed/development_credentials
+/.claude/settings.local.json
+/result
