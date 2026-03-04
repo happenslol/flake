@@ -1,0 +1,61 @@
+// roe2: mixed resolution triple monitors
+output "DP-1" {
+    mode "3840x2160@144.050"
+    scale 1.25
+    position x=2560 y=0
+}
+
+output "DP-2" {
+    mode "2560x1440@164.958"
+    scale 1.0
+    position x=0 y=120
+}
+
+output "DP-3" {
+    mode "2560x1440@144.000"
+    scale 1.0
+    position x=5632 y=120
+}
+
+workspace "1" {
+    open-on-output "DP-2"
+}
+
+workspace "4" {
+    open-on-output "DP-2"
+}
+
+workspace "7" {
+    open-on-output "DP-2"
+}
+
+workspace "2" {
+    open-on-output "DP-1"
+}
+
+workspace "5" {
+    open-on-output "DP-1"
+}
+
+workspace "8" {
+    open-on-output "DP-1"
+}
+
+workspace "3" {
+    open-on-output "DP-3"
+}
+
+workspace "6" {
+    open-on-output "DP-3"
+}
+
+workspace "9" {
+    open-on-output "DP-3"
+}
+
+// zero development
+window-rule {
+    match app-id="zero-comp"
+    open-floating true
+    open-on-output "DP-2"
+}

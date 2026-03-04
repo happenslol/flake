@@ -183,7 +183,10 @@ in {
     sway = {
       enable = true;
       xwayland.enable = true;
-      # package = pkgs.swayfx;
+    };
+
+    niri = {
+      enable = true;
     };
 
     uwsm = {
@@ -191,6 +194,10 @@ in {
       waylandCompositors.sway = {
         prettyName = "Sway";
         binPath = "/run/current-system/sw/bin/sway";
+      };
+      waylandCompositors.niri = {
+        prettyName = "Niri";
+        binPath = "/run/current-system/sw/bin/niri";
       };
     };
 
@@ -241,7 +248,10 @@ in {
       "greetd/.config/gtk-3.0/settings.ini".source = ./config/gtk3/settings.ini;
       "greetd/.config/sway".source = ./config/sway;
       "greetd/.config/host/sway".source = ./. + "/hosts/${hostname}/config/sway";
-      "greetd/environments".text = "uwsm start -- /run/current-system/sw/bin/sway";
+      "greetd/environments".text = ''
+        uwsm start -- /run/current-system/sw/bin/sway
+        uwsm start -- /run/current-system/sw/bin/niri
+      '';
     };
   };
 

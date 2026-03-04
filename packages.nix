@@ -119,6 +119,7 @@ pkgs: {
     glow
     localsend
     sway-contrib.grimshot
+    xwayland-satellite
     kicad
     perf
     biome

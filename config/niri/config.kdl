@@ -1,0 +1,209 @@
+// Niri configuration
+
+include "~/.config/host/niri/host.kdl"
+
+input {
+    keyboard {
+        xkb {
+            options "compose:ralt,caps:hyper,custom:rsuper_hyper"
+        }
+        repeat-delay 170
+        repeat-rate 60
+        numlock
+    }
+
+    // Touchpad settings (only applies on devices with a touchpad)
+    touchpad {
+        tap
+        tap-button-map "left-right-middle"
+    }
+}
+
+layout {
+    gaps 0
+
+    background-color "#121212"
+
+    // Disable focus ring in favor of border
+    focus-ring {
+        off
+    }
+
+    border {
+        width 2
+        active-color "#5c5c5c"
+        inactive-color "#212121"
+        urgent-color "#FFCB6B"
+    }
+
+    // Preset column widths for Mod+R cycling
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+}
+
+prefer-no-csd
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+spawn-at-startup "mako"
+spawn-at-startup "uwsm" "finalize"
+
+// Window rules
+window-rule {
+    match app-id="org.pulseaudio.pavucontrol"
+    open-floating true
+}
+
+window-rule {
+    match app-id="1password"
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"thunar|Thunar"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^Slack$"# title=r#"^Huddle:"#
+    open-floating true
+}
+
+window-rule {
+    match app-id="localsend_app"
+    open-floating true
+}
+
+binds {
+    // Application launchers
+    Mod+P { spawn "fuzzel"; }
+    Mod+X { spawn "kitty" "-1"; }
+    Mod+Z { spawn "firefox"; }
+    Mod+C { spawn "zeditor"; }
+    Mod+E { spawn "thunar"; }
+    Mod+V { spawn "pavucontrol"; }
+
+    // Hyper key bindings
+    // NOTE: Niri does not support Hyper (Mod3) as a modifier. The supported
+    // modifiers are: Ctrl, Shift, Alt, Super, ISO_Level3_Shift, ISO_Level5_Shift.
+    // To use these bindings, you could:
+    //   1. Change xkb option from caps:hyper to lv5:caps_switch
+    //   2. Replace "Hyper" below with "ISO_Level5_Shift"
+    // Uncomment once you have a working modifier:
+    // ISO_Level5_Shift+J { spawn "/home/happens/code/launch/result/bin/launch"; }
+    // ISO_Level5_Shift+M { spawn "kitty" "-1"; }
+    // ISO_Level5_Shift+H { spawn "firefox"; }
+    // ISO_Level5_Shift+Y { spawn "thunar"; }
+
+    Mod+Q repeat=false { close-window; }
+
+    Mod+Shift+End { spawn "systemctl" "suspend"; }
+    Mod+Ctrl+End { spawn-sh "swaylock -f -c 212121 && systemctl suspend"; }
+
+    // Screenshots (niri has built-in screenshot support, no grimshot needed)
+    Print { screenshot; }
+    Shift+Print { screenshot-screen; }
+    Ctrl+Print { screenshot-window; }
+
+    // Focus (vim-style)
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+
+    // Move window/column
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    // Workspaces
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
+
+    // Move column to workspace (focus follows the column)
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+Ctrl+0 { move-column-to-workspace 10; }
+
+    // Fullscreen
+    Mod+Shift+F { fullscreen-window; }
+
+    // Column width presets and fine adjustment (replaces sway resize mode)
+    Mod+R { switch-preset-column-width; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // Audio
+    XF86AudioMute        allow-when-locked=true { spawn-sh "pactl set-sink-mute @DEFAULT_SINK@ toggle"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "pactl set-sink-volume @DEFAULT_SINK@ -2%"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pactl set-sink-volume @DEFAULT_SINK@ +2%"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "pactl set-source-mute @DEFAULT_SOURCE@ toggle"; }
+
+    // Media
+    XF86AudioPlay  allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPause allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev  allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioNext  allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioStop  allow-when-locked=true { spawn "playerctl" "stop"; }
+
+    // Brightness (only effective on laptops)
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "light" "-A" "5"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "light" "-U" "5"; }
+
+    // Floating
+    Mod+Shift+V { toggle-window-floating; }
+
+    // Maximize column (fills width minus gaps)
+    Mod+F { maximize-column; }
+
+    // Niri-specific: column management
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
+
+    // Overview (zoomed-out view of all workspaces)
+    Mod+O repeat=false { toggle-overview; }
+
+    // Monitor focus
+    Mod+Ctrl+H { focus-monitor-left; }
+    Mod+Ctrl+J { focus-monitor-down; }
+    Mod+Ctrl+K { focus-monitor-up; }
+    Mod+Ctrl+L { focus-monitor-right; }
+
+    // Move column to monitor
+    Mod+Ctrl+Shift+H { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+J { move-column-to-monitor-down; }
+    Mod+Ctrl+Shift+K { move-column-to-monitor-up; }
+    Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
+
+    // Session
+    Mod+Shift+E { quit; }
+    Mod+Shift+P { power-off-monitors; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}

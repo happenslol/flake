@@ -97,6 +97,7 @@ in {
       "ghostty".source = "${dotfiles}/ghostty";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "sway".source = "${dotfiles}/sway";
+      "niri".source = "${dotfiles}/niri";
       "tealdeer".source = "${dotfiles}/tealdeer";
       "mako".source = "${dotfiles}/mako";
       "lazygit/config.yml".source = "${dotfiles}/lazygit/config.yml";
