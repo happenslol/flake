@@ -1,11 +1,11 @@
 // Niri configuration
 
-include "~/.config/host/niri/host.kdl"
+include "/home/happens/.config/host/niri/host.kdl"
 
 input {
     keyboard {
         xkb {
-            options "compose:ralt,caps:hyper,custom:rsuper_hyper"
+            options "compose:ralt,lv5:caps_switch,custom:rsuper_hyper"
         }
         repeat-delay 170
         repeat-rate 60
@@ -17,10 +17,18 @@ input {
         tap
         tap-button-map "left-right-middle"
     }
+
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 layout {
-    gaps 0
+    gaps 12
+    struts {
+        left 16
+        right 16
+        top 16
+        bottom 16
+    }
 
     background-color "#121212"
 
@@ -53,7 +61,19 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 spawn-at-startup "mako"
-spawn-at-startup "uwsm" "finalize"
+
+// Round corners on all windows
+window-rule {
+    geometry-corner-radius 8 8 8 8
+    clip-to-geometry true
+}
+
+// Maximize browsers and terminals by default
+window-rule {
+    match app-id=r#"^firefox$"#
+    match app-id=r#"^kitty$"#
+    open-maximized true
+}
 
 // Window rules
 window-rule {
@@ -90,17 +110,11 @@ binds {
     Mod+E { spawn "thunar"; }
     Mod+V { spawn "pavucontrol"; }
 
-    // Hyper key bindings
-    // NOTE: Niri does not support Hyper (Mod3) as a modifier. The supported
-    // modifiers are: Ctrl, Shift, Alt, Super, ISO_Level3_Shift, ISO_Level5_Shift.
-    // To use these bindings, you could:
-    //   1. Change xkb option from caps:hyper to lv5:caps_switch
-    //   2. Replace "Hyper" below with "ISO_Level5_Shift"
-    // Uncomment once you have a working modifier:
-    // ISO_Level5_Shift+J { spawn "/home/happens/code/launch/result/bin/launch"; }
-    // ISO_Level5_Shift+M { spawn "kitty" "-1"; }
-    // ISO_Level5_Shift+H { spawn "firefox"; }
-    // ISO_Level5_Shift+Y { spawn "thunar"; }
+    // Hyper key bindings (Caps Lock → ISO_Level5_Shift via lv5:caps_switch)
+    ISO_Level5_Shift+J { spawn "/home/happens/code/launch/result/bin/launch"; }
+    ISO_Level5_Shift+M { spawn "kitty" "-1"; }
+    ISO_Level5_Shift+H { spawn "firefox"; }
+    ISO_Level5_Shift+Y { spawn "thunar"; }
 
     Mod+Q repeat=false { close-window; }
 
@@ -124,29 +138,29 @@ binds {
     Mod+Shift+K { move-window-up; }
     Mod+Shift+L { move-column-right; }
 
-    // Workspaces
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+0 { focus-workspace 10; }
+    // Workspaces (by name, so they go to the correct output)
+    Mod+1 { focus-workspace "1"; }
+    Mod+2 { focus-workspace "2"; }
+    Mod+3 { focus-workspace "3"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+7 { focus-workspace "7"; }
+    Mod+8 { focus-workspace "8"; }
+    Mod+9 { focus-workspace "9"; }
+    Mod+0 { focus-workspace "10"; }
 
     // Move column to workspace (focus follows the column)
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
-    Mod+Ctrl+0 { move-column-to-workspace 10; }
+    Mod+Shift+1 { move-column-to-workspace "1"; }
+    Mod+Shift+2 { move-column-to-workspace "2"; }
+    Mod+Shift+3 { move-column-to-workspace "3"; }
+    Mod+Shift+4 { move-column-to-workspace "4"; }
+    Mod+Shift+5 { move-column-to-workspace "5"; }
+    Mod+Shift+6 { move-column-to-workspace "6"; }
+    Mod+Shift+7 { move-column-to-workspace "7"; }
+    Mod+Shift+8 { move-column-to-workspace "8"; }
+    Mod+Shift+9 { move-column-to-workspace "9"; }
+    Mod+Shift+0 { move-column-to-workspace "10"; }
 
     // Fullscreen
     Mod+Shift+F { fullscreen-window; }

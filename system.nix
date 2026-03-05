@@ -250,7 +250,7 @@ in {
       "greetd/.config/host/sway".source = ./. + "/hosts/${hostname}/config/sway";
       "greetd/environments".text = ''
         uwsm start -- /run/current-system/sw/bin/sway
-        uwsm start -- /run/current-system/sw/bin/niri
+        niri-session
       '';
     };
   };
