@@ -85,26 +85,11 @@ window-rule {
 // Window rules
 window-rule {
     match app-id="org.pulseaudio.pavucontrol"
-    open-floating true
-}
-
-window-rule {
     match app-id="1password"
-    open-floating true
-}
-
-window-rule {
     match app-id=r#"thunar|Thunar"#
-    open-floating true
-}
-
-window-rule {
     match app-id=r#"^Slack$"# title=r#"^Huddle:"#
-    open-floating true
-}
-
-window-rule {
     match app-id="localsend_app"
+    match app-id=r#"^GTK Application$"#
     open-floating true
 }
 

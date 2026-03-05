@@ -4,50 +4,33 @@ https://docs.gtk.org/gtk4/css-overview.html
 https://docs.gtk.org/gtk4/css-properties.html
 */
 
-/* Remove CSD window borders */
-window.background.csd {
-  border: none !important;
-  box-shadow: none !important;
-}
-
-headerbar {
-  margin: 0;
-  padding: 0;
-  min-height: 20px;
-}
-
-/* Remove shadow between tabbar and content */
 separator {
-  background: none !important;
-  min-height: 0 !important;
+	min-height: 0 !important;
 }
 
 tabbar tabbox {
-  margin: 0;
-  padding: 0;
-  min-height: 10px;
-  background-color: #212121 !important;
-  font-family: monospace;
+	margin: 0;
+	padding: 0;
+	min-height: 10px;
+	font-family: monospace;
 }
 
 tabbar tabbox tab {
-  margin: 0;
-  padding: 0;
-  color: #9ca3af;
-  border: none !important;
-  border-right: 1px solid #374151 !important;
+	margin: 0;
+	padding: 0 8px;
+	color: #9ca3af;
 }
 
 tabbar tabbox tab:selected {
-  background-color: #2d2d2d !important;
-  color: #ffffff;
-}
-
-/* Remove blue tab indicator */
-tabbar tab indicator {
-  opacity: 0 !important;
+	background-color: #2d2d2d;
+	color: #ffffff;
 }
 
 tabbar tabbox tab label {
-  font-size: 13px;
+	font-size: 13px;
+}
+
+revealer.bottom-bar.raised {
+	box-shadow: none;
+	background-color: #212121;
 }
