@@ -10,7 +10,7 @@ separator {
 
 tabbar tabbox {
 	margin: 0;
-	padding: 0;
+	padding: 6px 0;
 	min-height: 10px;
 	font-family: monospace;
 }
@@ -24,6 +24,7 @@ tabbar tabbox tab {
 tabbar tabbox tab:selected {
 	background-color: #2d2d2d;
 	color: #ffffff;
+	font-weight: 600;
 }
 
 tabbar tabbox tab label {
@@ -33,4 +34,13 @@ tabbar tabbox tab label {
 revealer.bottom-bar.raised {
 	box-shadow: none;
 	background-color: #212121;
+}
+
+tabboxchild,
+tab {
+	border-radius: 6px;
+}
+
+button.tab-close-button {
+	color: #6f6f6f;
 }
