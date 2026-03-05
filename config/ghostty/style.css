@@ -12,7 +12,7 @@ tabbar tabbox {
 	margin: 0;
 	padding: 6px 0;
 	min-height: 10px;
-	font-family: monospace;
+	font-family: "IosevkaTerm Nerd Font";
 }
 
 tabbar tabbox tab {

@@ -79,6 +79,25 @@ inputs: self: super: {
     };
   };
 
+  # The Nerd Font patcher changes hhea descent/lineGap, shifting the baseline
+  # up. This restores the original Iosevka Term values so glyphs sit correctly.
+  nerd-fonts = super.nerd-fonts // {
+    iosevka-term = super.nerd-fonts.iosevka-term.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.python3Packages.fonttools];
+      postFixup = (old.postFixup or "") + ''
+        find $out -name '*.ttf' | while read f; do
+          python3 -c "
+from fontTools.ttLib import TTFont
+font = TTFont('$f')
+font['hhea'].descent = -215
+font['hhea'].lineGap = 70
+font.save('$f')
+"
+        done
+      '';
+    });
+  };
+
   # Add nix-ai-tools packages to pkgs
   llm-agents = inputs.llm-agents.packages.${self.stdenv.hostPlatform.system};
 }
