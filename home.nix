@@ -115,9 +115,15 @@ in {
 
   gtk = {
     enable = true;
-    theme.name = "Orchis-Dark";
+    theme = {
+      name = "Orchis-Dark";
+      package = pkgs.orchis-theme.override {border-radius = 4;};
+    };
     cursorTheme.name = "Bibata-Modern-Classic";
-    iconTheme.name = "Qogir-dark";
+    iconTheme = {
+      name = "Qogir-Dark";
+      package = pkgs.qogir-icon-theme;
+    };
 
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
