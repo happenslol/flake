@@ -2,3 +2,30 @@
 output "eDP-1" {
     scale 1.175
 }
+
+workspace "1" {
+}
+
+workspace "4" {
+}
+
+workspace "7" {
+}
+
+workspace "2" {
+}
+
+workspace "5" {
+}
+
+workspace "8" {
+}
+
+workspace "3" {
+}
+
+workspace "6" {
+}
+
+workspace "9" {
+}
