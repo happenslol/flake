@@ -25,6 +25,7 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = true
 window-new-tab-position = end
+window-inherit-working-directory = true
 window-decoration = none
 confirm-close-surface = false
 resize-overlay = never
