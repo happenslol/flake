@@ -58,5 +58,8 @@ alias src="pactl set-default-source "
 alias unmute="pactl set-sink-mute @DEFAULT_SINK@ false"
 alias mute="pactl set-sink-mute @DEFAULT_SINK@ true"
 
+# Worktree shortcut (picks up devshell-specific `worktree` via direnv)
+function wt() { local dir; dir="$(worktree "$@")" && cd "$dir" }
+
 # Claude Code profiles
 alias claude-oc="CLAUDE_CONFIG_DIR=~/.claude-oc claude "

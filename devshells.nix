@@ -16,6 +16,11 @@ pkgs: {
       main_dir="''${main_dir%/.git}"
       worktree_path="$main_dir/../sigma-worktrees/''${branch//\//_}"
 
+      if [ -d "$worktree_path" ]; then
+        echo "$worktree_path"
+        exit 0
+      fi
+
       if git show-ref --verify --quiet "refs/heads/$branch"; then
         git -C "$main_dir" worktree add "$worktree_path" "$branch" >&2
       elif git -C "$main_dir" show-ref --verify --quiet "refs/remotes/origin/$branch"; then
@@ -45,10 +50,24 @@ pkgs: {
 
       echo "$worktree_path"
     '';
+
+    worktreeCompletion = pkgs.writeText "worktree-completion-zsh" ''
+      _worktree() {
+        local -a branches
+        branches=(''${(f)"$(git branch -a --format='%(refname:short)' 2>/dev/null | sed 's|^origin/||' | grep -v '^HEAD' | sort -u)"})
+        case $CURRENT in
+          2) _describe 'branch' branches ;;
+          3) _describe 'base branch' branches ;;
+        esac
+      }
+      compdef _worktree worktree
+      compdef _worktree wt
+    '';
   in pkgs.mkShell {
     name = "sigma";
     packages = with pkgs; [fnm playwright watchman worktree];
     shellHook = ''
+      export ZSH_DEVSHELL_COMPLETIONS="${worktreeCompletion}''${ZSH_DEVSHELL_COMPLETIONS:+:$ZSH_DEVSHELL_COMPLETIONS}"
       export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
       export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}"
       eval "$(fnm env --use-on-cd --resolve-engines --log-level quiet)"
