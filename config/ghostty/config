@@ -84,9 +84,10 @@ keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
 
 # Font size
-keybind = ctrl+equal=reset_font_size
-keybind = ctrl+plus=increase_font_size:1
 keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+zero=reset_font_size
 
 # Reload config
 keybind = ctrl+shift+f5=reload_config
