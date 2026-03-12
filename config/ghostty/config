@@ -103,6 +103,9 @@ keybind = ctrl+e>x=close_surface
 keybind = ctrl+e>ctrl+l=move_tab:1
 keybind = ctrl+e>ctrl+h=move_tab:-1
 
+# Send actual ctrl+e to terminal
+keybind = ctrl+e>ctrl+e=text:\x05
+
 keybind = alt+one=goto_tab:1
 keybind = alt+two=goto_tab:2
 keybind = alt+three=goto_tab:3
