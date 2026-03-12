@@ -13,8 +13,9 @@ pkgs: {
       base="''${2:-main}"
 
       main_dir=$(git rev-parse --path-format=absolute --git-common-dir)
-      main_dir="''${main_dir%/.git}"
+      main_dir=$(realpath "''${main_dir%/.git}")
       worktree_path="$main_dir/../sigma-worktrees/''${branch//\//_}"
+      worktree_path=$(realpath -m "$worktree_path")
 
       if [ -d "$worktree_path" ]; then
         echo "$worktree_path"
