@@ -54,6 +54,8 @@ in {
       ".git-scripts".source = "${dotfiles}/git/scripts";
       ".cargo/config.toml".source = "${dotfiles}/cargo/config.toml";
       ".tmux.conf".source = "${dotfiles}/tmux/tmux.conf";
+      ".claude/settings.json".source = "${dotfiles}/claude/settings.json";
+      ".claude-oc/settings.json".source = "${dotfiles}/claude/settings-oc.json";
     };
 
     pointerCursor = {
@@ -108,6 +110,7 @@ in {
       "zed".source = "${dotfiles}/zed";
       "xkb".source = "${dotfiles}/xkb";
       "status".source = "${hostDotfiles}/status";
+      "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
     };
 
     systemDirs.data = [gsettingsDatadir];
