@@ -109,6 +109,7 @@ in {
       "pnpm/rc".source = "${dotfiles}/pnpm/rc";
       "zed".source = "${dotfiles}/zed";
       "xkb".source = "${dotfiles}/xkb";
+      "xdg-desktop-portal".source = "${dotfiles}/xdg-desktop-portal";
       "status".source = "${hostDotfiles}/status";
       "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
     };

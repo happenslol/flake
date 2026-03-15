@@ -5,7 +5,7 @@ include "/home/happens/.config/host/niri/host.kdl"
 input {
     keyboard {
         xkb {
-            options "compose:ralt,lv5:caps_switch,custom:rsuper_hyper"
+            options "lv5:caps_switch,custom:rsuper_hyper,compose:ralt"
         }
         repeat-delay 170
         repeat-rate 60
