@@ -195,10 +195,6 @@ in {
         prettyName = "Sway";
         binPath = "/run/current-system/sw/bin/sway";
       };
-      waylandCompositors.niri = {
-        prettyName = "Niri";
-        binPath = "/run/current-system/sw/bin/niri";
-      };
     };
 
     thunar = {

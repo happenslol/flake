@@ -21,6 +21,10 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+environment {
+    NIXOS_OZONE_WL "1"
+}
+
 layout {
     gaps 12
     struts {
