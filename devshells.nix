@@ -33,6 +33,7 @@ pkgs: {
       cp "$main_dir/apps/backend/.env" "$worktree_path/apps/backend/.env"
       cp "$main_dir/tasks/automator/.env" "$worktree_path/tasks/automator/.env"
       cp "$main_dir/.envrc" "$worktree_path/.envrc"
+      cp "$main_dir/.npmrc" "$worktree_path/.npmrc"
       if [ -f "$main_dir/.claude/settings.local.json" ]; then
         mkdir -p "$worktree_path/.claude"
         cp "$main_dir/.claude/settings.local.json" "$worktree_path/.claude/settings.local.json"
