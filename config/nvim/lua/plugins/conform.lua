@@ -76,6 +76,7 @@ return {
       sh = { "shfmt" },
       go = { "goimports", "gofumpt" },
       nix = { "alejandra" },
+      kdl = { "kdlfmt" },
     }
 
     local function insert_formatters(fts, formatter)
@@ -134,6 +135,7 @@ return {
             return has_prettier_config(ctx)
           end),
         },
+        kdl = {},
         injected = { options = { ignore_errors = true } },
       },
     }

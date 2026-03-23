@@ -146,6 +146,7 @@ pkgs: {
     gh
     wingthing
     fence
+    kdlfmt
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
