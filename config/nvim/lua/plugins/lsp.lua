@@ -82,7 +82,6 @@ return {
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "b0o/SchemaStore.nvim", version = false },
-      "jose-elias-alvarez/typescript.nvim",
     },
     opts = function()
       return {

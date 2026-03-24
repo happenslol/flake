@@ -3,14 +3,14 @@ local g, opt = vim.g, vim.opt
 g.mapleader = " "
 g.maplocalleader = " "
 
-opt.clipboard = "unnamedplus" -- Connection to the system clipboard
+opt.autowrite = true -- Enable auto write
+opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Connection to the system clipboard
 opt.cmdheight = 0 -- Hide command line unless needed
 opt.completeopt = { "menuone", "noselect" } -- Options for insert mode completion
 opt.copyindent = true -- Copy the previous indentation on autoindenting
 opt.cursorline = false -- Don't highlight the text line of the cursor
 opt.expandtab = true -- Enable the use of space in tab
 opt.fileencoding = "utf-8" -- File content encoding for the buffer
-opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines
 opt.history = 100 -- Number of commands to remember in a history table
 opt.ignorecase = true -- Case insensitive searching
 opt.infercase = true -- Infer cases in keyword completion
@@ -25,7 +25,6 @@ opt.showmode = false -- Disable showing modes in command line
 opt.sidescrolloff = 8 -- Number of columns to keep at the sides of the cursor
 opt.signcolumn = "yes" -- Always show the sign column
 opt.smartcase = true -- Case sensitivie searching
-opt.smartindent = true -- Smarter autoindentation
 opt.splitbelow = true -- Splitting a new window below the current one
 opt.splitright = true -- Splitting a new window at the right of the current one
 opt.tabstop = 2 -- Number of space in a tab

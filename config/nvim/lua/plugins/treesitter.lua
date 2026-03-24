@@ -35,4 +35,20 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = { enable = true, mode = "cursor", max_lines = 3 },
+    keys = {
+      {
+        "<leader>ut",
+        function()
+          local tsc = require("treesitter-context")
+          tsc.toggle()
+        end,
+        desc = "Toggle Treesitter Context",
+      },
+    },
+  },
 }

@@ -30,8 +30,8 @@ map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
 
 -- Better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", { desc = "Indent Left" })
+map("v", ">", ">gv", { desc = "Indent Right" })
 
 -- lazy
 map("n", "<leader>ll", "<cmd>:Lazy<cr>", { desc = "Lazy" })
