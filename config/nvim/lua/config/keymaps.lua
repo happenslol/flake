@@ -71,9 +71,15 @@ map("n", "<leader>lc", function()
   vim.cmd("vnew")
   vim.cmd("only")
 
-  local close = require("close_buffers")
-  close.delete({ type = "hidden", force = true })
-  close.delete({ type = "nameless", force = true })
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) then
+      local name = vim.api.nvim_buf_get_name(buf)
+      local hidden = vim.fn.bufwinid(buf) == -1
+      if hidden or name == "" then
+        pcall(vim.api.nvim_buf_delete, buf, { force = true })
+      end
+    end
+  end
 end, { silent = true, desc = "Clear Session" })
 
 -- Copy current buffer name to clipboard

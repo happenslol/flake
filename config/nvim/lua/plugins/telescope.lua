@@ -120,7 +120,7 @@ return {
           lsp_references = lsp_goto_config,
           lsp_document_symbols = lsp_goto_config,
           lsp_diagnostics = lsp_goto_config,
-          lsp_lsp_type_definitions = lsp_goto_config,
+          lsp_type_definitions = lsp_goto_config,
 
           git_status = {
             layout_strategy = "horizontal",

@@ -2,17 +2,21 @@ return {
   "olimorris/persisted.nvim",
   lazy = false,
 
-  dependencies = { "kazhala/close-buffers.nvim" },
-
   opts = function()
     local should_load = os.getenv("NVIM_SESSION_BLANK") == nil
 
     vim.api.nvim_create_autocmd("User", {
       pattern = "PersistedSavePre",
       callback = function()
-        local close = require("close_buffers")
-        close.delete({ type = "hidden", force = true })
-        close.delete({ type = "nameless", force = true })
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(buf) then
+            local name = vim.api.nvim_buf_get_name(buf)
+            local hidden = vim.fn.bufwinid(buf) == -1
+            if hidden or name == "" then
+              vim.api.nvim_buf_delete(buf, { force = true })
+            end
+          end
+        end
       end,
     })
 

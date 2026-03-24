@@ -1,5 +1,14 @@
 return {
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "echasnovski/mini.icons",
+    lazy = true,
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
+  },
   { "MunifTanjim/nui.nvim", lazy = true },
   { "kevinhwang91/nvim-bqf", ft = "qf" },
 
@@ -11,7 +20,6 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       presets = {
@@ -54,13 +62,6 @@ return {
         desc = "Noice All",
       },
     },
-  },
-
-  {
-    "utilyre/sentiment.nvim",
-    version = "*",
-    config = true,
-    event = "VeryLazy",
   },
 
   {
