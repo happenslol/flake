@@ -4,19 +4,6 @@ local M = {}
 
 M.lsp = require("util.lsp")
 
-function M.filter_diagnostics(diagnostics)
-  return vim.tbl_filter(function(d)
-    if d.source == "typescript" then
-      -- Disable lints already covered by eslint
-      return not vim.tbl_contains({
-        6133, -- declared but never read
-      }, d.code)
-    end
-
-    return true
-  end, diagnostics)
-end
-
 M.skip_foldexpr = {} ---@type table<number,boolean>
 ---@diagnostic disable-next-line: undefined-field
 local skip_check = assert(vim.uv.new_check())
