@@ -7,6 +7,11 @@ fi
 
 source ~/.config/zsh/ssh.zsh
 source ~/.config/zsh/config.zsh
+
+autoload -Uz compinit
+for _ in ~/.zcompdump(N.mh+24); do compinit; done
+compinit -C
+
 source ~/.config/zsh/keymaps.zsh
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/alias.zsh
@@ -16,10 +21,6 @@ source ~/.config/zsh/util.zsh
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
 eval "$(direnv hook zsh)"
-
-autoload -Uz compinit
-for _ in ~/.zcompdump(N.mh+24); do compinit; done
-compinit -C
 
 # Source devshell completions set via direnv (avoids compinit rescan)
 _load_devshell_completions() {
