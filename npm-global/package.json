@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@fsouza/prettierd": "^0.26.1",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   }
 }
