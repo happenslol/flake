@@ -48,6 +48,8 @@ function M.get(c, opts)
     Pmenu                       = { bg = c.bg_popup, fg = c.fg }, -- Popup menu: normal item.
     PmenuSel                    = { bg = Util.blend_bg(c.fg_gutter, 0.8) }, -- Popup menu: selected item.
     PmenuSbar                   = { bg = Util.blend_fg(c.bg_popup, 0.95) }, -- Popup menu: scrollbar.
+    PmenuMatch                  = { fg = c.blue1 }, -- Popup menu: Matched text in normal item.
+    PmenuMatchSel               = { fg = c.blue1 }, -- Popup menu: Matched text in selected item.
     PmenuThumb                  = { bg = c.fg_gutter }, -- Popup menu: Thumb of the scrollbar.
     Question                    = { fg = c.blue }, -- |hit-enter| prompt and yes/no questions
     QuickFixLine                = { bg = c.bg_visual, bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
@@ -62,7 +64,7 @@ function M.get(c, opts)
     StatusLine                  = { fg = c.fg_sidebar, bg = c.bg_statusline }, -- status line of current window
     StatusLineNC                = { fg = c.fg_gutter, bg = c.bg_statusline }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine                     = { bg = c.bg_statusline, fg = c.fg_gutter }, -- tab pages line, not active tab page label
-    TabLineFill                 = { bg = c.black }, -- tab pages line, where there are no labels
+    TabLineFill                 = { bg = opts.transparent and c.none or c.black }, -- tab pages line, where there are no labels
     TabLineSel                  = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
     Title                       = { fg = c.blue, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
     Visual                      = { bg = c.bg_visual }, -- Visual mode selection
@@ -111,12 +113,15 @@ function M.get(c, opts)
     LspInlayHint                = { bg = Util.blend_bg(c.blue7, 0.1), fg = c.dark3 },
     LspInfoBorder               = { fg = c.border_highlight, bg = c.bg_float },
 
+    -- completions
+    ComplHint                   = { fg = c.terminal_black },
+
     -- diagnostics
     DiagnosticError             = { fg = c.error }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn              = { fg = c.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo              = { fg = c.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint              = { fg = c.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticUnnecessary       = { fg = c.comment }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticUnnecessary       = { fg = c.terminal_black }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticVirtualTextError  = { bg = Util.blend_bg(c.error, 0.1), fg = c.error }, -- Used for "Error" diagnostic virtual text
     DiagnosticVirtualTextWarn   = { bg = Util.blend_bg(c.warning, 0.1), fg = c.warning }, -- Used for "Warning" diagnostic virtual text
     DiagnosticVirtualTextInfo   = { bg = Util.blend_bg(c.info, 0.1), fg = c.info }, -- Used for "Information" diagnostic virtual text
@@ -131,12 +136,12 @@ function M.get(c, opts)
     healthSuccess               = { fg = c.green1 },
     healthWarning               = { fg = c.warning },
 
-    -- diff (not needed anymore?)
-    diffAdded                   = { fg = c.git.add },
-    diffRemoved                 = { fg = c.git.delete },
-    diffChanged                 = { fg = c.git.change },
-    diffOldFile                 = { fg = c.yellow },
-    diffNewFile                 = { fg = c.orange },
+    -- diff
+    diffAdded                   = { bg = c.diff.add, fg = c.git.add },
+    diffRemoved                 = { bg = c.diff.delete, fg = c.git.delete },
+    diffChanged                 = { bg = c.diff.change, fg = c.git.change },
+    diffOldFile                 = { fg = c.blue1, bg = c.diff.delete },
+    diffNewFile                 = { fg = c.blue1, bg = c.diff.add },
     diffFile                    = { fg = c.blue },
     diffLine                    = { fg = c.comment },
     diffIndexLine               = { fg = c.magenta },
