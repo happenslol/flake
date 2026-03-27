@@ -41,7 +41,7 @@ pkgs: {
     zig
     go
     gopls
-    gotools
+    (pkgs.lib.lowPrio gotools) # lowPrio to avoid conflict with sox's play binary
     revive
     dive
     mako
@@ -147,6 +147,7 @@ pkgs: {
     wingthing
     fence
     kdlfmt
+    sox
   ];
 
   node = with pkgs.nodejs_24.pkgs; [
