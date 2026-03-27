@@ -1,7 +1,7 @@
--- materialnight is loaded directly from lua/materialnight/ (no plugin needed)
-require("materialnight").setup({
+-- cozynight is loaded directly from lua/cozynight/ (no plugin needed)
+require("cozynight").setup({
   plugins = { all = true },
 })
-vim.cmd.colorscheme("materialnight")
+vim.cmd.colorscheme("cozynight")
 
 return {}

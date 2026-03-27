@@ -17,7 +17,7 @@ require("lazy").setup({
   spec = "plugins",
   install = {
     missing = true,
-    colorscheme = { "materialnight", "slate" },
+    colorscheme = { "cozynight", "slate" },
   },
   checker = { notify = false },
   change_detection = { notify = false },

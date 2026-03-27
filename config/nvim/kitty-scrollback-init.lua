@@ -6,7 +6,7 @@ require("config.keymaps")
 
 local lazy_path = vim.fn.stdpath("data") .. "/lazy"
 
-vim.cmd.colorscheme("materialnight")
+vim.cmd.colorscheme("cozynight")
 
 vim.opt.runtimepath:append(lazy_path .. "/kitty-scrollback.nvim")
 require("kitty-scrollback").setup({

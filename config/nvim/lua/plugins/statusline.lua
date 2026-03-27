@@ -22,7 +22,7 @@ return {
 
       return {
         options = {
-          theme = "materialnight",
+          theme = "cozynight",
           globalstatus = false,
           disabled_filetypes = {
             "neo-tree",
