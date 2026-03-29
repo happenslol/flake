@@ -95,6 +95,109 @@ map("n", "<leader>lp", function()
   vim.notify("Copied `" .. full_filename .. "` to clipboard")
 end, { silent = true, desc = "Copy Current Buffer Name" })
 
+-- Reload cozynight theme (clear module cache, reapply highlights, refresh lualine)
+local function reload_theme()
+  for name, _ in pairs(package.loaded) do
+    if name:match("^cozynight") or name:match("^lualine%.themes%.cozynight") then
+      package.loaded[name] = nil
+    end
+  end
+  require("cozynight").load()
+  if package.loaded["lualine"] then
+    package.loaded["lualine.themes.cozynight"] = nil
+    require("lualine").setup({ options = { theme = "cozynight" } })
+  end
+end
+
+map("n", "<leader>tr", function()
+  reload_theme()
+  vim.notify("Theme reloaded")
+end, { silent = true, desc = "Reload Theme" })
+
+-- Toggle live theme reload (watches cozynight source files via libuv)
+local _cozynight_watchers = nil
+
+map("n", "<leader>tw", function()
+  if _cozynight_watchers then
+    -- Stop watching
+    for _, w in ipairs(_cozynight_watchers) do
+      w:stop()
+    end
+    _cozynight_watchers = nil
+    vim.notify("Theme live reload stopped")
+    return
+  end
+
+  local theme_dir = vim.fn.stdpath("config") .. "/lua/cozynight"
+  local watchers = {}
+  local watched_files = {}
+
+  local reload = vim.schedule_wrap(reload_theme)
+
+  local function watch_file(path)
+    if watched_files[path] then
+      return
+    end
+    local w = vim.uv.new_fs_event()
+    w:start(path, {}, function(err)
+      if not err then
+        reload()
+      end
+    end)
+    watched_files[path] = w
+    table.insert(watchers, w)
+  end
+
+  -- Watch directories for new files, and all existing .lua files
+  local function watch_dir(dir)
+    local handle = vim.uv.fs_scandir(dir)
+    if not handle then
+      return
+    end
+
+    -- Watch the directory itself to detect new files
+    local dw = vim.uv.new_fs_event()
+    dw:start(dir, {}, function(err, filename)
+      if err then
+        return
+      end
+      vim.schedule(function()
+        if filename and filename:match("%.lua$") then
+          local path = dir .. "/" .. filename
+          if vim.uv.fs_stat(path) and not watched_files[path] then
+            watch_file(path)
+            reload()
+          end
+        end
+      end)
+    end)
+    table.insert(watchers, dw)
+
+    while true do
+      local name, typ = vim.uv.fs_scandir_next(handle)
+      if not name then
+        break
+      end
+      local path = dir .. "/" .. name
+      if typ == "directory" then
+        watch_dir(path)
+      elseif name:match("%.lua$") then
+        watch_file(path)
+      end
+    end
+  end
+
+  watch_dir(theme_dir)
+  -- Also watch lualine theme
+  local lualine_theme = vim.fn.stdpath("config") .. "/lua/lualine/themes/cozynight.lua"
+  if vim.uv.fs_stat(lualine_theme) then
+    watch_file(lualine_theme)
+  end
+
+  _cozynight_watchers = watchers
+  vim.notify("Theme live reload active (" .. #watchers .. " watchers)")
+end, { silent = true, desc = "Toggle Theme Live Reload" })
+
 map("n", "<leader>lP", function()
   local relative_path = vim.fn.expand("%:.")
   if not relative_path or relative_path == "" then
