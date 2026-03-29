@@ -97,6 +97,8 @@ end, { silent = true, desc = "Copy Current Buffer Name" })
 
 -- Reload cozynight theme (clear module cache, reapply highlights, refresh lualine)
 local function reload_theme()
+  -- Clear disk cache before unloading modules (cache module needs to be loaded)
+  require("cozynight.util").cache.clear()
   for name, _ in pairs(package.loaded) do
     if name:match("^cozynight") or name:match("^lualine%.themes%.cozynight") then
       package.loaded[name] = nil
