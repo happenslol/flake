@@ -21,6 +21,7 @@ function M.get(c, opts)
     DiffChange                  = { bg = c.diff.change }, -- diff mode: Changed line |diff.txt|
     DiffDelete                  = { bg = c.diff.delete }, -- diff mode: Deleted line |diff.txt|
     DiffText                    = { bg = c.diff.text }, -- diff mode: Changed text within a changed line |diff.txt|
+    DiffDeleteText              = { bg = c.diff.delete_text }, -- diffv: Changed text within a deleted line
     EndOfBuffer                 = { fg = c.bg }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     ErrorMsg                    = { fg = c.error }, -- error messages on the command line
     VertSplit                   = { fg = c.border }, -- the column separating vertically split windows

@@ -193,4 +193,37 @@ function M.word_diff(old_line, new_line)
   return { old_ranges = old_ranges, new_ranges = new_ranges }
 end
 
+--- Compute the edit distance ratio between two lines (like delta's max_line_distance).
+--- Returns 0 for identical lines, 1 for completely different lines.
+--- Uses the word diff result to measure how much changed.
+---@param old_line string
+---@param new_line string
+---@return number distance 0-1
+function M.line_distance(old_line, new_line)
+  if old_line == new_line then
+    return 0
+  end
+  if old_line == "" or new_line == "" then
+    return 1
+  end
+
+  local result = M.word_diff(old_line, new_line)
+
+  -- Sum of changed bytes on both sides
+  local changed = 0
+  for _, r in ipairs(result.old_ranges) do
+    changed = changed + (r[2] - r[1])
+  end
+  for _, r in ipairs(result.new_ranges) do
+    changed = changed + (r[2] - r[1])
+  end
+
+  local total = #old_line + #new_line
+  if total == 0 then
+    return 0
+  end
+
+  return changed / total
+end
+
 return M

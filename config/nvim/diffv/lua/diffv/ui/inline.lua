@@ -29,11 +29,13 @@ end
 ---@param row number 0-indexed row in old file
 ---@param old_hl table<number, table[]> old file highlights
 ---@param base_hl string base highlight for the diff (e.g. DiffDelete)
+---@param emph_hl string emphasis highlight for word changes (e.g. DiffDeleteText)
+---@param emph_ranges? number[][] word-diff emphasis ranges
 ---@return {[1]: string, [2]: string}[] virt_line chunks
-local function build_highlighted_virt_line(text, row, old_hl, base_hl)
+local function build_highlighted_virt_line(text, row, old_hl, base_hl, emph_hl, emph_ranges)
   local ts = require("diffv.treesitter")
   local highlights = old_hl[row]
-  return ts.build_virt_line(text, highlights, base_hl)
+  return ts.build_virt_line(text, highlights, base_hl, emph_hl, emph_ranges)
 end
 
 --- Apply inline diff overlay to a buffer that contains the new file content.
@@ -62,10 +64,23 @@ function M.apply_overlay(buf, diff_result, config, filetype)
       end
     end
 
+    -- Pair deletes with adds, but only if lines are similar enough.
+    -- Like delta's max_line_distance (0.6): if >60% changed, treat as separate add/delete.
+    local max_distance = 0.6
     local paired = math.min(#deletes, #adds)
+    local actually_paired = 0
 
-    -- Paired changes (delete + add = change)
     for i = 1, paired do
+      local dist = line_diff.line_distance(deletes[i].content, adds[i].content)
+      if dist <= max_distance then
+        actually_paired = i
+      else
+        break
+      end
+    end
+
+    -- Paired changes (delete + add = change with word-level diff)
+    for i = 1, actually_paired do
       local del = deletes[i]
       local add = adds[i]
       local buf_row = add.new_lnum - 1
@@ -78,8 +93,10 @@ function M.apply_overlay(buf, diff_result, config, filetype)
         priority = 100,
       })
 
-      -- Word-level highlights on the buffer line
+      -- Compute word-level diff
       local word_result = line_diff.word_diff(del.content, add.content)
+
+      -- Word-level highlights on the buffer line (new side: bright green)
       for _, range in ipairs(word_result.new_ranges) do
         local col_start = math.min(range[1], #add.content)
         local col_end = math.min(range[2], #add.content)
@@ -93,40 +110,50 @@ function M.apply_overlay(buf, diff_result, config, filetype)
         end
       end
 
-      -- Show old version as syntax-highlighted virtual line above
+      -- Show old version as virtual line above (old side: dim red bg, bright red on changed words)
       local old_row = del.old_lnum - 1
-      local virt_chunks = build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete)
+      local virt_chunks = build_highlighted_virt_line(
+        del.content, old_row, old_hl, hl.delete, hl.delete_text, word_result.old_ranges
+      )
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         virt_lines = { virt_chunks },
         virt_lines_above = true,
       })
     end
 
-    -- Unpaired deletes (pure deletions) — batch with syntax highlighting
-    if paired < #deletes then
-      local virt = {}
-      for i = paired + 1, #deletes do
-        local del = deletes[i]
-        local old_row = del.old_lnum - 1
-        virt[#virt + 1] = build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete)
-      end
-      local anchor_row = math.max(0, hunk.new_start - 1)
-      vim.api.nvim_buf_set_extmark(buf, ns, anchor_row, 0, {
-        virt_lines = virt,
-        virt_lines_above = true,
-      })
-    end
-
-    -- Unpaired adds (pure additions)
-    for i = paired + 1, #adds do
+    -- Remaining unpaired adds (too different or extra adds)
+    for i = actually_paired + 1, #adds do
       local add = adds[i]
       local buf_row = add.new_lnum - 1
-
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         end_row = buf_row + 1,
         hl_group = hl.add,
         hl_eol = true,
         priority = 100,
+      })
+    end
+
+    -- Remaining unpaired deletes (too different or extra deletes)
+    local unpaired_del_virt = {}
+    for i = actually_paired + 1, #deletes do
+      local del = deletes[i]
+      local old_row = del.old_lnum - 1
+      unpaired_del_virt[#unpaired_del_virt + 1] = build_highlighted_virt_line(
+        del.content, old_row, old_hl, hl.delete, hl.delete, nil
+      )
+    end
+    if #unpaired_del_virt > 0 then
+      -- Anchor: if there are unpaired adds after, attach above the first one;
+      -- otherwise attach at the hunk boundary in the new file
+      local anchor_row
+      if actually_paired < #adds then
+        anchor_row = adds[actually_paired + 1].new_lnum - 1
+      else
+        anchor_row = math.max(0, hunk.new_start - 1)
+      end
+      vim.api.nvim_buf_set_extmark(buf, ns, anchor_row, 0, {
+        virt_lines = unpaired_del_virt,
+        virt_lines_above = true,
       })
     end
   end

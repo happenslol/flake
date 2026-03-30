@@ -40,6 +40,7 @@ function M.setup(opts)
     delete = "#3f0001",
     change = "#002800",
     text = "#006000",
+    delete_text = "#901011",
   }
 
   colors.git.ignore = colors.dark3

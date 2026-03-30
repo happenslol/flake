@@ -16,11 +16,28 @@ local function set_win_opts(win)
 end
 
 --- Find paired changed lines from a diff result for word-level highlighting.
---- Returns a list of {old_lnum, new_lnum, old_content, new_content} pairs.
+--- Only pairs lines that are similar enough (distance <= 0.6, like delta).
 ---@param diff_result diffv.DiffResult
 ---@return { old_lnum: number, new_lnum: number, old_content: string, new_content: string }[]
 local function find_change_pairs(diff_result)
+  local line_diff = require("diffv.diff.line")
+  local max_distance = 0.6
   local pairs = {}
+
+  local function flush(deletes, adds)
+    local n = math.min(#deletes, #adds)
+    for i = 1, n do
+      local dist = line_diff.line_distance(deletes[i].content, adds[i].content)
+      if dist <= max_distance then
+        pairs[#pairs + 1] = {
+          old_lnum = deletes[i].old_lnum,
+          new_lnum = adds[i].new_lnum,
+          old_content = deletes[i].content,
+          new_content = adds[i].content,
+        }
+      end
+    end
+  end
 
   for _, hunk in ipairs(diff_result.hunks) do
     local deletes = {}
@@ -32,31 +49,13 @@ local function find_change_pairs(diff_result)
       elseif line.type == "add" then
         adds[#adds + 1] = line
       elseif line.type == "context" then
-        -- Flush collected deletes/adds as pairs
-        local n = math.min(#deletes, #adds)
-        for i = 1, n do
-          pairs[#pairs + 1] = {
-            old_lnum = deletes[i].old_lnum,
-            new_lnum = adds[i].new_lnum,
-            old_content = deletes[i].content,
-            new_content = adds[i].content,
-          }
-        end
+        flush(deletes, adds)
         deletes = {}
         adds = {}
       end
     end
 
-    -- Flush remaining
-    local n = math.min(#deletes, #adds)
-    for i = 1, n do
-      pairs[#pairs + 1] = {
-        old_lnum = deletes[i].old_lnum,
-        new_lnum = adds[i].new_lnum,
-        old_content = deletes[i].content,
-        new_content = adds[i].content,
-      }
-    end
+    flush(deletes, adds)
   end
 
   return pairs

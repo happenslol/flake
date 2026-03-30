@@ -10,6 +10,7 @@ local defaults = {
     delete = "DiffDelete",
     change = "DiffChange",
     change_text = "DiffText",
+    delete_text = "DiffDeleteText",
     context_separator = "Comment",
   },
   keymaps = {
