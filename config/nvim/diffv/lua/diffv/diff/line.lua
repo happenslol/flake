@@ -176,13 +176,17 @@ function M.word_diff(old_line, new_line)
     local old_start, old_count, new_start, new_count = hunk[1], hunk[2], hunk[3], hunk[4]
     if old_count > 0 then
       local first = old_tokens[old_start]
-      local last = old_tokens[old_start + old_count - 1]
-      old_ranges[#old_ranges + 1] = { first.offset, last.offset + #last.text }
+      local last = old_tokens[math.min(old_start + old_count - 1, #old_tokens)]
+      if first and last then
+        old_ranges[#old_ranges + 1] = { first.offset, last.offset + #last.text }
+      end
     end
     if new_count > 0 then
       local first = new_tokens[new_start]
-      local last = new_tokens[new_start + new_count - 1]
-      new_ranges[#new_ranges + 1] = { first.offset, last.offset + #last.text }
+      local last = new_tokens[math.min(new_start + new_count - 1, #new_tokens)]
+      if first and last then
+        new_ranges[#new_ranges + 1] = { first.offset, last.offset + #last.text }
+      end
     end
   end
 
