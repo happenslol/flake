@@ -3,79 +3,96 @@
 --- and builds styled virtual line chunks.
 local M = {}
 
---- Cache for dimmed highlight groups: dim_hl_cache[opacity][hl_group] = dimmed_group_name
-local dim_hl_cache = {}
+--- Cache for dynamically created highlight groups.
+--- Key format: "opacity:bg_hl:fg_hl" → created group name
+local hl_cache = {}
 
 --- Blend two RGB integers.
----@param fg number
----@param bg number
----@param alpha number 0-1, where 0 = fully bg, 1 = fully fg
----@return number
 local function blend_channel(fg, bg, alpha)
   return math.floor(fg * alpha + bg * (1 - alpha) + 0.5)
 end
 
---- Get a dimmed version of a highlight group, creating it dynamically if needed.
---- Blends the fg color toward the background at the given opacity.
----@param hl_group string original highlight group
----@param opacity number 0-1, where 1 = full color, 0 = invisible
----@param bg_hex? string background color hex (defaults to Normal bg)
----@return string dimmed_group_name
-function M.dim_hl(hl_group, opacity, bg_hex)
-  -- Quantize opacity to avoid creating too many groups
-  local key = math.floor(opacity * 100 + 0.5)
-  if not dim_hl_cache[key] then
-    dim_hl_cache[key] = {}
-  end
-  if dim_hl_cache[key][hl_group] then
-    return dim_hl_cache[key][hl_group]
+--- Resolve a highlight group's bg color as an integer.
+---@param hl_name string
+---@return number?
+local function resolve_bg(hl_name)
+  local info = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
+  return info.bg
+end
+
+--- Get the Normal bg as fallback.
+---@return number
+local function normal_bg()
+  local info = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+  return info.bg or 0x212121
+end
+
+--- Format an integer color as hex string.
+---@param c number
+---@return string
+local function to_hex(c)
+  return string.format("#%02x%02x%02x",
+    bit.rshift(c, 16),
+    bit.band(bit.rshift(c, 8), 0xff),
+    bit.band(c, 0xff))
+end
+
+--- Create a highlight group with dimmed fg and a specific diff bg.
+--- The fg is blended toward Normal bg at the given opacity.
+--- The bg comes from a diff highlight group (e.g. DiffDelete, DiffDeleteText).
+---@param fg_hl string source highlight group for fg color
+---@param opacity number 0-1 for fg dimming
+---@param bg_hl string highlight group to take bg from
+---@return string created highlight group name
+function M.make_hl(fg_hl, opacity, bg_hl)
+  local key_opacity = math.floor(opacity * 100 + 0.5)
+  local cache_key = key_opacity .. ":" .. bg_hl .. ":" .. fg_hl
+  if hl_cache[cache_key] then
+    return hl_cache[cache_key]
   end
 
-  -- Resolve the original highlight's fg color (follow links)
-  local hl_info = vim.api.nvim_get_hl(0, { name = hl_group, link = false })
+  local hl_info = vim.api.nvim_get_hl(0, { name = fg_hl, link = false })
   local fg = hl_info.fg
 
+  -- Resolve bg from the diff highlight group
+  local diff_bg = resolve_bg(bg_hl)
+
   if not fg then
-    -- No fg color — just return the original
-    dim_hl_cache[key][hl_group] = hl_group
-    return hl_group
+    -- No fg — create group with just the diff bg
+    if diff_bg then
+      local name = string.format("Diffv_%s_%s", bg_hl, fg_hl:gsub("[%.@]", "_"))
+      vim.api.nvim_set_hl(0, name, { bg = to_hex(diff_bg) })
+      hl_cache[cache_key] = name
+      return name
+    end
+    hl_cache[cache_key] = bg_hl
+    return bg_hl
   end
 
-  -- Get background color
-  local bg
-  if bg_hex then
-    bg = tonumber(bg_hex:sub(2), 16)
-  else
-    local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
-    bg = normal.bg or 0x212121
-  end
-
-  -- Blend fg toward bg
+  -- Blend fg toward Normal bg
+  local nbg = normal_bg()
   local fg_r, fg_g, fg_b = bit.rshift(fg, 16), bit.band(bit.rshift(fg, 8), 0xff), bit.band(fg, 0xff)
-  local bg_r, bg_g, bg_b = bit.rshift(bg, 16), bit.band(bit.rshift(bg, 8), 0xff), bit.band(bg, 0xff)
+  local bg_r, bg_g, bg_b = bit.rshift(nbg, 16), bit.band(bit.rshift(nbg, 8), 0xff), bit.band(nbg, 0xff)
 
   local r = blend_channel(fg_r, bg_r, opacity)
   local g = blend_channel(fg_g, bg_g, opacity)
   local b = blend_channel(fg_b, bg_b, opacity)
 
-  local dimmed_name = string.format("DiffvDim%d_%s", key, hl_group:gsub("[%.@]", "_"))
-  vim.api.nvim_set_hl(0, dimmed_name, {
+  local name = string.format("Diffv%d_%s_%s", key_opacity, bg_hl, fg_hl:gsub("[%.@]", "_"))
+  vim.api.nvim_set_hl(0, name, {
     fg = string.format("#%02x%02x%02x", r, g, b),
-    bg = hl_info.bg and string.format("#%02x%02x%02x",
-      bit.rshift(hl_info.bg, 16),
-      bit.band(bit.rshift(hl_info.bg, 8), 0xff),
-      bit.band(hl_info.bg, 0xff)) or nil,
+    bg = diff_bg and to_hex(diff_bg) or nil,
     italic = hl_info.italic,
     bold = hl_info.bold,
   })
 
-  dim_hl_cache[key][hl_group] = dimmed_name
-  return dimmed_name
+  hl_cache[cache_key] = name
+  return name
 end
 
---- Clear the dimmed highlight cache (call on theme reload).
-function M.clear_dim_cache()
-  dim_hl_cache = {}
+--- Clear the highlight cache (called on theme reload via module unload).
+function M.clear_cache()
+  hl_cache = {}
 end
 
 --- Extract treesitter highlights for specific lines from a buffer.
@@ -158,55 +175,127 @@ function M.get_highlights(buf, start_row, end_row)
   return result
 end
 
+--- Check if a column position falls inside any emphasis range.
+---@param col number 0-indexed column
+---@param ranges number[][] list of {start, end} ranges (0-indexed, end-exclusive)
+---@return boolean
+local function in_emphasis(col, ranges)
+  for _, r in ipairs(ranges) do
+    if col >= r[1] and col < r[2] then
+      return true
+    end
+  end
+  return false
+end
+
 --- Build a virt_lines chunk list for a single line with treesitter highlights.
---- Syntax highlights are dimmed to visually distinguish old/deleted lines.
---- Falls back to a single unhighlighted chunk if no highlights available.
+--- Syntax highlights are dimmed. Word-diff emphasis ranges get a brighter bg.
 ---@param text string the line text
 ---@param highlights? {col_start: number, col_end: number, hl_group: string}[] sorted highlights
----@param base_hl? string base highlight group to apply to unhighlighted regions
----@param dim_opacity? number opacity for syntax colors (0-1, default 0.5)
+---@param base_hl string diff bg highlight group (e.g. "DiffDelete")
+---@param emph_hl string emphasis bg highlight group (e.g. "DiffDeleteText")
+---@param emph_ranges? number[][] word-diff emphasis ranges {start, end}[]
+---@param dim_opacity? number opacity for syntax fg (0-1, default 0.5)
 ---@return {[1]: string, [2]: string}[] chunks for virt_lines
-function M.build_virt_line(text, highlights, base_hl, dim_opacity)
+function M.build_virt_line(text, highlights, base_hl, emph_hl, emph_ranges, dim_opacity)
   dim_opacity = dim_opacity or 0.5
+  emph_ranges = emph_ranges or {}
+
+  -- Helper: get the right hl group for a position (dimmed fg + correct bg)
+  local function hl_at(fg_hl, col)
+    local bg = in_emphasis(col, emph_ranges) and emph_hl or base_hl
+    if fg_hl then
+      return M.make_hl(fg_hl, dim_opacity, bg)
+    else
+      return M.make_hl(base_hl, dim_opacity, bg)
+    end
+  end
 
   if not highlights or #highlights == 0 then
-    return { { text, base_hl and M.dim_hl(base_hl, dim_opacity) or "Normal" } }
+    -- No syntax highlights — still need to split on emphasis boundaries
+    return M._split_by_emphasis(text, base_hl, emph_hl, emph_ranges, dim_opacity)
+  end
+
+  -- Build character-level fg_hl map, then split into chunks by (fg_hl, bg_hl) boundaries
+  local chunks = {}
+  local pos = 0
+
+  -- Merge syntax highlights with emphasis ranges by walking character by character
+  -- through syntax segments and splitting at emphasis boundaries
+  for _, sh in ipairs(highlights) do
+    -- Gap before this syntax highlight
+    if sh.col_start > pos then
+      local sub_chunks = M._split_by_emphasis(
+        text:sub(pos + 1, sh.col_start), base_hl, emph_hl, emph_ranges, dim_opacity, pos
+      )
+      vim.list_extend(chunks, sub_chunks)
+    end
+
+    -- Syntax highlighted segment — split at emphasis boundaries
+    local seg_start = math.max(sh.col_start, pos)
+    local seg_end = sh.col_end
+    if seg_start < seg_end then
+      local sub_chunks = M._split_by_emphasis(
+        text:sub(seg_start + 1, seg_end), base_hl, emph_hl, emph_ranges, dim_opacity, seg_start, sh.hl_group
+      )
+      vim.list_extend(chunks, sub_chunks)
+    end
+
+    pos = math.max(pos, sh.col_end)
+  end
+
+  -- Trailing text
+  if pos < #text then
+    local sub_chunks = M._split_by_emphasis(
+      text:sub(pos + 1), base_hl, emph_hl, emph_ranges, dim_opacity, pos
+    )
+    vim.list_extend(chunks, sub_chunks)
+  end
+
+  if #chunks == 0 then
+    chunks[#chunks + 1] = { text, M.make_hl(base_hl, dim_opacity, base_hl) }
+  end
+
+  return chunks
+end
+
+--- Split a text segment into chunks based on emphasis range boundaries.
+---@param text string segment text
+---@param base_hl string base diff bg highlight
+---@param emph_hl string emphasis diff bg highlight
+---@param emph_ranges number[][] emphasis ranges in original line coordinates
+---@param dim_opacity number
+---@param offset? number character offset of this segment in the full line (default 0)
+---@param fg_hl? string syntax fg highlight group (nil = use base)
+---@return {[1]: string, [2]: string}[]
+function M._split_by_emphasis(text, base_hl, emph_hl, emph_ranges, dim_opacity, offset, fg_hl)
+  offset = offset or 0
+  if #text == 0 then
+    return {}
   end
 
   local chunks = {}
   local pos = 0
-  local dimmed_base = base_hl and M.dim_hl(base_hl, dim_opacity) or nil
 
-  for _, hl in ipairs(highlights) do
-    -- Gap before this highlight
-    if hl.col_start > pos then
-      local gap_text = text:sub(pos + 1, hl.col_start)
-      if #gap_text > 0 then
-        chunks[#chunks + 1] = { gap_text, dimmed_base }
+  while pos < #text do
+    local col = offset + pos
+    local is_emph = in_emphasis(col, emph_ranges)
+    local bg = is_emph and emph_hl or base_hl
+
+    -- Find how far this emphasis state extends
+    local run_end = pos + 1
+    while run_end < #text do
+      local next_emph = in_emphasis(offset + run_end, emph_ranges)
+      if next_emph ~= is_emph then
+        break
       end
+      run_end = run_end + 1
     end
 
-    -- Highlighted segment — dimmed
-    local seg_start = math.max(hl.col_start, pos)
-    local seg_text = text:sub(seg_start + 1, hl.col_end)
-    if #seg_text > 0 then
-      chunks[#chunks + 1] = { seg_text, M.dim_hl(hl.hl_group, dim_opacity) }
-    end
-
-    pos = math.max(pos, hl.col_end)
-  end
-
-  -- Trailing text after last highlight
-  if pos < #text then
-    local trailing = text:sub(pos + 1)
-    if #trailing > 0 then
-      chunks[#chunks + 1] = { trailing, dimmed_base }
-    end
-  end
-
-  -- Ensure at least one chunk (empty line case)
-  if #chunks == 0 then
-    chunks[#chunks + 1] = { text, dimmed_base or "Normal" }
+    local chunk_text = text:sub(pos + 1, run_end)
+    local hl = M.make_hl(fg_hl or base_hl, dim_opacity, bg)
+    chunks[#chunks + 1] = { chunk_text, hl }
+    pos = run_end
   end
 
   return chunks
