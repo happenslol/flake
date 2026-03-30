@@ -9,8 +9,9 @@ M.active = nil
 ---@param diff_result diffv.DiffResult
 ---@param filetype string
 ---@param config diffv.Config
+---@param file_info? { path: string, old_label: string, new_label: string }
 ---@return diffv.DiffView
-function M.create(diff_result, filetype, config)
+function M.create(diff_result, filetype, config, file_info)
   -- Close any existing view first
   if M.active then
     M.destroy()
@@ -20,7 +21,7 @@ function M.create(diff_result, filetype, config)
   local buffers, windows, tabnr
 
   if layout == "side_by_side" then
-    buffers, windows, tabnr = require("diffv.ui.side_by_side").render(diff_result, filetype, config)
+    buffers, windows, tabnr = require("diffv.ui.side_by_side").render(diff_result, filetype, config, file_info)
   else
     buffers, windows = require("diffv.ui.inline").render(diff_result, filetype)
   end

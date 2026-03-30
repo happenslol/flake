@@ -59,7 +59,7 @@ opt.fillchars = {
   foldclose = "",
   fold = " ",
   foldsep = " ",
-  diff = "╱",
+  diff = " ",
   eob = " ",
 }
 

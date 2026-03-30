@@ -68,13 +68,6 @@ function M.apply_side(buf, line_map, config)
           end
         end
       end
-    elseif entry.type == "padding" then
-      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
-        end_row = row + 1,
-        hl_group = "NonText",
-        hl_eol = true,
-        priority = 10,
-      })
     end
   end
 end
