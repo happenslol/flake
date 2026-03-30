@@ -78,7 +78,7 @@ function M.get(c, opts)
     Bold                        = { bold = true, fg = c.fg }, -- (preferred) any bold text
     Character                   = { fg = c.green }, --  a character constant: 'c', '\n'
     Constant                    = { fg = c.orange }, -- (preferred) any constant
-    Debug                       = { fg = c.orange }, --    debugging statements
+    Debugging                       = { fg = c.orange }, --    debugging statements
     Delimiter                   =  "Special", --  character that needs attention
     Error                       = { fg = c.error }, -- (preferred) any erroneous construct
     Function                    = { fg = c.blue, style = opts.styles.functions }, -- function name (also: methods for classes)

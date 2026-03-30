@@ -59,11 +59,14 @@ function M.open(args)
   end
 
   local old_text, new_text
+  local old_label, new_label
 
   if is_cached then
     -- Staged changes: HEAD vs index
     old_text = provider.get_file_sync("HEAD", rel_path)
     new_text = provider.get_file_sync(":", rel_path)
+    old_label = "HEAD"
+    new_label = "staged"
   elseif has_rev then
     -- Commit or range: parse the first non-flag arg
     local rev
@@ -79,15 +82,21 @@ function M.open(args)
       local rev_a, rev_b = rev:match("^(.+)%.%.(.+)$")
       old_text = provider.get_file_sync(rev_a, rel_path)
       new_text = provider.get_file_sync(rev_b, rel_path)
+      old_label = rev_a
+      new_label = rev_b
     elseif rev then
       -- Single commit: compare commit~ vs commit
       old_text = provider.get_file_sync(rev .. "~", rel_path)
       new_text = provider.get_file_sync(rev, rel_path)
+      old_label = rev .. "~"
+      new_label = rev
     end
   else
     -- Working tree changes: HEAD vs working copy
     old_text = provider.get_file_sync("HEAD", rel_path)
     new_text = provider.get_working_copy(abs_path)
+    old_label = "HEAD"
+    new_label = "working tree"
   end
 
   old_text = old_text or ""
@@ -102,7 +111,11 @@ function M.open(args)
   local diff_result = diff_engine.diff(old_text, new_text)
 
   -- Render
-  ui.create(diff_result, filetype, config)
+  ui.create(diff_result, filetype, config, {
+    path = rel_path,
+    old_label = old_label,
+    new_label = new_label,
+  })
 end
 
 --- Close the active diff view

@@ -102,18 +102,69 @@ function M.diff(old_text, new_text, opts)
   }
 end
 
+---@class diffv.Token
+---@field text string the token text
+---@field offset number 0-indexed byte offset in the original line
+
+--- Tokenize a line into words and individual non-word characters.
+--- Words are matched by %w+ (alphanumeric + underscore), like delta's \w+ default.
+--- Non-word text between matches is split into individual characters.
+---@param line string
+---@return diffv.Token[]
+local function tokenize(line)
+  local tokens = {} ---@type diffv.Token[]
+  local pos = 1
+
+  while pos <= #line do
+    -- Try to match a word at current position
+    local ws, we = line:find("%w+", pos)
+    if ws == pos then
+      -- Word token starting right here
+      tokens[#tokens + 1] = { text = line:sub(ws, we), offset = ws - 1 }
+      pos = we + 1
+    else
+      -- Non-word character: emit as single-char token
+      tokens[#tokens + 1] = { text = line:sub(pos, pos), offset = pos - 1 }
+      pos = pos + 1
+    end
+  end
+
+  return tokens
+end
+
+--- Convert tokens to one-per-line string for vim.diff().
+---@param tokens diffv.Token[]
+---@return string
+local function tokens_to_lines(tokens)
+  local parts = {}
+  for _, t in ipairs(tokens) do
+    parts[#parts + 1] = t.text
+  end
+  return table.concat(parts, "\n") .. "\n"
+end
+
 --- Compute word-level diff within a pair of changed lines.
+--- Tokenizes like delta: words (%w+) are atomic, non-word chars are individual tokens.
 --- Returns column ranges (0-indexed, end-exclusive) of changed regions.
 ---@param old_line string
 ---@param new_line string
 ---@return { old_ranges: number[][], new_ranges: number[][] }
 function M.word_diff(old_line, new_line)
-  -- Split lines into characters for character-level diffing
-  local old_chars = old_line .. "\n"
-  local new_chars = new_line .. "\n"
+  if old_line == "" and new_line == "" then
+    return { old_ranges = {}, new_ranges = {} }
+  end
 
-  -- Use vim.diff with indices result type for efficiency
-  local indices = vim.diff(old_chars, new_chars, {
+  local old_tokens = tokenize(old_line)
+  local new_tokens = tokenize(new_line)
+
+  if #old_tokens == 0 and #new_tokens == 0 then
+    return { old_ranges = {}, new_ranges = {} }
+  end
+
+  local old_text = tokens_to_lines(old_tokens)
+  local new_text = tokens_to_lines(new_tokens)
+
+  local indices = vim.diff(old_text, new_text, {
     result_type = "indices",
     algorithm = "patience",
   })
@@ -124,11 +175,14 @@ function M.word_diff(old_line, new_line)
   for _, hunk in ipairs(indices) do
     local old_start, old_count, new_start, new_count = hunk[1], hunk[2], hunk[3], hunk[4]
     if old_count > 0 then
-      -- Convert from 1-indexed line (char) positions to 0-indexed byte columns
-      old_ranges[#old_ranges + 1] = { old_start - 1, old_start - 1 + old_count }
+      local first = old_tokens[old_start]
+      local last = old_tokens[old_start + old_count - 1]
+      old_ranges[#old_ranges + 1] = { first.offset, last.offset + #last.text }
     end
     if new_count > 0 then
-      new_ranges[#new_ranges + 1] = { new_start - 1, new_start - 1 + new_count }
+      local first = new_tokens[new_start]
+      local last = new_tokens[new_start + new_count - 1]
+      new_ranges[#new_ranges + 1] = { first.offset, last.offset + #last.text }
     end
   end
 
