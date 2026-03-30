@@ -17,7 +17,8 @@ end
 --- Open a diff view.
 --- Supports: :DiffV (working tree), :DiffV --cached (staged), :DiffV <commit>
 ---@param args? string[] command arguments
-function M.open(args)
+---@param file_path? string specific file to diff (relative to repo root)
+function M.open(args, file_path)
   args = args or {}
 
   local git = require("diffv.git")
@@ -32,17 +33,20 @@ function M.open(args)
     return
   end
 
-  -- Get the list of changed files
-  local files, err = provider.changed_files_sync(args)
-  if err or #files == 0 then
-    vim.notify("diffv: no changes found", vim.log.levels.INFO)
-    return
+  local rel_path
+
+  if file_path then
+    rel_path = file_path
+  else
+    -- Get the list of changed files, use the first one
+    local files, err = provider.changed_files_sync(args)
+    if err or #files == 0 then
+      vim.notify("diffv: no changes found", vim.log.levels.INFO)
+      return
+    end
+    rel_path = files[1].path
   end
 
-  -- For now, open the first changed file
-  -- (multi-file navigation comes in a later phase)
-  local file = files[1]
-  local rel_path = file.path
   local abs_path = root .. "/" .. rel_path
 
   -- Determine filetype from the file extension
@@ -116,6 +120,17 @@ function M.open(args)
     old_label = old_label,
     new_label = new_label,
   })
+end
+
+--- Open an inline diff view (convenience wrapper).
+---@param args? string[]
+---@param file_path? string
+function M.open_inline(args, file_path)
+  local config = require("diffv.config")
+  local saved_layout = config.values.layout
+  config.values.layout = "inline"
+  M.open(args, file_path)
+  config.values.layout = saved_layout
 end
 
 --- Close the active diff view

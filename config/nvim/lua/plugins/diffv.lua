@@ -4,7 +4,14 @@ return {
   name = "diffv",
   lazy = false,
   keys = {
-    { "<leader>cv", "<cmd>DiffV<cr>", desc = "Diff View (working tree)" },
+    { "<leader>cv", "<cmd>DiffV<cr>", desc = "Diff View (side-by-side)" },
+    {
+      "<leader>ci",
+      function()
+        require("diffv").open_inline()
+      end,
+      desc = "Diff View (inline)",
+    },
     { "<leader>cs", "<cmd>DiffV --cached<cr>", desc = "Diff View (staged)" },
     {
       "<leader>cf",

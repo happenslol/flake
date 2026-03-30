@@ -23,7 +23,7 @@ function M.create(diff_result, filetype, config, file_info)
   if layout == "side_by_side" then
     buffers, windows, tabnr = require("diffv.ui.side_by_side").render(diff_result, filetype, config, file_info)
   else
-    buffers, windows = require("diffv.ui.inline").render(diff_result, filetype)
+    buffers, windows, tabnr = require("diffv.ui.inline").render(diff_result, filetype, config, file_info)
   end
 
   ---@type diffv.DiffView

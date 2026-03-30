@@ -36,10 +36,10 @@ function M.setup(opts)
   }
 
   colors.diff = {
-    add = Util.blend_bg("#00ff00", 0.04),
-    delete = Util.blend_bg("#ff0000", 0.06),
-    change = Util.blend_bg("#00ff00", 0.04),
-    text = Util.blend_bg("#00ff00", 0.15),
+    add = "#002800",
+    delete = "#3f0001",
+    change = "#002800",
+    text = "#006000",
   }
 
   colors.git.ignore = colors.dark3
