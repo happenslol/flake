@@ -48,6 +48,10 @@ function M.apply_overlay(buf, diff_result, config, filetype)
   local ns = require("diffv").ns()
   local hl = config.highlights
   local line_diff = require("diffv.diff.line")
+  local ts = require("diffv.treesitter")
+
+  -- Compute emphasized version of DiffDelete dynamically
+  local delete_emph = ts.make_emph_hl(hl.delete)
 
   -- Extract treesitter highlights for old file content
   local old_hl = extract_old_highlights(diff_result.old_lines, filetype)
@@ -113,7 +117,7 @@ function M.apply_overlay(buf, diff_result, config, filetype)
       -- Show old version as virtual line above (old side: dim red bg, bright red on changed words)
       local old_row = del.old_lnum - 1
       local virt_chunks = build_highlighted_virt_line(
-        del.content, old_row, old_hl, hl.delete, hl.delete_text, word_result.old_ranges
+        del.content, old_row, old_hl, hl.delete, delete_emph, word_result.old_ranges
       )
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         virt_lines = { virt_chunks },
@@ -188,6 +192,7 @@ function M.render(diff_result, filetype, config, file_info)
   vim.wo[win].wrap = false
   vim.wo[win].cursorline = true
   vim.wo[win].foldmethod = "manual"
+  vim.wo[win].foldlevel = 0
 
   M.apply_overlay(buf, diff_result, config, filetype)
 

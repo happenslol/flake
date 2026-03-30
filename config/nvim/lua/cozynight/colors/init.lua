@@ -37,10 +37,9 @@ function M.setup(opts)
 
   colors.diff = {
     add = "#002800",
-    delete = "#3f0001",
+    delete = "#2a0001",
     change = "#002800",
     text = "#006000",
-    delete_text = "#901011",
   }
 
   colors.git.ignore = colors.dark3

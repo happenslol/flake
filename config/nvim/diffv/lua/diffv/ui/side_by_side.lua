@@ -7,7 +7,7 @@ local M = {}
 ---@param win number window handle
 local function set_win_opts(win)
   vim.wo[win].foldmethod = "diff"
-  vim.wo[win].foldlevel = 99 -- start with all folds open
+  vim.wo[win].foldlevel = 0 -- start with context folds closed
   vim.wo[win].number = true
   vim.wo[win].relativenumber = false
   vim.wo[win].signcolumn = "no"

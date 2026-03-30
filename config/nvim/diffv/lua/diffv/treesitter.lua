@@ -37,6 +37,34 @@ local function to_hex(c)
     bit.band(c, 0xff))
 end
 
+--- Compute an emphasized version of a diff bg highlight.
+--- Brightens the bg color by scaling its channels.
+---@param hl_name string highlight group name (e.g. "DiffDelete")
+---@param factor? number brightening factor (default 2.5)
+---@return string created highlight group name
+function M.make_emph_hl(hl_name, factor)
+  factor = factor or 2.5
+  local cache_key = "emph:" .. hl_name .. ":" .. tostring(factor)
+  if hl_cache[cache_key] then
+    return hl_cache[cache_key]
+  end
+
+  local bg = resolve_bg(hl_name)
+  if not bg then
+    hl_cache[cache_key] = hl_name
+    return hl_name
+  end
+
+  local r = math.min(255, math.floor(bit.rshift(bg, 16) * factor))
+  local g = math.min(255, math.floor(bit.band(bit.rshift(bg, 8), 0xff) * factor))
+  local b = math.min(255, math.floor(bit.band(bg, 0xff) * factor))
+
+  local name = "DiffvEmph_" .. hl_name
+  vim.api.nvim_set_hl(0, name, { bg = string.format("#%02x%02x%02x", r, g, b) })
+  hl_cache[cache_key] = name
+  return name
+end
+
 --- Create a highlight group with dimmed fg and a specific diff bg.
 --- The fg is blended toward Normal bg at the given opacity.
 --- The bg comes from a diff highlight group (e.g. DiffDelete, DiffDeleteText).

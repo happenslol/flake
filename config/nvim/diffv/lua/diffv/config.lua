@@ -3,14 +3,13 @@ local M = {}
 ---@type diffv.Config
 local defaults = {
   layout = "side_by_side",
-  context = 5,
+  context = 10,
   git_cmd = "git",
   highlights = {
     add = "DiffAdd",
     delete = "DiffDelete",
     change = "DiffChange",
     change_text = "DiffText",
-    delete_text = "DiffDeleteText",
     context_separator = "Comment",
   },
   keymaps = {
