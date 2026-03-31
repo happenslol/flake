@@ -171,6 +171,7 @@ in
         requires = ["network-online.target"];
         after = ["network.target" "network-online.target"];
         wantedBy = ["multi-user.target"];
+        restartIfChanged = false;
 
         unitConfig = {
           ConditionFileNotEmpty = [
@@ -374,6 +375,7 @@ in
         after = ["pia-vpn.service"];
         bindsTo = ["pia-vpn.service"];
         wantedBy = ["pia-vpn.service"];
+        restartIfChanged = false;
 
         unitConfig = {
           ConditionFileNotEmpty = [
