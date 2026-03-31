@@ -269,12 +269,20 @@ return {
           vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
         end, { desc = "Previous Error" })
 
-        map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
-        map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Goto Type" })
-        map("n", "grr", "<cmd>Telescope lsp_references<cr>", { desc = "Show References" })
+        map("n", "gI", function()
+          Snacks.picker.lsp_implementations()
+        end, { desc = "Goto Implementation" })
+        map("n", "gt", function()
+          Snacks.picker.lsp_type_definitions()
+        end, { desc = "Goto Type" })
+        map("n", "grr", function()
+          Snacks.picker.lsp_references()
+        end, { desc = "Show References" })
 
         if client.server_capabilities["definitionProvider"] then
-          map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Goto Definition" })
+          map("n", "gd", function()
+            Snacks.picker.lsp_definitions()
+          end, { desc = "Goto Definition" })
         end
       end)
 

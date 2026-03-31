@@ -17,7 +17,7 @@ M.plugins = {
   ["noice.nvim"]                    = "noice",
   ["nvim-dap"]                      = "dap",
   ["nvim-treesitter-context"]       = "treesitter-context",
-  ["telescope.nvim"]                = "telescope",
+  ["snacks.nvim"]                   = "snacks",
   ["trouble.nvim"]                  = "trouble",
   ["which-key.nvim"]                = "which-key",
 }

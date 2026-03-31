@@ -47,10 +47,6 @@ M.defaults = {
     -- uses your plugin manager to automatically enable needed plugins
     -- currently only lazy.nvim is supported
     auto = true,
-    -- add any plugins here that you want to enable
-    -- for all possible plugins, see:
-    --   * https://github.com/folke/cozynight.nvim/tree/main/lua/cozynight/groups
-    -- telescope = true,
   },
 }
 

@@ -121,7 +121,7 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = { "TodoTrouble", "TodoTelescope" },
+    cmd = { "TodoTrouble" },
     event = "VeryLazy",
     opts = {
       highlight = {
@@ -134,8 +134,8 @@ return {
       { "[t",         function() require("todo-comments").jump_prev() end,              desc = "Previous Todo Comment" },
       { "<leader>xt", "<cmd>Trouble todo toggle<cr>",                                   desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>pt", "<cmd>TodoTelescope<cr>",                                         desc = "Todo" },
-      { "<leader>pT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",                 desc = "Todo/Fix/Fixme" },
+      { "<leader>pt", function() Snacks.picker.todo_comments() end,                                          desc = "Todo" },
+      { "<leader>pT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
     },
   },
 }
