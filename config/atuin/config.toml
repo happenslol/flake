@@ -1,0 +1,10 @@
+search_mode = "daemon-fuzzy"
+style = "compact"
+inline_height = 16
+invert = true
+max_preview_height = 1
+show_help = false
+
+[daemon]
+enabled = true
+autostart = true

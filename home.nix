@@ -112,6 +112,7 @@ in {
       "xdg-desktop-portal".source = "${dotfiles}/xdg-desktop-portal";
       "status".source = "${hostDotfiles}/status";
       "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
+      "atuin".source = "${dotfiles}/atuin";
     };
 
     systemDirs.data = [gsettingsDatadir];

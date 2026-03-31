@@ -148,6 +148,7 @@ pkgs: {
     fence
     kdlfmt
     sox
+    atuin
   ];
 
   node = with pkgs.nodejs_24.pkgs; [

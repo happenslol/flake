@@ -21,8 +21,9 @@ source ~/.config/zsh/util.zsh
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd j zsh)"
 eval "$(direnv hook zsh)"
+eval "$(atuin init zsh --disable-ai --disable-up-arrow)"
 
-# Source devshell completions set via direnv (avoids compinit rescan)
+# Source devshell completions set via direnv (avoid compinit rescan)
 _load_devshell_completions() {
   if [[ -n "$ZSH_DEVSHELL_COMPLETIONS" && "$ZSH_DEVSHELL_COMPLETIONS" != "$_loaded_devshell_completions" ]]; then
     _loaded_devshell_completions="$ZSH_DEVSHELL_COMPLETIONS"
