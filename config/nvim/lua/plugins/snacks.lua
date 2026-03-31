@@ -23,6 +23,26 @@ return {
           hidden = true,
           ignored = false,
           exclude = { ".git" },
+          actions = {
+            grep_in_files = function(picker)
+              local paths = {}
+              for i = 1, picker.list:count() do
+                local item = picker.list:get(i)
+                if item and item.file then
+                  paths[#paths + 1] = (item.cwd or "") .. "/" .. item.file
+                end
+              end
+              picker:close()
+              Snacks.picker.grep({ dirs = paths })
+            end,
+          },
+          win = {
+            input = {
+              keys = {
+                ["<c-f>"] = { "grep_in_files", mode = { "i", "n" }, desc = "Grep in filtered files" },
+              },
+            },
+          },
         },
         select = {
           kinds = {
