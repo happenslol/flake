@@ -18,6 +18,8 @@ function M.get(c, opts)
     BlinkCmpKindTabNine         = { fg = c.teal, bg = c.none },
     BlinkCmpLabel               = { fg = c.fg, bg = c.none },
     BlinkCmpLabelDeprecated     = { fg = c.fg_gutter, bg = c.none, strikethrough = true },
+    BlinkCmpLabelDetail         = { fg = c.comment },
+    BlinkCmpLabelDescription    = { fg = c.comment },
     BlinkCmpLabelMatch          = { fg = c.blue1, bg = c.none },
     BlinkCmpSignatureHelp       = { fg = c.fg, bg = c.bg_float },
     BlinkCmpSignatureHelpBorder = { fg = c.border_highlight, bg = c.bg_float },
