@@ -39,6 +39,11 @@
 
     status.url = "github:happenslol/status";
     ghostty.url = "github:ghostty-org/ghostty";
+
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -48,6 +53,7 @@
     nixpkgs-wayland,
     neovim-nightly-overlay,
     sops-nix,
+    microvm,
     ...
   }: let
     inherit (nixpkgs) lib;
@@ -80,6 +86,7 @@
       modules = [
         nix-index-database.nixosModules.nix-index
         sops-nix.nixosModules.sops
+        microvm.nixosModules.host
         ./modules/pia-vpn.nix
         ./system.nix
         (./. + "/hosts/${hostname}/hardware-configuration.nix")
