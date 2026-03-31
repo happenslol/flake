@@ -24,6 +24,29 @@ return {
           ignored = false,
           exclude = { ".git" },
         },
+        select = {
+          kinds = {
+            codeaction = {
+              layout = {
+                layout = {
+                  backdrop = false,
+                  relative = "cursor",
+                  row = 1,
+                  col = 0,
+                  width = 80,
+                  height = 0,
+                  min_height = 2,
+                  box = "vertical",
+                  border = "rounded",
+                  title = "",
+                  wo = { winhighlight = "FloatBorder:SnacksPickerCodeActionBorder" },
+                  { win = "input", height = 1, border = "none" },
+                  { win = "list", border = "none" },
+                },
+              },
+            },
+          },
+        },
       },
       win = {
         input = {

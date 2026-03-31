@@ -24,6 +24,7 @@ function M.get(c, opts)
     SnacksPickerGitStatusModified = { fg = c.yellow },
     SnacksPickerGitStatusDeleted  = { fg = c.red },
     SnacksPickerGitStatusUntracked = { fg = c.comment },
+    SnacksPickerCodeActionBorder   = { fg = c.border_highlight, bg = c.bg_float },
   }
 end
 
