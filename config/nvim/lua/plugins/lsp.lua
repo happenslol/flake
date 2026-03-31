@@ -228,7 +228,9 @@ return {
 
       vim.diagnostic.config({
         jump = {
-          float = true,
+          on_jump = function()
+            vim.diagnostic.open_float({ focus = false })
+          end,
         },
         signs = {
           text = {
@@ -261,10 +263,10 @@ return {
         end
 
         map("n", "]e", function()
-          vim.diagnostic.jump({ float = true, count = 1, severity = vim.diagnostic.severity.ERROR })
+          vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
         end, { desc = "Next Error" })
         map("n", "[e", function()
-          vim.diagnostic.jump({ float = true, count = -1, severity = vim.diagnostic.severity.ERROR })
+          vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
         end, { desc = "Previous Error" })
 
         map("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Goto Implementation" })
