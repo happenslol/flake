@@ -125,8 +125,8 @@ return {
     event = "VeryLazy",
     opts = {
       highlight = {
-        pattern = [[.*<(KEYWORDS)\s*%(\(.*\))?\s*:]]
-      }
+        pattern = [[.*<(KEYWORDS)\s*%(\(.*\))?\s*:]],
+      },
     },
     -- stylua: ignore
     keys = {
