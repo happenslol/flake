@@ -52,21 +52,9 @@ inputs: self: super: {
     exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
   '';
 
-  wingthing = self.stdenv.mkDerivation {
-    pname = "wingthing";
-    version = "0.109.0";
-    dontUnpack = true;
-    nativeBuildInputs = [self.autoPatchelfHook];
-    installPhase = ''install -Dm755 $src $out/bin/wt'';
-    src = self.fetchurl {
-      url = "https://github.com/ehrlich-b/wingthing/releases/download/v0.109.0/wt-linux-amd64";
-      hash = "sha256-EweoQtH6AfPB0QngApQ8yVflGZOh4UVGWFGjbQxUhD4=";
-    };
-  };
-
   fence = self.stdenv.mkDerivation rec {
     pname = "fence";
-    version = "0.1.32";
+    version = "0.1.39";
     sourceRoot = ".";
     nativeBuildInputs = [self.autoPatchelfHook self.makeWrapper];
     installPhase = ''
@@ -75,7 +63,7 @@ inputs: self: super: {
     '';
     src = self.fetchurl {
       url = "https://github.com/Use-Tusk/fence/releases/download/v${version}/fence_${version}_Linux_x86_64.tar.gz";
-      hash = "sha256-qN7gFwg0x0MUSDQkwqcBD6y+ApizxqdmdIYcw0Clots=";
+      hash = "sha256-U3Ik7PXF6or05SZOJmSkRVBgNcgeD8sJ8v8pa0FDR94=";
     };
   };
 

@@ -144,7 +144,6 @@ pkgs: {
     uv
     sops
     gh
-    wingthing
     fence
     kdlfmt
     sox
