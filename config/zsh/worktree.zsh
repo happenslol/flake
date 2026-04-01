@@ -1,6 +1,7 @@
 # Worktree helper — creates git worktrees with automatic setup.
 #
 # Usage:
+#   wt                     cd back to main worktree
 #   wt <branch> [base]     cd into worktree (creates if needed)
 #   worktree <branch> [base]   prints worktree path to stdout
 #
@@ -101,6 +102,21 @@ function worktree() {
 }
 
 function wt() {
+  if [[ $# -eq 0 ]]; then
+    local main_dir
+    main_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || {
+      echo "Usage: wt [branch] [base]" >&2
+      return 1
+    }
+    main_dir="${main_dir%/.git}"
+    if [[ "$main_dir" == "$(pwd)" ]]; then
+      echo "Usage: wt [branch] [base]" >&2
+      return 1
+    fi
+    cd "$main_dir"
+    return
+  fi
+
   local dir
   dir="$(worktree "$@")" || return $?
   if typeset -f worktree_post_hook > /dev/null; then
