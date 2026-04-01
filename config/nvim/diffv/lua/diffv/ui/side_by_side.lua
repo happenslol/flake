@@ -106,6 +106,16 @@ local function apply_word_highlights(left_buf, right_buf, change_pairs, config)
   end
 end
 
+--- Apply word-level highlights to a pair of already-rendered diff buffers.
+---@param left_buf number
+---@param right_buf number
+---@param diff_result diffv.DiffResult
+---@param config diffv.Config
+function M.apply_highlights(left_buf, right_buf, diff_result, config)
+  local change_pairs = find_change_pairs(diff_result)
+  apply_word_highlights(left_buf, right_buf, change_pairs, config)
+end
+
 --- Render a side-by-side diff view.
 ---@param diff_result diffv.DiffResult
 ---@param filetype string filetype for syntax highlighting

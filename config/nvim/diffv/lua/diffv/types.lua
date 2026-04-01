@@ -22,20 +22,21 @@
 ---@field status "added" | "modified" | "deleted" | "renamed"
 ---@field hunks diffv.Hunk[]
 
----@class diffv.DiffView
----@field buffers number[] -- buffer handles
----@field windows number[] -- window handles
----@field tabnr? number -- tab page number
----@field layout string -- current layout ("side_by_side" or "inline")
+---@class diffv.View
+---@field buffers number[] -- diff buffer handles
+---@field windows number[] -- diff window handles
+---@field tabnr number
+---@field layout "side_by_side" | "inline"
 ---@field diff_result diffv.DiffResult
 ---@field context_lines number
+---@field _saved_context? number
 ---@field filetype string
----@field file_info? { path: string, old_label: string, new_label: string }
+---@field file_info { path: string, old_label: string, new_label: string }
 ---@field file_changes diffv.FileChange[]
 ---@field current_index number
 ---@field config diffv.Config
 ---@field close fun()
----@field toggle_layout? fun() -- re-render with opposite layout
+---@field toggle_layout_impl fun()
 
 ---@class diffv.Highlights
 ---@field add string
