@@ -114,7 +114,6 @@ end
 ---@param win number
 function M.setup_foldtext(win)
   vim.wo[win].foldtext = "v:lua.require'diffv.ui.context'.foldtext()"
-  vim.wo[win].fillchars = "fold: "
   vim.wo[win].foldminlines = 1
 end
 

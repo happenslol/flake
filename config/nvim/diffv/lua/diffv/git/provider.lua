@@ -95,4 +95,34 @@ function M.changed_files_sync(args)
   return files, nil
 end
 
+--- Get git log entries.
+---@param limit? number max entries (default 100)
+---@return { hash: string, subject: string, author: string, date: string }[]
+---@return string? err
+function M.log_sync(limit)
+  limit = limit or 100
+  local stdout, stderr, code = git.run_sync({
+    "log",
+    "--pretty=format:%h%x00%s%x00%an%x00%cr",
+    "-n",
+    tostring(limit),
+  })
+  if code ~= 0 then
+    return {}, stderr
+  end
+  local entries = {}
+  for line in stdout:gmatch("[^\n]+") do
+    local hash, subject, author, date = line:match("^(.-)%z(.-)%z(.-)%z(.-)$")
+    if hash then
+      entries[#entries + 1] = {
+        hash = hash,
+        subject = subject,
+        author = author,
+        date = date,
+      }
+    end
+  end
+  return entries, nil
+end
+
 return M

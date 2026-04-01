@@ -25,10 +25,17 @@
 ---@class diffv.DiffView
 ---@field buffers number[] -- buffer handles
 ---@field windows number[] -- window handles
+---@field tabnr? number -- tab page number
+---@field layout string -- current layout ("side_by_side" or "inline")
+---@field diff_result diffv.DiffResult
+---@field context_lines number
+---@field filetype string
+---@field file_info? { path: string, old_label: string, new_label: string }
 ---@field file_changes diffv.FileChange[]
 ---@field current_index number
 ---@field config diffv.Config
 ---@field close fun()
+---@field toggle_layout? fun() -- re-render with opposite layout
 
 ---@class diffv.Highlights
 ---@field add string
@@ -42,6 +49,7 @@
 ---@field toggle_layout string
 ---@field increase_context string
 ---@field decrease_context string
+---@field toggle_context string
 ---@field next_hunk string
 ---@field prev_hunk string
 

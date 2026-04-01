@@ -116,9 +116,8 @@ function M.apply_overlay(buf, diff_result, config, filetype)
 
       -- Show old version as virtual line above (old side: dim red bg, bright red on changed words)
       local old_row = del.old_lnum - 1
-      local virt_chunks = build_highlighted_virt_line(
-        del.content, old_row, old_hl, hl.delete, delete_emph, word_result.old_ranges
-      )
+      local virt_chunks =
+        build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete, delete_emph, word_result.old_ranges)
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         virt_lines = { virt_chunks },
         virt_lines_above = true,
@@ -142,9 +141,8 @@ function M.apply_overlay(buf, diff_result, config, filetype)
     for i = actually_paired + 1, #deletes do
       local del = deletes[i]
       local old_row = del.old_lnum - 1
-      unpaired_del_virt[#unpaired_del_virt + 1] = build_highlighted_virt_line(
-        del.content, old_row, old_hl, hl.delete, hl.delete, nil
-      )
+      unpaired_del_virt[#unpaired_del_virt + 1] =
+        build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete, hl.delete, nil)
     end
     if #unpaired_del_virt > 0 then
       -- Anchor: if there are unpaired adds after, attach above the first one;

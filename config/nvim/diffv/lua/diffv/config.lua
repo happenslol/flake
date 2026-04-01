@@ -14,9 +14,10 @@ local defaults = {
   },
   keymaps = {
     close = "q",
-    toggle_layout = "<leader>dl",
+    toggle_layout = "<leader>cv",
     increase_context = "+",
     decrease_context = "-",
+    toggle_context = "=",
     next_hunk = "]h",
     prev_hunk = "[h",
   },
