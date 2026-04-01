@@ -9,10 +9,7 @@ function M.parse_hunk_header(header)
   if not os then
     return 0, 0, 0, 0
   end
-  return tonumber(os) or 0,
-    tonumber(oc) or 1,
-    tonumber(ns) or 0,
-    tonumber(nc) or 1
+  return tonumber(os) or 0, tonumber(oc) or 1, tonumber(ns) or 0, tonumber(nc) or 1
 end
 
 --- Map a single-letter git status to a human-readable status.

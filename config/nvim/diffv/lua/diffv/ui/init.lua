@@ -35,6 +35,8 @@ function M.create(diff_result, filetype, config, file_info)
     layout = layout,
     diff_result = diff_result,
     context_lines = config.context,
+    filetype = filetype,
+    file_info = file_info,
     file_changes = {},
     current_index = 1,
     config = config,
@@ -43,12 +45,17 @@ function M.create(diff_result, filetype, config, file_info)
     end,
   }
 
+  -- Toggle re-renders in place with the opposite layout
+  view.toggle_layout = function()
+    M.toggle_layout()
+  end
+
   M.active = view
 
   -- Apply initial context folding
   M.apply_context(view)
 
-  -- Set up context adjustment keybinds
+  -- Set up keybinds
   local km = config.keymaps
   for _, buf in ipairs(buffers) do
     vim.keymap.set("n", km.increase_context, function()
@@ -59,9 +66,13 @@ function M.create(diff_result, filetype, config, file_info)
       M.adjust_context(-5)
     end, { buffer = buf, desc = "Decrease diff context" })
 
-    vim.keymap.set("n", "=", function()
-      M.set_context(0) -- show all
-    end, { buffer = buf, desc = "Show entire file" })
+    vim.keymap.set("n", km.toggle_context, function()
+      M.toggle_context()
+    end, { buffer = buf, desc = "Toggle context folding" })
+
+    vim.keymap.set("n", km.toggle_layout, function()
+      M.toggle_layout()
+    end, { buffer = buf, desc = "Toggle diff layout" })
   end
 
   return view
@@ -99,29 +110,63 @@ function M.adjust_context(delta)
   if not M.active then
     return
   end
-  local new_ctx = math.max(0, M.active.context_lines + delta)
+  local new_ctx = math.max(1, M.active.context_lines + delta)
+  if new_ctx == M.active.context_lines then
+    return
+  end
   M.active.context_lines = new_ctx
   M.apply_context(M.active)
-  if new_ctx == 0 then
-    vim.notify("diffv: showing entire file", vim.log.levels.INFO)
-  else
-    vim.notify("diffv: context = " .. new_ctx .. " lines", vim.log.levels.INFO)
-  end
+  vim.notify("diffv: context = " .. new_ctx .. " lines", vim.log.levels.INFO)
 end
 
---- Set context lines to a specific value and reapply.
----@param n number (0 = show all)
-function M.set_context(n)
+--- Toggle between current context folding and showing the entire file.
+function M.toggle_context()
   if not M.active then
     return
   end
-  M.active.context_lines = n
-  M.apply_context(M.active)
-  if n == 0 then
-    vim.notify("diffv: showing entire file", vim.log.levels.INFO)
+  if M.active.context_lines == 0 then
+    M.active.context_lines = M.active._saved_context or M.active.config.context
+    M.active._saved_context = nil
+    M.apply_context(M.active)
+    vim.notify("diffv: context = " .. M.active.context_lines .. " lines", vim.log.levels.INFO)
   else
-    vim.notify("diffv: context = " .. n .. " lines", vim.log.levels.INFO)
+    M.active._saved_context = M.active.context_lines
+    M.active.context_lines = 0
+    M.apply_context(M.active)
+    vim.notify("diffv: showing entire file", vim.log.levels.INFO)
   end
+end
+
+--- Toggle between side_by_side and inline layout for the active view.
+function M.toggle_layout()
+  if not M.active then
+    return
+  end
+  local view = M.active
+  if view.toggle_layout_impl then
+    -- Commit views provide their own implementation
+    view.toggle_layout_impl()
+    return
+  end
+
+  -- Standalone view: destroy and recreate with flipped layout
+  local diff_result = view.diff_result
+  local filetype = view.filetype
+  local file_info = view.file_info
+  local config = vim.deepcopy(view.config)
+  local context_lines = view.context_lines
+
+  M.destroy()
+
+  if config.layout == "side_by_side" then
+    config.layout = "inline"
+  else
+    config.layout = "side_by_side"
+  end
+
+  local new_view = M.create(diff_result, filetype, config, file_info)
+  new_view.context_lines = context_lines
+  M.apply_context(new_view)
 end
 
 --- Destroy the active diff view and clean up.
@@ -132,6 +177,13 @@ function M.destroy()
 
   local view = M.active
   M.active = nil
+
+  -- Clear window guards
+  pcall(vim.api.nvim_del_augroup_by_name, "diffv_winguard")
+
+  -- Close file list panel if open
+  local filelist = require("diffv.ui.filelist")
+  filelist.destroy()
 
   -- Restore diffopt (remove our context setting)
   if view.layout == "side_by_side" then

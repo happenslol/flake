@@ -161,4 +161,166 @@ function M.open(opts)
   })
 end
 
+--- Format a git log entry for display.
+---@param item snacks.picker.finder.Item
+---@param picker snacks.Picker
+local function format_log_item(item, picker)
+  local ret = {} ---@type snacks.picker.Highlight[]
+  ret[#ret + 1] = { item.hash .. " ", "Identifier" }
+  ret[#ret + 1] = { item.subject .. " ", "Normal" }
+  ret[#ret + 1] = { item.author, "Special" }
+  ret[#ret + 1] = { " " .. item.date, "Comment" }
+  return ret
+end
+
+local preview_ns = vim.api.nvim_create_namespace("diffv_log_preview")
+
+--- Apply highlights to the log preview buffer.
+---@param buf number
+---@param lines string[]
+---@param body_start number 0-indexed row where the body begins (after blank line)
+---@param stat_start number 0-indexed row where the diffstat begins
+local function highlight_preview(buf, lines, body_start, stat_start)
+  -- Line 0: hash
+  vim.api.nvim_buf_set_extmark(buf, preview_ns, 0, 0, {
+    end_row = 0,
+    end_col = #lines[1],
+    hl_group = "Identifier",
+  })
+
+  -- Line 1: subject
+  if #lines > 1 then
+    vim.api.nvim_buf_set_extmark(buf, preview_ns, 1, 0, {
+      end_row = 1,
+      end_col = #lines[2],
+      hl_group = "Title",
+    })
+  end
+
+  -- Diffstat lines: highlight insertions/deletions
+  for i = stat_start, #lines - 1 do
+    local line = lines[i + 1]
+    -- Match the +/- part at the end of stat lines (e.g. "| 42 +++---")
+    local bar_pos = line:find("|")
+    if bar_pos then
+      -- Highlight filename
+      vim.api.nvim_buf_set_extmark(buf, preview_ns, i, 0, {
+        end_row = i,
+        end_col = bar_pos - 1,
+        hl_group = "Normal",
+      })
+      -- Highlight + chars
+      for pos in line:gmatch("()+") do
+        vim.api.nvim_buf_set_extmark(buf, preview_ns, i, pos - 1, {
+          end_row = i,
+          end_col = pos - 1 + #line:match("%++", pos),
+          hl_group = "DiffAdd",
+        })
+      end
+      -- Highlight - chars
+      for pos in line:gmatch("()%-+") do
+        if pos > bar_pos then
+          vim.api.nvim_buf_set_extmark(buf, preview_ns, i, pos - 1, {
+            end_row = i,
+            end_col = pos - 1 + #line:match("%-+", pos),
+            hl_group = "DiffDelete",
+          })
+        end
+      end
+    -- Summary line (e.g. "3 files changed, 10 insertions(+), 5 deletions(-)")
+    elseif line:match("file.*changed") then
+      vim.api.nvim_buf_set_extmark(buf, preview_ns, i, 0, {
+        end_row = i,
+        end_col = #line,
+        hl_group = "Comment",
+      })
+    end
+  end
+end
+
+--- Preview for a log entry: show commit info and diffstat.
+---@param ctx snacks.picker.preview.ctx
+local function log_preview(ctx)
+  local item = ctx.item
+  if not item or not item.hash then
+    return
+  end
+
+  local git_mod = require("diffv.git")
+  local stdout, _, code = git_mod.run_sync({
+    "show",
+    "--stat",
+    "--format=%H%n%s%n%n%b",
+    item.hash,
+  })
+  if code ~= 0 then
+    return
+  end
+
+  local lines = vim.split(vim.trim(stdout), "\n")
+
+  local buf = ctx.preview:scratch()
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+  -- Find where body ends and diffstat begins (after the format output)
+  -- Format is: hash, subject, blank, body..., diffstat...
+  local body_start = 3 -- 0-indexed, after hash + subject + blank
+  local stat_start = #lines
+  for i = #lines, 1, -1 do
+    if lines[i]:match("|") or lines[i]:match("file.*changed") then
+      stat_start = i - 1
+    else
+      break
+    end
+  end
+
+  highlight_preview(buf, lines, body_start, stat_start)
+end
+
+--- Open the git log picker.
+---@param opts? { limit?: number }
+function M.log(opts)
+  opts = opts or {}
+
+  local git_mod = require("diffv.git")
+  local provider = require("diffv.git.provider")
+
+  local root = git_mod.repo_root()
+  if not root then
+    vim.notify("diffv: not in a git repository", vim.log.levels.ERROR)
+    return
+  end
+
+  local entries, err = provider.log_sync(opts.limit)
+  if err or #entries == 0 then
+    vim.notify("diffv: no log entries found", vim.log.levels.INFO)
+    return
+  end
+
+  local items = {}
+  for _, e in ipairs(entries) do
+    items[#items + 1] = {
+      text = e.hash .. " " .. e.subject .. " " .. e.author,
+      hash = e.hash,
+      subject = e.subject,
+      author = e.author,
+      date = e.date,
+    }
+  end
+
+  Snacks.picker({
+    title = "diffv: git log",
+    items = items,
+    format = format_log_item,
+    preview = log_preview,
+    layout = { preset = "default" },
+    confirm = function(picker, item)
+      picker:close()
+      if item and item.hash then
+        require("diffv").open_commit(item.hash)
+      end
+    end,
+  })
+end
+
 return M

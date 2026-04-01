@@ -31,10 +31,7 @@ end
 ---@param c number
 ---@return string
 local function to_hex(c)
-  return string.format("#%02x%02x%02x",
-    bit.rshift(c, 16),
-    bit.band(bit.rshift(c, 8), 0xff),
-    bit.band(c, 0xff))
+  return string.format("#%02x%02x%02x", bit.rshift(c, 16), bit.band(bit.rshift(c, 8), 0xff), bit.band(c, 0xff))
 end
 
 --- Compute an emphasized version of a diff bg highlight.
@@ -253,9 +250,8 @@ function M.build_virt_line(text, highlights, base_hl, emph_hl, emph_ranges, dim_
   for _, sh in ipairs(highlights) do
     -- Gap before this syntax highlight
     if sh.col_start > pos then
-      local sub_chunks = M._split_by_emphasis(
-        text:sub(pos + 1, sh.col_start), base_hl, emph_hl, emph_ranges, dim_opacity, pos
-      )
+      local sub_chunks =
+        M._split_by_emphasis(text:sub(pos + 1, sh.col_start), base_hl, emph_hl, emph_ranges, dim_opacity, pos)
       vim.list_extend(chunks, sub_chunks)
     end
 
@@ -264,7 +260,13 @@ function M.build_virt_line(text, highlights, base_hl, emph_hl, emph_ranges, dim_
     local seg_end = sh.col_end
     if seg_start < seg_end then
       local sub_chunks = M._split_by_emphasis(
-        text:sub(seg_start + 1, seg_end), base_hl, emph_hl, emph_ranges, dim_opacity, seg_start, sh.hl_group
+        text:sub(seg_start + 1, seg_end),
+        base_hl,
+        emph_hl,
+        emph_ranges,
+        dim_opacity,
+        seg_start,
+        sh.hl_group
       )
       vim.list_extend(chunks, sub_chunks)
     end
@@ -274,9 +276,7 @@ function M.build_virt_line(text, highlights, base_hl, emph_hl, emph_ranges, dim_
 
   -- Trailing text
   if pos < #text then
-    local sub_chunks = M._split_by_emphasis(
-      text:sub(pos + 1), base_hl, emph_hl, emph_ranges, dim_opacity, pos
-    )
+    local sub_chunks = M._split_by_emphasis(text:sub(pos + 1), base_hl, emph_hl, emph_ranges, dim_opacity, pos)
     vim.list_extend(chunks, sub_chunks)
   end
 

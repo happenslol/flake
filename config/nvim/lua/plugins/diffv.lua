@@ -4,7 +4,7 @@ return {
   name = "diffv",
   lazy = false,
   keys = {
-    { "<leader>cv", "<cmd>DiffV<cr>", desc = "Diff View (side-by-side)" },
+    { "<leader>cc", "<cmd>DiffV<cr>", desc = "Diff View (side-by-side)" },
     {
       "<leader>ci",
       function()
@@ -20,6 +20,7 @@ return {
       end,
       desc = "Diff File Picker",
     },
+    { "<leader>cl", "<cmd>DiffVLog<cr>", desc = "Diff Log" },
     {
       "<leader>cr",
       function()
