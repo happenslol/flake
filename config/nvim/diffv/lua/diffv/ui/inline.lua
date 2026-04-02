@@ -2,6 +2,7 @@
 --- Shows the new version with syntax highlighting.
 --- Deleted/changed old lines shown as virtual lines above with treesitter highlighting.
 --- Added/changed new lines highlighted in place.
+--- Left (old) side always red, right (new) side always green.
 local M = {}
 
 --- Extract treesitter highlights for old (deleted) lines and cache them.
@@ -28,8 +29,8 @@ end
 ---@param text string line content
 ---@param row number 0-indexed row in old file
 ---@param old_hl table<number, table[]> old file highlights
----@param base_hl string base highlight for the diff (e.g. DiffDelete)
----@param emph_hl string emphasis highlight for word changes (e.g. DiffDeleteText)
+---@param base_hl string base highlight for the diff (e.g. DiffvMinusBg)
+---@param emph_hl string emphasis highlight for word changes (e.g. DiffvMinusEmph)
 ---@param emph_ranges? number[][] word-diff emphasis ranges
 ---@return {[1]: string, [2]: string}[] virt_line chunks
 local function build_highlighted_virt_line(text, row, old_hl, base_hl, emph_hl, emph_ranges)
@@ -48,13 +49,12 @@ function M.apply_overlay(buf, diff_result, config, filetype)
   local ns = require("diffv").ns()
   local hl = config.highlights
   local line_diff = require("diffv.diff.line")
-  local ts = require("diffv.treesitter")
-
-  -- Compute emphasized version of DiffDelete dynamically
-  local delete_emph = ts.make_emph_hl(hl.delete)
 
   -- Extract treesitter highlights for old file content
   local old_hl = extract_old_highlights(diff_result.old_lines, filetype)
+
+  -- Word-level emphasis threshold: >60% similarity = distance < 0.4
+  local word_highlight_max_distance = 0.4
 
   for _, hunk in ipairs(diff_result.hunks) do
     local deletes = {}
@@ -69,7 +69,6 @@ function M.apply_overlay(buf, diff_result, config, filetype)
     end
 
     -- Pair deletes with adds, but only if lines are similar enough.
-    -- Like delta's max_line_distance (0.6): if >60% changed, treat as separate add/delete.
     local max_distance = 0.6
     local paired = math.min(#deletes, #adds)
     local actually_paired = 0
@@ -88,61 +87,68 @@ function M.apply_overlay(buf, diff_result, config, filetype)
       local del = deletes[i]
       local add = adds[i]
       local buf_row = add.new_lnum - 1
+      local dist = line_diff.line_distance(del.content, add.content)
 
-      -- Highlight the buffer line (new version) as changed
+      -- Highlight the buffer line (new version) with green bg
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         end_row = buf_row + 1,
-        hl_group = hl.change,
+        hl_group = hl.plus,
         hl_eol = true,
         priority = 100,
+        number_hl_group = hl.plus_nr,
       })
 
-      -- Compute word-level diff
+      -- Compute word-level diff for emphasis and virtual line
       local word_result = line_diff.word_diff(del.content, add.content)
+      local show_word_emphasis = dist <= word_highlight_max_distance
 
-      -- Word-level highlights on the buffer line (new side: bright green)
-      for _, range in ipairs(word_result.new_ranges) do
-        local col_start = math.min(range[1], #add.content)
-        local col_end = math.min(range[2], #add.content)
-        if col_start < col_end then
-          vim.api.nvim_buf_set_extmark(buf, ns, buf_row, col_start, {
-            end_row = buf_row,
-            end_col = col_end,
-            hl_group = hl.change_text,
-            priority = 200,
-          })
+      -- Word-level highlights on the buffer line (brighter green on changed words)
+      if show_word_emphasis then
+        for _, range in ipairs(word_result.new_ranges) do
+          local col_start = math.min(range[1], #add.content)
+          local col_end = math.min(range[2], #add.content)
+          if col_start < col_end then
+            vim.api.nvim_buf_set_extmark(buf, ns, buf_row, col_start, {
+              end_row = buf_row,
+              end_col = col_end,
+              hl_group = hl.plus_emph,
+              priority = 200,
+            })
+          end
         end
       end
 
-      -- Show old version as virtual line above (old side: dim red bg, bright red on changed words)
+      -- Show old version as virtual line above (red bg, brighter red on changed words)
       local old_row = del.old_lnum - 1
+      local emph_ranges = show_word_emphasis and word_result.old_ranges or nil
       local virt_chunks =
-        build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete, delete_emph, word_result.old_ranges)
+        build_highlighted_virt_line(del.content, old_row, old_hl, hl.minus, hl.minus_emph, emph_ranges)
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         virt_lines = { virt_chunks },
         virt_lines_above = true,
       })
     end
 
-    -- Remaining unpaired adds (too different or extra adds)
+    -- Remaining unpaired adds (too different or extra adds) — green bg
     for i = actually_paired + 1, #adds do
       local add = adds[i]
       local buf_row = add.new_lnum - 1
       vim.api.nvim_buf_set_extmark(buf, ns, buf_row, 0, {
         end_row = buf_row + 1,
-        hl_group = hl.add,
+        hl_group = hl.plus,
         hl_eol = true,
         priority = 100,
+        number_hl_group = hl.plus_nr,
       })
     end
 
-    -- Remaining unpaired deletes (too different or extra deletes)
+    -- Remaining unpaired deletes (too different or extra deletes) — red bg virtual lines
     local unpaired_del_virt = {}
     for i = actually_paired + 1, #deletes do
       local del = deletes[i]
       local old_row = del.old_lnum - 1
       unpaired_del_virt[#unpaired_del_virt + 1] =
-        build_highlighted_virt_line(del.content, old_row, old_hl, hl.delete, hl.delete, nil)
+        build_highlighted_virt_line(del.content, old_row, old_hl, hl.minus, hl.minus, nil)
     end
     if #unpaired_del_virt > 0 then
       -- Anchor: if there are unpaired adds after, attach above the first one;

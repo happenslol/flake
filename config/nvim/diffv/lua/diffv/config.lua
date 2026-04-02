@@ -6,10 +6,13 @@ local defaults = {
   context = 10,
   git_cmd = "git",
   highlights = {
-    add = "DiffAdd",
-    delete = "DiffDelete",
-    change = "DiffChange",
-    change_text = "DiffText",
+    minus = "DiffvMinusBg",
+    minus_emph = "DiffvMinusEmph",
+    plus = "DiffvPlusBg",
+    plus_emph = "DiffvPlusEmph",
+    minus_nr = "DiffvMinusNr",
+    plus_nr = "DiffvPlusNr",
+    filler = "DiffvFiller",
     context_separator = "Comment",
   },
   keymaps = {
