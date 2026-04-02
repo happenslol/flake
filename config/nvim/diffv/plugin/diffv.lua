@@ -3,6 +3,17 @@ if vim.g.loaded_diffv then
 end
 vim.g.loaded_diffv = true
 
+-- Define highlight groups immediately so they're available before setup()
+require("diffv.colors").setup()
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("diffv_colors", { clear = true }),
+  callback = function()
+    require("diffv.colors").setup()
+    require("diffv.treesitter").clear_cache()
+  end,
+})
+
 vim.api.nvim_create_user_command("DiffV", function(opts)
   require("diffv").open(opts.fargs)
 end, {

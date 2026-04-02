@@ -11,6 +11,7 @@ end
 --- Setup diffv with user options
 ---@param opts? table
 function M.setup(opts)
+  require("diffv.colors").setup()
   require("diffv.config").setup(opts)
 end
 

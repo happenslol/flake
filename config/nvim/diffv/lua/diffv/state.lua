@@ -432,6 +432,8 @@ function ViewState:_render(diff_result, filetype, config, file_info)
       vim.wo[win].cursorline = true
     end
 
+    -- Redirect vim's Diff* highlights to our custom groups (red left, green right)
+    sbs.set_winhighlight(left_win, right_win, config)
     sbs.apply_highlights(left_buf, right_buf, diff_result, config)
 
     return { left_buf, right_buf }, { left_win, right_win }
@@ -500,7 +502,7 @@ end
 function ViewState:_setup_guards()
   local filelist = require("diffv.ui.filelist")
 
-  vim.api.nvim_clear_autocmds({ group = self._augroup })
+  self._augroup = vim.api.nvim_create_augroup("diffv_winguard", { clear = true })
 
   local guard_wins = {}
   if filelist.state and vim.api.nvim_win_is_valid(filelist.state.win) then
