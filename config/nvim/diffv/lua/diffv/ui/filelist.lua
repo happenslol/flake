@@ -2,10 +2,10 @@
 local M = {}
 
 local status_icons = {
-  M = { hl = "DiffChange" },
-  A = { hl = "DiffAdd" },
-  D = { hl = "DiffDelete" },
-  R = { hl = "DiffChange" },
+  M = { hl = "DiffvStatusModified" },
+  A = { hl = "DiffvStatusAdded" },
+  D = { hl = "DiffvStatusDeleted" },
+  R = { hl = "DiffvStatusRenamed" },
 }
 
 ---@param code string single-char status code (M/A/D/R)
@@ -30,6 +30,8 @@ end
 
 local ns = vim.api.nvim_create_namespace("diffv_filelist")
 
+local HEADER_LINES = 3 -- "diffv", "old..new", ""
+
 --- @class diffv.FileListState
 --- @field buf number
 --- @field win number
@@ -37,6 +39,7 @@ local ns = vim.api.nvim_create_namespace("diffv_filelist")
 --- @field files { path: string, status: string }[]
 --- @field current number -- 1-indexed, currently selected file
 --- @field on_select fun(index: number) -- callback when a file is selected
+--- @field diff_label string -- e.g. "HEAD → working tree"
 
 --- Active file list state.
 ---@type diffv.FileListState?
@@ -48,30 +51,51 @@ local function render(state)
   local buf = state.buf
   vim.bo[buf].modifiable = true
 
-  local lines = {}
-  local icon_data = {} -- per-line { status_icon, ft_icon, ft_hl, ft_offset }
+  -- Header
+  local lines = {
+    " diffv",
+    " " .. state.diff_label,
+    "",
+  }
+
+  local icon_data = {} -- per-file { status_icon, ft_icon, ft_hl, ft_offset }
   for _, f in ipairs(state.files) do
     local code = f.status:sub(1, 1)
     local si = status_icon(code)
     local ft_icon, ft_hl = file_icon(f.path)
-    local line = si .. " " .. ft_icon .. " " .. f.path
+    local line = " " .. si .. " " .. ft_icon .. " " .. f.path
     lines[#lines + 1] = line
     icon_data[#icon_data + 1] = {
+      status_offset = 1, -- after leading space
       status_icon = si,
       ft_icon = ft_icon,
       ft_hl = ft_hl,
-      ft_offset = #si + 1, -- byte offset where ft icon starts (after status + space)
+      ft_offset = 1 + #si + 1, -- after leading space + status + space
     }
   end
 
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.bo[buf].modifiable = false
 
-  -- Highlight current file
   vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+
+  -- Header highlights
+  vim.api.nvim_buf_set_extmark(buf, ns, 0, 0, {
+    end_row = 0,
+    end_col = #lines[1],
+    hl_group = "Bold",
+  })
+  vim.api.nvim_buf_set_extmark(buf, ns, 1, 0, {
+    end_row = 1,
+    end_col = #lines[2],
+    hl_group = "Comment",
+  })
+
+  -- Highlight current file
+  local cur_row = state.current - 1 + HEADER_LINES
   if state.current >= 1 and state.current <= #state.files then
-    vim.api.nvim_buf_set_extmark(buf, ns, state.current - 1, 0, {
-      end_row = state.current,
+    vim.api.nvim_buf_set_extmark(buf, ns, cur_row, 0, {
+      end_row = cur_row + 1,
       hl_group = "CursorLine",
       hl_eol = true,
     })
@@ -79,23 +103,26 @@ local function render(state)
 
   -- Status and file type icon highlights
   for i, f in ipairs(state.files) do
+    local row = i - 1 + HEADER_LINES
     local code = f.status:sub(1, 1)
     local info = status_icons[code]
     local id = icon_data[i]
 
     if info then
-      vim.api.nvim_buf_set_extmark(buf, ns, i - 1, 0, {
-        end_row = i - 1,
-        end_col = #id.status_icon,
+      vim.api.nvim_buf_set_extmark(buf, ns, row, id.status_offset, {
+        end_row = row,
+        end_col = id.status_offset + #id.status_icon,
         hl_group = info.hl,
+        priority = 200,
       })
     end
 
     if id.ft_hl then
-      vim.api.nvim_buf_set_extmark(buf, ns, i - 1, id.ft_offset, {
-        end_row = i - 1,
+      vim.api.nvim_buf_set_extmark(buf, ns, row, id.ft_offset, {
+        end_row = row,
         end_col = id.ft_offset + #id.ft_icon,
         hl_group = id.ft_hl,
+        priority = 200,
       })
     end
   end
@@ -105,8 +132,9 @@ end
 ---@param files { path: string, status: string }[]
 ---@param current number 1-indexed current file
 ---@param on_select fun(index: number)
+---@param diff_label? string e.g. "HEAD → working tree"
 ---@return diffv.FileListState
-function M.create(files, current, on_select)
+function M.create(files, current, on_select, diff_label)
   if M.state then
     M.destroy()
   end
@@ -119,10 +147,10 @@ function M.create(files, current, on_select)
   vim.api.nvim_buf_set_name(buf, "diffv://files")
 
   -- Find max filename length for sizing, clamped to reasonable range
-  -- +5 accounts for status icon + space + ft icon + space
+  -- +6 accounts for padding + status icon + space + ft icon + space
   local max_len = 0
   for _, f in ipairs(files) do
-    max_len = math.max(max_len, #f.path + 5)
+    max_len = math.max(max_len, #f.path + 6)
   end
   local width = math.max(25, math.min(max_len, 50))
 
@@ -148,21 +176,23 @@ function M.create(files, current, on_select)
     files = files,
     current = current,
     on_select = on_select,
+    diff_label = diff_label or "",
   }
 
   render(state)
 
-  -- Place cursor on current file
+  -- Place cursor on current file (offset by header)
   if current >= 1 and current <= #files then
-    vim.api.nvim_win_set_cursor(win, { current, 0 })
+    vim.api.nvim_win_set_cursor(win, { current + HEADER_LINES, 0 })
   end
 
   local function select_at_cursor()
     local row = vim.api.nvim_win_get_cursor(win)[1]
-    if row >= 1 and row <= #state.files then
-      state.current = row
+    local file_index = row - HEADER_LINES
+    if file_index >= 1 and file_index <= #state.files then
+      state.current = file_index
       render(state)
-      state.on_select(row)
+      state.on_select(file_index)
     end
   end
 
@@ -189,7 +219,7 @@ function M.set_current(index)
   render(M.state)
   -- Move cursor in file list window if it's still valid
   if vim.api.nvim_win_is_valid(M.state.win) then
-    vim.api.nvim_win_set_cursor(M.state.win, { index, 0 })
+    vim.api.nvim_win_set_cursor(M.state.win, { index + HEADER_LINES, 0 })
   end
 end
 

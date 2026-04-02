@@ -147,13 +147,19 @@ function ViewState:open()
   vim.cmd("tabnew")
   self.tabnr = vim.fn.tabpagenr()
 
-  if #self.files > 1 then
+  if #self.files >= 1 then
+    local label = self:old_label() .. " → " .. self:new_label()
     filelist.create(self.files, 1, function(index)
       self:select_file(index)
-    end)
+    end, label)
   end
 
   self:select_file(1)
+
+  -- Focus the file list window
+  if filelist.state and vim.api.nvim_win_is_valid(filelist.state.win) then
+    vim.api.nvim_set_current_win(filelist.state.win)
+  end
 end
 
 --- Switch to a different file by index.

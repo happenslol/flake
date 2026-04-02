@@ -12,10 +12,10 @@ local status_labels = {
 }
 
 local status_hls = {
-  M = "DiffChange",
-  A = "DiffAdd",
-  D = "DiffDelete",
-  R = "DiffChange",
+  M = "DiffvStatusModified",
+  A = "DiffvStatusAdded",
+  D = "DiffvStatusDeleted",
+  R = "DiffvStatusRenamed",
 }
 
 --- Build a diff preview for a file.

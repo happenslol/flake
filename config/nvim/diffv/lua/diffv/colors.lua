@@ -18,6 +18,12 @@ function M.setup()
 
   -- Filler lines in diff mode (padding where the other side has content)
   set(0, "DiffvFiller", { bg = "NONE" })
+
+  -- Status icons (fallback defaults, colorscheme can override)
+  set(0, "DiffvStatusModified", { default = true, link = "DiffChange" })
+  set(0, "DiffvStatusAdded", { default = true, link = "DiffAdd" })
+  set(0, "DiffvStatusDeleted", { default = true, link = "DiffDelete" })
+  set(0, "DiffvStatusRenamed", { default = true, link = "DiffChange" })
 end
 
 return M

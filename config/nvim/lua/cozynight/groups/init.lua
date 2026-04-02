@@ -5,6 +5,7 @@ local M = {}
 
 -- stylua: ignore
 M.plugins = {
+  ["diffv"]                          = "diffv",
   ["blink.cmp"]                     = "blink",
   ["bufferline.nvim"]               = "bufferline",
   ["gitsigns.nvim"]                 = "gitsigns",
