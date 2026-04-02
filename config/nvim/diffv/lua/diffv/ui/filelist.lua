@@ -2,11 +2,31 @@
 local M = {}
 
 local status_icons = {
-  M = { icon = "~", hl = "DiffChange" },
-  A = { icon = "+", hl = "DiffAdd" },
-  D = { icon = "-", hl = "DiffDelete" },
-  R = { icon = "→", hl = "DiffChange" },
+  M = { hl = "DiffChange" },
+  A = { hl = "DiffAdd" },
+  D = { hl = "DiffDelete" },
+  R = { hl = "DiffChange" },
 }
+
+---@param code string single-char status code (M/A/D/R)
+---@return string icon
+local function status_icon(code)
+  local config = require("diffv.config").values
+  return config.status_icons[code] or "?"
+end
+
+--- Get file icon and highlight from mini.icons (with fallback).
+---@param path string file path
+---@return string icon
+---@return string? hl highlight group
+local function file_icon(path)
+  local ok, icons = pcall(require, "mini.icons")
+  if ok then
+    local icon, hl = icons.get("file", path)
+    return icon, hl
+  end
+  return "", nil
+end
 
 local ns = vim.api.nvim_create_namespace("diffv_filelist")
 
@@ -29,10 +49,19 @@ local function render(state)
   vim.bo[buf].modifiable = true
 
   local lines = {}
+  local icon_data = {} -- per-line { status_icon, ft_icon, ft_hl, ft_offset }
   for _, f in ipairs(state.files) do
     local code = f.status:sub(1, 1)
-    local info = status_icons[code] or { icon = "?", hl = "NonText" }
-    lines[#lines + 1] = info.icon .. " " .. f.path
+    local si = status_icon(code)
+    local ft_icon, ft_hl = file_icon(f.path)
+    local line = si .. " " .. ft_icon .. " " .. f.path
+    lines[#lines + 1] = line
+    icon_data[#icon_data + 1] = {
+      status_icon = si,
+      ft_icon = ft_icon,
+      ft_hl = ft_hl,
+      ft_offset = #si + 1, -- byte offset where ft icon starts (after status + space)
+    }
   end
 
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
@@ -48,15 +77,25 @@ local function render(state)
     })
   end
 
-  -- Status icon highlights
+  -- Status and file type icon highlights
   for i, f in ipairs(state.files) do
     local code = f.status:sub(1, 1)
     local info = status_icons[code]
+    local id = icon_data[i]
+
     if info then
       vim.api.nvim_buf_set_extmark(buf, ns, i - 1, 0, {
         end_row = i - 1,
-        end_col = #info.icon,
+        end_col = #id.status_icon,
         hl_group = info.hl,
+      })
+    end
+
+    if id.ft_hl then
+      vim.api.nvim_buf_set_extmark(buf, ns, i - 1, id.ft_offset, {
+        end_row = i - 1,
+        end_col = id.ft_offset + #id.ft_icon,
+        hl_group = id.ft_hl,
       })
     end
   end
@@ -80,9 +119,10 @@ function M.create(files, current, on_select)
   vim.api.nvim_buf_set_name(buf, "diffv://files")
 
   -- Find max filename length for sizing, clamped to reasonable range
+  -- +5 accounts for status icon + space + ft icon + space
   local max_len = 0
   for _, f in ipairs(files) do
-    max_len = math.max(max_len, #f.path + 3)
+    max_len = math.max(max_len, #f.path + 5)
   end
   local width = math.max(25, math.min(max_len, 50))
 
