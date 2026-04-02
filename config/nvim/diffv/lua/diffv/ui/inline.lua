@@ -48,7 +48,7 @@ end
 function M.apply_overlay(buf, diff_result, config, filetype)
   local ns = require("diffv").ns()
   local hl = config.highlights
-  local line_diff = require("diffv.diff.line")
+  local line_diff = require("diffv.diff")
 
   -- Extract treesitter highlights for old file content
   local old_hl = extract_old_highlights(diff_result.old_lines, filetype)
@@ -199,11 +199,6 @@ function M.render(diff_result, filetype, config, file_info)
   vim.wo[win].foldlevel = 0
 
   M.apply_overlay(buf, diff_result, config, filetype)
-
-  -- Close keybind
-  vim.keymap.set("n", config.keymaps.close, function()
-    require("diffv").close()
-  end, { buffer = buf, desc = "Close diffv" })
 
   return { buf }, { win }, tabnr
 end

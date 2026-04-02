@@ -478,29 +478,24 @@ end
 ---@param buffers number[]
 ---@param config diffv.Config
 function ViewState:_setup_keymaps(buffers, config)
-  local ui = require("diffv.ui")
-  local km = config.keymaps
+  local actions = require("diffv.actions")
+  local cfg = require("diffv.config")
 
+  local merged = cfg.keymaps_for("diff")
   for _, buf in ipairs(buffers) do
-    vim.keymap.set("n", km.close, function()
-      self:destroy()
-    end, { buffer = buf, desc = "Close diffv" })
-
-    vim.keymap.set("n", km.increase_context, function()
-      ui.adjust_context(5)
-    end, { buffer = buf, desc = "Increase diff context" })
-
-    vim.keymap.set("n", km.decrease_context, function()
-      ui.adjust_context(-5)
-    end, { buffer = buf, desc = "Decrease diff context" })
-
-    vim.keymap.set("n", km.toggle_context, function()
-      ui.toggle_context()
-    end, { buffer = buf, desc = "Toggle context folding" })
-
-    vim.keymap.set("n", km.toggle_layout, function()
-      ui.toggle_layout()
-    end, { buffer = buf, desc = "Toggle diff layout" })
+    for key, action in pairs(merged) do
+      local fn, desc
+      if type(action) == "function" then
+        fn = action
+        desc = "diffv: custom"
+      elseif type(action) == "string" then
+        fn = actions[action]
+        desc = "diffv: " .. action:gsub("_", " ")
+      end
+      if fn then
+        vim.keymap.set("n", key, fn, { buffer = buf, desc = desc })
+      end
+    end
   end
 end
 

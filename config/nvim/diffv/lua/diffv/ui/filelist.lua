@@ -196,13 +196,26 @@ function M.create(files, current, on_select, diff_label)
     end
   end
 
-  -- Keymaps
-  vim.keymap.set("n", "<CR>", select_at_cursor, { buffer = buf, desc = "Open file diff" })
-  vim.keymap.set("n", "<2-LeftMouse>", select_at_cursor, { buffer = buf, desc = "Open file diff" })
+  -- Keymaps — "select" is filelist-specific; the rest come from actions module
+  local builtin_actions = require("diffv.actions")
+  local local_actions = {
+    select = select_at_cursor,
+  }
 
-  vim.keymap.set("n", "q", function()
-    require("diffv").close()
-  end, { buffer = buf, desc = "Close diffv" })
+  local merged = require("diffv.config").keymaps_for("filelist")
+  for key, action in pairs(merged) do
+    local fn, desc
+    if type(action) == "function" then
+      fn = action
+      desc = "diffv: custom"
+    elseif type(action) == "string" then
+      fn = local_actions[action] or builtin_actions[action]
+      desc = "diffv: " .. action:gsub("_", " ")
+    end
+    if fn then
+      vim.keymap.set("n", key, fn, { buffer = buf, desc = desc })
+    end
+  end
 
   M.state = state
 

@@ -39,26 +39,33 @@
 ---@field toggle_layout_impl fun()
 
 ---@class diffv.Highlights
----@field add string
----@field delete string
----@field change string
----@field change_text string
+---@field minus string -- left/old line background
+---@field minus_emph string -- left/old changed word background
+---@field plus string -- right/new line background
+---@field plus_emph string -- right/new changed word background
+---@field minus_nr string -- left/old line number foreground
+---@field plus_nr string -- right/new line number foreground
+---@field filler string -- diff filler lines
 ---@field context_separator string
 
 ---@class diffv.Keymaps
----@field close string
----@field toggle_layout string
----@field increase_context string
----@field decrease_context string
----@field toggle_context string
----@field next_hunk string
----@field prev_hunk string
+---@field global table<string, string|function> key → action shared across all views
+---@field diff table<string, string|function> key → action for diff buffers
+---@field filelist table<string, string|function> key → action for file list panel
+
+--- Interface that every diff engine must implement.
+---@class diffv.DiffEngine
+---@field diff fun(old_text: string, new_text: string, opts?: table): diffv.DiffResult
+---@field word_diff fun(old_line: string, new_line: string): { old_ranges: number[][], new_ranges: number[][] }
+---@field line_distance fun(old_line: string, new_line: string): number
 
 ---@class diffv.Config
 ---@field layout "side_by_side" | "inline"
 ---@field context number -- lines of context around changes (0 = show all)
 ---@field git_cmd string
+---@field diff_engine string -- "line" or "semantic" or a custom registered engine
 ---@field highlights diffv.Highlights
+---@field status_icons table<string, string> -- M/A/D/R → icon string
 ---@field keymaps diffv.Keymaps
 
 return {}
