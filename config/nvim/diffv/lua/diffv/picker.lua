@@ -11,11 +11,11 @@ local status_labels = {
   U = "unmerged",
 }
 
-local status_icons = {
-  M = { icon = "~", hl = "DiffChange" },
-  A = { icon = "+", hl = "DiffAdd" },
-  D = { icon = "-", hl = "DiffDelete" },
-  R = { icon = "→", hl = "DiffChange" },
+local status_hls = {
+  M = "DiffChange",
+  A = "DiffAdd",
+  D = "DiffDelete",
+  R = "DiffChange",
 }
 
 --- Build a diff preview for a file.
@@ -93,9 +93,11 @@ end
 ---@param picker snacks.Picker
 local function format_item(item, picker)
   local ret = {} ---@type snacks.picker.Highlight[]
-  local info = status_icons[item.status_code] or { icon = "?", hl = "NonText" }
+  local config = require("diffv.config").values
+  local icon = config.status_icons[item.status_code] or "?"
+  local hl = status_hls[item.status_code] or "NonText"
 
-  ret[#ret + 1] = { info.icon .. " ", info.hl }
+  ret[#ret + 1] = { icon .. " ", hl }
   ret[#ret + 1] = { item.file or item.text }
 
   return ret

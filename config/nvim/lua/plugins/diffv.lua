@@ -29,7 +29,14 @@ return {
       desc = "Reload diffv",
     },
   },
-  opts = {},
+  opts = {
+    status_icons = {
+      M = "󰤌 ",
+      A = " ",
+      D = " ",
+      R = " ",
+    },
+  },
   config = function(_, opts)
     require("diffv").setup(opts)
   end,

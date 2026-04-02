@@ -15,6 +15,12 @@ local defaults = {
     filler = "DiffvFiller",
     context_separator = "Comment",
   },
+  status_icons = {
+    M = "M",
+    A = "A",
+    D = "D",
+    R = "R",
+  },
   keymaps = {
     close = "q",
     toggle_layout = "<leader>cv",
