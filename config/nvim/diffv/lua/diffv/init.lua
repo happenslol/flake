@@ -46,6 +46,9 @@ function M.open_inline(args, file_path)
   end
 end
 
+--- Built-in actions, usable as function values in keymap config.
+M.actions = require("diffv.actions")
+
 --- Close the active diff view
 function M.close()
   local state_mod = require("diffv.state")

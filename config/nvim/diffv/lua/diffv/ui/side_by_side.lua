@@ -32,7 +32,7 @@ end
 ---@param diff_result diffv.DiffResult
 ---@return { old_lnum: number, new_lnum: number, old_content: string, new_content: string, distance: number }[]
 local function find_change_pairs(diff_result)
-  local line_diff = require("diffv.diff.line")
+  local line_diff = require("diffv.diff")
   local max_distance = 0.6
   local pairs = {}
 
@@ -103,7 +103,7 @@ end
 function M.apply_highlights(left_buf, right_buf, diff_result, config)
   local ns = require("diffv").ns()
   local hl = config.highlights
-  local line_diff = require("diffv.diff.line")
+  local line_diff = require("diffv.diff")
 
   -- Number highlighting for all changed/added/deleted lines
   local old_set, new_set = collect_highlighted_lines(diff_result)
