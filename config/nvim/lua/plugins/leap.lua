@@ -1,12 +1,12 @@
 return {
   {
-    "ggandor/flit.nvim",
+    "https://codeberg.org/andyg/leap.nvim",
     lazy = false,
-    dependencies = { "https://codeberg.org/andyg/leap.nvim" },
     keys = function()
+      ---@type LazyKeysSpec[]
       local ret = {}
       for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" } }
       end
       return ret
     end,
