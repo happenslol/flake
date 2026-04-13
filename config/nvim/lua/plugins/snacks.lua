@@ -19,6 +19,16 @@ return {
     picker = {
       enabled = true,
       sources = {
+        grep = {
+          hidden = true,
+          ignored = false,
+          exclude = { ".git" },
+        },
+        grep_word = {
+          hidden = true,
+          ignored = false,
+          exclude = { ".git" },
+        },
         files = {
           hidden = true,
           ignored = false,
