@@ -209,7 +209,6 @@ in {
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = ["${username}"];
-      package = pkgs._1password-gui-beta;
     };
 
     nix-ld = {
