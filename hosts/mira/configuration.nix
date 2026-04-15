@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [inputs.nixos-hardware.nixosModules.framework-12th-gen-intel];
 
   networking = {
@@ -37,7 +41,7 @@
     ];
   };
 
-  programs.light.enable = true;
+  environment.systemPackages = [pkgs.brightnessctl];
 
   hardware.bluetooth = {
     enable = true;

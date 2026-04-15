@@ -184,8 +184,8 @@ binds {
     XF86AudioStop  allow-when-locked=true { spawn "playerctl" "stop"; }
 
     // Brightness (only effective on laptops)
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "light" "-A" "5"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "light" "-U" "5"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
 
     // Floating
     Mod+Shift+V { toggle-window-floating; }
