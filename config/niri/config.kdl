@@ -101,7 +101,8 @@ window-rule {
 binds {
     // Application launchers
     Mod+P { spawn "fuzzel"; }
-    Mod+X { spawn "kitty" "-1"; }
+    Mod+X { spawn "ghostty"; }
+    Mod+Shift+X { spawn "kitty" "-1"; }
     Mod+Z { spawn "firefox"; }
     Mod+C { spawn "zeditor"; }
     Mod+E { spawn "thunar"; }
