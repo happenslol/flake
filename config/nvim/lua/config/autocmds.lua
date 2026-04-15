@@ -108,6 +108,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Fix yaml indent (built-in ftplugin sets noexpandtab)
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("yaml_indent"),
+  pattern = { "yaml", "yml" },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+  end,
+})
+
 -- Allow running lua code in lua buffers
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("lua_dev"),
