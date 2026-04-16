@@ -148,9 +148,6 @@ pkgs: {
     kdlfmt
     sox
     atuin
-  ];
-
-  node = with pkgs.nodejs_24.pkgs; [
     eslint_d
     vscode-langservers-extracted
     bash-language-server
