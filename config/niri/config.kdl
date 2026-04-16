@@ -86,6 +86,12 @@ window-rule {
     open-maximized true
 }
 
+// Fullscreen Zed by default
+window-rule {
+    match app-id=r#"^dev\.zed\.Zed$"#
+    open-fullscreen true
+}
+
 // Window rules
 window-rule {
     match app-id="org.pulseaudio.pavucontrol"
