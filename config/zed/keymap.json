@@ -83,8 +83,7 @@
   {
     "context": "AgentPanel > MessageEditor > Editor && vim_mode == normal",
     "bindings": {
-      "space n": "agent::NewThread",
-      "space m": "agent::NewTextThread"
+      "space n": "agent::NewThread"
     }
   },
   {
@@ -96,8 +95,7 @@
   {
     "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
     "bindings": {
-      "space n": "agent::NewThread",
-      "space m": "agent::NewTextThread"
+      "space n": "agent::NewThread"
     }
   },
   {
