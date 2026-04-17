@@ -167,6 +167,8 @@ pkgs: {
     ccstatusline
     claude-code
     opencode
-    happy-coder
+    pi
+    amp
+    crush
   ];
 }
