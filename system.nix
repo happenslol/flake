@@ -333,7 +333,7 @@ in {
 
     happens = {
       isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "docker" "audio" "video" "plugdev" "dialout" "uucp" "input"];
+      extraGroups = ["wheel" "networkmanager" "audio" "video" "plugdev" "dialout" "uucp" "input"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = sshPublicKeys;
     };
@@ -346,10 +346,9 @@ in {
 
   security.rtkit.enable = true;
 
-  virtualisation.docker = {
+  virtualisation.docker.rootless = {
     enable = true;
-    storageDriver = "overlay2";
-    autoPrune.enable = true;
+    setSocketVariable = true;
   };
 
   fonts = {
