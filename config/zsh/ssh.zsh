@@ -1,3 +1,6 @@
+# Abort if there is no SSH directory, probably in a sandbox
+[[ -d ~/.ssh ]] || return
+
 SSH_ENV="$HOME/.ssh/agent-environment"
 
 function start_agent {
