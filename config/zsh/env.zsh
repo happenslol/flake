@@ -38,7 +38,7 @@ export NODE_OPTIONS="--max-old-space-size=16384"
 export PATH="$PATH:$HOME/.git-scripts"
 
 # corepack
-export PATH="$PATH:$HOME/.corepack"
+export PATH="$PATH:$HOME/.local/share/corepack"
 
 # sops default key
 export SOPS_AGE_SSH_PRIVATE_KEY_FILE="/home/happens/.ssh/$HOST.personal.id_ed25519"
