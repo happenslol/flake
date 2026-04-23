@@ -1,7 +1,9 @@
-local g, opt = vim.g, vim.opt
+local g, o, opt = vim.g, vim.o, vim.opt
 
 g.mapleader = " "
 g.maplocalleader = " "
+
+o.exrc = true
 
 opt.autowrite = true -- Enable auto write
 opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Connection to the system clipboard
