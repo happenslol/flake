@@ -251,6 +251,14 @@ in {
   };
 
   services = {
+    udev.packages = [
+      (pkgs.writeTextFile {
+        name = "probe-rs-udev-rules";
+        destination = "/etc/udev/rules.d/69-probe-rs.rules";
+        text = builtins.readFile ./config/udev/69-probe-rs.rules;
+      })
+    ];
+
     upower.enable = true;
     openssh.enable = true;
     dbus.enable = true;
@@ -327,6 +335,8 @@ in {
       };
     };
   };
+
+  users.groups.plugdev = {};
 
   users.users = {
     greeter.home = "/etc/greetd";
