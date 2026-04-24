@@ -6,11 +6,13 @@ disable-model-invocation: true
 
 Commit all current changes in the working tree. Group changes into multiple commits if they belong to different logical areas — never mix unrelated changes in one commit.
 
+> **Note:** In this repo, running `nixos-rebuild switch` or `home-manager switch` stages all tracked files automatically so the flake sees them. This means changes are often already staged when this skill is invoked. Treat staged and unstaged changes the same — they all need to be committed.
+
 ## Process
 
-1. Run `git status` and `git diff` (staged + unstaged) to understand all changes.
+1. Run `git status` and `git diff --staged` (plus `git diff` for any unstaged changes) to understand all changes.
 2. Identify logical groups of changes. Each group should get its own commit. Changes that would need a different prefix MUST be in separate commits.
-3. For each group, stage only the relevant files, then commit.
+3. For each group, stage only the relevant files (they may already be staged), then commit.
 4. After all commits, run `git status` to confirm a clean tree.
 
 ## Commit message rules
