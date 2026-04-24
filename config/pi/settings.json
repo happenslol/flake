@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.67.68",
+  "lastChangelogVersion": "0.70.2",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.1",
+  "defaultModel": "moonshotai/kimi-k2.6",
   "quietStartup": true,
   "defaultThinkingLevel": "medium"
 }
