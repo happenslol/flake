@@ -153,6 +153,7 @@ pkgs: {
     bash-language-server
     yaml-language-server
     typescript-language-server
+    headsetcontrol
   ];
 
   beam = with pkgs.beam27Packages; [
