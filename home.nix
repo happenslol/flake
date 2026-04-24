@@ -58,6 +58,7 @@ in {
       ".claude-oc/settings.json".source = "${dotfiles}/claude/settings-oc.json";
       ".pi/agent/settings.json".source = "${dotfiles}/pi/settings.json";
       ".pi/agent/keybindings.json".source = "${dotfiles}/pi/keybindings.json";
+      ".pi/agent/extensions".source = "${dotfiles}/pi/extensions";
     };
 
     pointerCursor = {
