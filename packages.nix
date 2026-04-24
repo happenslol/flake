@@ -127,7 +127,6 @@ pkgs: {
     awscli2
     pavucontrol
     ungoogled-chromium
-    lutris
     file-roller
     nix-tree
     obs-studio
@@ -154,6 +153,11 @@ pkgs: {
     yaml-language-server
     typescript-language-server
     headsetcontrol
+
+    # logic analyzer
+    sigrok-cli
+    pulseview
+    sigrok-firmware-fx2lafw
   ];
 
   beam = with pkgs.beam27Packages; [

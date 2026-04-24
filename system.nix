@@ -37,6 +37,13 @@
       })
       paths);
 
+  mkUdevRules = rulesFile:
+    pkgs.writeTextFile {
+      name = rulesFile;
+      destination = "/etc/udev/rules.d/${rulesFile}";
+      text = builtins.readFile ./config/udev/${rulesFile};
+    };
+
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
@@ -252,11 +259,8 @@ in {
 
   services = {
     udev.packages = [
-      (pkgs.writeTextFile {
-        name = "probe-rs-udev-rules";
-        destination = "/etc/udev/rules.d/69-probe-rs.rules";
-        text = builtins.readFile ./config/udev/69-probe-rs.rules;
-      })
+      (mkUdevRules "69-probe-rs.rules")
+      (mkUdevRules "99-sigrok.rules")
     ];
 
     upower.enable = true;

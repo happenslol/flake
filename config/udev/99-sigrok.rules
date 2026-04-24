@@ -1,0 +1,12 @@
+# FX2-based logic analyzer udev rules for sigrok
+# Reload with: udevadm control --reload && udevadm trigger
+
+# Saleae Logic (Lakeview Research VID)
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0925", ATTRS{idProduct}=="3881", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
+# Cypress FX2 generic logic analyzer clones
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0456", ATTRS{idProduct}=="f439", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
+# sigrok / fx2lafw devices (OpenMoko VID)
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="608e", MODE="660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="608f", MODE="660", GROUP="plugdev", TAG+="uaccess"
