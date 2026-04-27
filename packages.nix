@@ -31,6 +31,7 @@ pkgs: {
     telegram-desktop
     signal-desktop
     element-desktop
+    whatsapp
     easyeffects
     obsidian
     spotify

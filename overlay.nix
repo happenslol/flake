@@ -52,6 +52,8 @@ inputs: self: super: {
     exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
   '';
 
+  whatsapp = self.callPackage ./apps/whatsapp.nix {};
+
   fence = self.stdenv.mkDerivation rec {
     pname = "fence";
     version = "0.1.39";
