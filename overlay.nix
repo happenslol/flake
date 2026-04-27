@@ -47,27 +47,10 @@ inputs: self: super: {
         '');
     };
 
-  # Extract codelldb from the vscode extension
-  codelldb = self.writeShellScriptBin "codelldb" ''
-    exec -a $0 ${self.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $@
-  '';
-
+  # Apps we package ourselves; see ./apps/.
+  codelldb = self.callPackage ./apps/codelldb.nix {};
+  fence = self.callPackage ./apps/fence.nix {};
   whatsapp = self.callPackage ./apps/whatsapp.nix {};
-
-  fence = self.stdenv.mkDerivation rec {
-    pname = "fence";
-    version = "0.1.39";
-    sourceRoot = ".";
-    nativeBuildInputs = [self.autoPatchelfHook self.makeWrapper];
-    installPhase = ''
-      install -Dm755 fence $out/bin/fence
-      wrapProgram $out/bin/fence --prefix PATH : ${self.lib.makeBinPath [self.socat self.bubblewrap self.bpftrace]}
-    '';
-    src = self.fetchurl {
-      url = "https://github.com/Use-Tusk/fence/releases/download/v${version}/fence_${version}_Linux_x86_64.tar.gz";
-      hash = "sha256-U3Ik7PXF6or05SZOJmSkRVBgNcgeD8sJ8v8pa0FDR94=";
-    };
-  };
 
   # The Nerd Font patcher changes hhea descent/lineGap, shifting the baseline
   # up. This restores the original Iosevka Term values so glyphs sit correctly.
