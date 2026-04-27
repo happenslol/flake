@@ -318,6 +318,12 @@ in
             echo "Moving ${cfg.interface} to namespace ${cfg.namespace}"
             ip link set ${cfg.interface} netns ${cfg.namespace}
 
+            # Stop systemd-networkd from recreating ${cfg.interface} in the host namespace
+            # (otherwise it spawns a duplicate that steals the WireGuard peer session).
+            rm -f /run/systemd/network/60-${cfg.interface}.netdev /run/systemd/network/60-${cfg.interface}.network
+            networkctl reload
+            ip link delete ${cfg.interface} 2>/dev/null || true
+
             # Configure interface in namespace
             echo "Configuring ${cfg.interface} in namespace ${cfg.namespace}"
             ip -n ${cfg.namespace} address add ''${peerip}/32 dev ${cfg.interface}
