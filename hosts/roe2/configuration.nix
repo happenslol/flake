@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -88,6 +89,7 @@
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        UMask = lib.mkForce "0002";
       };
     };
 
@@ -97,6 +99,17 @@
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        UMask = lib.mkForce "0002";
+      };
+    };
+
+    bazarr = {
+      bindsTo = ["pia-vpn.service"];
+      after = ["pia-vpn.service"];
+      serviceConfig = {
+        NetworkNamespacePath = "/var/run/netns/pia";
+        BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
+        UMask = lib.mkForce "0002";
       };
     };
 
@@ -118,6 +131,17 @@
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8989,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:8989'";
+        Restart = "always";
+      };
+    };
+
+    bazarr-rpc-proxy = {
+      description = "Forward Bazarr from pia namespace to host";
+      after = ["bazarr.service"];
+      bindsTo = ["bazarr.service"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:6767,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:6767'";
         Restart = "always";
       };
     };
@@ -166,6 +190,15 @@
           ];
           locations."/".proxyPass = "http://127.0.0.1:8989";
         };
+        "bazarr.local" = {
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 80;
+            }
+          ];
+          locations."/".proxyPass = "http://127.0.0.1:6767";
+        };
         "jellyfin.local" = {
           listen = [
             {
@@ -193,6 +226,7 @@
 
     radarr.enable = true;
     sonarr.enable = true;
+    bazarr.enable = true;
     jellyfin.enable = true;
 
     pia-vpn = {
@@ -218,12 +252,13 @@
     happens.extraGroups = ["transmission" "media"];
     radarr.extraGroups = ["media"];
     sonarr.extraGroups = ["media"];
+    bazarr.extraGroups = ["media"];
     transmission.extraGroups = ["media"];
     jellyfin.extraGroups = ["media"];
   };
 
   networking.hosts = {
-    "127.0.0.1" = ["transmission.local" "radarr.local" "sonarr.local" "jellyfin.local"];
+    "127.0.0.1" = ["transmission.local" "radarr.local" "sonarr.local" "bazarr.local" "jellyfin.local"];
   };
 
   systemd.services.corsair-h150i-liquidctl = {
