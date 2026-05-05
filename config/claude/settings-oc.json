@@ -28,6 +28,7 @@
   },
   "syntaxHighlightingDisabled": false,
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "effortLevel": "high"
+  "skipAutoPermissionPrompt": true
 }
