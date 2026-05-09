@@ -7,3 +7,11 @@ fcopy() {
   done
   printf "%b" "$uris" | sed '/^$/d' | wl-copy -t text/uri-list
 }
+
+spawn() {
+  systemd-run --user --quiet --collect \
+    --working-directory="$PWD" \
+    --property=StandardOutput=null \
+    --property=StandardError=null \
+    -- "$@"
+}
