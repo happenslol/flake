@@ -2,6 +2,7 @@
   "ui_font_weight": 400.0,
   "diff_view_style": "unified",
   "agent": {
+    "dock": "right",
     "default_profile": "ask",
     "default_model": {
       "provider": "zed.dev",
@@ -97,6 +98,7 @@
     "show_sign_in": false
   },
   "project_panel": {
+    "dock": "left",
     "button": false,
     "auto_reveal_entries": false,
     "auto_fold_dirs": false,
@@ -110,13 +112,16 @@
   },
   "use_smartcase_search": true,
   "outline_panel": {
+    "dock": "left",
     "button": false
   },
   "git_panel": {
+    "dock": "left",
     "tree_view": true,
     "button": false
   },
   "collaboration_panel": {
+    "dock": "left",
     "button": false
   },
   "diagnostics": {
