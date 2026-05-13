@@ -147,7 +147,10 @@ in {
     # extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
     supportedFilesystems = ["zfs" "ntfs"];
-    zfs.package = pkgs.zfs_2_4;
+    zfs = {
+      forceImportRoot = false;
+      package = pkgs.zfs_2_4;
+    };
   };
 
   time = {
