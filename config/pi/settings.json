@@ -1,7 +1,10 @@
 {
-  "lastChangelogVersion": "0.74.0",
+  "lastChangelogVersion": "0.75.3",
   "defaultProvider": "openrouter",
   "defaultModel": "moonshotai/kimi-k2.6",
   "quietStartup": true,
-  "defaultThinkingLevel": "medium"
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "npm:pi-web-access"
+  ]
 }
