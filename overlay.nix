@@ -50,6 +50,7 @@ inputs: self: super: {
   # Apps we package ourselves; see ./apps/.
   codelldb = self.callPackage ./apps/codelldb.nix {};
   fence = self.callPackage ./apps/fence.nix {};
+  revdiff = self.callPackage ./apps/revdiff.nix {};
   whatsapp = self.callPackage ./apps/whatsapp.nix {};
 
   # The Nerd Font patcher changes hhea descent/lineGap, shifting the baseline

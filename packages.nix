@@ -145,6 +145,7 @@ pkgs: {
     sops
     gh
     fence
+    revdiff
     kdlfmt
     sox
     atuin
