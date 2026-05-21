@@ -10,7 +10,6 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bunx -y ccstatusline@latest",
@@ -29,6 +28,7 @@
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
   "skipAutoPermissionPrompt": true
 }
