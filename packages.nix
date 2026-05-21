@@ -176,5 +176,6 @@ pkgs: {
     pi
     amp
     crush
+    codex
   ];
 }
