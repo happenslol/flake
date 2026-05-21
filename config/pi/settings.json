@@ -3,5 +3,14 @@
   "defaultProvider": "openrouter",
   "defaultModel": "moonshotai/kimi-k2.6",
   "quietStartup": true,
-  "defaultThinkingLevel": "medium"
+  "npmCommand": [
+    "npm",
+    "--prefix",
+    "~/.pi/npm-plugins"
+  ],
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "npm:pi-subagents",
+    "npm:@ff-labs/pi-fff"
+  ]
 }
