@@ -71,13 +71,13 @@ map("n", "<leader>lc", function()
   vim.cmd("vnew")
   vim.cmd("only")
 
+  -- Keep the freshly created blank buffer, delete everything else
+  -- (hidden, named or not) so no old buffer can resurface.
+  local keep = vim.api.nvim_get_current_buf()
+
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) then
-      local name = vim.api.nvim_buf_get_name(buf)
-      local hidden = vim.fn.bufwinid(buf) == -1
-      if hidden or name == "" then
-        pcall(vim.api.nvim_buf_delete, buf, { force = true })
-      end
+    if buf ~= keep and vim.api.nvim_buf_is_valid(buf) then
+      pcall(vim.api.nvim_buf_delete, buf, { force = true })
     end
   end
 end, { silent = true, desc = "Clear Session" })
