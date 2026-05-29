@@ -1,10 +1,17 @@
 {
-	"lastChangelogVersion": "0.75.3",
-	"defaultProvider": "openrouter",
-	"defaultModel": "z-ai/glm-5.1",
-	"quietStartup": true,
-	"npmCommand": ["npm", "--prefix", "~/.pi/npm-plugins"],
-	"defaultThinkingLevel": "medium",
-	"packages": ["npm:pi-subagents", "npm:@ff-labs/pi-fff", "npm:pi-web-access"]
+  "lastChangelogVersion": "0.77.0",
+  "defaultProvider": "openrouter",
+  "defaultModel": "z-ai/glm-5.1",
+  "quietStartup": true,
+  "npmCommand": [
+    "npm",
+    "--prefix",
+    "~/.pi/npm-plugins"
+  ],
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "npm:pi-subagents",
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-web-access"
+  ]
 }
-
