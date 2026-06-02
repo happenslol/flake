@@ -146,6 +146,7 @@ pkgs: {
     gh
     fence
     revdiff
+    elegoo-slicer
     kdlfmt
     sox
     atuin

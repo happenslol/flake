@@ -49,6 +49,7 @@ inputs: self: super: {
 
   # Apps we package ourselves; see ./apps/.
   codelldb = self.callPackage ./apps/codelldb.nix {};
+  elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
   fence = self.callPackage ./apps/fence.nix {};
   revdiff = self.callPackage ./apps/revdiff.nix {};
   whatsapp = self.callPackage ./apps/whatsapp.nix {};
