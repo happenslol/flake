@@ -12,6 +12,6 @@
   "packages": [
     "npm:pi-subagents",
     "npm:@ff-labs/pi-fff",
-    "npm:pi-web-access"
+    "npm:pi-btw"
   ]
 }
