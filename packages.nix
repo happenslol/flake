@@ -161,6 +161,8 @@ pkgs: {
     sigrok-cli
     pulseview
     sigrok-firmware-fx2lafw
+
+    orca-slicer
   ];
 
   beam = with pkgs.beam27Packages; [
