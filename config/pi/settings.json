@@ -1,14 +1,14 @@
 {
   "lastChangelogVersion": "0.77.0",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.1",
+  "defaultModel": "minimax/minimax-m2.7",
   "quietStartup": true,
   "npmCommand": [
     "npm",
     "--prefix",
     "~/.pi/npm-plugins"
   ],
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "packages": [
     "npm:pi-subagents",
     "npm:@ff-labs/pi-fff",
