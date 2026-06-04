@@ -156,6 +156,7 @@ pkgs: {
     yaml-language-server
     typescript-language-server
     headsetcontrol
+    playwright-driver.browsers
 
     # logic analyzer
     sigrok-cli

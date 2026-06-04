@@ -41,6 +41,18 @@ in {
     inherit stateVersion username;
     homeDirectory = home;
 
+    sessionVariables = let
+      browsers = pkgs.playwright-driver.browsers;
+      chromium-rev =
+        (builtins.head (builtins.filter (x: x.name == "chromium")
+            (builtins.fromJSON (builtins.readFile "${pkgs.playwright-driver}/browsers.json")).browsers)).revision;
+    in {
+      PLAYWRIGHT_BROWSERS_PATH = "${browsers}";
+      PLAYWRIGHT_MCP_EXECUTABLE_PATH = "${browsers}/chromium-${chromium-rev}/chrome-linux64/chrome";
+      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "1";
+      PLAYWRIGHT_HOST_PLATFORM_OVERRIDE = "ubuntu-24.04";
+    };
+
     packages =
       builtins.concatLists (builtins.attrValues (import ./packages.nix pkgs));
 
