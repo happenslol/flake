@@ -30,6 +30,6 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
-  "skipAutoPermissionPrompt": true,
-  "awaySummaryEnabled": false
+  "awaySummaryEnabled": false,
+  "skipAutoPermissionPrompt": true
 }
