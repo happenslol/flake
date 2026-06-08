@@ -1,9 +1,11 @@
 {
-  "lastChangelogVersion": "0.77.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.1",
   "quietStartup": true,
-  "npmCommand": ["pnpm"],
+  "npmCommand": [
+    "pnpm"
+  ],
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:pi-subagents",
