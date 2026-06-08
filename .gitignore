@@ -3,3 +3,6 @@
 /config/zed/development_credentials
 /.claude/settings.local.json
 /result
+/config/pi/extensions/node_modules
+/.playwright-cli
+/.pnpm-store
