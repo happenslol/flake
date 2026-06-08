@@ -12,7 +12,7 @@ Commit all current changes in the working tree. Group changes into multiple comm
 
 1. Run `git status` and `git diff --staged` (plus `git diff` for any unstaged changes) to understand all changes.
 2. Identify logical groups of changes. Each group should get its own commit. Changes that would need a different prefix MUST be in separate commits.
-3. For each group, stage only the relevant files (they may already be staged), then commit.
+3. Reset the staging area with `git reset`, then for each group, stage only the relevant files and commit.
 4. After all commits, run `git status` to confirm a clean tree.
 
 ## Commit message rules
@@ -42,6 +42,7 @@ The prefix is the program name as a user would refer to it (e.g. `neovim` not `n
 
 ## Committing
 
+- **Always reset the staging area first** with `git reset` before staging files for any commit. This ensures only the files you explicitly `git add` are included, regardless of what was previously staged.
 - Stage specific files with `git add <paths>`, never `git add -A` or `git add .` when making multiple commits
 - Use a HEREDOC for the commit message:
   ```
