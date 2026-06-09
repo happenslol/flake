@@ -242,11 +242,12 @@ in
             'https://www.privateinternetaccess.com/api/client/v2/token' \
             --form "username=$PIA_USER" \
             --form "password=$PIA_PASS" || true)"
-          token="$(echo "$tokenResponse" | jq -r '.token')"
+          token="$(echo "$tokenResponse" | jq -r '.token // empty')"
           if [ -z "$token" ]; then
-            >&2 echo "Failed to generate token. Stopping."
+            >&2 echo "Failed to generate token. Response: $tokenResponse"
             exit 1
           fi
+          echo "$tokenResponse" > $STATE_DIRECTORY/token.json
 
           echo Connecting to the PIA WireGuard API on $wg_ip...
           privateKey="$(wg genkey)"
@@ -424,15 +425,22 @@ in
           wg_hostname="$(echo $region | jq -r '.servers.wg[0].cn')"
           gateway="$(echo $wg | jq -r '.server_vip')"
 
+          # This service runs inside the network namespace, where DNS for
+          # public hostnames is unavailable; contact the meta server by IP.
           echo Fetching token from $meta_ip...
           tokenResponse="$(curl -s --location --request POST \
-            --no-progress-meter -m 5 \
-            'https://www.privateinternetaccess.com/api/client/v2/token' \
-            --form "username=$PIA_USER" \
-            --form "password=$PIA_PASS" || true)"
-          token="$(echo "$tokenResponse" | jq -r '.token')"
+            --no-progress-meter -m 15 \
+            --connect-to "$meta_hostname::$meta_ip:" \
+            --cacert "${cfg.certificateFile}" \
+            --user "$PIA_USER:$PIA_PASS" \
+            "https://$meta_hostname/authv3/generateToken" || true)"
+          token="$(echo "$tokenResponse" | jq -r '.token // empty' || true)"
+          if [ -z "$token" ] && [ -f $STATE_DIRECTORY/token.json ]; then
+            echo "Token fetch from meta server failed; using token saved by pia-vpn.service."
+            token="$(jq -r '.token // empty' $STATE_DIRECTORY/token.json || true)"
+          fi
           if [ -z "$token" ]; then
-            >&2 echo "Failed to generate token. Stopping."
+            >&2 echo "Failed to generate token. Response: $tokenResponse"
             exit 1
           fi
 
