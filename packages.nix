@@ -157,6 +157,7 @@ pkgs: {
     typescript-language-server
     headsetcontrol
     playwright-driver.browsers
+    bubblewrap
 
     # logic analyzer
     sigrok-cli
