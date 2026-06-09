@@ -1,4 +1,4 @@
-alias xpi="/home/happens/code/boxx/result/bin/boxx --allow-all pi "
+alias xpi="/home/happens/code/boxx/result/bin/boxx pi "
 
 alias k="kubectl "
 alias sr="steam-run "
