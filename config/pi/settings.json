@@ -4,7 +4,9 @@
   "defaultModel": "z-ai/glm-5.1",
   "quietStartup": true,
   "npmCommand": [
-    "pnpm"
+    "pnpm",
+    "--store-dir",
+    "~/.pnpm-store"
   ],
   "defaultThinkingLevel": "high",
   "packages": [
