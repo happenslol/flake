@@ -59,3 +59,9 @@ window-rule {
     open-floating true
     open-on-output "DP-2"
 }
+
+input {
+    tablet {
+        map-to-focused-output
+    }
+}
