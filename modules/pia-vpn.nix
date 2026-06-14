@@ -267,6 +267,8 @@ in
 
           echo Creating network interface ${cfg.interface}.
           echo "$json" > $STATE_DIRECTORY/wireguard.json
+          # New connection: any cached port-forwarding signature is now stale.
+          rm -f $STATE_DIRECTORY/portforward.json
 
           gateway="$(echo "$json" | jq -r '.server_ip')"
           servervip="$(echo "$json" | jq -r '.server_vip')"
@@ -419,46 +421,59 @@ in
           fi
           wg="$(cat $STATE_DIRECTORY/wireguard.json)"
 
-          meta_ip="$(echo $region | jq -r '.servers.meta[0].ip')"
-          meta_hostname="$(echo $region | jq -r '.servers.meta[0].cn')"
-          wg_ip="$(echo $region | jq -r '.servers.wg[0].ip')"
           wg_hostname="$(echo $region | jq -r '.servers.wg[0].cn')"
           gateway="$(echo $wg | jq -r '.server_vip')"
 
-          # This service runs inside the network namespace, where DNS for
-          # public hostnames is unavailable; contact the meta server by IP.
-          echo Fetching token from $meta_ip...
-          tokenResponse="$(curl -s --location --request POST \
-            --no-progress-meter -m 15 \
-            --connect-to "$meta_hostname::$meta_ip:" \
-            --cacert "${cfg.certificateFile}" \
-            --user "$PIA_USER:$PIA_PASS" \
-            "https://$meta_hostname/authv3/generateToken" || true)"
-          token="$(echo "$tokenResponse" | jq -r '.token // empty' || true)"
-          if [ -z "$token" ] && [ -f $STATE_DIRECTORY/token.json ]; then
-            echo "Token fetch from meta server failed; using token saved by pia-vpn.service."
+          # Request a fresh port-forwarding signature from the gateway. This
+          # needs a PIA auth token, which can only be obtained over the regular
+          # internet -- DNS and direct routing to PIA's meta servers are
+          # unavailable inside the VPN namespace. pia-vpn.service fetches the
+          # token outside the namespace and saves it to token.json.
+          acquireSignature() {
+            if [ ! -f $STATE_DIRECTORY/token.json ]; then
+              echo "No token.json found; restart pia-vpn.service to fetch a token." >&2
+              return 1
+            fi
             token="$(jq -r '.token // empty' $STATE_DIRECTORY/token.json || true)"
-          fi
-          if [ -z "$token" ]; then
-            >&2 echo "Failed to generate token. Response: $tokenResponse"
-            exit 1
-          fi
+            if [ -z "$token" ]; then
+              echo "token.json does not contain a token; restart pia-vpn.service." >&2
+              return 1
+            fi
 
-          echo "Fetching port forwarding configuration from $gateway..."
-          pfconfig="$(curl --no-progress-meter -m 5 \
-            --interface ${cfg.interface} \
-            --connect-to "$wg_hostname::$gateway:" \
-            --cacert "${cfg.certificateFile}" \
-            -G --data-urlencode "token=''${token}" \
-            "https://''${wg_hostname}:19999/getSignature" || true)"
-          if [ "$(echo "$pfconfig" | jq -r '.status' || true)" != "OK" ]; then
-            echo "Port forwarding configuration does not contain an OK status. Stopping." >&2
-            exit 1
+            echo "Requesting port forwarding signature from $gateway..."
+            pfconfig="$(curl --no-progress-meter -m 5 \
+              --interface ${cfg.interface} \
+              --connect-to "$wg_hostname::$gateway:" \
+              --cacert "${cfg.certificateFile}" \
+              -G --data-urlencode "token=''${token}" \
+              "https://''${wg_hostname}:19999/getSignature" || true)"
+            if [ "$(echo "$pfconfig" | jq -r '.status' || true)" != "OK" ]; then
+              echo "Gateway did not return a port forwarding signature:" >&2
+              echo "$pfconfig" >&2
+              return 1
+            fi
+            echo "$pfconfig" > $STATE_DIRECTORY/portforward.json
+          }
+
+          # A signature is valid for roughly two months -- far longer than a
+          # token -- and is reusable across restarts. Reuse the cached one
+          # unless it is missing or expired, so we only need a (short-lived)
+          # token when the VPN connection itself is new.
+          pfconfig=""
+          if [ -f $STATE_DIRECTORY/portforward.json ]; then
+            pfconfig="$(cat $STATE_DIRECTORY/portforward.json)"
+            cachedExpiry="$(echo "$pfconfig" | jq -r '.payload // empty' \
+              | base64 -d 2>/dev/null | jq -r '.expires_at // empty' || true)"
+            if [ -z "$cachedExpiry" ] \
+              || [ "$(date -d "$cachedExpiry" +%s 2>/dev/null || echo 0)" -le "$(date +%s)" ]; then
+              echo "Cached port forwarding signature missing or expired; refreshing."
+              pfconfig=""
+            fi
           fi
 
           if [ -z "$pfconfig" ]; then
-            echo "Did not obtain port forwarding configuration. Stopping." >&2
-            exit 1
+            acquireSignature || exit 1
+            pfconfig="$(cat $STATE_DIRECTORY/portforward.json)"
           fi
 
           signature="$(echo "$pfconfig" | jq -r '.signature')"
@@ -481,11 +496,28 @@ in
               --data-urlencode "signature=''${signature}" \
               "https://''${wg_hostname}:19999/bindPort" || true)"
             if [ "$(echo "$response" | jq -r '.status' || true)" != "OK" ]; then
-              echo "Failed to bind port. Stopping." >&2
+              echo "Failed to bind port; discarding cached signature." >&2
+              echo "$response" >&2
+              rm -f $STATE_DIRECTORY/portforward.json
               exit 1
             fi
             echo "Bound port $port. Forwarding will expire at $(date --date="$expires")."
+
+            # The hook is best-effort: the downstream service (e.g. the torrent
+            # client) may be momentarily unavailable, e.g. still starting up.
+            # Don't let its failure tear down port forwarding (the unit runs
+            # under "set -e"); retry soon until it succeeds, then settle into
+            # the normal refresh interval.
+            set +e
             ${cfg.portForward.script}
+            hookStatus=$?
+            set -e
+            if [ "$hookStatus" -ne 0 ]; then
+              echo "portForward.script exited $hookStatus; retrying in 30s." >&2
+              sleep 30
+              continue
+            fi
+
             sleep 900
             echo "Checking port forwarding..."
           done

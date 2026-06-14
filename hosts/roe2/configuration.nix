@@ -66,6 +66,8 @@
     transmission = {
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
+      # Restart together with the VPN (bindsTo only propagates stop).
+      partOf = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -76,6 +78,7 @@
       description = "Forward Transmission RPC from pia namespace to host";
       after = ["transmission.service"];
       bindsTo = ["transmission.service"];
+      partOf = ["transmission.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:9091,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:9091'";
@@ -86,6 +89,8 @@
     radarr = {
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
+      # Restart together with the VPN (bindsTo only propagates stop).
+      partOf = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -96,6 +101,8 @@
     sonarr = {
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
+      # Restart together with the VPN (bindsTo only propagates stop).
+      partOf = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -106,6 +113,8 @@
     bazarr = {
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
+      # Restart together with the VPN (bindsTo only propagates stop).
+      partOf = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -117,6 +126,7 @@
       description = "Forward Radarr from pia namespace to host";
       after = ["radarr.service"];
       bindsTo = ["radarr.service"];
+      partOf = ["radarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:7878,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:7878'";
@@ -128,6 +138,7 @@
       description = "Forward Sonarr from pia namespace to host";
       after = ["sonarr.service"];
       bindsTo = ["sonarr.service"];
+      partOf = ["sonarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8989,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:8989'";
@@ -139,6 +150,7 @@
       description = "Forward Bazarr from pia namespace to host";
       after = ["bazarr.service"];
       bindsTo = ["bazarr.service"];
+      partOf = ["bazarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:6767,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:6767'";
