@@ -14,6 +14,22 @@
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
+
+  # Unwrapped GTK 3 apps (e.g. gimp) launched via systemd/niri need the gtk3
+  # schema (org.gtk.Settings.FileChooser) and a gdk-pixbuf svg loader in the
+  # user-manager env, else they abort on startup. Fed in via environment.d below.
+  gtk3Datadir = "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}";
+
+  # gdk-pixbuf loaders (raster) + librsvg's svg loader.
+  gdkPixbufLoaders =
+    pkgs.runCommand "gdk-pixbuf-loaders.cache" {
+      nativeBuildInputs = [pkgs.gdk-pixbuf.dev];
+    } ''
+      gdk-pixbuf-query-loaders \
+        ${pkgs.gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.so \
+        ${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.so \
+        > $out
+    '';
 in {
   programs = {
     home-manager.enable = true;
@@ -128,9 +144,14 @@ in {
       "status".source = "${hostDotfiles}/status";
       "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
       "atuin".source = "${dotfiles}/atuin";
+
+      # Read by the systemd user manager → niri and everything it spawns.
+      "environment.d/90-gtk-pixbuf-loaders.conf".text = ''
+        GDK_PIXBUF_MODULE_FILE=${gdkPixbufLoaders}
+      '';
     };
 
-    systemDirs.data = [gsettingsDatadir];
+    systemDirs.data = [gsettingsDatadir gtk3Datadir];
   };
 
   gtk = {
