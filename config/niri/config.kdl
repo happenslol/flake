@@ -99,6 +99,14 @@ window-rule {
     open-fullscreen false
 }
 
+// Give file dialogs (upload/open, download/save, selection) a sensible default size
+window-rule {
+    match app-id=r#"^xdg-desktop-portal-gtk$"#
+    open-floating true
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 600; }
+}
+
 window-rule {
     match app-id="1password"
     block-out-from "screencast"
