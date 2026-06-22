@@ -70,8 +70,6 @@ hotkey-overlay {
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-spawn-at-startup "mako"
-
 // Round corners on all windows
 window-rule {
     geometry-corner-radius 8 8 8 8

@@ -45,7 +45,7 @@ pkgs: {
     (pkgs.lib.lowPrio gotools) # lowPrio to avoid conflict with sox's play binary
     revive
     dive
-    mako
+    # mako
     python3
     gnumake
     wl-clipboard
