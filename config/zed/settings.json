@@ -1,6 +1,8 @@
 {
+  "ensure_final_newline_on_save": false,
+  "remove_trailing_whitespace_on_save": false,
   "ui_font_weight": 400.0,
-  "diff_view_style": "unified",
+  "diff_view_style": "split",
   "agent": {
     "dock": "right",
     "default_profile": "ask",
