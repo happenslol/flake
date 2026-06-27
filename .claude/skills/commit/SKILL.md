@@ -41,6 +41,8 @@ The prefix is the program name as a user would refer to it (e.g. `neovim` not `n
 ## Committing
 
 - Stage specific files with `git add <paths>`, never `git add -A` or `git add .` when making multiple commits
+- Always reset before staging so files already staged previously are not also committed
+- Do not issue commits at the same time, concurrent adds and commits might run into git lockfile issues
 - Use a HEREDOC for the commit message:
   ```
   git commit -m "$(cat <<'EOF'
