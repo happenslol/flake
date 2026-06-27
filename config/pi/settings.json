@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.79.9",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.1",
+  "defaultModel": "z-ai/glm-5.2",
   "quietStartup": true,
   "npmCommand": [
     "pnpm",
