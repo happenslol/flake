@@ -131,6 +131,10 @@ return {
   ---@module "conform"
   ---@type fun():conform.setupOpts
   opts = function()
+    -- Neovim's per-session temp dir, so conform's temp files (oxlint, see below)
+    -- don't get dropped next to the files being formatted.
+    local tmpdir = vim.fs.dirname(vim.fn.tempname())
+
     -- Filetypes each toolchain can handle.
     local prettier_fts = {
       "css",
@@ -200,6 +204,12 @@ return {
           end,
         },
         oxlint = {
+          -- `oxlint --fix` writes to disk (it has no fix-to-stdout mode), so conform
+          -- has to hand it a temp file. Put that temp file in the session temp dir
+          -- instead of next to the source, and run from the config root so
+          -- .oxlintrc.json is still discovered.
+          cwd = require("conform.util").root_file({ ".oxlintrc.json", ".oxlintrc.jsonc" }),
+          tmpfile_format = tmpdir .. "/conform.$RANDOM.$FILENAME",
           condition = function(_, ctx)
             return detect("oxlint", ctx.dirname)
           end,
