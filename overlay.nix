@@ -77,23 +77,6 @@ inputs: self: super: {
       });
     };
 
-  # vscode-langservers-extracted 4.10.0 ships transpiled server entrypoints that
-  # mix top-level CommonJS `require()` calls with an ESM-only `import.meta.url`.
-  # Node 24's automatic module detection sees `import.meta`, treats the file as
-  # an ES module, and then the `require()` calls throw "require is not defined in
-  # ES module scope", crashing the language servers. Rewriting `import.meta.url`
-  # to a CJS equivalent removes the only ESM marker, so Node loads them as
-  # CommonJS again.
-  vscode-langservers-extracted = super.vscode-langservers-extracted.overrideAttrs (old: {
-    postFixup =
-      (old.postFixup or "")
-      + ''
-        find "$out/lib/node_modules/vscode-langservers-extracted/lib" \
-          -name '*ServerMain.js' -print0 \
-        | xargs -0 sed -i "s|import\.meta\.url|require('url').pathToFileURL(__filename).href|g"
-      '';
-  });
-
   # Add nix-ai-tools packages to pkgs
   llm-agents = inputs.llm-agents.packages.${self.stdenv.hostPlatform.system};
 }
