@@ -51,6 +51,7 @@ inputs: self: super: {
   codelldb = self.callPackage ./apps/codelldb.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
   fence = self.callPackage ./apps/fence.nix {};
+  microsandbox = self.callPackage ./apps/microsandbox.nix {};
   smolvm = self.callPackage ./apps/smolvm.nix {};
   revdiff = self.callPackage ./apps/revdiff.nix {};
   whatsapp = self.callPackage ./apps/whatsapp.nix {};

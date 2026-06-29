@@ -166,6 +166,7 @@ pkgs: {
 
     orca-slicer
     smolvm
+    microsandbox
   ];
 
   beam = with pkgs.beam27Packages; [
