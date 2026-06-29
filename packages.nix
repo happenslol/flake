@@ -165,6 +165,7 @@ pkgs: {
     sigrok-firmware-fx2lafw
 
     orca-slicer
+    smolvm
   ];
 
   beam = with pkgs.beam27Packages; [
