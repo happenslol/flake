@@ -7,11 +7,11 @@
   glib-networking,
 }: let
   pname = "elegoo-slicer";
-  version = "1.5.1.6";
+  version = "1.5.2.2";
 
   src = fetchurl {
-    url = "https://github.com/ELEGOO-3D/ElegooSlicer/releases/download/v${version}/ElegooSlicer_Linux_V${version}.AppImage";
-    hash = "sha256-fL44zEAQWaf1QOq8A5+pVseze9uhinJNRKkI94ZG9g4=";
+    url = "https://github.com/ELEGOO-3D/ElegooSlicer/releases/download/v${version}/ElegooSlicer_Linux_Ubuntu2404_V${version}.AppImage";
+    hash = "sha256-NTQAlB6xvqk1AgFFj+tCRohgVPxT58cVRrrAgof+wpw=";
   };
 
   appimageContents = appimageTools.extractType2 {inherit pname version src;};
