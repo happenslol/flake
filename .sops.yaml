@@ -2,6 +2,8 @@ keys:
   - &roe2 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW"
   - &hei "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn"
   - &mira "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS2P0chvWgX5gvfIMKcaSLclj/Awowvqk3lwXHzy4HU"
+  - &roe2-host age1kcyswrdfthntaxlw9npc8dmu6w7wac02tpa0u4rpedqmwczna4gs4pq6t9
+  - &mira-host age1prdjp2tedx80w4htpcsn24dllf2cn5jpkj94mmdpa2dszjmutg0s6yzusw
 creation_rules:
   - path_regex: secrets\.json$
     key_groups:
@@ -9,3 +11,5 @@ creation_rules:
           - *roe2
           - *hei
           - *mira
+          - *roe2-host
+          - *mira-host
