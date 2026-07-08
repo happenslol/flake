@@ -61,8 +61,7 @@
     ];
 
     pkgs = import nixpkgs {
-      inherit system;
-      overlays = overlays;
+      inherit system overlays;
       config = {
         allowUnfree = true;
         allowBroken = true;
