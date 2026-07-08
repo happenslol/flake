@@ -179,6 +179,8 @@ return {
       go = { "goimports", "gofumpt" },
       nix = { "alejandra" },
       kdl = { "kdlfmt" },
+      terraform = { "terraform_fmt" },
+      ["terraform-vars"] = { "terraform_fmt" },
     }
 
     local function add(fts, formatter)
