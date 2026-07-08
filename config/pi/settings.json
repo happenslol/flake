@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.2",
   "quietStartup": true,
