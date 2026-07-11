@@ -21,6 +21,7 @@
     "typescript-lsp@claude-plugins-official": false,
     "rust-analyzer-lsp@claude-plugins-official": false
   },
+  "disableClaudeAiConnectors": true,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
