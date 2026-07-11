@@ -25,6 +25,14 @@ environment {
     NIXOS_OZONE_WL "1"
 }
 
+// Niri manages the cursor and exports XCURSOR_THEME/XCURSOR_SIZE to all
+// spawned apps. Without this it defaults to "default"/24 (fallback cursor,
+// wrong on HiDPI outputs), overriding home-manager's session variables.
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+}
+
 layout {
     gaps 12
     struts {
