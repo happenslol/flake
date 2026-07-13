@@ -12,7 +12,8 @@
   "packages": [
     "npm:pi-subagents",
     "npm:@ff-labs/pi-fff",
-    "npm:pi-btw"
+    "npm:pi-btw",
+    "https://github.com/umputun/revdiff"
   ],
   "hideThinkingBlock": true,
   "theme": "dark"
