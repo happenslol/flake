@@ -71,6 +71,13 @@ return {
         "<cmd>Neotree focus reveal<cr>",
         desc = "View Current File in Neotree",
       },
+      {
+        "<leader>ge",
+        function()
+          require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        end,
+        desc = "Changed Files (Neotree)",
+      },
     },
   },
 }
