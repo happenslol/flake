@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-  "sindrets/diffview.nvim",
+  "dlyongemallo/diffview.nvim",
   event = "VeryLazy",
   opts = {
     show_help_hints = false,
