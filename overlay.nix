@@ -47,6 +47,9 @@ inputs: self: super: {
         '');
     };
 
+  # Fonts not packaged in nixpkgs; see ./apps/fonts.nix
+  inherit (super.callPackage ./apps/fonts.nix {}) dm-sans mona-sans satoshi;
+
   # Apps we package ourselves; see ./apps/.
   codelldb = self.callPackage ./apps/codelldb.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
