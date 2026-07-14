@@ -382,13 +382,13 @@ in {
       noto-fonts-cjk-sans
       nerd-fonts.iosevka-term
       dm-sans
-      mona-sans
-      satoshi
+      # mona-sans
+      # satoshi
       open-sans
-      lato
-      figtree
-      rubik
-      nunito
+      # lato
+      # figtree
+      # rubik
+      # nunito
     ];
   };
 

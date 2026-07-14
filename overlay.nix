@@ -48,7 +48,7 @@ inputs: self: super: {
     };
 
   # Fonts not packaged in nixpkgs; see ./apps/fonts.nix
-  inherit (super.callPackage ./apps/fonts.nix {}) dm-sans mona-sans satoshi;
+  # inherit (super.callPackage ./apps/fonts.nix {}) dm-sans satoshi;
 
   # Apps we package ourselves; see ./apps/.
   codelldb = self.callPackage ./apps/codelldb.nix {};
