@@ -1,174 +1,14 @@
 [
   {
-    "bindings": {
-      "ctrl-f": "project_search::ToggleFocus",
-      "ctrl-o": "pane::GoBack",
-      "ctrl-i": "pane::GoForward"
-    }
-  },
-  {
-    "context": "!Terminal",
-    "bindings": {
-      "ctrl-l": "agent::ToggleFocus"
-    }
-  },
-  {
-    "context": "Pane > EmptyPane",
-    "bindings": {
-      "q": "pane::CloseActiveItem",
-      "ctrl-o": "pane::GoBack",
-      "ctrl-g": "git_panel::ToggleFocus",
-      "ctrl-n": "project_panel::ToggleFocus",
-      "ctrl-m": "terminal_panel::ToggleFocus",
-      "ctrl-f": "project_search::ToggleFocus"
-    }
-  },
-  {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-n": "project_panel::ToggleFocus"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-n": "project_panel::ToggleFocus",
-      "ctrl-l": "agent::ToggleFocus",
-      "ctrl-m": "terminal_panel::ToggleFocus",
-      "ctrl-f": "project_search::ToggleFocus",
-      "ctrl-g": "git_panel::ToggleFocus"
-    }
-  },
-  {
-    "context": "Terminal",
-    "bindings": {
-      "ctrl-m": "workspace::ToggleBottomDock",
-      "ctrl-e o": "pane::SplitRight",
-      "ctrl-e u": "pane::SplitDown",
-      "ctrl-e h": "workspace::ActivatePaneLeft",
-      "ctrl-e j": "workspace::ActivatePaneDown",
-      "ctrl-e k": "workspace::ActivatePaneUp",
-      "ctrl-e l": "workspace::ActivatePaneRight"
-    }
-  },
-  {
     "context": "ProjectPanel && !editing",
-    "bindings": {
-      ";": "command_palette::Toggle",
-      "ctrl-n": "workspace::ToggleLeftDock",
-      "a": "project_panel::NewFile",
-      "shift-a": "project_panel::NewDirectory",
-      "d": "project_panel::Delete",
-      "r": "project_panel::Rename",
-      "x": "project_panel::Cut",
-      "c": "project_panel::Copy",
-      "p": "project_panel::Paste",
-      "h": "project_panel::ToggleHideGitIgnore"
-    }
-  },
-  {
-    "context": "AgentPanel > MessageEditor > Editor",
-    "bindings": {
-      "ctrl-l": "workspace::ToggleRightDock",
-      "ctrl-n": "project_panel::ToggleFocus"
-    }
-  },
-  {
-    "context": "AgentPanel > ContextEditor > Editor",
-    "bindings": {
-      "ctrl-l": "workspace::ToggleRightDock",
-      "ctrl-n": "project_panel::ToggleFocus"
-    }
-  },
-  {
-    "context": "AgentPanel > MessageEditor > Editor && vim_mode == normal",
-    "bindings": {
-      "space n": "agent::NewThread"
-    }
-  },
-  {
-    "context": "AgentPanel > MessageEditor > Editor && vim_mode == insert",
-    "bindings": {
-      "enter": "editor::Newline"
-    }
-  },
-  {
-    "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
-    "bindings": {
-      "space n": "agent::NewThread"
-    }
-  },
-  {
-    "context": "AgentPanel > ContextEditor > Editor && vim_mode == normal",
-    "bindings": {
-    }
-  },
-  {
-    "context": "AgentPanel > ContextEditor > Editor && vim_mode == insert",
-    "bindings": {
-      "enter": "editor::Newline"
-    }
-  },
-  {
-    "context": "AgentPanel > EditMessageEditor > Editor && vim_mode == insert",
-    "bindings": {
-      "enter": "editor::Newline"
-    }
-  },
-  {
-    "context": "AgentPanel > EditMessageEditor > Editor && vim_mode == normal",
-    "bindings": {
-      "enter": "menu::Confirm"
-    }
-  },
-  {
-    "context": "KeyContextView",
-    "bindings": {
-      "q": "pane::CloseActiveItem"
-    }
-  },
-  {
-    "context": "GitPanel > Editor",
-    "bindings": {
-      "ctrl-g": "workspace::ToggleLeftDock"
-    }
-  },
-  {
-    "context": "GitPanel && ChangesList",
-    "bindings": {
-      "ctrl-g": "workspace::ToggleLeftDock",
-      "d": "git::RestoreFile",
-      "a": "git::StageAll",
-      "s": "git::UnstageAll",
-      "c": "git::Commit",
-      "p": "git::Pull",
-      "P": "git::Push",
-      "space": "git::ToggleStaged"
-    }
+    "bindings": { ";": "command_palette::Toggle" }
   },
   {
     "context": "vim_mode == normal",
     "bindings": {
       ";": "command_palette::Toggle",
-      "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward",
       "space w": "workspace::Save",
-      "space f": "editor::Format",
-      "g r a": "editor::ToggleCodeActions",
-      "space m": "pane::RevealInProjectPanel",
-      "space l r": "editor::RestartLanguageServer",
-      "space l d": "dev::OpenKeyContextView",
-      "space x x": "diagnostics::Deploy",
-      "space g s": "git::Switch",
-      "space g c": "git::Commit",
-      "space g p": "git::Pull",
-      "space g P": "git::Push",
-      "space g a": "git::Add",
-
-      // TODO: This should only go to errors, but there doesn't seem to be an
-      // action for that yet
-      "] e": "editor::GoToDiagnostic",
-      "[ e": "editor::GoToPreviousDiagnostic"
+      "space f": "editor::Format"
     }
   },
   {
@@ -183,7 +23,6 @@
     "bindings": {
       ";": "vim::VisualCommand",
       "shift-s": "vim::PushAddSurrounds",
-      "ctrl-l": "assistant::InlineAssist",
       "shift-k": "editor::MoveLineUp",
       "shift-j": "editor::MoveLineDown",
       ">": "editor::Indent",
@@ -198,31 +37,9 @@
     }
   },
   {
-    "context": "(VimControl && !menu)",
-    "bindings": {
-      "ctrl-f": "project_search::ToggleFocus"
-    }
-  },
-  {
     "context": "ChangesList || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Welcome",
     "bindings": {
       ";": "command_palette::Toggle"
-    }
-  },
-  {
-    "context": "Editor && edit_prediction",
-    "bindings": {
-      "ctrl-j": "editor::AcceptEditPrediction",
-      "tab": "editor::Tab",
-      "alt-l": null
-    }
-  },
-  {
-    "context": "Editor && edit_prediction_conflict",
-    "bindings": {
-      "ctrl-j": "editor::AcceptEditPrediction",
-      "tab": "editor::Tab",
-      "alt-l": null
     }
   }
 ]
