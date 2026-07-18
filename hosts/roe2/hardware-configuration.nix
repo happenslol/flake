@@ -30,22 +30,12 @@
   };
 
   fileSystems."/home" = {
-    device = "rpool/home";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/${username}/.local" = {
-    device = "rpool/home/local";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/${username}/.cache" = {
-    device = "rpool/home/cache";
+    device = "user/home";
     fsType = "zfs";
   };
 
   fileSystems."/srv/media" = {
-    device = "rpool/media";
+    device = "user/media";
     fsType = "zfs";
   };
 
