@@ -76,7 +76,6 @@ pkgs: {
     slack
     swaylock
     libreoffice
-    bun
     playerctl
     nix-index
     bluetuith
@@ -167,6 +166,7 @@ pkgs: {
     orca-slicer
     smolvm
     microsandbox
+    deno
   ];
 
   beam = with pkgs.beam27Packages; [
