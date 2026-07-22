@@ -50,6 +50,21 @@
     settings.General.experimental = true;
   };
 
+  # Compressed RAM swap to absorb rare memory spikes without OOM-killing
+  # the browser/terminal. Swap on a ZFS zvol is deadlock-prone, so we use
+  # zram instead of disk-backed swap.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
+
+  # Kill the heaviest cgroup gracefully under memory/swap pressure before
+  # the kernel OOM killer fires and picks a victim at random.
+  systemd.oomd = {
+    enable = true;
+    enableUserSlices = true;
+  };
+
   systemd.services = {
     pia-vpn.after = ["systemd-networkd-wait-online.service"];
 
@@ -159,6 +174,18 @@
 
   services = {
     blueman.enable = true;
+
+    # Home lives on the "user" pool here, not rpool. Override the shared
+    # sanoid datasets from system.nix (mkForce drops rpool/home + state).
+    sanoid.datasets = lib.mkForce {
+      "user/home" = {
+        monthly = 1;
+        daily = 10;
+        hourly = 3;
+        autosnap = true;
+        autoprune = true;
+      };
+    };
 
     # udev = {
     #   # vial and zmk studio

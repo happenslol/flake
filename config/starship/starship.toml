@@ -78,6 +78,7 @@ format = "[|](bright-black) [$symbol($version )]($style)"
 [rust]
 style = "red"
 format = "[|](bright-black) [$symbol ($version )]($style)"
+symbol = " "
 
 [buf]
 style = "blue"
@@ -153,3 +154,7 @@ format = "[$user]($style)[@](bright-black)"
 
 [hostname]
 format = "[$hostname]($style) "
+
+[deno]
+format = "[|](bright-black) [$symbol ($version )]($style)"
+symbol = " "
