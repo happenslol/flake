@@ -29,7 +29,7 @@ export BAT_PAGER="less -+X"
 export DELTA_PAGER="less -+X"
 
 # Node/npm
-export PATH="$PATH:$HOME/.npm-packages/bin"
+export PATH="$PATH:$HOME/.npm-packages/bin:$HOME/.local/share/pnpm/bin"
 export NPM_CONFIG_PREFIX="${NPM_CONFIG_PREFIX:-"$HOME/.npm-packages"}"
 export NODE_PATH="${NODE_PATH:-"$HOME/.npm-packages/lib/node_modules"}"
 export NODE_OPTIONS="--max-old-space-size=16384"
