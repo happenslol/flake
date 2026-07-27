@@ -144,7 +144,6 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     Mod+Shift+End { spawn "systemctl" "suspend"; }
-    Mod+Ctrl+End { spawn-sh "swaylock -f -c 212121 && systemctl suspend"; }
 
     // Screenshots (niri has built-in screenshot support, no grimshot needed)
     Print { screenshot; }
