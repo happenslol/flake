@@ -44,6 +44,12 @@
       text = builtins.readFile ./config/udev/${rulesFile};
     };
 
+  lockScreen = pkgs.writeShellScript "lock-screen" ''
+    export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+    [ -S "$XDG_RUNTIME_DIR/bus" ] || exit 0
+    exec systemctl --user restart swaylock.service
+  '';
+
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
@@ -82,6 +88,21 @@ in {
       # Our root is on pool, so our pools are already imported whenever this
       # service would run.
       systemd-udev-settle.enable = false;
+
+      lock-before-sleep = {
+        description = "Lock the screen before sleeping";
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
+
+        serviceConfig = {
+          Type = "oneshot";
+          User = username;
+
+          # Don't let a wedged session block the suspend forever.
+          TimeoutStartSec = "10s";
+          ExecStart = lockScreen;
+        };
+      };
 
       # See https://bbs.archlinux.org/viewtopic.php?id=295916
       sleep-rfkill = {

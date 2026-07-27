@@ -98,6 +98,19 @@ in {
   };
 
   systemd.user.services = {
+    swaylock = {
+      Unit = {
+        Description = "Lock the screen";
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+        PartOf = ["graphical-session.target"];
+      };
+
+      Service = {
+        Type = "forking";
+        ExecStart = "${pkgs.swaylock}/bin/swaylock -f -c 212121";
+      };
+    };
+
     status = {
       Install.WantedBy = ["graphical-session.target"];
       Unit = {
