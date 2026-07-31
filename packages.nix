@@ -74,7 +74,6 @@ pkgs: {
     android-studio
     android-tools
     slack
-    swaylock
     libreoffice
     playerctl
     nix-index

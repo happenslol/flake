@@ -37,7 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    status.url = "github:happenslol/status";
+    launch.url = "github:happenslol/launch";
     ghostty.url = "github:ghostty-org/ghostty";
   };
 
@@ -79,6 +79,7 @@
       modules = [
         nix-index-database.nixosModules.nix-index
         sops-nix.nixosModules.sops
+        inputs.launch.nixosModules.default
         ./modules/pia-vpn.nix
         ./system.nix
         (./. + "/hosts/${hostname}/hardware-configuration.nix")

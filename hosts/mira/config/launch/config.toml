@@ -1,0 +1,4 @@
+primary_display = "eDP-1"
+
+[status]
+opacity = 0.35

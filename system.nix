@@ -44,12 +44,6 @@
       text = builtins.readFile ./config/udev/${rulesFile};
     };
 
-  lockScreen = pkgs.writeShellScript "lock-screen" ''
-    export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-    [ -S "$XDG_RUNTIME_DIR/bus" ] || exit 0
-    exec systemctl --user restart swaylock.service
-  '';
-
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKxWGDAzOaKWHDGILdbWFy+faN/X/LK+xwncd6+ysDW" # roe2.personal
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt4XK+lj/LK2hswmcbqYCL62sU/HLawpFv2QbPoOyWn" # hei.personal
@@ -97,10 +91,9 @@ in {
         serviceConfig = {
           Type = "oneshot";
           User = username;
-
-          # Don't let a wedged session block the suspend forever.
+          # Don't let a stuck session block the suspend forever.
           TimeoutStartSec = "10s";
-          ExecStart = lockScreen;
+          ExecStart = "exec ${pkgs.launch}/bin/launch lock";
         };
       };
 
@@ -219,6 +212,8 @@ in {
     niri = {
       enable = true;
     };
+
+    launch.enable = true;
 
     uwsm = {
       enable = true;

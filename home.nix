@@ -90,45 +90,11 @@ in {
     };
 
     pointerCursor = {
+      enable = true;
       gtk.enable = true;
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
       size = 24;
-    };
-  };
-
-  systemd.user.services = {
-    swaylock = {
-      Unit = {
-        Description = "Lock the screen";
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        PartOf = ["graphical-session.target"];
-      };
-
-      Service = {
-        Type = "forking";
-        ExecStart = "${pkgs.swaylock}/bin/swaylock -f -c 212121";
-      };
-    };
-
-    status = {
-      Install.WantedBy = ["graphical-session.target"];
-      Unit = {
-        Description = "Status";
-        PartOf = ["graphical-session.target"];
-        After = ["graphical-session.target"];
-      };
-
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.status}/bin/status";
-        Restart = "on-failure";
-        Environment = [];
-
-        # NOTE: Prob need this for dbus
-        # "XDG_RUNTIME_DIR=/run/user/1000"
-        # "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
-      };
     };
   };
 
@@ -154,7 +120,8 @@ in {
       "zed".source = "${dotfiles}/zed";
       "xkb".source = "${dotfiles}/xkb";
       "xdg-desktop-portal".source = "${dotfiles}/xdg-desktop-portal";
-      "status".source = "${hostDotfiles}/status";
+      "launch/config.toml".source = "${hostDotfiles}/launch/config.toml";
+      "launch/profile.webp".source = "${dotfiles}/launch/profile.webp";
       "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
       "atuin".source = "${dotfiles}/atuin";
 

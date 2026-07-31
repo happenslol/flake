@@ -136,7 +136,7 @@ binds {
     Mod+V { spawn "pavucontrol"; }
 
     // Hyper key bindings (Caps Lock → ISO_Level5_Shift via lv5:caps_switch)
-    ISO_Level5_Shift+J { spawn "/home/happens/code/launch/result/bin/launch"; }
+    ISO_Level5_Shift+J { spawn "launch"; }
     ISO_Level5_Shift+M { spawn "ghostty"; }
     ISO_Level5_Shift+H { spawn "firefox"; }
     ISO_Level5_Shift+Y { spawn "thunar"; }

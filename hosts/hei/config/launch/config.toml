@@ -1,0 +1,4 @@
+primary_display = "DP-2"
+
+[status]
+opacity = 0.15
