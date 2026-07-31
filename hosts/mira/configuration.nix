@@ -50,6 +50,9 @@
 
   services.blueman.enable = true;
 
+  # Framework ships BIOS/EC updates via LVFS; needed to run `fwupdmgr update`.
+  services.fwupd.enable = true;
+
   nix.settings = {
     cores = 4;
     max-jobs = 2;
