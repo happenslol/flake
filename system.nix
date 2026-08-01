@@ -83,19 +83,6 @@ in {
       # service would run.
       systemd-udev-settle.enable = false;
 
-      lock-before-sleep = {
-        description = "Lock the screen before sleeping";
-        before = ["sleep.target"];
-        wantedBy = ["sleep.target"];
-
-        serviceConfig = {
-          Type = "oneshot";
-          User = username;
-          # Don't let a stuck session block the suspend forever.
-          TimeoutStartSec = "10s";
-          ExecStart = "exec ${pkgs.launch}/bin/launch lock";
-        };
-      };
 
       # See https://bbs.archlinux.org/viewtopic.php?id=295916
       sleep-rfkill = {
