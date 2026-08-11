@@ -182,7 +182,7 @@ pkgs: {
     opencode
     pi
     amp
-    crush
     codex
+    omp
   ];
 }
