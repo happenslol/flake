@@ -83,7 +83,6 @@ in {
       # service would run.
       systemd-udev-settle.enable = false;
 
-
       # See https://bbs.archlinux.org/viewtopic.php?id=295916
       sleep-rfkill = {
         description = "Disable bluetooth and wifi while suspended";
