@@ -106,6 +106,7 @@ keybind = ctrl+e>ctrl+h=move_tab:-1
 
 # Send actual ctrl+e to terminal
 keybind = ctrl+e>ctrl+e=text:\x05
+keybind = ctrl+e>ctrl+e=end_key_sequence
 
 keybind = alt+one=goto_tab:1
 keybind = alt+two=goto_tab:2
