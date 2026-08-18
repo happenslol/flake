@@ -50,7 +50,6 @@ return {
         accept = { auto_brackets = { enabled = true } },
 
         menu = {
-          border = "rounded",
           max_height = 10,
           draw = {
             treesitter = { "lsp" },
@@ -70,7 +69,6 @@ return {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
-          window = { border = "rounded" },
         },
       },
     },
@@ -80,7 +78,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "b0o/SchemaStore.nvim", version = false },
     },
     opts = function()
@@ -93,7 +90,6 @@ return {
           float = {
             focused = false,
             style = "minimal",
-            border = "rounded",
             source = "always",
             header = "",
             prefix = "",
@@ -103,7 +99,8 @@ return {
         },
         servers = {
           jsonls = {
-            on_new_config = function(new_config)
+            -- lazy-load schemastore when needed
+            before_init = function(_, new_config)
               new_config.settings.json.schemas = new_config.settings.json.schemas or {}
               vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
             end,
@@ -115,11 +112,30 @@ return {
             },
           },
           yamlls = {
-            on_new_config = function(new_config)
-              new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
-              vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+            -- yamlls needs this to know we support line folding
+            capabilities = {
+              textDocument = {
+                foldingRange = {
+                  dynamicRegistration = false,
+                  lineFoldingOnly = true,
+                },
+              },
+            },
+            -- lazy-load schemastore when needed
+            before_init = function(_, new_config)
+              new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+                "force",
+                new_config.settings.yaml.schemas or {},
+                require("schemastore").yaml.schemas()
+              )
             end,
-            settings = { yaml = { keyOrdering = false } },
+            settings = {
+              yaml = {
+                keyOrdering = false,
+                -- disable built-in schema fetching in favor of SchemaStore.nvim
+                schemaStore = { enable = false, url = "" },
+              },
+            },
           },
           vtsls = {
             -- Speed up lsp by requiring the root directory to be a git repo
@@ -213,6 +229,18 @@ return {
             end,
           },
           eslint = {},
+          oxlint = {
+            root_dir = function(bufnr, on_dir)
+              -- prefer the top-level oxlint config if it exists (monorepo support)
+              local markers = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts" }
+              local git = vim.fs.root(bufnr, ".git")
+              local root = git and vim.fs.root(git, markers) or vim.fs.root(bufnr, markers)
+              if root then
+                on_dir(root)
+              end
+            end,
+            settings = { fixKind = "all" },
+          },
           zls = {},
 
           tsp_server = {},
@@ -220,18 +248,8 @@ return {
       }
     end,
     config = vim.schedule_wrap(function(_, opts)
-      local util = require("util")
-      local lspconfig = require("lspconfig")
-      local configs = require("lspconfig.configs")
-
-      util.lsp.setup()
-
       vim.diagnostic.config({
-        jump = {
-          on_jump = function()
-            vim.diagnostic.open_float({ focus = false })
-          end,
-        },
+        jump = { float = true },
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = " ",
@@ -242,47 +260,61 @@ return {
         },
       })
 
-      configs.tsp_server = {
-        default_config = {
-          cmd = { "tsp-server", "--stdio" },
-          filetypes = { "typespec" },
-          root_dir = lspconfig.util.root_pattern("tspconfig.yaml", ".git"),
-          settings = {},
-        },
-      }
+      vim.lsp.config("tsp_server", {
+        cmd = { "tsp-server", "--stdio" },
+        filetypes = { "typespec" },
+        root_markers = { "tspconfig.yaml", ".git" },
+      })
 
-      util.lsp.on_attach(function(client, buffer)
-        -- Disable semantic tokens for performance
-        client.server_capabilities["semanticTokensProvider"] = nil
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("custom_lsp_attach", { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client then
+            return
+          end
+          local buffer = args.buf
 
-        local function map(mode, lhs, rhs, map_opts)
-          map_opts = map_opts or {}
-          map_opts.buffer = buffer
-          map_opts.silent = map_opts.silent ~= false
-          vim.keymap.set(mode, lhs, rhs, map_opts)
-        end
+          -- Disable semantic tokens for performance
+          client.server_capabilities["semanticTokensProvider"] = nil
 
-        map("n", "]e", function()
-          vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
-        end, { desc = "Next Error" })
-        map("n", "[e", function()
-          vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
-        end, { desc = "Previous Error" })
+          local function map(mode, lhs, rhs, map_opts)
+            map_opts = map_opts or {}
+            map_opts.buffer = buffer
+            map_opts.silent = map_opts.silent ~= false
+            vim.keymap.set(mode, lhs, rhs, map_opts)
+          end
 
-        map("n", "gI", function()
-          Snacks.picker.lsp_implementations()
-        end, { desc = "Goto Implementation" })
-        map("n", "gt", function()
-          Snacks.picker.lsp_type_definitions()
-        end, { desc = "Goto Type" })
-        map("n", "grr", function()
-          Snacks.picker.lsp_references()
-        end, { desc = "Show References" })
+          map("n", "]e", function()
+            vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+          end, { desc = "Next Error" })
+          map("n", "[e", function()
+            vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+          end, { desc = "Previous Error" })
 
-        if client.server_capabilities["definitionProvider"] then
-          map("n", "gd", function()
-            Snacks.picker.lsp_definitions()
-          end, { desc = "Goto Definition" })
+          map("n", "gI", function()
+            Snacks.picker.lsp_implementations()
+          end, { desc = "Goto Implementation" })
+          map("n", "gt", function()
+            Snacks.picker.lsp_type_definitions()
+          end, { desc = "Goto Type" })
+          map("n", "grr", function()
+            Snacks.picker.lsp_references()
+          end, { desc = "Show References" })
+
+          if client:supports_method("textDocument/definition") then
+            map("n", "gd", function()
+              Snacks.picker.lsp_definitions()
+            end, { desc = "Goto Definition" })
+          end
+        end,
+      })
+
+      -- Prefer LSP folds over the treesitter foldexpr fallback when the server
+      -- provides them (handles dynamically registered capabilities too)
+      Snacks.util.lsp.on({ method = "textDocument/foldingRange" }, function(buf)
+        for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+          vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
         end
       end)
 
@@ -334,7 +366,6 @@ return {
     event = { "BufRead Cargo.toml" },
     opts = {
       completion = { crates = { enabled = true } },
-      popup = { border = "rounded" },
       lsp = {
         enabled = true,
         actions = true,
@@ -351,9 +382,8 @@ return {
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "LazyVim", words = { "LazyVim" } },
         { path = "snacks.nvim", words = { "Snacks" } },
-        { path = "lazy.nvim", words = { "LazyVim" } },
+        { path = "lazy.nvim", words = { "LazySpec" } },
       },
     },
   },

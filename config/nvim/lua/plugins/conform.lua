@@ -1,7 +1,7 @@
 -- Formatting strategy for web projects, resolved per project root:
 --
 --   .oxfmtrc.json   -> format with oxfmt   (disables prettier + biome)
---   .oxlintrc.json  -> fix with oxlint     (disables eslint + biome)
+--   .oxlintrc.json  -> fix with the oxlint LSP server (disables eslint + biome)
 --   biome.json      -> biome check, i.e. format + fix (disables prettier, keeps eslint)
 --   .prettierrc /
 --   .eslintrc       -> prettier + eslint --fix
@@ -12,8 +12,8 @@
 
 -- Marker files (and package.json keys) that identify each tool's config.
 local detectors = {
-  oxfmt = { files = { ".oxfmtrc.json", ".oxfmtrc.jsonc" } },
-  oxlint = { files = { ".oxlintrc.json", ".oxlintrc.jsonc" } },
+  oxfmt = { files = { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts" } },
+  oxlint = { files = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts" } },
   biome = { files = { "biome.json", "biome.jsonc", ".biome.json", ".biome.jsonc" } },
   prettier = {
     pkg_key = "prettier",
@@ -85,9 +85,10 @@ local function any_config(dir)
   return false
 end
 
--- LSP clients conform is allowed to format with (eslint applies its fixes here).
+-- LSP clients conform is allowed to format with (eslint/oxlint apply their fixes here).
 local enabled_lsp_formatters = {
   "eslint",
+  "oxlint",
   "rust-analyzer",
   "taplo",
   "tsp_server",
@@ -131,10 +132,6 @@ return {
   ---@module "conform"
   ---@type fun():conform.setupOpts
   opts = function()
-    -- Neovim's per-session temp dir, so conform's temp files (oxlint, see below)
-    -- don't get dropped next to the files being formatted.
-    local tmpdir = vim.fs.dirname(vim.fn.tempname())
-
     -- Filetypes each toolchain can handle.
     local prettier_fts = {
       "css",
@@ -191,7 +188,7 @@ return {
     end
 
     -- Order matters: fix first, then format, so the formatter has the final say.
-    add(ox_fts, "oxlint")
+    -- (oxlint fixes are applied by its LSP server via lsp_format above.)
     add(ox_fts, "oxfmt")
     add(biome_fts, "biome")
     add(prettier_fts, "prettierd")
@@ -203,17 +200,6 @@ return {
         oxfmt = {
           condition = function(_, ctx)
             return detect("oxfmt", ctx.dirname)
-          end,
-        },
-        oxlint = {
-          -- `oxlint --fix` writes to disk (it has no fix-to-stdout mode), so conform
-          -- has to hand it a temp file. Put that temp file in the session temp dir
-          -- instead of next to the source, and run from the config root so
-          -- .oxlintrc.json is still discovered.
-          cwd = require("conform.util").root_file({ ".oxlintrc.json", ".oxlintrc.jsonc" }),
-          tmpfile_format = tmpdir .. "/conform.$RANDOM.$FILENAME",
-          condition = function(_, ctx)
-            return detect("oxlint", ctx.dirname)
           end,
         },
         biome = {
