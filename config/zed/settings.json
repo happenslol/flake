@@ -20,12 +20,13 @@
   "vim_mode": true,
   "ui_font_size": 18,
   "buffer_font_size": 18,
-  "ui_font_family": "Figtree",
   "buffer_font_family": "IosevkaTerm Nerd Font Mono",
   "theme": {
     "light": "cozy night",
     "dark": "cozy night",
   },
+
+  "language_servers": ["!typescript-language-server"],
 
   "pane_split_direction_horizontal": "down",
   "pane_split_direction_vertical": "right",
