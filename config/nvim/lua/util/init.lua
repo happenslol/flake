@@ -1,8 +1,5 @@
 ---@class util
----@field lsp util.lsp
 local M = {}
-
-M.lsp = require("util.lsp")
 
 M.skip_foldexpr = {} ---@type table<number,boolean>
 ---@diagnostic disable-next-line: undefined-field

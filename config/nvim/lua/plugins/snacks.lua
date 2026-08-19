@@ -8,7 +8,12 @@ return {
     bigfile = { enabled = true },
     dashboard = { enabled = false },
     explorer = { enabled = false },
-    indent = { enabled = false },
+    indent = {
+      enabled = true,
+      indent = { enabled = false },
+      animate = { duration = { step = 20, total = 200 } },
+      scope = { enabled = true, only_current = true },
+    },
     input = { enabled = true },
     notifier = { enabled = false },
     quickfile = { enabled = true },

@@ -69,45 +69,4 @@ return {
     event = "VeryLazy",
     config = true,
   },
-
-  {
-    "echasnovski/mini.indentscope",
-    event = "VeryLazy",
-    opts = function()
-      local indentscope = require("mini.indentscope")
-
-      return {
-        symbol = "│",
-        options = { try_as_border = true },
-        draw = {
-          delay = 50,
-          animation = indentscope.gen_animation.linear({
-            duration = 100,
-            unit = "total",
-          }),
-        },
-      }
-    end,
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "alpha",
-          "dashboard",
-          "fzf",
-          "help",
-          "lazy",
-          "lazyterm",
-          "mason",
-          "neo-tree",
-          "notify",
-          "toggleterm",
-          "Trouble",
-          "trouble",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-    end,
-  },
 }

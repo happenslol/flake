@@ -6,6 +6,10 @@ M.url = "https://github.com/folke/snacks.nvim"
 function M.get(c, opts)
   -- stylua: ignore
   return {
+    -- Same look as the old MiniIndentscopeSymbol
+    SnacksIndent                  = { fg = c.fg_gutter, nocombine = true },
+    SnacksIndentScope             = { fg = c.fg_gutter, nocombine = true },
+
     SnacksPicker                  = { bg = c.bg_float },
     SnacksPickerBorder            = { fg = c.bg_float, bg = c.bg_float },
     SnacksPickerInput             = { fg = c.fg, bg = c.bg_float },
