@@ -124,6 +124,7 @@ in {
       "launch/profile.webp".source = "${dotfiles}/launch/profile.webp";
       "ccstatusline/settings.json".source = "${dotfiles}/claude/ccstatusline.json";
       "atuin".source = "${dotfiles}/atuin";
+      "easyeffects/input/default.json".source = "${dotfiles}/easyeffects/input/default.json";
 
       # Read by the systemd user manager → niri and everything it spawns.
       "environment.d/90-gtk-pixbuf-loaders.conf".text = ''
