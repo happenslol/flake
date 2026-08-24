@@ -325,6 +325,21 @@ in {
           "default.clock.max-quantum" = 4096;
         };
       };
+
+      extraConfig.pipewire-pulse."20-block-source-volume" = {
+        "pulse.rules" = [
+          {
+            matches = [
+              {"application.process.binary" = "~.*[Dd]iscord.*";}
+              {"application.process.binary" = "~.*[Ss]lack.*";}
+              {"application.process.binary" = "~.*[Ss]ignal.*";}
+              {"application.process.binary" = "~.*[Tt]eams.*";}
+              {"application.process.binary" = "~.*[Zz]oom.*";}
+            ];
+            actions.quirks = ["block-source-volume"];
+          }
+        ];
+      };
     };
 
     greetd = {
