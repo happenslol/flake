@@ -28,6 +28,12 @@
 
   "language_servers": ["!typescript-language-server"],
 
+  "auto_install_extensions": {
+    "oxc": true,
+    "graphql": true,
+    "relay": true
+  },
+
   "pane_split_direction_horizontal": "down",
   "pane_split_direction_vertical": "right",
 
