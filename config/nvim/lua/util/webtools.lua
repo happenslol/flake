@@ -52,13 +52,14 @@ local detectors = {
 
 M.detectors = detectors
 
--- Whether `tool`'s config exists above `dir`, cached per (tool, dir).
+-- Root of the project `tool` is configured in, cached per (tool, dir). `false`
+-- means "walked up to / and found nothing", which is worth caching too.
 local cache = {}
 
 ---@param tool string
 ---@param dir? string defaults to the current working directory
----@return boolean
-function M.detect(tool, dir)
+---@return string? root directory holding the tool's config
+function M.root(tool, dir)
   dir = (type(dir) == "string" and dir ~= "") and dir or vim.fn.getcwd()
   local key = tool .. "\0" .. dir
   if cache[key] == nil then
@@ -74,9 +75,16 @@ function M.detect(tool, dir)
         return (ok and type(data) == "table" and data[spec.pkg_key] ~= nil) or false
       end
       return false
-    end) ~= nil
+    end) or false
   end
-  return cache[key]
+  return cache[key] or nil
+end
+
+---@param tool string
+---@param dir? string defaults to the current working directory
+---@return boolean
+function M.detect(tool, dir)
+  return M.root(tool, dir) ~= nil
 end
 
 -- True if any of the tools we care about is configured in this project.
