@@ -1,88 +1,27 @@
--- Formatting strategy for web projects, resolved per project root:
+-- Formatting strategy for web projects, resolved per project root. The first
+-- match wins, so oxfmt/oxlint take precedence over deno, which takes precedence
+-- over biome, which takes precedence over prettier/eslint:
 --
---   .oxfmtrc.json   -> format with oxfmt   (disables prettier + biome)
---   .oxlintrc.json  -> fix with the oxlint LSP server (disables eslint + biome)
+--   .oxfmtrc.json   -> format with oxfmt   (disables prettier + biome + deno fmt)
+--   .oxlintrc.json  -> fix with the oxlint LSP server (disables eslint + biome + deno lint)
+--   deno.json       -> deno fmt + the deno LSP's linter (disables prettier + biome)
 --   biome.json      -> biome check, i.e. format + fix (disables prettier, keeps eslint)
 --   .prettierrc /
 --   .eslintrc       -> prettier + eslint --fix
 --   (nothing)       -> biome check (format + fix)
 --
--- Formatting (oxfmt/biome/prettier) and fixing (oxlint/biome/eslint) are two
--- separate axes, so combinations like oxfmt + oxlint or biome + eslint work.
+-- Formatting (oxfmt/deno/biome/prettier) and fixing (oxlint/deno/biome/eslint)
+-- are two separate axes, so combinations like oxfmt + oxlint or biome + eslint
+-- work. Note that oxfmt and oxlint each disable deno on *both* axes, since a
+-- project that opts into either has opted out of the deno toolchain.
 
--- Marker files (and package.json keys) that identify each tool's config.
-local detectors = {
-  oxfmt = { files = { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts" } },
-  oxlint = { files = { ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts" } },
-  biome = { files = { "biome.json", "biome.jsonc", ".biome.json", ".biome.jsonc" } },
-  prettier = {
-    pkg_key = "prettier",
-    files = {
-      ".prettierrc",
-      ".prettierrc.json",
-      ".prettierrc.yml",
-      ".prettierrc.yaml",
-      ".prettierrc.json5",
-      ".prettierrc.js",
-      ".prettierrc.cjs",
-      ".prettierrc.mjs",
-      ".prettierrc.ts",
-      ".prettierrc.toml",
-      "prettier.config.js",
-      "prettier.config.cjs",
-      "prettier.config.mjs",
-      "prettier.config.ts",
-    },
-  },
-  eslint = {
-    pkg_key = "eslintConfig",
-    files = {
-      ".eslintrc",
-      ".eslintrc.js",
-      ".eslintrc.cjs",
-      ".eslintrc.json",
-      ".eslintrc.yaml",
-      ".eslintrc.yml",
-      "eslint.config.js",
-      "eslint.config.mjs",
-      "eslint.config.cjs",
-      "eslint.config.ts",
-      "eslint.config.mts",
-    },
-  },
-}
+-- Marker detection is shared with the denols LSP config.
+local webtools = require("util.webtools")
+local detect, any_config = webtools.detect, webtools.any_config
 
--- Whether `tool`'s config exists above `dir`, cached per (tool, dir).
-local cache = {}
-local function detect(tool, dir)
-  dir = (dir and dir ~= "") and dir or vim.fn.getcwd()
-  local key = tool .. "\0" .. dir
-  if cache[key] == nil then
-    local spec = detectors[tool]
-    cache[key] = vim.fs.root(dir, function(name, path)
-      if vim.tbl_contains(spec.files, name) then
-        return true
-      end
-      if spec.pkg_key and name == "package.json" then
-        local ok, data = pcall(function()
-          return vim.json.decode(table.concat(vim.fn.readfile(vim.fs.joinpath(path, name)), "\n"))
-        end)
-        return (ok and type(data) == "table" and data[spec.pkg_key] ~= nil) or false
-      end
-      return false
-    end) ~= nil
-  end
-  return cache[key]
-end
-
--- True if any of the tools we care about is configured in this project.
-local function any_config(dir)
-  for tool in pairs(detectors) do
-    if detect(tool, dir) then
-      return true
-    end
-  end
-  return false
+-- The deno toolchain only owns a project when no ox tool has taken over.
+local function deno_owns(dir)
+  return detect("deno", dir) and not webtools.ox_overrides_deno(dir)
 end
 
 -- LSP clients conform is allowed to format with (eslint/oxlint apply their fixes here).
@@ -169,6 +108,22 @@ return {
       "typescript",
       "typescriptreact",
     }
+    -- Filetypes `deno fmt` handles without --unstable-component.
+    local deno_fts = {
+      "css",
+      "html",
+      "javascript",
+      "javascriptreact",
+      "json",
+      "jsonc",
+      "less",
+      "markdown",
+      "sass",
+      "scss",
+      "typescript",
+      "typescriptreact",
+      "yaml",
+    }
 
     local formatters_by_ft = {
       lua = { "stylua" },
@@ -189,6 +144,7 @@ return {
 
     -- Order matters: fix first, then format, so the formatter has the final say.
     -- (oxlint fixes are applied by its LSP server via lsp_format above.)
+    add(deno_fts, "deno_fmt")
     add(ox_fts, "oxfmt")
     add(biome_fts, "biome")
     add(prettier_fts, "prettierd")
@@ -197,6 +153,11 @@ return {
     return {
       formatters_by_ft = formatters_by_ft,
       formatters = {
+        deno_fmt = {
+          condition = function(_, ctx)
+            return deno_owns(ctx.dirname)
+          end,
+        },
         oxfmt = {
           condition = function(_, ctx)
             return detect("oxfmt", ctx.dirname)
@@ -206,8 +167,8 @@ return {
           -- `check` runs the formatter + lint fixes; assist (import sorting) stays off.
           args = { "check", "--write", "--assist-enabled=false", "--stdin-file-path", "$FILENAME" },
           condition = function(_, ctx)
-            -- oxfmt/oxlint take over biome's job entirely when configured.
-            if detect("oxfmt", ctx.dirname) or detect("oxlint", ctx.dirname) then
+            -- deno/oxfmt/oxlint take over biome's job entirely when configured.
+            if detect("oxfmt", ctx.dirname) or detect("oxlint", ctx.dirname) or detect("deno", ctx.dirname) then
               return false
             end
             -- Explicit biome project, or the fallback when nothing else is configured.
@@ -217,6 +178,12 @@ return {
         prettierd = {
           condition = function(_, ctx)
             local ft = vim.bo[ctx.buf].filetype
+
+            -- deno fmt owns every filetype it supports, including the ones
+            -- biome can't handle (markdown, yaml, html, ...).
+            if deno_owns(ctx.dirname) then
+              return false
+            end
 
             -- oxfmt owns js/ts formatting when configured.
             if vim.tbl_contains(ox_fts, ft) and detect("oxfmt", ctx.dirname) then

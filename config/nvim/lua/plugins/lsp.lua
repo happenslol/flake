@@ -158,6 +158,23 @@ return {
               },
             },
           },
+          denols = {
+            -- denols and vtsls never attach to the same buffer: lspconfig's
+            -- root_dir for both compares the nearest deno.json/deno.lock with
+            -- the nearest package manager lockfile, and the closer one wins.
+            settings = {
+              deno = {
+                lint = true,
+              },
+            },
+            -- oxlint/oxfmt replace the deno toolchain where they are configured
+            -- (see plugins/conform.lua), so deno's lint rules would only fight
+            -- them. Type errors keep coming from deno either way.
+            before_init = function(params, config)
+              config.settings.deno.lint = not require("util.webtools").ox_overrides_deno(params.rootPath)
+            end,
+          },
+
           lua_ls = {
             settings = {
               Lua = {

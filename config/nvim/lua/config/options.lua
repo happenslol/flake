@@ -82,3 +82,6 @@ opt.foldtext = ""
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+
+-- denols returns hover/completion docs in ```ts fences
+vim.g.markdown_fenced_languages = { "ts=typescript" }
