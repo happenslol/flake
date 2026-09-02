@@ -18,7 +18,7 @@
 
 [core]
   sshCommand = "ssh -i ~/.ssh/$(hostname).personal.id_ed25519"
-  pager = delta
+  # pager = delta
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
 
@@ -43,7 +43,7 @@
   conflictStyle = "diff3"
 
 [diff]
-  # external = difft --display=side-by-side-show-both --tab-width=2
+  external = difft --display=side-by-side-show-both --tab-width=2
 
 [merge "mergiraf"]
   name = mergiraf

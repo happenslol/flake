@@ -39,6 +39,7 @@
 
     launch.url = "github:happenslol/launch";
     ghostty.url = "github:ghostty-org/ghostty";
+    difftastic.url = "github:happenslol/difftastic/delta-ui";
   };
 
   outputs = inputs @ {

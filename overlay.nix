@@ -2,6 +2,7 @@ inputs: self: super: {
   serve = inputs.serve.packages.${self.stdenv.hostPlatform.system}.default;
   launch = inputs.launch.packages.${self.stdenv.hostPlatform.system}.default;
   ghostty = inputs.ghostty.packages.${self.stdenv.hostPlatform.system}.default;
+  difftastic = inputs.difftastic.packages.${self.stdenv.hostPlatform.system}.default;
 
   # Add our bundled npm packages
   npm-global = self.callPackage ./npm-global {};
