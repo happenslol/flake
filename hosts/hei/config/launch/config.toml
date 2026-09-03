@@ -1,4 +1,5 @@
-primary_display = "DP-2"
+primary_display = "DP-1"
 
 [status]
-opacity = 0.15
+display = "DP-2"
+opacity = 0.25
