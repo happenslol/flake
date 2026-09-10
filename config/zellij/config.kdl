@@ -1,0 +1,27 @@
+// Unlock-first: zellij boots locked, so every keypress reaches the shell
+// untouched. Ctrl+e unlocks into normal mode; pressing it a second time writes
+// a literal Ctrl+e (byte 0x05) and locks straight back up.
+
+keybinds {
+    unbind "Ctrl g"
+
+    normal {
+        bind "Ctrl e" { Write 5; SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        bind "h" "Left" { MoveFocus "Left"; }
+        bind "j" "Down" { MoveFocus "Down"; }
+        bind "k" "Up" { MoveFocus "Up"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+    }
+
+    locked {
+        bind "Ctrl e" { SwitchToMode "Normal"; }
+    }
+
+    shared_except "normal" "locked" {
+        bind "Ctrl e" { SwitchToMode "Locked"; }
+    }
+}
+
+default_mode "locked"

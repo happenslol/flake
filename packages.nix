@@ -166,6 +166,7 @@ pkgs: {
     smolvm
     microsandbox
     deno
+    zellij
   ];
 
   beam = with pkgs.beam27Packages; [

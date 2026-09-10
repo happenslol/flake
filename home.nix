@@ -107,6 +107,7 @@ in {
       "zsh".source = "${dotfiles}/zsh";
       "kitty".source = "${dotfiles}/kitty";
       "ghostty".source = "${dotfiles}/ghostty";
+      "zellij".source = "${dotfiles}/zellij";
       "starship.toml".source = "${dotfiles}/starship/starship.toml";
       "sway".source = "${dotfiles}/sway";
       "niri".source = "${dotfiles}/niri";
