@@ -1,0 +1,33 @@
+// Unlock-first: zellij boots locked, so every keypress reaches the shell
+// untouched. Ctrl+a unlocks into normal mode; pressing it a second time writes
+// a literal Ctrl+a (byte 0x01) and locks straight back up.
+//
+// Ctrl+a rather than Ctrl+e because kitty and ghostty both already claim
+// Ctrl+e as their own tab/split prefix.
+
+keybinds {
+    unbind "Ctrl g"
+
+    normal {
+        bind "Ctrl a" { Write 1; SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        bind "h" "Left" { MoveFocus "Left"; }
+        bind "j" "Down" { MoveFocus "Down"; }
+        bind "k" "Up" { MoveFocus "Up"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+    }
+
+    locked {
+        bind "Ctrl a" { SwitchToMode "Normal"; }
+    }
+
+    shared_except "normal" "locked" {
+        bind "Ctrl a" { SwitchToMode "Locked"; }
+    }
+}
+
+default_mode "locked"
+
+// Defined in themes/cozynight.kdl
+theme "cozynight"

@@ -1,0 +1,143 @@
+// cozynight — mirrors config/nvim/lua/cozynight/colors/dark.lua and the shared
+// kitty/ghostty palette. Backgrounds sit on bg (#212121) so zellij's chrome
+// blends into the terminal the same way the kitty tab bar does.
+
+themes {
+    cozynight {
+        // Plain UI text: status bar body, help lines, plugin prose.
+        text_unselected {
+            base "#eeffff"         // fg
+            background "#212121"   // bg
+            emphasis_0 "#f78c6c"   // orange
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c3e88d"   // green
+            emphasis_3 "#c792ea"   // purple
+        }
+        text_selected {
+            base "#eeffff"         // fg
+            background "#2d2d2d"   // bg_highlight
+            emphasis_0 "#f78c6c"   // orange
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c3e88d"   // green
+            emphasis_3 "#c792ea"   // purple
+        }
+
+        // Mode ribbons in the status bar and the tab bar.
+        ribbon_unselected {
+            base "#becccc"         // fg_dark
+            background "#2d2d2d"   // bg_highlight
+            emphasis_0 "#f07178"   // red
+            emphasis_1 "#eeffff"   // fg
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#82aaff"   // blue
+        }
+        ribbon_selected {
+            base "#212121"         // bg, punched out of the accent
+            background "#82aaff"   // blue
+            emphasis_0 "#f07178"   // red
+            emphasis_1 "#212121"   // bg
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#ffcb6b"   // yellow
+        }
+
+        // Session manager / plugin lists.
+        list_unselected {
+            base "#eeffff"         // fg
+            background "#212121"   // bg
+            emphasis_0 "#ffcb6b"   // yellow
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#c3e88d"   // green
+        }
+        list_selected {
+            base "#eeffff"         // fg
+            background "#2d2d2d"   // bg_highlight
+            emphasis_0 "#ffcb6b"   // yellow
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#c3e88d"   // green
+        }
+
+        // Plugin tables.
+        table_title {
+            base "#82aaff"         // blue
+            background "#212121"   // bg
+            emphasis_0 "#f78c6c"   // orange
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c3e88d"   // green
+            emphasis_3 "#c792ea"   // purple
+        }
+        table_cell_unselected {
+            base "#eeffff"         // fg
+            background "#212121"   // bg
+            emphasis_0 "#ffcb6b"   // yellow
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#c3e88d"   // green
+        }
+        table_cell_selected {
+            base "#eeffff"         // fg
+            background "#2d2d2d"   // bg_highlight
+            emphasis_0 "#ffcb6b"   // yellow
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#c3e88d"   // green
+        }
+
+        // Pane frames — same accents kitty/ghostty use for split borders.
+        frame_unselected {
+            base "#4f4f4f"         // inactive_border_color
+            background "#212121"   // bg
+            emphasis_0 "#f78c6c"   // orange
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c3e88d"   // green
+            emphasis_3 "#c792ea"   // purple
+        }
+        frame_selected {
+            base "#82aaff"         // active_border_color
+            background "#212121"   // bg
+            emphasis_0 "#ffcb6b"   // yellow
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#c3e88d"   // green
+            emphasis_3 "#c792ea"   // purple
+        }
+        frame_highlight {
+            base "#ffcb6b"         // yellow
+            background "#212121"   // bg
+            emphasis_0 "#f78c6c"   // orange
+            emphasis_1 "#eeffff"   // fg
+            emphasis_2 "#c792ea"   // purple
+            emphasis_3 "#c3e88d"   // green
+        }
+
+        exit_code_success {
+            base "#c3e88d"         // green
+            background "#212121"   // bg
+            emphasis_0 "#98d3cb"   // teal
+            emphasis_1 "#89ddff"   // cyan
+            emphasis_2 "#82aaff"   // blue
+            emphasis_3 "#c792ea"   // purple
+        }
+        exit_code_error {
+            base "#f07178"         // red
+            background "#212121"   // bg
+            emphasis_0 "#ff8b92"   // red1
+            emphasis_1 "#ffcb6b"   // yellow
+            emphasis_2 "#f78c6c"   // orange
+            emphasis_3 "#c792ea"   // purple
+        }
+
+        multiplayer_user_colors {
+            player_1 "#c792ea"     // purple
+            player_2 "#89ddff"     // cyan
+            player_3 "#c3e88d"     // green
+            player_4 "#ffcb6b"     // yellow
+            player_5 "#f78c6c"     // orange
+            player_6 "#98d3cb"     // teal
+            player_7 "#f07178"     // red
+            player_8 "#82aaff"     // blue
+            player_9 "#becccc"     // fg_dark
+            player_10 "#6f6f6f"    // comment
+        }
+    }
+}
