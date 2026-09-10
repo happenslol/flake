@@ -523,5 +523,29 @@ in
           done
         '';
       };
+
+      # PIA expires the server-side WireGuard session while we are asleep, so
+      # on resume the interface is up but the tunnel is dead. pia-vpn.service is
+      # a oneshot with RemainAfterExit, so systemd parks it at "active (exited)"
+      # and never re-runs it, while pia-vpn-portforward.service retries forever
+      # against the stale gateway from wireguard.json. Nothing recovers without
+      # a manual restart, so reconnect on resume.
+      #
+      # Ordered after the sleep targets rather than sleep.target: sleep.target
+      # is reached before the machine actually suspends, the sleep targets only
+      # once it has come back.
+      systemd.services.pia-vpn-resume = {
+        description = "Reconnect Private Internet Access on ${cfg.interface} after resume";
+        after = ["suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target"];
+        wantedBy = ["suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target"];
+
+        # Restarting the VPN on every nixos-rebuild would be gratuitous.
+        restartIfChanged = false;
+
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/systemctl restart pia-vpn.service";
+        };
+      };
     };
   }
