@@ -167,6 +167,7 @@ pkgs: {
     microsandbox
     deno
     zellij
+    bitwig-studio
   ];
 
   beam = with pkgs.beam27Packages; [
