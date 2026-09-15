@@ -10,7 +10,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "fable",
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bunx -y ccstatusline@latest",
