@@ -108,7 +108,7 @@ pkgs: {
     foot
     sccache
     cargo-wizard
-    gcr # gnome keyring SystemPrompter
+    gcr_3 # gnome keyring SystemPrompter (gcr_4 dropped the prompter)
     difftastic
     mergiraf
     tealdeer
