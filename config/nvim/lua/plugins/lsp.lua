@@ -173,6 +173,28 @@ return {
             before_init = function(params, config)
               config.settings.deno.lint = not require("util.webtools").ox_overrides_deno(params.rootPath)
             end,
+            -- deno lists "Copy inferred type" ahead of import fixes, so move
+            -- "Add/Update import ..." actions to the front (keeping their order)
+            on_attach = function(client)
+              local request = client.request
+              client.request = function(self, method, params, handler, bufnr)
+                if method == "textDocument/codeAction" and handler then
+                  local inner = handler
+                  handler = function(err, result, ...)
+                    if type(result) == "table" then
+                      local imports, rest = {}, {}
+                      for _, action in ipairs(result) do
+                        local is_import = action.title:match("^Add import") or action.title:match("^Update import")
+                        table.insert(is_import and imports or rest, action)
+                      end
+                      result = vim.list_extend(imports, rest)
+                    end
+                    return inner(err, result, ...)
+                  end
+                end
+                return request(self, method, params, handler, bufnr)
+              end
+            end,
           },
 
           lua_ls = {
