@@ -52,6 +52,7 @@ inputs: self: super: {
   # inherit (super.callPackage ./apps/fonts.nix {}) dm-sans satoshi;
 
   # Apps we package ourselves; see ./apps/.
+  a2tools-dps-meter = self.callPackage ./apps/a2tools-dps-meter.nix {};
   codelldb = self.callPackage ./apps/codelldb.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
   fence = self.callPackage ./apps/fence.nix {};
