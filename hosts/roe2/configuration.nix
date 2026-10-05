@@ -296,6 +296,18 @@
     "127.0.0.1" = ["transmission.local" "radarr.local" "sonarr.local" "bazarr.local" "jellyfin.local"];
   };
 
+  environment.systemPackages = [pkgs.a2tools-dps-meter];
+
+  # The DPS meter captures packets with libpcap. Upstream grants these with
+  # setcap in its postinst; the store can't carry file capabilities, so the
+  # wrapper hands them over as ambient capabilities instead.
+  security.wrappers.a2tools-dps-meter = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_raw,cap_net_admin+ep";
+    source = lib.getExe pkgs.a2tools-dps-meter;
+  };
+
   systemd.services.corsair-h150i-liquidctl = {
     enable = true;
     description = "CPU AIO Fan Control";
