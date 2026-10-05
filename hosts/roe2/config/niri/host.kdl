@@ -65,3 +65,16 @@ input {
         map-to-focused-output
     }
 }
+
+// A2Tools DPS Meter overlay: float it over the game without border or blur.
+// niri has no sticky windows, so it stays on the workspace it opened on.
+window-rule {
+    match app-id=r#"^a2tools-dps-meter$"#
+    open-floating true
+    border {
+        off
+    }
+    background-effect {
+        blur false
+    }
+}
