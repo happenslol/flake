@@ -128,8 +128,8 @@ layer-rule {
 binds {
     // Application launchers
     Mod+P { spawn "fuzzel"; }
-    Mod+X { spawn "ghostty"; }
-    Mod+Shift+X { spawn "kitty" "-1"; }
+    Mod+Shift+X { spawn "ghostty"; }
+    Mod+X { spawn "kitty" "-1"; }
     Mod+Z { spawn "firefox"; }
     Mod+C { spawn "zeditor"; }
     Mod+E { spawn "thunar"; }
@@ -137,7 +137,7 @@ binds {
 
     // Hyper key bindings (Caps Lock → ISO_Level5_Shift via lv5:caps_switch)
     ISO_Level5_Shift+J { spawn "launch"; }
-    ISO_Level5_Shift+M { spawn "ghostty"; }
+    ISO_Level5_Shift+M { spawn "kitty" "-1"; }
     ISO_Level5_Shift+H { spawn "firefox"; }
     ISO_Level5_Shift+Y { spawn "thunar"; }
 
