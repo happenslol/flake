@@ -133,6 +133,12 @@ in {
       '';
     };
 
+    # Referenced by the zjstatus plugin alias in config/zellij/config.kdl.
+    dataFile."zellij/plugins/zjstatus.wasm".source = pkgs.fetchurl {
+      url = "https://github.com/dj95/zjstatus/releases/download/v0.25.0/zjstatus.wasm";
+      hash = "sha256-KCzqshnlbhkIyfrDOQckH+bD4e99hfqrPl9DjO+HuP4=";
+    };
+
     systemDirs.data = [gsettingsDatadir gtk3Datadir];
   };
 
