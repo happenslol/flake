@@ -6,6 +6,7 @@ keybinds clear-defaults=true {
     normal {
         bind "Ctrl a" { Write 1; SwitchToMode "locked"; }
         bind "esc" { SwitchToMode "locked"; }
+        bind "space" { SwitchToMode "locked"; }
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
         bind "2" { GoToTab 2; SwitchToMode "locked"; }
         bind "3" { GoToTab 3; SwitchToMode "locked"; }
@@ -305,7 +306,13 @@ keybinds clear-defaults=true {
 // changing these requires a restart to take effect
 plugins {
     about location="zellij:about"
-    compact-bar location="zellij:compact-bar"
+    // Not rendered anywhere; loaded headless below only for its tooltip, which
+    // floats the current mode's keybinds whenever we leave the base ("locked")
+    // mode. Setting a tooltip key is what enables that, but the key itself is
+    // dead without a visible compact-bar, so pick one that's never pressed.
+    compact-bar location="zellij:compact-bar" {
+        tooltip "Ctrl Alt F12"
+    }
     configuration location="zellij:configuration"
     filepicker location="zellij:strider" {
         cwd "/"
@@ -350,6 +357,7 @@ plugins {
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
     zellij:link
+    compact-bar
 }
 web_client {
     font "monospace"

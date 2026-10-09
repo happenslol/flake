@@ -1,25 +1,20 @@
 // Zellij's built-in default layout (and its swap layouts, from
-// `zellij setup --dump-swap-layout default`), with the tab-bar replaced by
-// the zjstatus alias from config.kdl.
+// `zellij setup --dump-swap-layout default`), with both bars replaced by a
+// single zjstatus bar at the bottom. Keybind hints come from the compact-bar
+// tooltip loaded in config.kdl instead of the status-bar.
 
 layout {
     default_tab_template {
-        pane size=1 borderless=true {
-            plugin location="zjstatus"
-        }
         children
         pane size=1 borderless=true {
-            plugin location="status-bar"
+            plugin location="zjstatus"
         }
     }
 
     tab_template name="ui" {
-        pane size=1 borderless=true {
-            plugin location="zjstatus"
-        }
         children
         pane size=1 borderless=true {
-            plugin location="status-bar"
+            plugin location="zjstatus"
         }
     }
 
