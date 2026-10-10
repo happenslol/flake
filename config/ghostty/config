@@ -98,34 +98,34 @@ keybind = ctrl+i=text:\x1b[105;5u
 keybind = ctrl+semicolon=text:\x1b[09;5u
 
 # Tab management
-keybind = ctrl+e>c=new_tab
-keybind = ctrl+e>x=close_surface
+keybind = ctrl+a>c=new_tab
+keybind = ctrl+a>x=close_surface
 
-keybind = ctrl+e>ctrl+l=move_tab:1
-keybind = ctrl+e>ctrl+h=move_tab:-1
+keybind = ctrl+a>ctrl+l=move_tab:1
+keybind = ctrl+a>ctrl+h=move_tab:-1
 
-# Send actual ctrl+e to terminal
-keybind = ctrl+e>ctrl+e=text:\x05
-keybind = ctrl+e>ctrl+e=end_key_sequence
+# Send actual ctrl+a to terminal
+keybind = ctrl+a>ctrl+a=text:\x01
+keybind = ctrl+a>ctrl+a=end_key_sequence
 
-keybind = alt+one=goto_tab:1
-keybind = alt+two=goto_tab:2
-keybind = alt+three=goto_tab:3
-keybind = alt+four=goto_tab:4
-keybind = alt+five=goto_tab:5
-keybind = alt+six=goto_tab:6
-keybind = alt+seven=goto_tab:7
-keybind = alt+eight=goto_tab:8
-keybind = alt+nine=goto_tab:9
+keybind = ctrl+alt+one=goto_tab:1
+keybind = ctrl+alt+two=goto_tab:2
+keybind = ctrl+alt+three=goto_tab:3
+keybind = ctrl+alt+four=goto_tab:4
+keybind = ctrl+alt+five=goto_tab:5
+keybind = ctrl+alt+six=goto_tab:6
+keybind = ctrl+alt+seven=goto_tab:7
+keybind = ctrl+alt+eight=goto_tab:8
+keybind = ctrl+alt+nine=goto_tab:9
 
 # Split management
-keybind = ctrl+e>o=new_split:down
-keybind = ctrl+e>u=new_split:right
+keybind = ctrl+a>o=new_split:down
+keybind = ctrl+a>u=new_split:right
 
-keybind = ctrl+e>h=goto_split:left
-keybind = ctrl+e>j=goto_split:bottom
-keybind = ctrl+e>k=goto_split:top
-keybind = ctrl+e>l=goto_split:right
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>j=goto_split:bottom
+keybind = ctrl+a>k=goto_split:top
+keybind = ctrl+a>l=goto_split:right
 
 # Split resizing
 keybind = alt+k=resize_split:up,40
@@ -134,7 +134,7 @@ keybind = alt+h=resize_split:left,40
 keybind = alt+l=resize_split:right,40
 
 # Vim mode
-keybind = ctrl+e>v=activate_key_table:vim
+keybind = ctrl+a>v=activate_key_table:vim
 
 # Line movement
 keybind = vim/j=scroll_page_lines:1
