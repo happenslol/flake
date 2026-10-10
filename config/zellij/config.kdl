@@ -4,7 +4,7 @@
 
 keybinds clear-defaults=true {
     normal {
-        bind "Ctrl a" { Write 1; SwitchToMode "locked"; }
+        bind "Ctrl e" { Write 5; SwitchToMode "locked"; }
         bind "esc" { SwitchToMode "locked"; }
         bind "space" { SwitchToMode "locked"; }
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
@@ -21,6 +21,7 @@ keybinds clear-defaults=true {
         bind "=" { Resize "Increase"; }
         bind "[" { PreviousSwapLayout; }
         bind "]" { NextSwapLayout; }
+        bind "c" { NewTab; SwitchToMode "locked"; }
         bind "f" { ToggleFloatingPanes; SwitchToMode "locked"; }
         bind "g" { TogglePaneInGroup; }
         bind "G" { ToggleGroupMarking; }
@@ -35,7 +36,18 @@ keybinds clear-defaults=true {
         bind "t" { SwitchToMode "tab"; }
     }
     locked {
-        bind "Ctrl a" { SwitchToMode "normal"; }
+        bind "Ctrl e" { SwitchToMode "normal"; }
+    }
+    shared {
+        bind "Alt 1" { GoToTab 1; SwitchToMode "locked"; }
+        bind "Alt 2" { GoToTab 2; SwitchToMode "locked"; }
+        bind "Alt 3" { GoToTab 3; SwitchToMode "locked"; }
+        bind "Alt 4" { GoToTab 4; SwitchToMode "locked"; }
+        bind "Alt 5" { GoToTab 5; SwitchToMode "locked"; }
+        bind "Alt 6" { GoToTab 6; SwitchToMode "locked"; }
+        bind "Alt 7" { GoToTab 7; SwitchToMode "locked"; }
+        bind "Alt 8" { GoToTab 8; SwitchToMode "locked"; }
+        bind "Alt 9" { GoToTab 9; SwitchToMode "locked"; }
     }
     pane {
         bind ";" { FocusLastPane; }
@@ -229,7 +241,7 @@ keybinds clear-defaults=true {
         bind "Ctrl n" { SwitchToMode "resize"; }
     }
     shared_except "normal" "locked" {
-        bind "Ctrl a" { SwitchToMode "locked"; }
+        bind "Ctrl e" { SwitchToMode "locked"; }
     }
     shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
         bind "enter" { SwitchToMode "normal"; }
