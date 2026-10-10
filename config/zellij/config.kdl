@@ -346,13 +346,15 @@ plugins {
         color_fg           "#eeffff"
         color_fg_dark      "#becccc"
         color_blue         "#82aaff"
+        color_blue0        "#6888cc"
+        color_comment      "#6f6f6f"
 
-        format_left  "#[fg=$fg,bg=$bg,bold] {session} {tabs}"
-        format_right "{swap_layout}"
+        format_left  "{tabs}"
+        format_right "{swap_layout}#[fg=$fg,bg=$bg,bold] {session} "
         format_space "#[bg=$bg]"
 
-        tab_normal    "#[fg=$fg_dark,bg=$bg_highlight] {name}{fullscreen_indicator}{sync_indicator}{bell_indicator} "
-        tab_active    "#[fg=$bg,bg=$blue,bold] {name}{fullscreen_indicator}{sync_indicator}{bell_indicator} "
+        tab_normal    "#[fg=$fg,bg=$comment] {index} #[fg=$fg_dark,bg=$bg_highlight] {name}{fullscreen_indicator}{sync_indicator}{bell_indicator} "
+        tab_active    "#[fg=$bg,bg=$blue0,bold] {index} #[fg=$bg,bg=$blue,bold] {name}{fullscreen_indicator}{sync_indicator}{bell_indicator} "
         tab_separator "#[bg=$bg] "
 
         tab_fullscreen_indicator " (FULLSCREEN)"
@@ -453,7 +455,7 @@ default_mode "locked"
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames false
+pane_frames false
  
 // Set the pane frame style when pane_frames is enabled
 // Options:
