@@ -328,11 +328,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1790949375,
-        "narHash": "sha256-IvUYs3KSNGE9O56EAjO9UgQFpQi3r6BFA4bEtANHtKs=",
+        "lastModified": 1791967646,
+        "narHash": "sha256-Gf+gb+R42An7SjwBsaMOgBPDYac7M9ccSPNhjfHBKpQ=",
         "owner": "happenslol",
         "repo": "launch",
-        "rev": "af1eaf6212e01f4838ce2b48b388e864c4d3b300",
+        "rev": "02f62adc183c085e429d07d9716145324a651e9a",
         "type": "github"
       },
       "original": {
