@@ -87,6 +87,9 @@ in {
       ".pi/agent/settings.json".source = "${dotfiles}/pi/settings.json";
       ".pi/agent/keybindings.json".source = "${dotfiles}/pi/keybindings.json";
       ".pi/agent/extensions".source = "${dotfiles}/pi/extensions";
+      ".omp/agent/themes".source = "${dotfiles}/omp/themes";
+      ".omp/agent/extensions".source = "${dotfiles}/omp/extensions";
+      ".omp/agent/config.yml".source = "${dotfiles}/omp/config.yml";
     };
 
     pointerCursor = {

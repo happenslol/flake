@@ -1,0 +1,45 @@
+setupVersion: 2
+modelRoles:
+  default: openrouter/z-ai/glm-5.3-flash:high
+  vision: openrouter/google/gemini-3.7-flash
+  smol: openrouter/google/gemini-2.5-flash:medium
+  slow: openrouter/z-ai/glm-5.3:max
+hideThinkingBlock: true
+composer:
+  shape: rail
+terminal:
+  showProgress: false
+tui:
+  reactions: false
+  tight: true
+display:
+  shimmer: classic
+  subagentLivePreview: true
+personality: default
+spelling:
+  autocomplete: "off"
+emojiAutocomplete: false
+recap:
+  enabled: false
+startup:
+  checkUpdate: false
+  quiet: true
+symbolPreset: nerd
+statusLine:
+  preset: custom
+  leftSegments:
+    - vim
+    - model
+    - mode
+    - path
+    - git
+    - pr
+  rightSegments:
+    - session_name
+    - token_total
+    - cost
+    - status
+    - context_pct
+  showHookStatus: false
+theme:
+  dark: cozynight
