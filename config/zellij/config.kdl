@@ -4,7 +4,7 @@
 
 keybinds clear-defaults=true {
     normal {
-        bind "Ctrl a" { Write 5; SwitchToMode "locked"; }
+        bind "Ctrl a" { Write 1; SwitchToMode "locked"; }
         bind "esc" { SwitchToMode "locked"; }
         bind "space" { SwitchToMode "locked"; }
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
@@ -39,6 +39,13 @@ keybinds clear-defaults=true {
     }
     locked {
         bind "Ctrl a" { SwitchToMode "normal"; }
+        // kitty/ghostty send fixterm sequences for ctrl+m, ctrl+i and ctrl+; (the
+        // latter as ctrl+tab), but zellij re-encodes them as a plain "\r"/"\t" for
+        // panes not using the kitty keyboard protocol (e.g. zsh), making them
+        // indistinguishable from enter/tab. Write the original sequences instead.
+        bind "Ctrl m" { Write 27 91 49 48 57 59 53 117; }
+        bind "Ctrl i" { Write 27 91 49 48 53 59 53 117; }
+        bind "Ctrl tab" { Write 27 91 57 59 53 117; }
     }
     shared {
         bind "Ctrl Alt 1" { GoToTab 1; SwitchToMode "locked"; }
@@ -248,7 +255,7 @@ keybinds clear-defaults=true {
     shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
         bind "enter" { SwitchToMode "normal"; }
     }
-    shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
+    shared_except "normal" "locked" "entersearch" "renametab" "renamepane" "scroll" "search" {
         bind "esc" { SwitchToMode "normal"; }
     }
     shared_among "pane" "tmux" {
@@ -265,6 +272,10 @@ keybinds clear-defaults=true {
         bind "]" { ScrollToNextPrompt; }
         bind "Ctrl b" { PageScrollUp; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "locked"; }
+        bind "esc" { ScrollToBottom; SwitchToMode "locked"; }
+        bind "q" { ScrollToBottom; SwitchToMode "locked"; }
+        bind "g" { ScrollToTop; }
+        bind "G" { ScrollToBottom; }
         bind "d" { HalfPageScrollDown; }
         bind "Ctrl f" { PageScrollDown; }
         bind "h" { PageScrollUp; }

@@ -45,7 +45,7 @@ bindkey "^F" keymap-yazi-widget
 
 function _keymap_edit_flake() { (cd ~/.flake && nvim); zle reset-prompt }
 zle -N keymap-edit-flake-widget _keymap_edit_flake
-bindkey "^[[09;5u" keymap-edit-flake-widget
+bindkey "^[[9;5u" keymap-edit-flake-widget
 
 function _keymap_ls() {
   echo

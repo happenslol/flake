@@ -95,7 +95,7 @@ keybind = ctrl+shift+f5=reload_config
 # Fixterm sequences
 keybind = ctrl+m=text:\x1b[109;5u
 keybind = ctrl+i=text:\x1b[105;5u
-keybind = ctrl+semicolon=text:\x1b[09;5u
+keybind = ctrl+semicolon=text:\x1b[9;5u
 
 # Tab management
 keybind = ctrl+e>c=new_tab
