@@ -11,6 +11,7 @@
     "defaultMode": "auto"
   },
   "model": "opus",
+  "disableClaudeAiConnectors": true,
   "statusLine": {
     "type": "command",
     "command": "bunx -y ccstatusline@latest",
@@ -21,7 +22,6 @@
     "typescript-lsp@claude-plugins-official": false,
     "rust-analyzer-lsp@claude-plugins-official": false
   },
-  "disableClaudeAiConnectors": true,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -31,6 +31,11 @@
   "syntaxHighlightingDisabled": false,
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "skipAutoPermissionPrompt": true
