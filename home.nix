@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   stateVersion,
   hostname,
@@ -11,6 +12,19 @@
     config.lib.file.mkOutOfStoreSymlink "${home}/.flake/config";
   hostDotfiles =
     config.lib.file.mkOutOfStoreSymlink "${home}/.flake/hosts/${hostname}/config";
+
+  # Like home.file, but links straight to the repo instead of through
+  # /nix/store, for files the app rewrites itself (apps like Claude Code can't
+  # write through the store hop). Existing regular files are moved to *.bak.
+  mkWritableLinks = links:
+    lib.hm.dag.entryAfter ["writeBoundary"] (lib.concatLines (lib.mapAttrsToList (target: source: ''
+        if [ -e "${home}/${target}" ] && [ ! -L "${home}/${target}" ]; then
+          run mv "${home}/${target}" "${home}/${target}.bak"
+        fi
+        run mkdir -p "$(dirname "${home}/${target}")"
+        run ln -sfn "${home}/.flake/config/${source}" "${home}/${target}"
+      '')
+      links));
 
   gsettingsSchemas = pkgs.gsettings-desktop-schemas;
   gsettingsDatadir = "${gsettingsSchemas}/share/gsettings-schemas/${gsettingsSchemas.name}";
@@ -82,14 +96,17 @@ in {
       ".git-scripts".source = "${dotfiles}/git/scripts";
       ".cargo/config.toml".source = "${dotfiles}/cargo/config.toml";
       ".tmux.conf".source = "${dotfiles}/tmux/tmux.conf";
-      # ".claude/settings.json".source = "${dotfiles}/claude/settings.json";
-      # ".claude-oc/settings.json".source = "${dotfiles}/claude/settings-oc.json";
       ".pi/agent/settings.json".source = "${dotfiles}/pi/settings.json";
       ".pi/agent/keybindings.json".source = "${dotfiles}/pi/keybindings.json";
       ".pi/agent/extensions".source = "${dotfiles}/pi/extensions";
       ".omp/agent/themes".source = "${dotfiles}/omp/themes";
       ".omp/agent/extensions".source = "${dotfiles}/omp/extensions";
       ".omp/agent/config.yml".source = "${dotfiles}/omp/config.yml";
+    };
+
+    activation.writableLinks = mkWritableLinks {
+      ".claude/settings.json" = "claude/settings.json";
+      ".claude-oc/settings.json" = "claude/settings-oc.json";
     };
 
     pointerCursor = {
