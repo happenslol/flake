@@ -134,11 +134,6 @@ in {
     plymouth.enable = true;
     consoleLogLevel = 0;
 
-    initrd = {
-      verbose = false;
-      systemd.enable = true;
-    };
-
     # Increase max vm map count for nodejs workers running out of heap memory
     kernel.sysctl = {"vm.max_map_count" = 262144;};
 
