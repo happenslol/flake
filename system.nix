@@ -263,10 +263,17 @@ in {
   };
 
   services = {
-    udev.packages = [
-      (mkUdevRules "69-probe-rs.rules")
-      (mkUdevRules "99-sigrok.rules")
-    ];
+    udev = {
+      packages = [
+        (mkUdevRules "69-probe-rs.rules")
+        (mkUdevRules "99-sigrok.rules")
+      ];
+
+      extraRules = ''
+        # s3 dongle: firmware updates over USB
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="c0de", ATTRS{idProduct}=="cafe", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+      '';
+    };
 
     upower.enable = true;
     openssh.enable = true;
