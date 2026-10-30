@@ -134,13 +134,12 @@ in {
     plymouth.enable = true;
     consoleLogLevel = 0;
 
-    initrd = {
-      verbose = false;
-      systemd.enable = true;
+    kernel.sysctl = {
+      # Increase max vm map count for nodejs workers running out of heap memory
+      "vm.max_map_count" = 262144;
+      # Increase max file watch count
+      "fs.inotify.max_user_watches" = 2097152;
     };
-
-    # Increase max vm map count for nodejs workers running out of heap memory
-    kernel.sysctl = {"vm.max_map_count" = 262144;};
 
     kernelPackages = pkgs.linuxKernel.packages.linux_7_2;
     # Re-enable after https://github.com/NixOS/nixpkgs/issues/436300 lands
@@ -359,10 +358,9 @@ in {
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
-      publish = {
-        enable = true;
-        addresses = true;
-        domain = true;
+      settings.publish = {
+        publish-addresses = true;
+        publish-domain = true;
       };
     };
   };

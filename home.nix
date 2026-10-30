@@ -107,6 +107,9 @@ in {
     activation.writableLinks = mkWritableLinks {
       ".claude/settings.json" = "claude/settings.json";
       ".claude-oc/settings.json" = "claude/settings-oc.json";
+      # The rest of ~/.config/herdr-app is app-owned state, so only these are linked.
+      ".config/herdr-app/settings.json" = "herdr/settings.json";
+      ".config/herdr-app/keys.json" = "herdr/keys.json";
     };
 
     pointerCursor = {
@@ -139,6 +142,7 @@ in {
       "direnv/direnv.toml".source = "${dotfiles}/direnv/direnv.toml";
       "pnpm/rc".source = "${dotfiles}/pnpm/rc";
       "zed".source = "${dotfiles}/zed";
+      "herdr-app/themes/cozynight.json".source = "${dotfiles}/herdr/themes/cozynight.json";
       "xkb".source = "${dotfiles}/xkb";
       "xdg-desktop-portal".source = "${dotfiles}/xdg-desktop-portal";
       "launch/config.toml".source = "${hostDotfiles}/launch/config.toml";
