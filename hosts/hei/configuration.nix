@@ -59,6 +59,8 @@
     # '';
   };
 
+  environment.systemPackages = [pkgs.herdr-app pkgs.herdr-core];
+
   systemd.services.corsair-h150i-liquidctl = {
     enable = true;
     description = "CPU AIO Fan Control";

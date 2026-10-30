@@ -1,0 +1,12 @@
+{
+  "zoom": 1,
+  "sounds": {
+    "enabled": true
+  },
+  "minimum_contrast": 1,
+  "appearance": "dark",
+  "theme": "cozynight",
+  "font": "IosevkaTerm Nerd Font Mono",
+  "font_size": 16,
+  "ui_font": "IosevkaTerm Nerd Font"
+}

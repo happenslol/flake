@@ -56,6 +56,8 @@ inputs: self: super: {
   codelldb = self.callPackage ./apps/codelldb.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
   fence = self.callPackage ./apps/fence.nix {};
+  herdr-app = self.callPackage ./apps/herdr-app.nix {};
+  herdr-core = self.callPackage ./apps/herdr-core.nix {};
   microsandbox = self.callPackage ./apps/microsandbox.nix {};
   smolvm = self.callPackage ./apps/smolvm.nix {};
   revdiff = self.callPackage ./apps/revdiff.nix {};
