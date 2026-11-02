@@ -270,7 +270,7 @@ in {
 
       extraRules = ''
         # s3 dongle: firmware updates over USB
-        SUBSYSTEM=="usb", ATTRS{idVendor}=="c0de", ATTRS{idProduct}=="cafe", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="c0de", ATTRS{idProduct}=="cafe", MODE="0660", GROUP="plugdev"
       '';
     };
 
