@@ -162,12 +162,12 @@ pkgs: {
     pulseview
     sigrok-firmware-fx2lafw
 
-    orca-slicer
     smolvm
     microsandbox
     deno
     zellij
-    bitwig-studio
+    herdr-app
+    herdr-core
   ];
 
   beam = with pkgs.beam27Packages; [
