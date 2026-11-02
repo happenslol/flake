@@ -110,6 +110,11 @@ in {
       # The rest of ~/.config/herdr-app is app-owned state, so only these are linked.
       ".config/herdr-app/settings.json" = "herdr/settings.json";
       ".config/herdr-app/keys.json" = "herdr/keys.json";
+      # Herdr only sees edits behind a link it found at startup; `touch -h` the link to reload sooner.
+      ".config/herdr-app/layouts/flat.json" = "herdr/layouts/flat.json";
+      ".config/herdr-app/layouts/flat.svg" = "herdr/layouts/flat.svg";
+      ".config/herdr-app/mods/flat-sidebar" = "herdr/mods/flat-sidebar";
+      ".config/herdr-app/mods/flat-tabs" = "herdr/mods/flat-tabs";
     };
 
     pointerCursor = {

@@ -6,3 +6,5 @@
 /config/pi/extensions/node_modules
 /.playwright-cli
 /.pnpm-store
+/config/herdr/mods/*/gpui-kit.d.ts
+/config/herdr/mods/*/jsconfig.json
