@@ -8,11 +8,11 @@
 # telling you to bump it here instead.
 stdenv.mkDerivation (finalAttrs: {
   pname = "herdr-core";
-  version = "0.1.14";
+  version = "0.1.19";
 
   src = fetchurl {
     url = "https://releases.herdr.dev/core/${finalAttrs.version}/herdr-core-linux-x86_64.tar.gz";
-    hash = "sha256-6dur3q0M4M495RtvVMyVSe/tu0Gy+ESLaTKrDRRCND4=";
+    hash = "sha256-Stz7Qj1S8kxcxKHizS/K0fYtKLt3h2rEcsKQgqPqpCQ=";
   };
 
   sourceRoot = ".";

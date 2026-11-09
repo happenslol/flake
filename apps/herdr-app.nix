@@ -15,11 +15,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "herdr-app";
-  version = "0.1.9";
+  version = "0.1.14";
 
   src = fetchurl {
     url = "https://releases.herdr.dev/app/${finalAttrs.version}/herdr-app-linux-x86_64.tar.gz";
-    hash = "sha256-2m97QPbEFsW03vjbz4t2Z30Cvk9LRdBqTWWHZoUOC0U=";
+    hash = "sha256-R1o4P49DnjGRqGY1tcEobOTf0tn83x58vf3Wxxdvj/M=";
   };
 
   sourceRoot = "herdr-app";
