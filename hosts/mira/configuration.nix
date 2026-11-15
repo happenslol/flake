@@ -50,6 +50,11 @@
 
   services.blueman.enable = true;
 
+  # Follow the current location using geoclue2 (wifi lookup via beacondb)
+  services.automatic-timezoned.enable = true;
+  # No dual boot here, and a moving timezone makes a local-time RTC unreliable
+  time.hardwareClockInLocalTime = false;
+
   # Framework ships BIOS/EC updates via LVFS; needed to run `fwupdmgr update`.
   services.fwupd.enable = true;
 

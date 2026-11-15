@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   stateVersion,
   username,
   inputs,
@@ -153,8 +154,9 @@ in {
   };
 
   time = {
-    timeZone = "Europe/Berlin";
-    hardwareClockInLocalTime = true;
+    # mkDefault so hosts running automatic-timezoned can override these
+    timeZone = lib.mkDefault "Europe/Berlin";
+    hardwareClockInLocalTime = lib.mkDefault true;
   };
 
   i18n = {
