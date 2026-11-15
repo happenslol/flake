@@ -54,6 +54,7 @@ inputs: self: super: {
   # Apps we package ourselves; see ./apps/.
   a2tools-dps-meter = self.callPackage ./apps/a2tools-dps-meter.nix {};
   codelldb = self.callPackage ./apps/codelldb.nix {};
+  dbdelve = self.callPackage ./apps/dbdelve.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
   fence = self.callPackage ./apps/fence.nix {};
   herdr-app = self.callPackage ./apps/herdr-app.nix {};

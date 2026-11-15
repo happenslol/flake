@@ -138,7 +138,7 @@ pkgs: {
     ghostty
     dotool
     sqlite
-    jetbrains.datagrip
+    dbdelve
     uv
     sops
     gh

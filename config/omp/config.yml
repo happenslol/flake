@@ -1,4 +1,4 @@
-setupVersion: 2
+setupVersion: 3
 modelRoles:
   default: openrouter/z-ai/glm-5.3-flash:high
   vision: openrouter/google/gemini-3.7-flash
