@@ -53,11 +53,14 @@
   features = decorations line-numbers
   navigate = true
   light = false
-  syntax-theme = base16
+  # Lives in config/bat/themes; needs `bat cache --build` (done on activation).
+  syntax-theme = base16-cozynight
   side-by-side = true
   tabs = 2
-  minus-style = syntax bold "#3c3333"
-  plus-style = syntax bold "#333c33"
+  minus-style = syntax bold "#2b2020"
+  plus-style = syntax bold "#1f2b1f"
+  minus-emph-style = syntax bold "#4f2f2f"
+  plus-emph-style = syntax bold "#2c472c"
 
 [delta "decorations"]
   file-style = bold yellow

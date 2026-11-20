@@ -117,6 +117,11 @@ in {
       ".config/herdr-app/mods/flat-tabs" = "herdr/mods/flat-tabs";
     };
 
+    # Compiles the custom themes in config/bat/themes, which delta reads too.
+    activation.batCache = lib.hm.dag.entryAfter ["linkGeneration"] ''
+      run ${lib.getExe pkgs.bat} cache --build
+    '';
+
     pointerCursor = {
       enable = true;
       gtk.enable = true;
