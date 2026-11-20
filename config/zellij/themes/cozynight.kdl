@@ -1,5 +1,5 @@
 // cozynight — mirrors config/nvim/lua/cozynight/colors/dark.lua and the shared
-// kitty/ghostty palette. Backgrounds sit on bg (#212121) so zellij's chrome
+// kitty/ghostty palette. Backgrounds sit on bg (#191919) so zellij's chrome
 // blends into the terminal the same way the kitty tab bar does.
 
 themes {
@@ -7,7 +7,7 @@ themes {
         // Plain UI text: status bar body, help lines, plugin prose.
         text_unselected {
             base "#eeffff"         // fg
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#f78c6c"   // orange
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c3e88d"   // green
@@ -15,7 +15,7 @@ themes {
         }
         text_selected {
             base "#eeffff"         // fg
-            background "#2d2d2d"   // bg_highlight
+            background "#222222"   // bg_highlight
             emphasis_0 "#f78c6c"   // orange
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c3e88d"   // green
@@ -25,17 +25,17 @@ themes {
         // Mode ribbons in the status bar and the tab bar.
         ribbon_unselected {
             base "#becccc"         // fg_dark
-            background "#2d2d2d"   // bg_highlight
+            background "#222222"   // bg_highlight
             emphasis_0 "#f07178"   // red
             emphasis_1 "#eeffff"   // fg
             emphasis_2 "#c792ea"   // purple
             emphasis_3 "#82aaff"   // blue
         }
         ribbon_selected {
-            base "#212121"         // bg, punched out of the accent
+            base "#191919"         // bg, punched out of the accent
             background "#82aaff"   // blue
             emphasis_0 "#f07178"   // red
-            emphasis_1 "#212121"   // bg
+            emphasis_1 "#191919"   // bg
             emphasis_2 "#c792ea"   // purple
             emphasis_3 "#ffcb6b"   // yellow
         }
@@ -43,7 +43,7 @@ themes {
         // Session manager / plugin lists.
         list_unselected {
             base "#eeffff"         // fg
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#ffcb6b"   // yellow
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c792ea"   // purple
@@ -51,7 +51,7 @@ themes {
         }
         list_selected {
             base "#eeffff"         // fg
-            background "#2d2d2d"   // bg_highlight
+            background "#222222"   // bg_highlight
             emphasis_0 "#ffcb6b"   // yellow
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c792ea"   // purple
@@ -61,7 +61,7 @@ themes {
         // Plugin tables.
         table_title {
             base "#82aaff"         // blue
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#f78c6c"   // orange
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c3e88d"   // green
@@ -69,7 +69,7 @@ themes {
         }
         table_cell_unselected {
             base "#eeffff"         // fg
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#ffcb6b"   // yellow
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c792ea"   // purple
@@ -77,7 +77,7 @@ themes {
         }
         table_cell_selected {
             base "#eeffff"         // fg
-            background "#2d2d2d"   // bg_highlight
+            background "#222222"   // bg_highlight
             emphasis_0 "#ffcb6b"   // yellow
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c792ea"   // purple
@@ -86,8 +86,8 @@ themes {
 
         // Pane frames — same accents kitty/ghostty use for split borders.
         frame_unselected {
-            base "#4f4f4f"         // inactive_border_color
-            background "#212121"   // bg
+            base "#3b3b3b"         // inactive_border_color
+            background "#191919"   // bg
             emphasis_0 "#f78c6c"   // orange
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c3e88d"   // green
@@ -95,7 +95,7 @@ themes {
         }
         frame_selected {
             base "#82aaff"         // active_border_color
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#ffcb6b"   // yellow
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#c3e88d"   // green
@@ -103,7 +103,7 @@ themes {
         }
         frame_highlight {
             base "#ffcb6b"         // yellow
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#f78c6c"   // orange
             emphasis_1 "#eeffff"   // fg
             emphasis_2 "#c792ea"   // purple
@@ -112,7 +112,7 @@ themes {
 
         exit_code_success {
             base "#c3e88d"         // green
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#98d3cb"   // teal
             emphasis_1 "#89ddff"   // cyan
             emphasis_2 "#82aaff"   // blue
@@ -120,7 +120,7 @@ themes {
         }
         exit_code_error {
             base "#f07178"         // red
-            background "#212121"   // bg
+            background "#191919"   // bg
             emphasis_0 "#ff8b92"   // red1
             emphasis_1 "#ffcb6b"   // yellow
             emphasis_2 "#f78c6c"   // orange

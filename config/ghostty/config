@@ -8,7 +8,7 @@ font-size = 12
 
 # Cursor
 cursor-color = #ECEFF1
-cursor-text = #212121
+cursor-text = #191919
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
@@ -35,13 +35,13 @@ gtk-custom-css = style.css
 
 # Colors
 foreground = #EEFFFF
-background = #212121
+background = #191919
 
 selection-foreground = #EEFFFF
-selection-background = #444444
+selection-background = #333333
 
 # black
-palette = 0=#2B2B2B
+palette = 0=#202020
 palette = 8=#4F4F4F
 
 # red
@@ -73,7 +73,7 @@ palette = 7=#FFFFFF
 palette = 15=#CCEEEE
 
 # Split border
-split-divider-color = #4F4F4F
+split-divider-color = #3B3B3B
 unfocused-split-opacity = 0.85
 
 # Clear default keybinds and set our own

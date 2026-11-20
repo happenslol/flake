@@ -1,8 +1,8 @@
 ---@class Palette
 local ret = {
-  bg = "#212121",
-  bg_dark = "#252525",
-  bg_highlight = "#2d2d2d",
+  bg = "#191919",
+  bg_dark = "#1c1c1c",
+  bg_highlight = "#222222",
   blue = "#82aaff",
   blue0 = "#6888cc",
   blue1 = "#8fb3ff",
@@ -28,7 +28,7 @@ local ret = {
   red = "#f07178",
   red1 = "#ff8b92",
   teal = "#98d3cb",
-  terminal_black = "#282828",
+  terminal_black = "#1e1e1e",
   yellow = "#ffcb6b",
   git = { add = "", change = "", delete = "" },
 }

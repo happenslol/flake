@@ -1,10 +1,10 @@
 {
   "name": "cozynight",
   "vars": {
-    "bg": "#212121",
-    "bgDark": "#252525",
-    "bgHighlight": "#2d2d2d",
-    "bgStatusline": "#282828",
+    "bg": "#191919",
+    "bgDark": "#1c1c1c",
+    "bgHighlight": "#222222",
+    "bgStatusline": "#1e1e1e",
     "fg": "#eeffff",
     "fgDark": "#becccc",
     "comment": "#6f6f6f",

@@ -94,11 +94,11 @@ default_floating_border pixel 2
 # gaps inner 15
 
 # class                 border    bground   text      indicator child_border
-client.focused          #5c5c5c   #212121   #000000   #5c5c5c   #5c5c5c
-client.focused_inactive #212121   #212121   #000000   #212121   #212121
-client.unfocused        #212121   #212121   #000000   #212121   #212121
-client.urgent           #FFCB6B   #212121   #000000   #FFCB6B   #FFCB6B
-client.placeholder      #212121   #212121   #000000   #212121   #212121
+client.focused          #5c5c5c   #191919   #000000   #5c5c5c   #5c5c5c
+client.focused_inactive #191919   #191919   #000000   #191919   #191919
+client.unfocused        #191919   #191919   #000000   #191919   #191919
+client.urgent           #FFCB6B   #191919   #000000   #FFCB6B   #FFCB6B
+client.placeholder      #191919   #191919   #000000   #191919   #191919
 
 exec uwsm finalize
 exec mako

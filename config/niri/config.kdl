@@ -52,7 +52,7 @@ layout {
     border {
         width 2
         active-color "#5c5c5c"
-        inactive-color "#212121"
+        inactive-color "#191919"
         urgent-color "#FFCB6B"
     }
 
