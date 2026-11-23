@@ -38,6 +38,7 @@ return {
         map("n", "<leader>gl", function()
           gs.toggle_numhl()
           gs.toggle_signs()
+          gs.toggle_linehl()
         end, "Toggle diff mode")
       end,
     },
