@@ -359,10 +359,10 @@ export default class Spaces extends View {
           // Centered over the agents' status icons (14 wide, flush with the padding), the box reaching past it.
           .when(connected, el => el.child(div().id(`machine-add-${m ?? "local"}`).size(22).mr(-4).flex_none().flex().items_center().justify_center()
             .rounded(5).text_size(18).hover(s => s.bg(t.selected).text_color(t.foreground))
-            .on_click((_e, cx) => { cx.stop_propagation(); run("space.new", m ? { machine: m } : {}); }).child("+"))));
+            .on_click((_e, cx) => { cx.stop_propagation(); run("space.new", { machine: m ?? "" }); }).child("+"))));
       const empty = h_flex().id(`machine-new-${m ?? "local"}`).h(28).flex_none().px(PAD).gap(7).items_center()
         .text_size(12).text_color(t.dim).hover(s => s.bg(t.hover).text_color(t.foreground))
-        .on_click(() => run("space.new", m ? { machine: m } : {}))
+        .on_click(() => run("space.new", { machine: m ?? "" }))
         .child("+").when(!collapsed, el => el.child("New space there"));
       return [head, ...(folded ? [] : mine.length ? mine.flatMap(draw) : [loading(m) ? loadingRow(m) : empty])];
     });
