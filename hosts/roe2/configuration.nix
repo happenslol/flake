@@ -82,6 +82,7 @@
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
       partOf = ["pia-vpn.service"];
+      upheldBy = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -93,6 +94,7 @@
       after = ["transmission.service"];
       bindsTo = ["transmission.service"];
       partOf = ["transmission.service"];
+      upheldBy = ["transmission.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:9091,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:9091'";
@@ -104,6 +106,7 @@
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
       partOf = ["pia-vpn.service"];
+      upheldBy = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -115,6 +118,7 @@
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
       partOf = ["pia-vpn.service"];
+      upheldBy = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -126,6 +130,7 @@
       bindsTo = ["pia-vpn.service"];
       after = ["pia-vpn.service"];
       partOf = ["pia-vpn.service"];
+      upheldBy = ["pia-vpn.service"];
       serviceConfig = {
         NetworkNamespacePath = "/var/run/netns/pia";
         BindReadOnlyPaths = ["/etc/netns/pia/resolv.conf:/etc/resolv.conf"];
@@ -138,6 +143,7 @@
       after = ["radarr.service"];
       bindsTo = ["radarr.service"];
       partOf = ["radarr.service"];
+      upheldBy = ["radarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:7878,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:7878'";
@@ -150,6 +156,7 @@
       after = ["sonarr.service"];
       bindsTo = ["sonarr.service"];
       partOf = ["sonarr.service"];
+      upheldBy = ["sonarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8989,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:8989'";
@@ -162,6 +169,7 @@
       after = ["bazarr.service"];
       bindsTo = ["bazarr.service"];
       partOf = ["bazarr.service"];
+      upheldBy = ["bazarr.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:6767,fork,reuseaddr EXEC:'${pkgs.iproute2}/bin/ip netns exec pia ${pkgs.socat}/bin/socat STDIO TCP\\:127.0.0.1\\:6767'";

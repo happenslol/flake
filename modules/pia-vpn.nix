@@ -175,7 +175,7 @@ in
 
         unitConfig = {
           ConditionFileNotEmpty = [
-            cfg.certificateFile
+            "${cfg.certificateFile}"
             cfg.environmentFile
           ];
         };
@@ -210,7 +210,9 @@ in
 
           echo Fetching regions...
           serverlist='https://serverlist.piaservers.net/vpninfo/servers/v4'
-          allregions=$((curl --no-progress-meter -m 5 "$serverlist" || true) | head -1)
+          allregions=$((curl --no-progress-meter -m 5 \
+            --retry 30 --retry-delay 2 --retry-all-errors \
+            "$serverlist" || true) | head -1)
 
           region="$(echo $allregions |
                       jq --arg REGION_ID "${cfg.region}" -r '.regions[] | select(.id==$REGION_ID)')"
@@ -388,7 +390,7 @@ in
 
         unitConfig = {
           ConditionFileNotEmpty = [
-            cfg.certificateFile
+            "${cfg.certificateFile}"
             cfg.environmentFile
           ];
         };
