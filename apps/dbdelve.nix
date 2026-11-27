@@ -12,11 +12,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dbdelve";
-  version = "0.7.1";
+  version = "0.8.0";
 
   src = fetchurl {
     url = "https://github.com/ShayanAbbas1/dbdelve/releases/download/v${finalAttrs.version}/dbdelve-${finalAttrs.version}-linux-x86_64.tar.gz";
-    hash = "sha256-sKKoMF97jMN/c7JluzRn+NbKQm+VmqrahDFCR4SFQ4w=";
+    hash = "sha256-JvUw1gqtSdtsS4COMh2KEnk2agbK849Fd9cIuhRrz9s=";
   };
 
   nativeBuildInputs = [autoPatchelfHook];
