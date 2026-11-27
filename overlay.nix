@@ -52,17 +52,11 @@ inputs: self: super: {
   # inherit (super.callPackage ./apps/fonts.nix {}) dm-sans satoshi;
 
   # Apps we package ourselves; see ./apps/.
-  a2tools-dps-meter = self.callPackage ./apps/a2tools-dps-meter.nix {};
   codelldb = self.callPackage ./apps/codelldb.nix {};
   dbdelve = self.callPackage ./apps/dbdelve.nix {};
   elegoo-slicer = self.callPackage ./apps/elegoo-slicer.nix {};
-  fence = self.callPackage ./apps/fence.nix {};
   herdr-app = self.callPackage ./apps/herdr-app.nix {};
   herdr-core = self.callPackage ./apps/herdr-core.nix {};
-  microsandbox = self.callPackage ./apps/microsandbox.nix {};
-  smolvm = self.callPackage ./apps/smolvm.nix {};
-  revdiff = self.callPackage ./apps/revdiff.nix {};
-  whatsapp = self.callPackage ./apps/whatsapp.nix {};
 
   # The Nerd Font patcher changes hhea descent/lineGap, shifting the baseline
   # up. This restores the original Iosevka Term values so glyphs sit correctly.

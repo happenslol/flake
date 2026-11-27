@@ -31,7 +31,6 @@ pkgs: {
     telegram-desktop
     signal-desktop
     element-desktop
-    whatsapp
     easyeffects
     obsidian
     spotify
@@ -142,8 +141,6 @@ pkgs: {
     uv
     sops
     gh
-    fence
-    revdiff
     elegoo-slicer
     kdlfmt
     sox
@@ -162,8 +159,6 @@ pkgs: {
     pulseview
     sigrok-firmware-fx2lafw
 
-    smolvm
-    microsandbox
     deno
     zellij
     herdr-app
